@@ -18,10 +18,13 @@ public class LoginPresenter extends Observable implements ILoginPresenter {
 	private final String EXCEPTION_OCCURED = "AN EXCEPTION HAS OCCURED";
 	private ViewFacade facade = null;
 	private Client userClient = null;
+	private ILoginView loginView = null;
 	
-	public LoginPresenter(ViewFacade facade, Client client) {
+	
+	public LoginPresenter(ViewFacade facade, Client client, ILoginView loginView) {
 		this.facade = facade;
 		this.userClient = client;
+		this.ILoginView = loginView;
 	}
 	
 	@Override
