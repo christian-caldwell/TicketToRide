@@ -3,11 +3,12 @@ package presenters;
 import android.widget.Button;
 import java.util.ArrayList;
 import java.util.Map;
-
+import java.util.Observable;
+import java.util.Observer;
 import server.serverProxy;
 import game.Game;
 
-public class GameLobbyPresenter implements IGameLobbyPresenter {
+public class GameLobbyPresenter implements IGameLobbyPresenter, Observer {
 
     ArrayList<String> gameList;
     serverProxy serverproxy = new serverProxy();
@@ -21,6 +22,7 @@ public class GameLobbyPresenter implements IGameLobbyPresenter {
 
     @Override
     public void startGame(String gameId) {
+
         serverproxy.startGame(gameId, );
     }
 
@@ -37,4 +39,8 @@ public class GameLobbyPresenter implements IGameLobbyPresenter {
         serverproxy.createGame();
     }
 
+    @Override
+    public void update(Observable o, Object arg) {
+        
+    }
 }
