@@ -1,8 +1,8 @@
 package presenters;
 
 import android.widget.Button;
-
 import java.util.ArrayList;
+import views.IGameLobbyView;
 
 public class GameLobbyPresenter implements IGameLobbyPresenter {
 
@@ -12,9 +12,13 @@ public class GameLobbyPresenter implements IGameLobbyPresenter {
     Button leaveGameButton;
     Button logoutButton;
 
+    IGameLobbyView view;
+
+
     @Override
     public void addPlayer(int gameId, String username) {
 
+        view.updateRecyclerView();
     }
 
     @Override
