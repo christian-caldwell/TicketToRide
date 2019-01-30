@@ -9,35 +9,32 @@ import game.Game;
 
 public class GameLobbyPresenter implements IGameLobbyPresenter {
 
-    ArrayList<Game> gameList;
+    ArrayList<String> gameList;
+    serverProxy serverproxy = new serverProxy();
 
 
     @Override
     public void addPlayer(String gameId, String username) {
-        serverProxy serverP = new serverProxy();
-        serverP.joinGame(gameId, username);
+        serverproxy.joinGame(gameId, username);
         view.updateGamePlayers(gameId);
-        view.updateRecyclerView();
     }
 
     @Override
     public void startGame(String gameId) {
-
+        serverproxy.startGame(gameId, );
     }
 
     @Override
     public ArrayList getGameList() {
-        Game game = new Game();
-        Map<String, Game> map;
-        view.updateGameList(map);
-
-        return null;
+        gameList = model.getGameList();
+        view.updateGameList(gameList);
+        return gameList;
     }
 
 
     @Override
     public void createGame() {
-
+        serverproxy.createGame();
     }
 
 }

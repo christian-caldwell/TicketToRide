@@ -5,6 +5,7 @@ import com.sun.net.httpserver.HttpServer;
 import java.io.IOException;
 import java.net.InetSocketAddress;
 
+import client.CommandManager;
 import commands.ExecCommandHandler;
 
 public class Server {
