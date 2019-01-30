@@ -5,6 +5,7 @@ import results.joinGameResult;
 import results.signInResult;
 
 public class serverProxy implements IServer {
+
     @Override
     public joinGameResult joinGame(String username, String gameName) {
         return null;

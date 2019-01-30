@@ -1,3 +1,5 @@
+package game;
+
 public class User {
     private Username username;
     private Password pass;

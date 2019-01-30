@@ -2,37 +2,34 @@ package presenters;
 
 import android.widget.Button;
 import java.util.ArrayList;
-import views.IGameLobbyView;
+import java.util.Map;
+
 import server.serverProxy;
+import game.Game;
 
 public class GameLobbyPresenter implements IGameLobbyPresenter {
 
-    ArrayList<Integer> gameList;
-    Button joinGameButton;
-    Button createGameButton;
-    Button leaveGameButton;
-    Button logoutButton;
+    ArrayList<Game> gameList;
 
-    IGameLobbyView view;
-
-    updateGamePlayers(Game)
 
     @Override
-    public void addPlayer(int gameId, String username) {
-        serverProxy.joinGame();
+    public void addPlayer(String gameId, String username) {
+        serverProxy serverP = new serverProxy();
+        serverP.joinGame(gameId, username);
+        view.updateGamePlayers(gameId);
         view.updateRecyclerView();
     }
 
     @Override
-    public void startGame(int gameId) {
+    public void startGame(String gameId) {
 
     }
 
     @Override
     public ArrayList getGameList() {
-        Game game = new Game()
-        Map<String>
-        updateGameList(Map<String, Game>)
+        Game game = new Game();
+        Map<String, Game> map;
+        view.updateGameList(map);
 
         return null;
     }
