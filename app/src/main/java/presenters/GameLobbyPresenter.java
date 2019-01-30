@@ -14,7 +14,6 @@ public class GameLobbyPresenter implements IGameLobbyPresenter {
     Button logoutButton;
 
     IGameLobbyView view;
-    private void updateGameList(Map<String, Game>)
 
     updateGamePlayers(Game)
 
@@ -31,6 +30,9 @@ public class GameLobbyPresenter implements IGameLobbyPresenter {
 
     @Override
     public ArrayList getGameList() {
+        Game game = new Game()
+        Map<String>
+        updateGameList(Map<String, Game>)
 
         return null;
     }
