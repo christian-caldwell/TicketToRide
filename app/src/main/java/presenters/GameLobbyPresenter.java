@@ -1,17 +1,16 @@
 package presenters;
 
-import android.widget.Button;
 import java.util.ArrayList;
-import java.util.Map;
 import java.util.Observable;
 import java.util.Observer;
 import server.serverProxy;
-import game.Game;
+import presenters.ViewFacade;
 
 public class GameLobbyPresenter implements IGameLobbyPresenter, Observer {
 
     ArrayList<String> gameList;
     serverProxy serverproxy = new serverProxy();
+    ViewFacade viewfacade = new ViewFacade();
 
 
     @Override
@@ -22,14 +21,13 @@ public class GameLobbyPresenter implements IGameLobbyPresenter, Observer {
 
     @Override
     public void startGame(String gameId) {
-
         serverproxy.startGame(gameId, );
     }
 
     @Override
     public ArrayList getGameList() {
-        gameList = model.getGameList();
-        view.updateGameList(gameList);
+        gameList = viewfacade.getGameList();
+        //view.updateGameList(gameList);
         return gameList;
     }
 
