@@ -9,10 +9,6 @@ public interface IGameLobbyPresenter {
 
     public ArrayList getGameList();
 
-    public void logout();
-
     public void createGame();
-
-    public void removePlayer(int gameId, String username);
 
 }

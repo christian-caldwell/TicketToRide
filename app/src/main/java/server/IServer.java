@@ -1,5 +1,5 @@
 package server;
-import results.*
+import results.*;
 
 public interface IServer {
     public joinGameResult joinGame(String username, String gameName);

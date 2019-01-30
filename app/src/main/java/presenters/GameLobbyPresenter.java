@@ -3,6 +3,7 @@ package presenters;
 import android.widget.Button;
 import java.util.ArrayList;
 import views.IGameLobbyView;
+import server.serverProxy;
 
 public class GameLobbyPresenter implements IGameLobbyPresenter {
 
@@ -13,11 +14,13 @@ public class GameLobbyPresenter implements IGameLobbyPresenter {
     Button logoutButton;
 
     IGameLobbyView view;
+    private void updateGameList(Map<String, Game>)
 
+    updateGamePlayers(Game)
 
     @Override
     public void addPlayer(int gameId, String username) {
-
+        serverProxy.joinGame();
         view.updateRecyclerView();
     }
 
@@ -28,21 +31,14 @@ public class GameLobbyPresenter implements IGameLobbyPresenter {
 
     @Override
     public ArrayList getGameList() {
+
         return null;
     }
 
-    @Override
-    public void logout() {
-
-    }
 
     @Override
     public void createGame() {
 
     }
 
-    @Override
-    public void removePlayer(int gameId, String username) {
-
-    }
 }
