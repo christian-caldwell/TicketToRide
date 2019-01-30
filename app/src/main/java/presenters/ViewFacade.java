@@ -1,5 +1,7 @@
 package presenters;
 
+import java.util.ArrayList;
+
 import game.User;
 import server.serverProxy;
 
@@ -20,5 +22,8 @@ public class ViewFacade {
 		this.serverCommunicator = new ServerProxy();
 		String authToken = serverCommunicator.login(returningUser.getUsername(), returningUser.password());
 		return authToken;
+	}
+
+	public ArrayList<String> getGameList() {
 	}
 }

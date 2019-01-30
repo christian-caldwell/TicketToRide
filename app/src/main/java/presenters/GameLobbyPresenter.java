@@ -21,7 +21,7 @@ public class GameLobbyPresenter implements IGameLobbyPresenter, Observer {
 
     @Override
     public void startGame(String gameId) {
-        serverproxy.startGame(gameId, );
+        serverproxy.startGame(gameId, 5);
     }
 
     @Override
