@@ -1,8 +1,8 @@
 package server;
 
-import results.createGameResult;
-import results.joinGameResult;
-import results.signInResult;
+import com.example.testingpurposes.results.createGameResult;
+import com.example.testingpurposes.results.joinGameResult;
+import com.example.testingpurposes.results.signInResult;
 
 public class ServerCommands implements IServer{
     @Override

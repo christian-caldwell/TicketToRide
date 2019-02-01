@@ -5,8 +5,11 @@ import com.sun.net.httpserver.HttpServer;
 import java.io.IOException;
 import java.net.InetSocketAddress;
 
-import client.CommandManager;
+<<<<<<< HEAD:testingPurposes/src/main/java/com/example/testingpurposes/server/Server.java
+import com.example.testingpurposes.commands.ExecCommandHandler;
+=======
 import commands.ExecCommandHandler;
+>>>>>>> master:app/src/main/java/server/Server.java
 
 public class Server {
 
@@ -32,14 +35,14 @@ public class Server {
 
         System.out.println("Creating contexts");
         server.createContext("/", new ExecCommandHandler());
-        System.out.println("Starting server");
+        System.out.println("Starting com.example.testingpurposes.server");
         server.start();
         System.out.println("Server started");
     }
 
-    // "main" method for the server program
+    // "main" method for the com.example.testingpurposes.server program
     // "args" should contain one command-line argument, which is the port number
-    // on which the server should accept incoming client connections.
+    // on which the com.example.testingpurposes.server should accept incoming com.example.testingpurposes.client connections.
     public static void main(String[] args) {
         String portNumber = args[0];
         new Server().run(portNumber);
