@@ -13,6 +13,7 @@ public class ServerCommands implements IServer{
 
     @Override
     public createGameResult createGame(String gameName, String maxPlayers, String username) {
+        createGameResult result = new createGameResult();
         return null;
     }
 
