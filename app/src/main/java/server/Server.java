@@ -5,11 +5,7 @@ import com.sun.net.httpserver.HttpServer;
 import java.io.IOException;
 import java.net.InetSocketAddress;
 
-<<<<<<< HEAD:testingPurposes/src/main/java/com/example/testingpurposes/server/Server.java
-import com.example.testingpurposes.commands.ExecCommandHandler;
-=======
 import commands.ExecCommandHandler;
->>>>>>> master:app/src/main/java/server/Server.java
 
 public class Server {
 

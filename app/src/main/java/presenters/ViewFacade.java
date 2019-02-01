@@ -28,4 +28,8 @@ public class ViewFacade {
 	public ArrayList<String> getGameList() {
 	    return null;
 	}
+
+	public signInResult loginUser(User returningUser) {
+		return null;
+	}
 }

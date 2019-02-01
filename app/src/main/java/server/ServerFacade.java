@@ -1,8 +1,9 @@
 package server;
 
-import com.example.testingpurposes.results.createGameResult;
-import com.example.testingpurposes.results.joinGameResult;
-import com.example.testingpurposes.results.signInResult;
+
+import results.createGameResult;
+import results.joinGameResult;
+import results.signInResult;
 
 public class ServerFacade implements IServer {
     @Override
