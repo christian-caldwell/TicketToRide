@@ -1,7 +1,7 @@
-package presenters;
-
-public class Observable {
-	public void update() {
-		
-	};
-}
+//package presenters;
+//
+//public class Observable {
+//	public void update() {
+//
+//	};
+//}
