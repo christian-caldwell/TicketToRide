@@ -1,15 +1,10 @@
 package presenters;
 
 import java.util.ArrayList;
-<<<<<<< HEAD:testingPurposes/src/main/java/com/example/testingpurposes/presenters/GameLobbyPresenter.java
-
-import com.example.testingpurposes.server.serverProxy;
-import com.example.testingpurposes.game.Game;
-=======
 import java.util.Observable;
 import java.util.Observer;
+
 import server.serverProxy;
->>>>>>> master:app/src/main/java/presenters/GameLobbyPresenter.java
 
 public class GameLobbyPresenter implements IGameLobbyPresenter, Observer {
 
@@ -21,7 +16,9 @@ public class GameLobbyPresenter implements IGameLobbyPresenter, Observer {
     @Override
     public void addPlayer(String gameId, String username) {
         serverproxy.joinGame(gameId, username);
-        view.updateGamePlayers(gameId);
+
+        // Implement this one the vew interface hs been made
+        //view.updateGamePlayers(gameId);
     }
 
     @Override
@@ -39,7 +36,7 @@ public class GameLobbyPresenter implements IGameLobbyPresenter, Observer {
 
     @Override
     public void createGame() {
-        serverproxy.createGame();
+        serverproxy.createGame("game name", "4", "test");
     }
 
     @Override

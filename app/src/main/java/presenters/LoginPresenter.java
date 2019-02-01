@@ -1,7 +1,7 @@
 package presenters;
 
-import com.example.testingpurposes.game.User;
-import com.example.testingpurposes.client.Client;
+import client.Client;
+import game.User;
 
 public class LoginPresenter extends Observable implements ILoginPresenter {
 	private final String REGISTER_SUCCESSFUL = "Username and Password Registered. Logging In...";
@@ -50,7 +50,7 @@ public class LoginPresenter extends Observable implements ILoginPresenter {
 			userClient.updateAuthToken(newAuthToken);
 			//Transistion to next view: gameLobby
 		}
-		catch () {
+		catch (Exception e) {
 			return EXCEPTION_OCCURED;
 		}
 		

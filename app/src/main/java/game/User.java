@@ -4,6 +4,8 @@ public class User {
     private Username username;
     private Password pass;
 
+    public User(String username, String password) {}
+
     public String getUsername() {
         return "";
     }
