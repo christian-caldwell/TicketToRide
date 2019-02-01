@@ -1,7 +1,9 @@
 package presenters;
 
-import game.User;
 import client.Client;
+import game.User;
+import results.signInResult;
+import viewInterfaces.ILoginView;
 
 public class LoginPresenter extends Observable implements ILoginPresenter {
 	private final String REGISTER_SUCCESSFUL = "Username and Password Registered. Logging In...";
@@ -24,7 +26,7 @@ public class LoginPresenter extends Observable implements ILoginPresenter {
 	public LoginPresenter(ViewFacade facade, Client client, ILoginView loginView) {
 		this.facade = facade;
 		this.userClient = client;
-		this.ILoginView = loginView;
+		this.loginView = loginView;
 	}
 	
 	@Override
@@ -46,11 +48,11 @@ public class LoginPresenter extends Observable implements ILoginPresenter {
 		
 		try {
 			User newUser = new User(username, password);
-			String newAuthToken = facade.register(newUser);
-			userClient.updateAuthToken(newAuthToken);
+			signInResult signInResult = facade.register(newUser);
+			userClient.updateAuthToken(signInResult.getAuthenticationToken());
 			//Transistion to next view: gameLobby
 		}
-		catch () {
+		catch (Exception e) {
 			return EXCEPTION_OCCURED;
 		}
 		
@@ -61,11 +63,11 @@ public class LoginPresenter extends Observable implements ILoginPresenter {
 	public String loginUser(String username, String password) {
 		try {
 			User returningUser = new User(username, password);
-			String newAuthToken = facade.loginUser(returningUser);
-			userClient.updateAuthToken(newAuthToken);
+			signInResult signInResult = facade.loginUser(returningUser);
+			userClient.updateAuthToken(signInResult.getAuthenticationToken());
 			//Transistion to next view: gameLobby
 		}
-		catch () {
+		catch (Exception e) {
 			return EXCEPTION_OCCURED;
 		}
 		
@@ -74,6 +76,6 @@ public class LoginPresenter extends Observable implements ILoginPresenter {
 	
 	@Override
 	public void update() {
-		//Update view when called by server-side observer
+		//Update view when called by com.example.testingpurposes.server-side observer
 	}
 }

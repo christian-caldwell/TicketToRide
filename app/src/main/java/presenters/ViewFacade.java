@@ -1,6 +1,9 @@
 package presenters;
 
+import java.util.ArrayList;
+
 import game.User;
+import results.signInResult;
 import server.serverProxy;
 
 public class ViewFacade {
@@ -10,15 +13,23 @@ public class ViewFacade {
 		
 	}
 	
-	public String register(User newUser) {
-		this.serverCommunicator = new ServerProxy();
-		String authToken = serverCommunicator.register(newUser.getUsername(),newUser.getPassword());
-		return authToken;
+	public signInResult register(User newUser) {
+		this.serverCommunicator = new serverProxy();
+		signInResult signInResult = serverCommunicator.register(newUser.getUsername(),newUser.getPassword());
+		return signInResult;
 	}
 	
-	public String login(User returningUser) {
-		this.serverCommunicator = new ServerProxy();
-		String authToken = serverCommunicator.login(returningUser.getUsername(), returningUser.password());
-		return authToken;
+	public signInResult login(User returningUser) {
+		this.serverCommunicator = new serverProxy();
+		signInResult signInResult = serverCommunicator.login(returningUser.getUsername(), returningUser.password());
+		return signInResult;
+	}
+
+	public ArrayList<String> getGameList() {
+	    return null;
+	}
+
+	public signInResult loginUser(User returningUser) {
+		return null;
 	}
 }

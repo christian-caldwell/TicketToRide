@@ -1,5 +1,8 @@
 package server;
-import results.*;
+
+import results.createGameResult;
+import results.joinGameResult;
+import results.signInResult;
 
 public interface IServer {
     public joinGameResult joinGame(String username, String gameName);

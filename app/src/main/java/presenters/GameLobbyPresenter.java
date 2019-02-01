@@ -1,43 +1,46 @@
 package presenters;
 
-import android.widget.Button;
 import java.util.ArrayList;
-import java.util.Map;
+import java.util.Observable;
+import java.util.Observer;
 
 import server.serverProxy;
-import game.Game;
 
-public class GameLobbyPresenter implements IGameLobbyPresenter {
+public class GameLobbyPresenter implements IGameLobbyPresenter, Observer {
 
-    ArrayList<Game> gameList;
+    ArrayList<String> gameList;
+    serverProxy serverproxy = new serverProxy();
+    ViewFacade viewfacade = new ViewFacade();
 
 
     @Override
     public void addPlayer(String gameId, String username) {
-        serverProxy serverP = new serverProxy();
-        serverP.joinGame(gameId, username);
-        view.updateGamePlayers(gameId);
-        view.updateRecyclerView();
+        serverproxy.joinGame(gameId, username);
+
+        // Implement this one the vew interface hs been made
+        //view.updateGamePlayers(gameId);
     }
 
     @Override
     public void startGame(String gameId) {
-
+        serverproxy.startGame(gameId, 5);
     }
 
     @Override
     public ArrayList getGameList() {
-        Game game = new Game();
-        Map<String, Game> map;
-        view.updateGameList(map);
-
-        return null;
+        gameList = viewfacade.getGameList();
+        //view.updateGameList(gameList);
+        return gameList;
     }
 
 
     @Override
     public void createGame() {
-
+        serverproxy.createGame("game name", "4", "test");
     }
 
+    @Override
+    public void update(Observable o, Object arg) {
+        
+    }
 }

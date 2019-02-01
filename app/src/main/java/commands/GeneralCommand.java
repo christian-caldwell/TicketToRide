@@ -1,5 +1,7 @@
 package commands;
 
+import results.CommandResult;
+
 public class GeneralCommand implements ICommand{
     private String _className;
     private String _methodName;
@@ -11,7 +13,7 @@ public class GeneralCommand implements ICommand{
     }
 
     @Override
-    public Result exec() {
+    public CommandResult exec() {
         return null;
     }
 }

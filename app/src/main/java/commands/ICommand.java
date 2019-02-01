@@ -1,5 +1,7 @@
 package commands;
 
+import results.CommandResult;
+
 public interface ICommand {
-    public Result exec();
+    public CommandResult exec();
 }
