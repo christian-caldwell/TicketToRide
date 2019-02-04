@@ -9,4 +9,4 @@
 /build
 /captures
 .externalNativeBuild
-gradle_models.ser
+*gradle_models.ser*
