@@ -3,7 +3,7 @@ package presenters;
 import java.util.ArrayList;
 
 import game.User;
-import results.signInResult;
+import results.Result;
 import server.serverProxy;
 
 public class ViewFacade {
@@ -13,23 +13,23 @@ public class ViewFacade {
 		
 	}
 	
-	public signInResult register(User newUser) {
+	public Result register(User newUser) {
 		this.serverCommunicator = new serverProxy();
-		signInResult signInResult = serverCommunicator.register(newUser.getUsername(),newUser.getPassword());
-		return signInResult;
+		Result Result = serverCommunicator.register(newUser.getUsername(),newUser.getPassword());
+		return Result;
 	}
 	
-	public signInResult login(User returningUser) {
+	public Result login(User returningUser) {
 		this.serverCommunicator = new serverProxy();
-		signInResult signInResult = serverCommunicator.login(returningUser.getUsername(), returningUser.password());
-		return signInResult;
+		Result Result = serverCommunicator.login(returningUser.getUsername(), returningUser.password());
+		return Result;
 	}
 
 	public ArrayList<String> getGameList() {
 	    return null;
 	}
 
-	public signInResult loginUser(User returningUser) {
+	public Result loginUser(User returningUser) {
 		return null;
 	}
 }

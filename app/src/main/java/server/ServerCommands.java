@@ -1,25 +1,32 @@
 package server;
 
 
-import results.createGameResult;
-import results.joinGameResult;
-import results.signInResult;
-import server.ServerData;
+import game.Game;
+import results.Result;
 
 public class ServerCommands implements IServer {
-
+    private final int MAX_PLAYERS = 5;
 
     @Override
-    public joinGameResult joinGame(String username, String gameName) {
-        joinGameResult result = new joinGameResult();
-        result.setGameName(gameName);
-        result.setErrorMessage("None");
-        ServerData.getInstance().getGame(gameName);
+    public Result joinGame(String username, String gameName) {
+        Result result = new Result();
+        Game game = ServerData.getInstance().getGame(gameName);
+        if (game == null) {
+            result.setErrorMessage("Game does not exist!");
+        }
+        else if (MAX_PLAYERS == game.getPlayers().size()) {
+            result.setErrorMessage("no more players can be added!");
+        }
+        else {
+            result.setGameName(gameName);
+            result.setErrorMessage("");
+            game.addPlayer(username);
+        }
         return result;
     }
 
     @Override
-    public createGameResult createGame(String gameName, String maxPlayers, String username) {
+    public Result createGame(String gameName, String maxPlayers, String username) {
         return null;
     }
 
@@ -29,12 +36,12 @@ public class ServerCommands implements IServer {
     }
 
     @Override
-    public signInResult register(String username, String password) {
+    public Result register(String username, String password) {
         return null;
     }
 
     @Override
-    public signInResult login(String username, String password) {
+    public Result login(String username, String password) {
 
         return null;
     }

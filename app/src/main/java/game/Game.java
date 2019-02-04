@@ -4,20 +4,15 @@ import java.util.ArrayList;
 
 public class Game {
     public String status;
-    private Integer maxPlayers;
     private String gameName;
-    private ArrayList<User> players;
+    private ArrayList<String> players;
+
+    public Game(String gameName) {
+        this.gameName = gameName;
+    }
 
     public void setStatus(String status) {
         this.status = status;
-    }
-
-    public Integer getMaxPlayers() {
-        return maxPlayers;
-    }
-
-    public void setMaxPlayers(Integer maxPlayers) {
-        this.maxPlayers = maxPlayers;
     }
 
     public String getGameName() {
@@ -28,15 +23,17 @@ public class Game {
         this.gameName = gameName;
     }
 
-    public ArrayList<User> getPlayers() {
+    public ArrayList<String> getPlayers() {
         return players;
     }
 
-    public void setPlayers(ArrayList<User> players) {
+    public void setPlayers(ArrayList<String> players) {
         this.players = players;
     }
 
     public String getStatus() {
         return "";
     }
+
+    public void addPlayer(String userName) { this.players.add(userName); }
 }

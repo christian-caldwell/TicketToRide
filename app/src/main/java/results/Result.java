@@ -1,8 +1,18 @@
 package results;
 
-public class signInResult {
+public class Result {
     private String errorMessage;
+
+    public String getGameName() {
+        return gameName;
+    }
+
+    public void setGameName(String gameName) {
+        this.gameName = gameName;
+    }
+
     private String authenticationToken;
+    private String gameName;
 
     public String getErrorMessage() {
         return errorMessage;

@@ -1,9 +1,7 @@
 package server;
 
 
-import results.createGameResult;
-import results.joinGameResult;
-import results.signInResult;
+import results.Result;
 
 public class ServerFacade implements IServer {
     @Override
@@ -22,12 +20,12 @@ public class ServerFacade implements IServer {
     }
 
     @Override
-    public signInResult register(String username, String password) {
+    public Result register(String username, String password) {
         return null;
     }
 
     @Override
-    public signInResult login(String username, String password) {
+    public Result login(String username, String password) {
         return null;
     }
 }
