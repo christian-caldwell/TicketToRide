@@ -1,20 +1,37 @@
 package client;
 
-public class Client {
+public class Client implements IClient {
     public ClientResult send(String serverHost, String serverPort, ClientRequest request) {
         return new ClientResult();
     }
-    public void updateClient(){
+    
+    @Override
+    public void updateClient() {
 
     }
-    public void join(){
+
+    @Override
+    public void join() {
 
     }
 
+    @Override
     public void create() {
 
     }
 
-    public void updateAuthToken(String newAuthToken) {
-    }
+	@Override
+	public void updateAuthToken(String newAuthToken) {
+		
+	}
+
+	@Override
+	public String passAuthToken() {
+		
+		return null;
+	}
+	@Override
+	public void setUserValues(User newUser) {
+		
+	}
 }
