@@ -15,17 +15,18 @@
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:background="@android:color/white"
             android:gravity="center_horizontal">
 
             <EditText
                 android:id="@+id/create_game_text"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
                 android:layout_marginTop="150dp"
                 android:ems="10"
                 android:hint="@string/game_name"
-                android:inputType="textPersonName"
-                android:layout_centerVertical="true"/>
+                android:inputType="textPersonName"/>
 
             <Button
                 android:id="@+id/create_game_button"
@@ -37,7 +38,6 @@
                 android:focusable="true"
                 android:gravity="center"
                 android:text="@string/create_game"/>
-
 
         </RelativeLayout>
 

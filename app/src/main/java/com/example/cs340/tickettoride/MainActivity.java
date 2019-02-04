@@ -28,7 +28,6 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(MainActivity.this, LobbyViewActivity.class);
-//                intent.putExtra("username", username.getText());
                 startActivity(intent);
 
             }
