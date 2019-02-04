@@ -2,7 +2,7 @@ package presenters;
 
 import client.Client;
 import game.User;
-import results.signInResult;
+import results.Result;
 import viewInterfaces.ILoginView;
 
 public class LoginPresenter extends Observable implements ILoginPresenter {
@@ -48,8 +48,8 @@ public class LoginPresenter extends Observable implements ILoginPresenter {
 		
 		try {
 			User newUser = new User(username, password);
-			signInResult signInResult = facade.register(newUser);
-			userClient.updateAuthToken(signInResult.getAuthenticationToken());
+			Result Result = facade.register(newUser);
+			userClient.updateAuthToken(Result.getAuthenticationToken());
 			//Transistion to next view: gameLobby
 		}
 		catch (Exception e) {
@@ -63,8 +63,8 @@ public class LoginPresenter extends Observable implements ILoginPresenter {
 	public String loginUser(String username, String password) {
 		try {
 			User returningUser = new User(username, password);
-			signInResult signInResult = facade.loginUser(returningUser);
-			userClient.updateAuthToken(signInResult.getAuthenticationToken());
+			Result Result = facade.loginUser(returningUser);
+			userClient.updateAuthToken(Result.getAuthenticationToken());
 			//Transistion to next view: gameLobby
 		}
 		catch (Exception e) {
