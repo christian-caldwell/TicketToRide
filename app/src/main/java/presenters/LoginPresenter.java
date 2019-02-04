@@ -4,6 +4,7 @@ import game.User;
 import results.SignInResult;
 
 import java.util.Observable;
+import java.util.regex.Pattern;
 
 import client.ClientFacade;
 import server.ServerProxy;
@@ -25,6 +26,10 @@ public class LoginPresenter extends Observable implements ILoginPresenter {
 	private final String EXCEPTION_OCCURED = "AN EXCEPTION HAS OCCURED";
 	private final String REGISTER_FAILED = "Register Failed Unexpectedly";
 	private final String LOGIN_FAILED = "Login Failed Unexpectedly";
+
+	private final String PASSWORD_CRITERIA = "[a-zA-Z1-9]{5,}+";
+	private final String USERNAME_CRITERIA = "[a-zA-Z1-9]{5,}+";
+
 	private ServerProxy server = null;
 	private ClientFacade userClient = null;
 	private ILoginView loginView = null;
@@ -41,14 +46,14 @@ public class LoginPresenter extends Observable implements ILoginPresenter {
 		if (password != repeatedPassword) {
 			return NO_PASSWORD_MATCH; //If no match
 		}
-		
+
 		//Match Password to Reg-ex
-		if (false) {
+		if (checkRegex(password, this.PASSWORD_CRITERIA)) {
 			return BAD_PASSWORD; //If password characters are unacceptable
 		}
 		
 		//Match Username to Reg-ex
-		if (false) {
+		if (checkRegex(password, this.USERNAME_CRITERIA)) {
 			return BAD_USERNAME; //If username characters are unacceptable
 		}
 		
@@ -93,4 +98,15 @@ public class LoginPresenter extends Observable implements ILoginPresenter {
 			return loginResult.getErrorMessage();
 		}
 	}
+
+	@Override
+	public void update() {
+
+	}
+
+	private boolean checkRegex(String input, String criteria) {
+
+		return Pattern.matches(criteria, input);
+	}
+
 }
