@@ -9,13 +9,18 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".RecyclerViewAdapter">
+        <activity
+            android:name=".GameBoardActivity"
+            android:screenOrientation="landscape">
         </activity>
-        <activity android:name=".LobbyViewActivity">
+
+        <activity
+            android:name=".LobbyViewActivity"
+            android:screenOrientation="landscape">
         </activity>
-        <activity android:name=".GameBoardActivity">
-        </activity>
-        <activity android:name=".MainActivity">
+        <activity
+            android:name=".MainActivity"
+            android:screenOrientation="landscape">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
 
