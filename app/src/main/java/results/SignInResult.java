@@ -1,6 +1,6 @@
 package results;
 
-public class signInResult {
+public class SignInResult {
     private String errorMessage;
     private String authenticationToken;
 
