@@ -1,5 +1,7 @@
 package client;
 
+import game.User;
+
 public class ClientFacade implements IClient {
     @Override
     public void updateClient() {

@@ -7,7 +7,7 @@ import java.util.Observable;
 
 import client.ClientFacade;
 import server.ServerProxy;
-import views.ILoginView;
+import viewInterfaces.ILoginView;
 
 
 public class LoginPresenter extends Observable implements ILoginPresenter {
@@ -62,7 +62,7 @@ public class LoginPresenter extends Observable implements ILoginPresenter {
 			return REGISTER_FAILED;
 		}
 		
-		if (registerResult.isLoginSuccess()) {
+		if (registerResult.isSuccessful()) {
 			this.userClient.updateAuthToken(registerResult.getAuthenticationToken());
 			return REGISTER_SUCCESSFUL;
 		}
@@ -85,7 +85,7 @@ public class LoginPresenter extends Observable implements ILoginPresenter {
 			return LOGIN_FAILED;
 		}
 		
-		if (loginResult.isLoginSuccess()) {
+		if (loginResult.isSuccessful()) {
 			this.userClient.updateAuthToken(loginResult.getAuthenticationToken());
 			return LOGIN_SUCCESSFUL;
 		}

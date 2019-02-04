@@ -1,18 +1,19 @@
 package server;
 
-import results.createGameResult;
-import results.joinGameResult;
-import results.signInResult;
+import results.CreateGameResult;
+import results.JoinGameResult;
+import results.SignInResult;
+import game.User;
 
 public class ServerProxy implements IServer {
 
     @Override
-    public joinGameResult joinGame(String username, String gameName) {
+    public JoinGameResult joinGame(String username, String gameName) {
         return null;
     }
 
     @Override
-    public createGameResult createGame(String gameName, String maxPlayers, String username) {
+    public CreateGameResult createGame(String gameName, String maxPlayers, String username) {
         return null;
     }
 

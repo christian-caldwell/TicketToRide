@@ -1,5 +1,7 @@
 package client;
 
+import game.User;
+
 public interface IClient {
     public void updateClient();
     public void join();

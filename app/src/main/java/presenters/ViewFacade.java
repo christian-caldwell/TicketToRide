@@ -3,11 +3,11 @@ package presenters;
 import java.util.ArrayList;
 
 import game.User;
-import results.signInResult;
-import server.serverProxy;
+import results.SignInResult;
+import server.ServerProxy;
 
 public class ViewFacade {
-	private serverProxy serverCommunicator = null;
+	private ServerProxy serverCommunicator = null;
 	
 	public ViewFacade() {
 		

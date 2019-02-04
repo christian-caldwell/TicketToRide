@@ -1,17 +1,18 @@
 package server;
 
 
-import results.createGameResult;
-import results.joinGameResult;
-import results.signInResult;
+import results.CreateGameResult;
+import results.JoinGameResult;
+import results.SignInResult;
 import server.ServerData;
+import game.User;
 
 public class ServerCommands implements IServer {
 
 
     @Override
-    public joinGameResult joinGame(String username, String gameName) {
-        joinGameResult result = new joinGameResult();
+    public JoinGameResult joinGame(String username, String gameName) {
+        JoinGameResult result = new JoinGameResult();
         result.setGameName(gameName);
         result.setErrorMessage("None");
         ServerData.getInstance().getGame(gameName);
@@ -19,7 +20,7 @@ public class ServerCommands implements IServer {
     }
 
     @Override
-    public createGameResult createGame(String gameName, String maxPlayers, String username) {
+    public CreateGameResult createGame(String gameName, String maxPlayers, String username) {
         return null;
     }
 
@@ -29,12 +30,12 @@ public class ServerCommands implements IServer {
     }
 
     @Override
-    public signInResult register(String username, String password) {
+    public SignInResult register(User newUser) {
         return null;
     }
 
     @Override
-    public signInResult login(String username, String password) {
+    public SignInResult login(User returningUser) {
 
         return null;
     }

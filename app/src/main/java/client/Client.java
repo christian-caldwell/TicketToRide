@@ -1,5 +1,7 @@
 package client;
 
+import game.User;
+
 public class Client implements IClient {
     public ClientResult send(String serverHost, String serverPort, ClientRequest request) {
         return new ClientResult();
