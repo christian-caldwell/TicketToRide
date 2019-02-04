@@ -1,9 +1,12 @@
 package presenters;
 
-import java.util.Observable;
-
-import client.Client;
 import game.User;
+
+import java.util.Observable;
+import java.util.regex.Pattern;
+
+import client.ClientFacade;
+import server.ServerProxy;
 import results.Result;
 import viewInterfaces.ILoginView;
 
@@ -20,13 +23,18 @@ public class LoginPresenter extends Observable implements ILoginPresenter {
 			+ "- Atleast Y Charachers \n "
 			+ "- No Non-Alphanumeric Characters";
 	private final String EXCEPTION_OCCURED = "AN EXCEPTION HAS OCCURED";
-	private ViewFacade facade = null;
-	private Client userClient = null;
+	private final String REGISTER_FAILED = "Register Failed Unexpectedly";
+	private final String LOGIN_FAILED = "Login Failed Unexpectedly";
+
+	private final String PASSWORD_CRITERIA = "[a-zA-Z1-9]{5,}+";
+	private final String USERNAME_CRITERIA = "[a-zA-Z1-9]{5,}+";
+
+	private ServerProxy server = null;
+	private ClientFacade userClient = null;
 	private ILoginView loginView = null;
 	
 	
-	public LoginPresenter(ViewFacade facade, Client client, ILoginView loginView) {
-		this.facade = facade;
+	public LoginPresenter(ServerProxy server, ClientFacade client, ILoginView loginView) {
 		this.userClient = client;
 		this.loginView = loginView;
 	}
@@ -37,47 +45,67 @@ public class LoginPresenter extends Observable implements ILoginPresenter {
 		if (password != repeatedPassword) {
 			return NO_PASSWORD_MATCH; //If no match
 		}
-		
+
 		//Match Password to Reg-ex
-		if (false) {
+		if (checkRegex(password, this.PASSWORD_CRITERIA)) {
 			return BAD_PASSWORD; //If password characters are unacceptable
 		}
 		
 		//Match Username to Reg-ex
-		if (false) {
+		if (checkRegex(password, this.USERNAME_CRITERIA)) {
 			return BAD_USERNAME; //If username characters are unacceptable
 		}
-		
-		try {
-			User newUser = new User(username, password);
-			Result Result = facade.register(newUser);
-			userClient.updateAuthToken(Result.getAuthenticationToken());
-			//Transistion to next view: gameLobby
+
+        Result registerResult = null;
+		User newUser = new User(username, password);
+
+		//registerResult = this.server.register(newUser);
+		//Transistion to next view: gameLobby
+
+		if (registerResult == null) {
+			return REGISTER_FAILED;
 		}
-		catch (Exception e) {
-			return EXCEPTION_OCCURED;
-		}
 		
-		return REGISTER_SUCCESSFUL;
+		//if (registerResult.isSuccessful()) {
+			this.userClient.updateAuthToken(registerResult.getAuthenticationToken());
+			return REGISTER_SUCCESSFUL;
+		//}
+		//else {
+			//return registerResult.getErrorMessage();
+		//}
+
+
 	}
 
 	@Override
 	public String loginUser(String username, String password) {
-		try {
-			User returningUser = new User(username, password);
-			Result Result = facade.loginUser(returningUser);
-			userClient.updateAuthToken(Result.getAuthenticationToken());
-			//Transistion to next view: gameLobby
-		}
-		catch (Exception e) {
-			return EXCEPTION_OCCURED;
+		Result loginResult = null;
+		User newUser = new User(username, password);
+
+		//loginResult = this.server.login(newUser);
+		//Transistion to next view: gameLobby
+
+		if (loginResult == null) {
+			return LOGIN_FAILED;
 		}
 		
-		return LOGIN_SUCCESSFUL;
+		if (true){//loginResult.isSuccessful()) {
+			this.userClient.updateAuthToken(loginResult.getAuthenticationToken());
+			return LOGIN_SUCCESSFUL;
+		}
+		else {
+			return loginResult.getErrorMessage();
+		}
 	}
-	
+
 	@Override
 	public void update() {
-		//Update view when called by com.example.testingpurposes.server-side observer
+
 	}
+
+	private boolean checkRegex(String input, String criteria) {
+
+		return Pattern.matches(criteria, input);
+	}
+
 }

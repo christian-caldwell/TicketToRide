@@ -7,7 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 
-public class CreateGameFragment extends Fragment {
+public class CreateGameViewFragment extends Fragment {
 
     Button createGameButton;
 
