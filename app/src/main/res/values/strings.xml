@@ -1,3 +1,10 @@
 <resources>
     <string name="app_name">ticketToRide</string>
+    <string name="login">Login</string>
+    <string name="register">Register</string>
+    <string name="create_game">Create Game</string>
+    <string name="game_name">Game Name</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

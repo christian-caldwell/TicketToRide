@@ -1,12 +1,16 @@
 package com.example.cs340.tickettoride;
 
+import android.app.Dialog;
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.Button;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 
@@ -17,6 +21,7 @@ public class LobbyViewActivity extends AppCompatActivity {
     private ArrayList<String> mCurrentNumOfPlayers = new ArrayList<>();
     private ArrayList<String> mMaxNumOfPlayers = new ArrayList<>();
     private Button startGameButton, createGameButton;
+    private boolean createGameOpen = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -24,30 +29,50 @@ public class LobbyViewActivity extends AppCompatActivity {
         setContentView(R.layout.activity_lobby_view);
         initArraysTest();
 
+        final Dialog createGameDialogue = new Dialog(LobbyViewActivity.this);
         // Initialize startGameButton and set onClickListener
         startGameButton = findViewById(R.id.startGameButton);
         startGameButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 // If the user is a host, the button will be enabled
-                // When clicked, the GameBoardActivity will be started
+//                // When clicked, the GameBoardActivity will be started
                 Intent intent = new Intent(LobbyViewActivity.this, GameBoardActivity.class);
                 startActivity(intent);
+
+
             }
         });
 
 
         // Initialize createGameButton and set onClickListener
+        // This is the button at the bottom of the recycler view
         createGameButton = findViewById(R.id.createGameButton);
         createGameButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // When the button is clicked, the user will be brought to to the createGameFragment
-                //Intent intent = new Intent(LobbyViewActivity.this, CreateGameFragment.class);
-                //startActivity(intent);
+//                Intent intent = new Intent(LobbyViewActivity.this, CreateGameActivity.class);
+//                startActivity(intent);
+
+                createGameDialogue.getWindow().setBackgroundDrawable(new ColorDrawable(Color.argb(100, 0, 0, 0)));
+                createGameDialogue.setContentView(R.layout.fragment_create_game);
+                createGameDialogue.setCancelable(true);
+                createGameDialogue.show();
+                createGameOpen = true;
             }
         });
 
+        // This is the button to create game in the dialogue box
+        final Button createGameButtonDialog;
+        createGameButtonDialog = findViewById(R.id.create_game_button);
+        if(createGameOpen) {
+            createGameButtonDialog.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Toast.makeText(LobbyViewActivity.this, "Game Created", Toast.LENGTH_SHORT).show();
+                }
+            });
+        }
     }
 
     // This will initialize the test arrays to display in recyclerview
