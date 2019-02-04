@@ -4,7 +4,7 @@ import java.util.Observable;
 import java.util.Observer;
 
 import client.ClientFacade;
-import results.createGameResult;
+import results.Result;
 import server.serverProxy;
 
 public class CreateGamePresenter implements ICreateGamePresenter, Observer {
