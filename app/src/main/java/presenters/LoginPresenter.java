@@ -59,20 +59,20 @@ public class LoginPresenter extends Observable implements ILoginPresenter {
         Result registerResult = null;
 		User newUser = new User(username, password);
 
-		registerResult = this.server.register(newUser);
+		//registerResult = this.server.register(newUser);
 		//Transistion to next view: gameLobby
 
 		if (registerResult == null) {
 			return REGISTER_FAILED;
 		}
 		
-		if (registerResult.isSuccessful()) {
+		//if (registerResult.isSuccessful()) {
 			this.userClient.updateAuthToken(registerResult.getAuthenticationToken());
 			return REGISTER_SUCCESSFUL;
-		}
-		else {
-			return registerResult.getErrorMessage();
-		}
+		//}
+		//else {
+			//return registerResult.getErrorMessage();
+		//}
 
 
 	}
@@ -82,14 +82,14 @@ public class LoginPresenter extends Observable implements ILoginPresenter {
 		Result loginResult = null;
 		User newUser = new User(username, password);
 
-		loginResult = this.server.login(newUser);
+		//loginResult = this.server.login(newUser);
 		//Transistion to next view: gameLobby
 
 		if (loginResult == null) {
 			return LOGIN_FAILED;
 		}
 		
-		if (loginResult.isSuccessful()) {
+		if (true){//loginResult.isSuccessful()) {
 			this.userClient.updateAuthToken(loginResult.getAuthenticationToken());
 			return LOGIN_SUCCESSFUL;
 		}
