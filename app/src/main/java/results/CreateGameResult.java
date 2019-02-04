@@ -1,6 +1,6 @@
 package results;
 
-public class createGameResult {
+public class CreateGameResult {
     private String errorMessage;
 
     public String getErrorMessage() {
