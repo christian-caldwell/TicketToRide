@@ -22,12 +22,12 @@ public class serverProxy implements IServer {
     }
 
     @Override
-    public signInResult register(String username, String password) {
+    public SignInResult register(User newUser) {
         return null;
     }
 
     @Override
-    public signInResult login(String username, String password) {
+    public SignInResult login(User returningUser) {
         return null;
     }
 }
