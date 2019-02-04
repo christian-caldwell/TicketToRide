@@ -1,9 +1,14 @@
 package presenters;
 
-import client.Client;
 import game.User;
-import results.signInResult;
-import viewInterfaces.ILoginView;
+import results.SignInResult;
+
+import java.util.Observable;
+
+import client.ClientFacade;
+import server.ServerProxy;
+import views.ILoginView;
+
 
 public class LoginPresenter extends Observable implements ILoginPresenter {
 	private final String REGISTER_SUCCESSFUL = "Username and Password Registered. Logging In...";
@@ -18,13 +23,14 @@ public class LoginPresenter extends Observable implements ILoginPresenter {
 			+ "- Atleast Y Charachers \n "
 			+ "- No Non-Alphanumeric Characters";
 	private final String EXCEPTION_OCCURED = "AN EXCEPTION HAS OCCURED";
-	private ViewFacade facade = null;
-	private Client userClient = null;
+	private final String REGISTER_FAILED = "Register Failed Unexpectedly";
+	private final String LOGIN_FAILED = "Login Failed Unexpectedly";
+	private ServerProxy server = null;
+	private ClientFacade userClient = null;
 	private ILoginView loginView = null;
 	
 	
-	public LoginPresenter(ViewFacade facade, Client client, ILoginView loginView) {
-		this.facade = facade;
+	public LoginPresenter(ServerProxy server, ClientFacade client, ILoginView loginView) {
 		this.userClient = client;
 		this.loginView = loginView;
 	}
@@ -46,36 +52,45 @@ public class LoginPresenter extends Observable implements ILoginPresenter {
 			return BAD_USERNAME; //If username characters are unacceptable
 		}
 		
-		try {
-			User newUser = new User(username, password);
-			signInResult signInResult = facade.register(newUser);
-			userClient.updateAuthToken(signInResult.getAuthenticationToken());
-			//Transistion to next view: gameLobby
-		}
-		catch (Exception e) {
-			return EXCEPTION_OCCURED;
+		SignInResult registerResult = null;
+		User newUser = new User(username, password);
+
+		registerResult = this.server.register(newUser);
+		//Transistion to next view: gameLobby
+
+		if (registerResult == null) {
+			return REGISTER_FAILED;
 		}
 		
-		return REGISTER_SUCCESSFUL;
+		if (registerResult.isLoginSuccess()) {
+			this.userClient.updateAuthToken(registerResult.getAuthenticationToken());
+			return REGISTER_SUCCESSFUL;
+		}
+		else {
+			return registerResult.getErrorMessage();
+		}
+		
+
 	}
 
 	@Override
 	public String loginUser(String username, String password) {
-		try {
-			User returningUser = new User(username, password);
-			signInResult signInResult = facade.loginUser(returningUser);
-			userClient.updateAuthToken(signInResult.getAuthenticationToken());
-			//Transistion to next view: gameLobby
-		}
-		catch (Exception e) {
-			return EXCEPTION_OCCURED;
+		SignInResult loginResult = null;
+		User newUser = new User(username, password);
+	
+		loginResult = this.server.login(newUser);
+		//Transistion to next view: gameLobby
+		
+		if (loginResult == null) {
+			return LOGIN_FAILED;
 		}
 		
-		return LOGIN_SUCCESSFUL;
-	}
-	
-	@Override
-	public void update() {
-		//Update view when called by com.example.testingpurposes.server-side observer
+		if (loginResult.isLoginSuccess()) {
+			this.userClient.updateAuthToken(loginResult.getAuthenticationToken());
+			return LOGIN_SUCCESSFUL;
+		}
+		else {
+			return loginResult.getErrorMessage();
+		}
 	}
 }
