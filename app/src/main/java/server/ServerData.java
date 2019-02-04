@@ -3,8 +3,8 @@ package server;
 import java.util.ArrayList;
 import java.util.Map;
 
-import game.Game;
-import game.User;
+import models.Game;
+import models.User;
 
 public class ServerData {
     private static ServerData sServerData;

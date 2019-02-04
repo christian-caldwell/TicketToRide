@@ -1,8 +1,8 @@
 package server;
 
 
-import game.Game;
-import results.Result;
+import models.Game;
+import models.Result;
 
 public class ServerCommands implements IServer {
     private final int MAX_PLAYERS = 5;

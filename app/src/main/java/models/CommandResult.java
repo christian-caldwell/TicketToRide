@@ -1,4 +1,4 @@
-package results;
+package models;
 
 public class CommandResult {
 }

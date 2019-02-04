@@ -6,7 +6,7 @@ import java.util.Observer;
 public class GamePresenter implements IGamePresenter, Observer {
     @Override
     public String getStatus() {
-        return "Successfully logged in. game.Game has started.";
+        return "Successfully logged in. models.Game has started.";
     }
 
     @Override

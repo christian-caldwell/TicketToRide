@@ -1,6 +1,6 @@
 package commands;
 
-import results.CommandResult;
+import models.CommandResult;
 
 public class GeneralCommand implements ICommand{
     private String _className;
