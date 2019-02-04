@@ -9,17 +9,18 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <activity android:name=".RegisterViewActivity">
+        </activity>
         <activity
             android:name=".GameBoardActivity"
             android:screenOrientation="landscape">
         </activity>
-
         <activity
             android:name=".LobbyViewActivity"
             android:screenOrientation="landscape">
         </activity>
         <activity
-            android:name=".MainActivity"
+            android:name=".LoginViewActivity"
             android:screenOrientation="landscape">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
