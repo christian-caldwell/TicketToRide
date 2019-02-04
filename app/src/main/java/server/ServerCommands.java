@@ -1,12 +1,15 @@
 package server;
 
 
+import game.Game;
 import results.createGameResult;
 import results.joinGameResult;
 import results.signInResult;
 import server.ServerData;
 
 public class ServerCommands implements IServer {
+
+    private ServerData serverData = ServerData.getInstance();
 
 
     @Override
@@ -20,7 +23,10 @@ public class ServerCommands implements IServer {
 
     @Override
     public createGameResult createGame(String gameName, String maxPlayers, String username) {
-        return null;
+        Game game = new Game();
+        game.setGameName(gameName);
+        game.setMaxPlayers(Integer.parseInt(maxPlayers));
+        return serverData.setGame(game);
     }
 
     @Override

@@ -5,6 +5,7 @@ import java.util.Map;
 
 import game.Game;
 import game.User;
+import results.createGameResult;
 
 public class ServerData {
     private static ServerData sServerData;
@@ -20,8 +21,16 @@ public class ServerData {
         return availableGames.get(gameId);
     }
 
-    public void setGame(Game newGame) {
-       // availableGames.get(newGame.getGameName()) =  newGame;
+    public createGameResult setGame(Game newGame) {
+        createGameResult result = new createGameResult();
+        if (availableGames.containsKey(newGame.getGameName())) {
+            result.setErrorMessage("ERROR: \"" + newGame.getGameName() + "\" is taken, cannot create game.");
+        }
+        else {
+            result.setErrorMessage("");
+        }
+        availableGames.put(newGame.getGameName(), newGame);
+        return result;
     }
 
     public ArrayList<User> getUsers() {

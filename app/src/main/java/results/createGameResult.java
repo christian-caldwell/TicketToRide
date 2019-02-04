@@ -1,7 +1,7 @@
 package results;
 
 public class createGameResult {
-    private String errorMessage;
+    private String errorMessage = "";
 
     public String getErrorMessage() {
         return errorMessage;
@@ -11,6 +11,7 @@ public class createGameResult {
         this.errorMessage = errorMessage;
     }
 
+    /*
     public String getGameName() {
         return gameName;
     }
@@ -29,4 +30,5 @@ public class createGameResult {
 
     private String gameName;
     private Integer maxPlayers;
+    */
 }
