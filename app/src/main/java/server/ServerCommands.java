@@ -1,20 +1,32 @@
 package server;
 
 
+import game.Game;
 import results.createGameResult;
 import results.joinGameResult;
 import results.signInResult;
+import server.ServerData;
 
-public class ServerCommands implements IServer{
+public class ServerCommands implements IServer {
+
+    private ServerData serverData = ServerData.getInstance();
+
+
     @Override
     public joinGameResult joinGame(String username, String gameName) {
-        return null;
+        joinGameResult result = new joinGameResult();
+        result.setGameName(gameName);
+        result.setErrorMessage("None");
+        ServerData.getInstance().getGame(gameName);
+        return result;
     }
 
     @Override
     public createGameResult createGame(String gameName, String maxPlayers, String username) {
-        createGameResult result = new createGameResult();
-        return null;
+        Game game = new Game();
+        game.setGameName(gameName);
+        game.setMaxPlayers(Integer.parseInt(maxPlayers));
+        return serverData.setGame(game);
     }
 
     @Override
@@ -29,6 +41,7 @@ public class ServerCommands implements IServer{
 
     @Override
     public signInResult login(String username, String password) {
+
         return null;
     }
 }

@@ -1,5 +1,7 @@
 package client;
 
+import results.createGameResult;
+
 public class ClientFacade implements IClient {
     @Override
     public void updateClient() {
@@ -12,7 +14,7 @@ public class ClientFacade implements IClient {
     }
 
     @Override
-    public void create() {
+    public createGameResult create(String gameName) {
 
     }
 }
