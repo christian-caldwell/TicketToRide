@@ -2,8 +2,8 @@ package presenters;
 
 import java.util.ArrayList;
 
-import game.User;
-import results.Result;
+import models.User;
+import models.Result;
 import server.ServerProxy;
 
 public class ViewFacade {

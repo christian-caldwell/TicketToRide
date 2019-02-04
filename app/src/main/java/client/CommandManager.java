@@ -1,6 +1,6 @@
 package client;
 
-import game.User;
+import models.User;
 
 public class CommandManager implements IClient {
     @Override
