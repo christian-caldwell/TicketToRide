@@ -29,10 +29,8 @@ public class ServerCommands implements IServer {
     }
 
     @Override
-    public createGameResult createGame(String gameName, String maxPlayers, String username) {
-        Game game = new Game();
-        game.setGameName(gameName);
-        game.setMaxPlayers(Integer.parseInt(maxPlayers));
+    public Result createGame(String gameName, String username) {
+        Game game = new Game(gameName);
         return serverData.setGame(game);
     }
 

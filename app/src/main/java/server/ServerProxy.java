@@ -10,7 +10,7 @@ public class ServerProxy implements IServer {
     }
 
     @Override
-    public Result createGame(String gameName, String maxPlayers, String username) {
+    public Result createGame(String gameName, String username) {
         return null;
     }
 

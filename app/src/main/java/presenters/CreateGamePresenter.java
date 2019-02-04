@@ -5,25 +5,26 @@ import java.util.Observer;
 
 import client.ClientFacade;
 import results.Result;
-import server.serverProxy;
+import server.ServerProxy;
+import viewInterfaces.ILobbyViewActivity;
 
 public class CreateGamePresenter implements ICreateGamePresenter, Observer {
-    private ICreateGameActivity activity;
-    private serverProxy serverProxy = new serverProxy();
+    private ILobbyViewActivity activity;
+    private ServerProxy serverProxy = new ServerProxy();
 
-    public CreateGamePresenter(ICreateGameActivity activity) {
+    public CreateGamePresenter(ILobbyViewActivity activity) {
         this.activity = activity;
     }
 
 
     @Override
     public void createGame(String gameName) {
-        createGameResult createGameResult = serverProxy.createGame(gameName, 5, "???");
-        if (createGameResult.getErrorMessage().equals("")) {
-            //activity.returnToLobby();
+        Result result = serverProxy.createGame(gameName,"???");
+        if (result.getErrorMessage().equals("")) {
+            activity.onGameCreated();
         }
         else {
-            //activity.reportError(createGameResult.getErrorMessage());
+            activity.onCreateGameFailed(result.getErrorMessage());
         }
     }
 
