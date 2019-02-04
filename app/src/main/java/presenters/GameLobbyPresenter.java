@@ -41,6 +41,6 @@ public class GameLobbyPresenter implements IGameLobbyPresenter, Observer {
 
     @Override
     public void update(Observable o, Object arg) {
-        
+
     }
 }

@@ -1,19 +1,16 @@
 package server;
 
-import results.CreateGameResult;
-import results.JoinGameResult;
-import results.SignInResult;
-import game.User;
+import results.Result;
 
 public class ServerProxy implements IServer {
 
     @Override
-    public JoinGameResult joinGame(String username, String gameName) {
+    public Result joinGame(String username, String gameName) {
         return null;
     }
 
     @Override
-    public CreateGameResult createGame(String gameName, String maxPlayers, String username) {
+    public Result createGame(String gameName, String maxPlayers, String username) {
         return null;
     }
 
@@ -23,12 +20,12 @@ public class ServerProxy implements IServer {
     }
 
     @Override
-    public SignInResult register(User newUser) {
+    public Result register(String username, String password) {
         return null;
     }
 
     @Override
-    public SignInResult login(User returningUser) {
+    public Result login(String username, String password) {
         return null;
     }
 }

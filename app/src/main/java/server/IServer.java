@@ -1,14 +1,11 @@
 package server;
 
-import results.CreateGameResult;
-import results.JoinGameResult;
-import results.SignInResult;
-import game.User;
+import results.Result;
 
 public interface IServer {
-    public JoinGameResult joinGame(String username, String gameName);
-    public CreateGameResult createGame(String gameName, String maxPlayers, String username);
+    public Result joinGame(String username, String gameName);
+    public Result createGame(String gameName, String maxPlayers, String username);
     public String startGame(String gameName,  Integer maxPlayers);
-    public SignInResult register(User newUser);
-    public SignInResult login(User returningUser);
+    public Result register(String username, String password);
+    public Result login(String username, String password);
 }

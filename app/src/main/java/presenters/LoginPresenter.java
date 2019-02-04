@@ -1,15 +1,14 @@
 package presenters;
 
 import game.User;
-import results.SignInResult;
 
 import java.util.Observable;
 import java.util.regex.Pattern;
 
 import client.ClientFacade;
 import server.ServerProxy;
+import results.Result;
 import viewInterfaces.ILoginView;
-
 
 public class LoginPresenter extends Observable implements ILoginPresenter {
 	private final String REGISTER_SUCCESSFUL = "Username and Password Registered. Logging In...";
@@ -56,8 +55,8 @@ public class LoginPresenter extends Observable implements ILoginPresenter {
 		if (checkRegex(password, this.USERNAME_CRITERIA)) {
 			return BAD_USERNAME; //If username characters are unacceptable
 		}
-		
-		SignInResult registerResult = null;
+
+        Result registerResult = null;
 		User newUser = new User(username, password);
 
 		registerResult = this.server.register(newUser);
@@ -74,18 +73,18 @@ public class LoginPresenter extends Observable implements ILoginPresenter {
 		else {
 			return registerResult.getErrorMessage();
 		}
-		
+
 
 	}
 
 	@Override
 	public String loginUser(String username, String password) {
-		SignInResult loginResult = null;
+		Result loginResult = null;
 		User newUser = new User(username, password);
-	
+
 		loginResult = this.server.login(newUser);
 		//Transistion to next view: gameLobby
-		
+
 		if (loginResult == null) {
 			return LOGIN_FAILED;
 		}

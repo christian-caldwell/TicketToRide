@@ -21,7 +21,7 @@ public class ServerData {
     }
 
     public void setGame(Game newGame) {
-       // availableGames.get(newGame.getGameName()) =  newGame;
+        availableGames.put(newGame.getGameName(), newGame);
     }
 
     public ArrayList<User> getUsers() {
