@@ -4,12 +4,12 @@ import java.util.ArrayList;
 import java.util.Observable;
 import java.util.Observer;
 
-import server.serverProxy;
+import server.ServerProxy;
 
 public class GameLobbyPresenter implements IGameLobbyPresenter, Observer {
 
     ArrayList<String> gameList;
-    serverProxy serverproxy = new serverProxy();
+    ServerProxy serverproxy = new ServerProxy();
     ViewFacade viewfacade = new ViewFacade();
 
 

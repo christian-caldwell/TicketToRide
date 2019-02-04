@@ -1,7 +1,5 @@
 package client;
 
-import results.createGameResult;
-
 public class ClientFacade implements IClient {
     @Override
     public void updateClient() {
@@ -14,7 +12,22 @@ public class ClientFacade implements IClient {
     }
 
     @Override
-    public createGameResult create(String gameName) {
+    public void create() {
 
     }
+
+	@Override
+	public void updateAuthToken(String newAuthToken) {
+
+	}
+
+	@Override
+	public String passAuthToken() {
+
+		return null;
+	}
+	@Override
+	public void setUserValues(User newUser) {
+
+	}
 }

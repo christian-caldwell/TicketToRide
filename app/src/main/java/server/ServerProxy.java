@@ -2,15 +2,15 @@ package server;
 
 import results.Result;
 
-public class serverProxy implements IServer {
+public class ServerProxy implements IServer {
 
     @Override
-    public joinGameResult joinGame(String username, String gameName) {
+    public Result joinGame(String username, String gameName) {
         return null;
     }
 
     @Override
-    public createGameResult createGame(String gameName, String maxPlayers, String username) {
+    public Result createGame(String gameName, String maxPlayers, String username) {
         return null;
     }
 

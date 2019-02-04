@@ -1,4 +1,4 @@
 package viewInterfaces;
 
-public class ILoginView {
+public interface ILoginView {
 }

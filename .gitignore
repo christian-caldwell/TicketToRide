@@ -10,3 +10,6 @@
 /captures
 .externalNativeBuild
 /.idea/caches/gradle_models.ser
+.idea/gradle.xml
+.idea/misc.xml
+.idea/vcs.xml
