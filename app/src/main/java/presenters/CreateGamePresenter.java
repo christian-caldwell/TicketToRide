@@ -4,7 +4,7 @@ import java.util.Observable;
 import java.util.Observer;
 
 import client.ClientFacade;
-import results.Result;
+import models.Result;
 import server.ServerProxy;
 import viewInterfaces.ILobbyViewActivity;
 

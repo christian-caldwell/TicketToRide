@@ -16,6 +16,8 @@ public class ServerProxy implements IServer {
 
     @Override
     public Result createGame(String gameName, String username) {
+        Request request = new Request();
+        client.send("127.0.0.1", "8080", request);
         return null;
     }
 

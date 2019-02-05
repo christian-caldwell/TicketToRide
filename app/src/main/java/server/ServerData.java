@@ -5,7 +5,7 @@ import java.util.Map;
 
 import models.Game;
 import models.User;
-import results.Result;
+import models.Result;
 
 public class ServerData {
     private static ServerData sServerData;
