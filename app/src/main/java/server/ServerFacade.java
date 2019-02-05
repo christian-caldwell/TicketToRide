@@ -1,7 +1,7 @@
 package server;
 
 
-import results.Result;
+import models.Result;
 
 public class ServerFacade implements IServer {
     @Override

@@ -3,8 +3,8 @@ package server;
 import java.util.ArrayList;
 import java.util.Map;
 
-import game.Game;
-import game.User;
+import models.Game;
+import models.User;
 import results.Result;
 
 public class ServerData {
@@ -27,9 +27,9 @@ public class ServerData {
             result.setErrorMessage("ERROR: \"" + newGame.getGameName() + "\" is taken, cannot create game.");
         }
         else {
+            availableGames.put(newGame.getGameName(), newGame);
             result.setErrorMessage("");
         }
-        availableGames.put(newGame.getGameName(), newGame);
         return result;
     }
 

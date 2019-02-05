@@ -1,6 +1,6 @@
 package commands;
 
-import results.CommandResult;
+import models.CommandResult;
 
 public interface ICommand {
     public CommandResult exec();

@@ -1,6 +1,6 @@
 package server;
 
-import results.Result;
+import models.Result;
 
 public interface IServer {
     public Result joinGame(String username, String gameName);

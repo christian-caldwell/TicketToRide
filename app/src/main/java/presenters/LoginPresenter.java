@@ -1,13 +1,13 @@
 package presenters;
 
-import game.User;
+import models.User;
 
 import java.util.Observable;
 import java.util.regex.Pattern;
 
 import client.ClientFacade;
 import server.ServerProxy;
-import results.Result;
+import models.Result;
 import viewInterfaces.ILoginView;
 
 public class LoginPresenter extends Observable implements ILoginPresenter {
