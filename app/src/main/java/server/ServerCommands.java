@@ -8,6 +8,9 @@ import models.User;
 public class ServerCommands implements IServer {
     private final int MAX_PLAYERS = 5;
 
+    private ServerData serverData = ServerData.getInstance();
+
+
     @Override
     public Result joinGame(String username, String gameName) {
         Result result = new Result();
@@ -27,8 +30,15 @@ public class ServerCommands implements IServer {
     }
 
     @Override
-    public Result createGame(String gameName, String maxPlayers, String username) {
-        return null;
+
+    public Result createGame(String gameName, String username) {
+        Game game = new Game(gameName);
+        Result result = serverData.setGame(game);
+        if (result.getErrorMessage().equals("")) {
+            joinGame(username, gameName);
+        }
+        return result;
+
     }
 
     @Override

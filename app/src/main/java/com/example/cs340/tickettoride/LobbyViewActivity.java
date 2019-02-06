@@ -14,6 +14,7 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import java.util.ArrayList;
+
 import java.util.Map;
 
 import models.Game;
@@ -125,5 +126,13 @@ public class LobbyViewActivity extends AppCompatActivity implements IGameLobby {
 
     @Override
     public void updateGamePlayers(Game game) {
+
+    public void onGameCreated() {
+
+    }
+
+    @Override
+    public void onCreateGameFailed(String errorMessage) {
+
     }
 }

@@ -33,8 +33,10 @@ public class Client implements IClient {
             if (http.getResponseCode() == HttpURLConnection.HTTP_OK) {
                 InputStream is = http.getInputStream();
                 Reader read = new InputStreamReader(is);
-                Result result = gson.fromJson(read, Result.class);
-                return result;
+
+                //Result result = gson.fromJson(read, Result.class);
+                return gson.fromJson(read, Result.class);//result;
+
             } else {
                 System.out.println("ERROR: " + http.getResponseMessage());
                 return null;

@@ -7,8 +7,10 @@ import java.util.Map;
 import java.util.Observable;
 import java.util.Observer;
 
+
 import models.Game;
 import viewInterfaces.IGameLobby;
+
 import server.ServerProxy;
 
 public class GameLobbyPresenter implements IGameLobbyPresenter, Observer {
@@ -40,7 +42,7 @@ public class GameLobbyPresenter implements IGameLobbyPresenter, Observer {
 
     @Override
     public void createGame() {
-        serverproxy.createGame("game name", "4", "test");
+        serverproxy.createGame("game name", "test");
     }
 
     @Override
