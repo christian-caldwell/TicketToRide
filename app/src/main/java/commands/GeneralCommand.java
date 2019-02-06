@@ -3,7 +3,7 @@ package commands;
 import java.lang.reflect.Method;
 import models.CommandResult;
 
-class GeneralCommand implements ICommand {
+public class GeneralCommand implements ICommand {
     private String _className;
     private String _methodName;
     private Class<?>[] _paramTypes;

@@ -1,10 +1,13 @@
 package presenters;
 
+import com.example.cs340.tickettoride.LobbyViewActivity;
+
 import java.util.ArrayList;
 import java.util.Observable;
 import java.util.Observer;
 
 import server.ServerProxy;
+import viewInterfaces.IGameLobby;
 
 public class GameLobbyPresenter implements IGameLobbyPresenter, Observer {
 
@@ -16,9 +19,8 @@ public class GameLobbyPresenter implements IGameLobbyPresenter, Observer {
     @Override
     public void addPlayer(String gameId, String username) {
         serverproxy.joinGame(gameId, username);
-
-        // Implement this one the vew interface hs been made
-        //view.updateGamePlayers(gameId);
+        IGameLobby gameLobby = new LobbyViewActivity();
+        //gameLobby.updateGamePlayers(gameId);
     }
 
     @Override
