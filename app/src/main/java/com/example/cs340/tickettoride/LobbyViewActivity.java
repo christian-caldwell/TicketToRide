@@ -9,8 +9,12 @@ import android.view.View;
 import android.widget.Button;
 
 import java.util.ArrayList;
+import java.util.Map;
 
-public class LobbyViewActivity extends AppCompatActivity {
+import game.Game;
+import viewInterfaces.IGameLobby;
+
+public class LobbyViewActivity extends AppCompatActivity implements IGameLobby {
 
     // Member variables
     private ArrayList<String> mGameNames = new ArrayList<>();
@@ -73,4 +77,11 @@ public class LobbyViewActivity extends AppCompatActivity {
     }
 
 
+    @Override
+    public void updateGameList(Map<String, Game> map) {
+    }
+
+    @Override
+    public void updateGamePlayers(Game game) {
+    }
 }
