@@ -30,6 +30,7 @@ public class ServerCommands implements IServer {
     }
 
     @Override
+
     public Result createGame(String gameName, String username) {
         Game game = new Game(gameName);
         Result result = serverData.setGame(game);
@@ -37,6 +38,7 @@ public class ServerCommands implements IServer {
             joinGame(username, gameName);
         }
         return result;
+
     }
 
     @Override

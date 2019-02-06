@@ -5,6 +5,7 @@ import java.util.Map;
 
 import models.Game;
 import models.User;
+
 import models.Result;
 
 public class ServerData {
@@ -21,6 +22,7 @@ public class ServerData {
         return availableGames.get(gameId);
     }
 
+ 
     public Result setGame(Game newGame) {
         Result result = new Result();
         if (availableGames.containsKey(newGame.getGameName())) {
