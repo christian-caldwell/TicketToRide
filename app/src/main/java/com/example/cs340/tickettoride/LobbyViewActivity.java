@@ -16,7 +16,7 @@ import android.widget.Toast;
 import java.util.ArrayList;
 import java.util.Map;
 
-import game.Game;
+import models.Game;
 import viewInterfaces.IGameLobby;
 
 public class LobbyViewActivity extends AppCompatActivity implements IGameLobby {

@@ -7,8 +7,7 @@ import java.util.Map;
 import java.util.Observable;
 import java.util.Observer;
 
-import game.Game;
-import server.serverProxy;
+import models.Game;
 import viewInterfaces.IGameLobby;
 import server.ServerProxy;
 

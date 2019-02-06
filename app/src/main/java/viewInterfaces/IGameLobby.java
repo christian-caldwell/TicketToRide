@@ -2,7 +2,7 @@ package viewInterfaces;
 
 import java.util.Map;
 
-import game.Game;
+import models.Game;
 
 public interface IGameLobby {
     void updateGameList(Map<String, Game> map);
