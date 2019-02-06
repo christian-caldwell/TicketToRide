@@ -36,7 +36,7 @@ public class GameLobbyPresenter implements IGameLobbyPresenter, Observer {
 
     @Override
     public void createGame() {
-        serverproxy.createGame("game name", "4", "test");
+        serverproxy.createGame("game name", "test");
     }
 
     @Override

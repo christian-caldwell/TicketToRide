@@ -20,16 +20,16 @@ public class ClientFacade implements IClient {
 
 	@Override
 	public void updateAuthToken(String newAuthToken) {
-		
+
 	}
 
 	@Override
 	public String passAuthToken() {
-		
+
 		return null;
 	}
 	@Override
 	public void setUserValues(User newUser) {
-		
+
 	}
 }
