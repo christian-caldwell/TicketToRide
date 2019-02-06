@@ -10,7 +10,6 @@ import java.io.OutputStreamWriter;
 import java.net.HttpURLConnection;
 
 import models.CommandResult;
-import models.Result;
 
 public class ExecCommandHandler implements HttpHandler {
     public void handle(HttpExchange exchange) throws IOException {

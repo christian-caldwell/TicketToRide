@@ -1,9 +1,9 @@
 package com.example.cs340.tickettoride;
 
+import android.app.AlertDialog;
 import android.app.Dialog;
+import android.content.DialogInterface;
 import android.content.Intent;
-import android.graphics.Color;
-import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
@@ -54,11 +54,22 @@ public class LobbyViewActivity extends AppCompatActivity {
 //                Intent intent = new Intent(LobbyViewActivity.this, CreateGameActivity.class);
 //                startActivity(intent);
 
-                createGameDialogue.getWindow().setBackgroundDrawable(new ColorDrawable(Color.argb(100, 0, 0, 0)));
-                createGameDialogue.setContentView(R.layout.fragment_create_game);
-                createGameDialogue.setCancelable(true);
-                createGameDialogue.show();
-                createGameOpen = true;
+                AlertDialog alertDialog = new AlertDialog.Builder(LobbyViewActivity.this).create();
+                alertDialog.setTitle("Alert");
+                alertDialog.setMessage("Alert message to be shown");
+                alertDialog.setButton(AlertDialog.BUTTON_NEUTRAL, "OK",
+                        new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int which) {
+                                dialog.dismiss();
+                            }
+                        });
+                alertDialog.show();
+
+//                createGameDialogue.getWindow().setBackgroundDrawable(new ColorDrawable(Color.argb(100, 0, 0, 0)));
+//                createGameDialogue.setContentView(R.layout.fragment_create_game);
+//                createGameDialogue.setCancelable(true);
+//                createGameDialogue.show();
+//                createGameOpen = true;
             }
         });
 
