@@ -32,7 +32,11 @@ public class ServerCommands implements IServer {
     @Override
     public Result createGame(String gameName, String username) {
         Game game = new Game(gameName);
-        return serverData.setGame(game);
+        Result result = serverData.setGame(game);
+        if (result.getErrorMessage().equals("")) {
+            joinGame(username, gameName);
+        }
+        return result;
     }
 
     @Override
