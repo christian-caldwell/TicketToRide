@@ -3,6 +3,7 @@ package server;
 import client.Client;
 import models.Request;
 import models.Result;
+import models.User;
 
 public class ServerProxy implements IServer {
 
@@ -27,12 +28,12 @@ public class ServerProxy implements IServer {
     }
 
     @Override
-    public Result register(String username, String password) {
+    public Result register(User newUser) {
         return null;
     }
 
     @Override
-    public Result login(String username, String password) {
+    public Result login(User returnUser) {
         return null;
     }
 }

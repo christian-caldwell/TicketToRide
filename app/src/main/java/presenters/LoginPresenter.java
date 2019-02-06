@@ -3,6 +3,7 @@ package presenters;
 import models.User;
 
 import java.util.Observable;
+import java.util.Observer;
 import java.util.regex.Pattern;
 
 import client.ClientFacade;
@@ -10,7 +11,7 @@ import server.ServerProxy;
 import models.Result;
 import viewInterfaces.ILoginView;
 
-public class LoginPresenter extends Observable implements ILoginPresenter {
+public class LoginPresenter implements ILoginPresenter, Observer {
 	private final String REGISTER_SUCCESSFUL = "Username and Password Registered. Logging In...";
 	private final String LOGIN_SUCCESSFUL = "Username and Password Accepted. Logging In...";
 	private final String NO_PASSWORD_MATCH = "Passwords Do Not Match. Please Input Carefully.";
@@ -59,20 +60,20 @@ public class LoginPresenter extends Observable implements ILoginPresenter {
         Result registerResult = null;
 		User newUser = new User(username, password);
 
-		//registerResult = this.server.register(newUser);
+		registerResult = this.server.register(newUser);
 		//Transistion to next view: gameLobby
 
 		if (registerResult == null) {
 			return REGISTER_FAILED;
 		}
 		
-		//if (registerResult.isSuccessful()) {
+		if (registerResult.isSuccessful()) {
 			this.userClient.updateAuthToken(registerResult.getAuthenticationToken());
 			return REGISTER_SUCCESSFUL;
-		//}
-		//else {
-			//return registerResult.getErrorMessage();
-		//}
+		}
+		else {
+			return registerResult.getErrorMessage();
+		}
 
 
 	}
@@ -82,14 +83,14 @@ public class LoginPresenter extends Observable implements ILoginPresenter {
 		Result loginResult = null;
 		User newUser = new User(username, password);
 
-		//loginResult = this.server.login(newUser);
+		loginResult = this.server.login(newUser);
 		//Transistion to next view: gameLobby
 
 		if (loginResult == null) {
 			return LOGIN_FAILED;
 		}
 		
-		if (true){//loginResult.isSuccessful()) {
+		if (loginResult.isSuccessful()) {
 			this.userClient.updateAuthToken(loginResult.getAuthenticationToken());
 			return LOGIN_SUCCESSFUL;
 		}
@@ -99,7 +100,7 @@ public class LoginPresenter extends Observable implements ILoginPresenter {
 	}
 
 	@Override
-	public void update() {
+	public void update(Observable obs, Object obj) {
 
 	}
 

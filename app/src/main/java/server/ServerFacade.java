@@ -1,6 +1,6 @@
 package server;
 
-
+import models.User;
 import models.Result;
 
 public class ServerFacade implements IServer {
@@ -20,12 +20,12 @@ public class ServerFacade implements IServer {
     }
 
     @Override
-    public Result register(String username, String password) {
+    public Result register(User newUser) {
         return null;
     }
 
     @Override
-    public Result login(String username, String password) {
+    public Result login(User returnUser) {
         return null;
     }
 }

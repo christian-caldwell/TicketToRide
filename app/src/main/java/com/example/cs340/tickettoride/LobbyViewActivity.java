@@ -1,15 +1,16 @@
 package com.example.cs340.tickettoride;
 
-import android.app.Dialog;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
-import android.graphics.Color;
-import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.InputType;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.Toast;
 
 import java.util.ArrayList;
@@ -24,6 +25,7 @@ public class LobbyViewActivity extends AppCompatActivity implements ILobbyViewAc
     private ArrayList<String> mMaxNumOfPlayers = new ArrayList<>();
     private Button startGameButton, createGameButton;
     private boolean createGameOpen = false;
+    private String create_game_text = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,7 +33,6 @@ public class LobbyViewActivity extends AppCompatActivity implements ILobbyViewAc
         setContentView(R.layout.activity_lobby_view);
         initArraysTest();
 
-        final Dialog createGameDialogue = new Dialog(LobbyViewActivity.this);
         // Initialize startGameButton and set onClickListener
         startGameButton = findViewById(R.id.startGameButton);
         startGameButton.setOnClickListener(new View.OnClickListener() {
@@ -41,7 +42,6 @@ public class LobbyViewActivity extends AppCompatActivity implements ILobbyViewAc
 //                // When clicked, the GameBoardActivity will be started
                 Intent intent = new Intent(LobbyViewActivity.this, GameBoardActivity.class);
                 startActivity(intent);
-
 
             }
         });
@@ -53,14 +53,31 @@ public class LobbyViewActivity extends AppCompatActivity implements ILobbyViewAc
         createGameButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-//                Intent intent = new Intent(LobbyViewActivity.this, CreateGameActivity.class);
-//                startActivity(intent);
 
-                createGameDialogue.getWindow().setBackgroundDrawable(new ColorDrawable(Color.argb(100, 0, 0, 0)));
-                createGameDialogue.setContentView(R.layout.fragment_create_game);
-                createGameDialogue.setCancelable(true);
-                createGameDialogue.show();
-                createGameOpen = true;
+                AlertDialog.Builder builder = new AlertDialog.Builder(LobbyViewActivity.this);
+                builder.setTitle("Create Game");
+
+                final EditText input = new EditText(LobbyViewActivity.this);
+                input.setInputType(InputType.TYPE_CLASS_TEXT);
+                builder.setView(input);
+
+                builder.setPositiveButton("Create", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        create_game_text = input.getText().toString();
+                        Toast.makeText(LobbyViewActivity.this, create_game_text + " created!", Toast.LENGTH_SHORT).show();
+                        mGameNames.add(create_game_text);
+                        // Make calls to presenter from here
+                    }
+                });
+                builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.cancel();
+                    }
+                });
+
+                builder.show();
             }
         });
 
