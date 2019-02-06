@@ -1,18 +1,33 @@
 package server;
 
 
-import results.createGameResult;
-import results.joinGameResult;
-import results.signInResult;
+import models.Game;
+import models.Result;
+import models.User;
 
-public class ServerCommands implements IServer{
+public class ServerCommands implements IServer {
+    private final int MAX_PLAYERS = 5;
+
     @Override
-    public joinGameResult joinGame(String username, String gameName) {
-        return null;
+    public Result joinGame(String username, String gameName) {
+        Result result = new Result();
+        Game game = ServerData.getInstance().getGame(gameName);
+        if (game == null) {
+            result.setErrorMessage("Game does not exist!");
+        }
+        else if (MAX_PLAYERS == game.getPlayers().size()) {
+            result.setErrorMessage("no more players can be added!");
+        }
+        else {
+            result.setGameName(gameName);
+            result.setErrorMessage("");
+            game.addPlayer(username);
+        }
+        return result;
     }
 
     @Override
-    public createGameResult createGame(String gameName, String maxPlayers, String username) {
+    public Result createGame(String gameName, String maxPlayers, String username) {
         return null;
     }
 
@@ -22,12 +37,13 @@ public class ServerCommands implements IServer{
     }
 
     @Override
-    public signInResult register(String username, String password) {
+    public Result register(User returnUser) {
         return null;
     }
 
     @Override
-    public signInResult login(String username, String password) {
+    public Result login(User returnUser) {
+
         return null;
     }
 }

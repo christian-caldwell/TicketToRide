@@ -1,4 +1,5 @@
 package viewInterfaces;
 
-public class ILoginView {
+public interface ILoginView {
+    public void updateServerStatus(String status);
 }

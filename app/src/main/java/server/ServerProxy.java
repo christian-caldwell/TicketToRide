@@ -1,11 +1,17 @@
 package server;
 
-import models.User;
+import client.Client;
+import models.Request;
 import models.Result;
+import models.User;
 
-public class ServerFacade implements IServer {
+public class ServerProxy implements IServer {
+
+    Client client = new Client();
     @Override
     public Result joinGame(String username, String gameName) {
+        Request request = new Request();
+        client.send("127.0.0.1", "8080", request);
         return null;
     }
 

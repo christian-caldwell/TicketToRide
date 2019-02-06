@@ -10,13 +10,13 @@ import java.util.Observer;
 import game.Game;
 import server.serverProxy;
 import viewInterfaces.IGameLobby;
+import server.ServerProxy;
 
 public class GameLobbyPresenter implements IGameLobbyPresenter, Observer {
 
     ArrayList<String> gameList;
-    serverProxy serverproxy = new serverProxy();
+    ServerProxy serverproxy = new ServerProxy();
     ViewFacade viewfacade = new ViewFacade();
-
 
 
     @Override
@@ -46,6 +46,6 @@ public class GameLobbyPresenter implements IGameLobbyPresenter, Observer {
 
     @Override
     public void update(Observable o, Object arg) {
-        
+
     }
 }

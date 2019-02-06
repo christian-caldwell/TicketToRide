@@ -7,4 +7,9 @@ public class Commands {
     public String login(Object params) {return null;}
     public String join() {return null;}
     public String Register() {return null;}
+
+    public Commands get_instance() {
+        return _instance;
+    }
+
 }

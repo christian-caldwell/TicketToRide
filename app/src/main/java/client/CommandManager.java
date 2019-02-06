@@ -1,5 +1,7 @@
 package client;
 
+import models.User;
+
 public class CommandManager implements IClient {
     @Override
     public void updateClient() {
@@ -13,6 +15,21 @@ public class CommandManager implements IClient {
 
     @Override
     public void create() {
+
+    }
+
+    @Override
+    public void updateAuthToken(String newAuthToken) {
+
+    }
+
+    @Override
+    public String passAuthToken() {
+
+        return null;
+    }
+    @Override
+    public void setUserValues(User newUser) {
 
     }
 }

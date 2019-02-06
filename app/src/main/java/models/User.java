@@ -1,8 +1,8 @@
-package game;
+package models;
 
 public class User {
-    private Username username;
-    private Password pass;
+    private String username;
+    private String pass;
 
     public User(String username, String password) {}
 

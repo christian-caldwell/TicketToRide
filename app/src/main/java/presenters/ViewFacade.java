@@ -2,34 +2,34 @@ package presenters;
 
 import java.util.ArrayList;
 
-import game.User;
-import results.signInResult;
-import server.serverProxy;
+import models.User;
+import models.Result;
+import server.ServerProxy;
 
 public class ViewFacade {
-	private serverProxy serverCommunicator = null;
+	private ServerProxy serverCommunicator = null;
 	
 	public ViewFacade() {
 		
 	}
 	
-	public signInResult register(User newUser) {
-		this.serverCommunicator = new serverProxy();
-		signInResult signInResult = serverCommunicator.register(newUser.getUsername(),newUser.getPassword());
-		return signInResult;
+	public Result register(User newUser) {
+		this.serverCommunicator = new ServerProxy();
+		Result Result = serverCommunicator.register(newUser);
+		return Result;
 	}
-	
-	public signInResult login(User returningUser) {
-		this.serverCommunicator = new serverProxy();
-		signInResult signInResult = serverCommunicator.login(returningUser.getUsername(), returningUser.password());
-		return signInResult;
+
+	public Result login(User returnUser) {
+		this.serverCommunicator = new ServerProxy();
+		Result Result = serverCommunicator.login(returnUser);
+		return Result;
 	}
 
 	public ArrayList<String> getGameList() {
 	    return null;
 	}
 
-	public signInResult loginUser(User returningUser) {
+	public Result loginUser(User returningUser) {
 		return null;
 	}
 }
