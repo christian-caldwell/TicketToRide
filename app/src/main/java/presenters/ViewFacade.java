@@ -15,13 +15,13 @@ public class ViewFacade {
 	
 	public Result register(User newUser) {
 		this.serverCommunicator = new ServerProxy();
-		Result Result = serverCommunicator.register(newUser.getUsername(),newUser.getPassword());
+		Result Result = serverCommunicator.register(newUser);
 		return Result;
 	}
 
-	public Result login(User returningUser) {
+	public Result login(User returnUser) {
 		this.serverCommunicator = new ServerProxy();
-		Result Result = serverCommunicator.login(returningUser.getUsername(), returningUser.password());
+		Result Result = serverCommunicator.login(returnUser);
 		return Result;
 	}
 

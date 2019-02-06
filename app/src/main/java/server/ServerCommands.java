@@ -3,6 +3,7 @@ package server;
 
 import models.Game;
 import models.Result;
+import models.User;
 
 public class ServerCommands implements IServer {
     private final int MAX_PLAYERS = 5;
@@ -36,12 +37,12 @@ public class ServerCommands implements IServer {
     }
 
     @Override
-    public Result register(String username, String password) {
+    public Result register(User returnUser) {
         return null;
     }
 
     @Override
-    public Result login(String username, String password) {
+    public Result login(User returnUser) {
 
         return null;
     }
