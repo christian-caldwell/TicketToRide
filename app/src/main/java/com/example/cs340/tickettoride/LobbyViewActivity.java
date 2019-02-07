@@ -137,4 +137,5 @@ public class LobbyViewActivity extends AppCompatActivity implements IGameLobby {
     public void onCreateGameFailed(String errorMessage) {
 
     }
+
 }
