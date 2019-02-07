@@ -127,12 +127,14 @@ public class LobbyViewActivity extends AppCompatActivity implements IGameLobby {
     @Override
     public void updateGamePlayers(Game game) {
 
-    public void onGameCreated() {
-
     }
 
     @Override
     public void onCreateGameFailed(String errorMessage) {
 
     }
+    public void onGameCreated() {
+
+    }
+
 }
