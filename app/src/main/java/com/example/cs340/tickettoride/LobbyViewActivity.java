@@ -17,8 +17,8 @@ import java.util.ArrayList;
 
 import java.util.Map;
 
-import models.Game;
-import viewInterfaces.IGameLobby;
+import models.data.Game;
+import view.activityInterface.IGameLobby;
 
 public class LobbyViewActivity extends AppCompatActivity implements IGameLobby {
 
@@ -126,6 +126,8 @@ public class LobbyViewActivity extends AppCompatActivity implements IGameLobby {
 
     @Override
     public void updateGamePlayers(Game game) {
+
+    }
 
     public void onGameCreated() {
 

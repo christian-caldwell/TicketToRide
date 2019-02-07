@@ -1,6 +1,6 @@
 package client;
 
-import models.User;
+import models.data.User;
 
 public class ClientFacade implements IClient {
     @Override
