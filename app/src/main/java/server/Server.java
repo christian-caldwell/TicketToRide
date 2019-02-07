@@ -5,8 +5,6 @@ import com.sun.net.httpserver.HttpServer;
 import java.io.IOException;
 import java.net.InetSocketAddress;
 
-import commands.ExecCommandHandler;
-
 public class Server {
 
 
@@ -30,7 +28,7 @@ public class Server {
         server.setExecutor(null);
 
         System.out.println("Creating contexts");
-        server.createContext("/", new ExecCommandHandler());
+        server.createContext("/", new CommandHandler());
         System.out.println("Starting com.example.testingpurposes.server");
         server.start();
         System.out.println("Server started");

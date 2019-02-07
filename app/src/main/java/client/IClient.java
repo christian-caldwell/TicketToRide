@@ -1,6 +1,6 @@
 package client;
 
-import models.User;
+import models.data.User;
 
 public interface IClient {
     public void updateClient();
