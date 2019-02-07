@@ -1,7 +1,5 @@
 package view.presenter;
 
-import models.data.User;
-
 import java.util.Observable;
 import java.util.Observer;
 import java.util.regex.Pattern;
@@ -9,8 +7,9 @@ import java.util.regex.Pattern;
 import client.ClientFacade;
 import client.ServerProxy;
 import models.data.Result;
-import view.presenterInterface.ILoginPresenter;
+import models.data.User;
 import view.activityInterface.ILoginView;
+import view.presenterInterface.ILoginPresenter;
 
 public class LoginPresenter implements ILoginPresenter, Observer {
 	private final String REGISTER_SUCCESSFUL = "Username and Password Registered. Logging In...";
@@ -36,56 +35,15 @@ public class LoginPresenter implements ILoginPresenter, Observer {
 	private ILoginView loginView = null;
 	
 	
-	public LoginPresenter(ServerProxy server, ClientFacade client, ILoginView loginView) {
-		this.userClient = client;
-		this.loginView = loginView;
-	}
-	
-	@Override
-	public String registerUser(String username, String password, String repeatedPassword) {
-		//Compare Passwords
-		if (password != repeatedPassword) {
-			return NO_PASSWORD_MATCH; //If no match
-		}
-
-		//Match Password to Reg-ex
-		if (checkRegex(password, this.PASSWORD_CRITERIA)) {
-			return BAD_PASSWORD; //If password characters are unacceptable
-		}
-		
-		//Match Username to Reg-ex
-		if (checkRegex(password, this.USERNAME_CRITERIA)) {
-			return BAD_USERNAME; //If username characters are unacceptable
-		}
-
-        Result registerResult = null;
-		User newUser = new User(username, password);
-
-		registerResult = this.server.register(newUser);
-		//Transistion to next view: gameLobby
-
-		if (registerResult == null) {
-			return REGISTER_FAILED;
-		}
-		
-		if (registerResult.isSuccessful()) {
-			this.userClient.updateAuthToken(registerResult.getAuthenticationToken());
-			return REGISTER_SUCCESSFUL;
-		}
-		else {
-			return registerResult.getErrorMessage();
-		}
-
-
+	public LoginPresenter(ServerProxy server) {
 	}
 
 	@Override
 	public String loginUser(String username, String password) {
 		Result loginResult = null;
 		User newUser = new User(username, password);
-
 		loginResult = this.server.login(newUser);
-		//Transistion to next view: gameLobby
+		//Transition to next view: gameLobby
 
 		if (loginResult == null) {
 			return LOGIN_FAILED;
