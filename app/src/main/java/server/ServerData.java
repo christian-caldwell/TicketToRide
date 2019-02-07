@@ -3,10 +3,10 @@ package server;
 import java.util.ArrayList;
 import java.util.Map;
 
-import models.Game;
-import models.User;
+import models.data.Game;
+import models.data.User;
 
-import models.Result;
+import models.data.Result;
 
 public class ServerData {
     private static ServerData sServerData;
