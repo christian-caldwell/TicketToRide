@@ -7,6 +7,8 @@ import java.util.Observable;
 import java.util.Observer;
 
 
+import models.data.Game;
+import models.data.User;
 import view.presenterInterface.IGameLobbyPresenter;
 import view.facade.ViewFacade;
 import view.activityInterface.IGameLobby;
@@ -21,15 +23,15 @@ public class GameLobbyPresenter implements IGameLobbyPresenter, Observer {
 
 
     @Override
-    public void addPlayer(String gameId, String username) {
-        serverproxy.joinGame(gameId, username);
+    public void addPlayer(String gameName) {
+        serverproxy.joinGame(new User("???", "???"), new Game(gameName));
         IGameLobby gameLobby = new LobbyViewActivity();
         //gameLobby.updateGamePlayers(gameId);
     }
 
     @Override
-    public void startGame(String gameId) {
-        serverproxy.startGame(gameId, 5);
+    public void startGame(String gameName) {
+        serverproxy.startGame(new Game(gameName));
     }
 
     @Override
@@ -41,8 +43,8 @@ public class GameLobbyPresenter implements IGameLobbyPresenter, Observer {
 
 
     @Override
-    public void createGame() {
-        serverproxy.createGame("game name", "test");
+    public void createGame(String gameName) {
+        serverproxy.createGame(gameName, new User("???", "???"));
     }
 
     @Override
