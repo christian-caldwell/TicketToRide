@@ -8,7 +8,7 @@ public interface IServer {
 
     public Result createGame(String gameName, String username);
 
-    public String startGame(String gameName,  Integer maxPlayers);
+    public String startGame(String gameName);
     public Result register(User newUser);
     public Result login(User returnUser);
 }
