@@ -4,14 +4,10 @@ import java.lang.reflect.Method;
 
 import models.command.CommandResult;
 import models.command.ICommandExecuter;
+import models.data.Result;
 
 
 public class GeneralCommand implements ICommandExecuter {
-    @Override
-    public CommandResult exec() {
-        return null;
-    }
-
 /*
     ---README---
     This code is very good, exactly what we need. The TAs seemed to be
@@ -19,11 +15,12 @@ public class GeneralCommand implements ICommandExecuter {
     can be done withing the Server class. Please consult a TA about this
     specific class.
 
-
+*/
     private String _className;
     private String _methodName;
     private Class<?>[] _paramTypes;
     private Object[] _paramValues;
+    private ClientProxy clientProxy;
 
     public GeneralCommand(String className, String methodName,
                           Class<?>[] paramTypes, Object[] paramValues) {
@@ -31,24 +28,28 @@ public class GeneralCommand implements ICommandExecuter {
         _methodName = methodName;
         _paramTypes = paramTypes;
         _paramValues = paramValues;
+        clientProxy = new ClientProxy();
     }
 
     @Override
     public CommandResult exec() {
         CommandResult result = new CommandResult();
         try {
-            Class<?> receiver = Class.forName(String.format("command.%s", _className));
+
+            Class<?> receiver = Class.forName(_className);
             Method method = receiver.getMethod(_methodName, _paramTypes);
-            result.data = method.invoke(null, _paramValues);
-            result.success = true;
-            result.errorInfo = null;
+            //FIXME: It's possible that the fist param of 'invoke' will need to be a static class
+            result.setData(method.invoke(receiver, _paramValues));
+            result.setSuccesful(true);
+
         }
         catch (Exception e) {
             e.printStackTrace();
-            result.errorInfo = e.toString();
-            result.success = false;
+            result.setErrorMessage(e.toString());
+            result.setSuccesful(false);
         }
         return result;
+
     }
-    */
+
 }

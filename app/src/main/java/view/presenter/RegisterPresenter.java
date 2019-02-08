@@ -35,12 +35,13 @@ public class RegisterPresenter implements IRegisterPresenter, Observer {
     private ILoginView loginView = null;
 
 
-    public RegisterPresenter(ServerProxy server) {
+    public RegisterPresenter() {
     }
 
     @Override
     public String registerUser(String username, String password, String repeatedPassword) {
         //Compare Passwords
+        // It should already check before it gets her. Logic is in activity.
         if (password != repeatedPassword) {
             return NO_PASSWORD_MATCH; //If no match
         }
@@ -58,7 +59,8 @@ public class RegisterPresenter implements IRegisterPresenter, Observer {
         Result registerResult = null;
         User newUser = new User(username, password);
 
-        registerResult = this.server.register(newUser);
+
+//        registerResult = this.server.register(newUser);
         //Transistion to next view: gameLobby
 
         if (registerResult == null) {

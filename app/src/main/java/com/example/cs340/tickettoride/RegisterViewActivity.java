@@ -9,11 +9,13 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import view.presenter.RegisterPresenter;
+
 public class RegisterViewActivity extends AppCompatActivity {
 
     private EditText username;
     private EditText password;
-    private EditText passwordChecker;
+    private EditText repeatedPassword;
     private Button registerButton;
     private Button cancelButton;
 
@@ -24,7 +26,7 @@ public class RegisterViewActivity extends AppCompatActivity {
 
         username = findViewById(R.id.username);
         password = findViewById(R.id.password);
-        passwordChecker = findViewById(R.id.password_checker);
+        repeatedPassword = findViewById(R.id.password_checker);
         registerButton = findViewById(R.id.register_button);
         cancelButton = findViewById(R.id.cancel_button);
 
@@ -34,9 +36,12 @@ public class RegisterViewActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                if(TextUtils.equals(password.getText(), passwordChecker.getText())) {
+                if(TextUtils.equals(password.getText(), repeatedPassword.getText())) {
                     Intent intent = new Intent(RegisterViewActivity.this, LobbyViewActivity.class);
                     startActivity(intent);
+
+                    RegisterPresenter registerPresenter = new RegisterPresenter();
+                    registerPresenter.registerUser(username.getText().toString(), password.getText().toString(), repeatedPassword.getText().toString());
                 }
                 else {
                     Toast.makeText(RegisterViewActivity.this, "Passwords do not match", Toast.LENGTH_SHORT).show();
