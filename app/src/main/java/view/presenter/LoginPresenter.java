@@ -4,11 +4,10 @@ import java.util.Observable;
 import java.util.Observer;
 import java.util.regex.Pattern;
 
-import client.ClientFacade;
-import client.ServerProxy;
 import models.data.Result;
 import models.data.User;
 import view.activityInterface.ILoginView;
+import view.facade.client.out.LoginFacadeOut;
 import view.presenterInterface.ILoginPresenter;
 
 public class LoginPresenter implements ILoginPresenter, Observer {
@@ -30,27 +29,33 @@ public class LoginPresenter implements ILoginPresenter, Observer {
 	private final String PASSWORD_CRITERIA = "[a-zA-Z1-9]{5,}+";
 	private final String USERNAME_CRITERIA = "[a-zA-Z1-9]{5,}+";
 
-	private ServerProxy server = null;
-	private ClientFacade userClient = null;
 	private ILoginView loginView = null;
 	
 	
-	public LoginPresenter(ServerProxy server) {
+	public LoginPresenter() {
 	}
 
 	@Override
 	public String loginUser(String username, String password) {
+
+		//Match Password to Reg-ex
+		if (checkRegex(password, this.PASSWORD_CRITERIA)) {
+			return BAD_PASSWORD; //If password characters are unacceptable
+		}
+
 		Result loginResult = null;
 		User newUser = new User(username, password);
-		loginResult = this.server.login(newUser);
+//		loginResult = this.server.login(newUser);
 		//Transition to next view: gameLobby
+		LoginFacadeOut loginFacadeOut = new LoginFacadeOut();
+//		CommandResult result = loginFacadeOut.login(newUser);
 
 		if (loginResult == null) {
 			return LOGIN_FAILED;
 		}
 		
 		if (loginResult.isSuccessful()) {
-			this.userClient.updateAuthToken(loginResult.getAuthenticationToken());
+//			this.userClient.updateAuthToken(loginResult.getAuthenticationToken());
 			return LOGIN_SUCCESSFUL;
 		}
 		else {
