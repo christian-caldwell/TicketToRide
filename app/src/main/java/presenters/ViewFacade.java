@@ -10,17 +10,15 @@ public class ViewFacade {
 	private ServerProxy serverCommunicator = null;
 	
 	public ViewFacade() {
-		
+		serverCommunicator = new ServerProxy(this);
 	}
 	
 	public Result register(User newUser) {
-		this.serverCommunicator = new ServerProxy();
 		Result Result = serverCommunicator.register(newUser);
 		return Result;
 	}
 
 	public Result login(User returnUser) {
-		this.serverCommunicator = new ServerProxy();
 		Result Result = serverCommunicator.login(returnUser);
 		return Result;
 	}

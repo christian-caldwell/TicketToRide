@@ -4,10 +4,17 @@ import client.Client;
 import models.Request;
 import models.Result;
 import models.User;
+import presenters.ViewFacade;
 
 public class ServerProxy implements IServer {
 
+    ViewFacade viewFacade;
     Client client = new Client();
+
+    public ServerProxy(ViewFacade viewFacade) {
+        this.viewFacade = viewFacade;
+    }
+
     @Override
     public Result joinGame(String username, String gameName) {
         Request request = new Request();
