@@ -25,7 +25,6 @@ public class ServerCommands implements IServer {
         }
         else {
             result.setGameName(game.getGameName());
-            result.setErrorMessage("");
             result.setSuccesful(true);
             game.addPlayer(user.getUsername());
             user.addGamesJoined(game);
@@ -60,15 +59,23 @@ public class ServerCommands implements IServer {
                 return result;
             }
         }
-        if (serverData.get)
         result.setAuthenticationToken(UUID.randomUUID().toString().toUpperCase());
-        return null;
+        result.setSuccesful(true);
+        return result;
     }
 
     @Override
     public Result login(User returnUser) {
         Result result = new Result();
-        result.setAuthenticationToken(result.setAuthenticationToken(UUID.randomUUID().toString().toUpperCase()););
-        return null;
+        for (User user: serverData.getUsers()) {
+            if (user.getUsername().equals(returnUser.getUsername())) {
+                result.setAuthenticationToken(UUID.randomUUID().toString().toUpperCase());
+                result.setSuccesful(true);
+                return result;
+            }
+        }
+        result.setErrorMessage("user does not exist...");
+        result.setSuccesful(false);
+        return result;
     }
 }

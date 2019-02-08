@@ -1,5 +1,6 @@
 package client;
 
+import models.data.Game;
 import models.data.Request;
 import models.data.Result;
 import models.data.User;
@@ -9,21 +10,21 @@ public class ServerProxy implements IServer {
 
     ClientCommunicator client = new ClientCommunicator();
     @Override
-    public Result joinGame(String username, String gameName) {
+    public Result joinGame(User username, Game gameName) {
         Request request = new Request();
 //        client.send("127.0.0.1", "8080", request);
         return null;
     }
 
     @Override
-    public Result createGame(String gameName, String username) {
+    public Result createGame(String gameName, User username) {
         Request request = new Request();
 //        client.send("127.0.0.1", "8080", request);
         return null;
     }
 
     @Override
-    public String startGame(String gameName, Integer maxPlayers) {
+    public String startGame(Game gameName) {
         return null;
     }
 
