@@ -7,7 +7,6 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
-import client.ServerProxy;
 import view.presenter.LoginPresenter;
 
 public class LoginViewActivity extends AppCompatActivity {
@@ -26,8 +25,6 @@ public class LoginViewActivity extends AppCompatActivity {
         registerButton = findViewById(R.id.register_button);
         loginButton = findViewById(R.id.create_game);
 
-        final ServerProxy server = new ServerProxy();
-
         // Login button is pushed
         loginButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -35,7 +32,7 @@ public class LoginViewActivity extends AppCompatActivity {
                 Intent intent = new Intent(LoginViewActivity.this, LobbyViewActivity.class);
                 startActivity(intent);
 
-                LoginPresenter loginPresenter = new LoginPresenter(server);
+                LoginPresenter loginPresenter = new LoginPresenter();
                 loginPresenter.loginUser(username.getText().toString(), password.getText().toString());
 
             }
