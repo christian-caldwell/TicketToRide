@@ -14,6 +14,7 @@ import helper.HttpHelper;
 import models.command.ICommandExecuter;
 import models.command.CommandResult;
 import models.data.Request;
+import models.data.User;
 
 public class CommandHandler implements HttpHandler {
     public void handle(HttpExchange exchange) throws IOException {
@@ -38,69 +39,70 @@ public class CommandHandler implements HttpHandler {
 
             Gson gson = new Gson();
 
-            ICommandExecuter command; /* = new GeneralCommand("Commands", methodName,
+            ICommandExecuter facadeCommand; /* = new GeneralCommand("Commands", methodName,
                     new Class<?>[]{ String.class },
                     new Object[] { word });*/
-            Request request;
-
-
-
-
+            ICommandExecuter clientProxyCommand;
+            Request request =  gson.fromJson(reqData, Request.class);
 
 
 
 
             switch(exchange.getRequestURI().toString()) {
                 case "/login":
-                    request =  gson.fromJson(reqData, Request.class);
-                    //command = new GeneralCommand("")
-
+                    facadeCommand = new GeneralCommand("server.facade.LoginFacade", "login",
+                            new Class<?>[]{Request.class}, new Object[] {request});
+                    facadeCommand.exec();
+                    clientProxyCommand = new GeneralCommand("server.ClientProxy", "updateLogin",
+                            new Class<?>[]{Request.class}, new Object[] {request});
+                    clientProxyCommand.exec();
                     break;
 
-                    /*
-                    // create toLower request and stuff in a command object and execute the command
-                        ToLowerRequest toLowerRequest;
-                        toLowerRequest =  gson.fromJson(reqData, ToLowerRequest.class);
-                        c = new GenericCommand("com.example.singleton.Singleton", "toLower",
-                                new Class<?>[]{ToLowerRequest.class}, new Object[] {toLowerRequest});
-                        c.execute();
-                        break;
-                     */
 
                 case "/register":
-
+                    facadeCommand = new GeneralCommand("server.facade.RegisterFacade", "register",
+                            new Class<?>[]{Request.class}, new Object[] {request});
+                    facadeCommand.exec();
+                    clientProxyCommand = new GeneralCommand("server.ClientProxy", "updateRegister",
+                            new Class<?>[]{Request.class}, new Object[] {request});
+                    clientProxyCommand.exec();
                     break;
 
 
-                case "/lobby":
-
+                case "/createGame":
+                    facadeCommand = new GeneralCommand("server.facade.LobbyFacade", "createGame",
+                            new Class<?>[]{Request.class}, new Object[] {request});
+                    facadeCommand.exec();
+                    clientProxyCommand = new GeneralCommand("server.ClientProxy", "updateCreateGame",
+                            new Class<?>[]{Request.class}, new Object[] {request});
+                    clientProxyCommand.exec();
                     break;
 
 
-                case "/gameStart":
-
+                case "/joinGame":
+                    facadeCommand = new GeneralCommand("server.facade.LobbyFacade", "joinGame",
+                            new Class<?>[]{Request.class}, new Object[] {request});
+                    facadeCommand.exec();
+                    clientProxyCommand = new GeneralCommand("server.ClientProxy", "updateJoinGame",
+                            new Class<?>[]{Request.class}, new Object[] {request});
+                    clientProxyCommand.exec();
                     break;
 
 
-
+                case "/startGame":
+                    facadeCommand = new GeneralCommand("server.facade.GameStartFacade", "startGame",
+                            new Class<?>[]{Request.class}, new Object[] {request});
+                    facadeCommand.exec();
+                    clientProxyCommand = new GeneralCommand("server.ClientProxy", "updateStartGame",
+                            new Class<?>[]{Request.class}, new Object[] {request});
+                    clientProxyCommand.exec();
+                    break;
             }
-/*
-            CommandResult lr;
-            lr = command.exec();
-            String jsonStr = gson.toJson(lr);
-            writeString(jsonStr, respBody);
-            respBody.close();
-*/
+
         } catch (Exception e) {
             exchange.sendResponseHeaders(HttpURLConnection.HTTP_SERVER_ERROR, 0);
             System.out.println("error with command handler...");
         }
     }
-    private void writeString(String str, OutputStream os) throws IOException {
-        OutputStreamWriter sw = new OutputStreamWriter(os);
-        sw.write(str);
-        sw.flush();
-    }
-
 
 }
