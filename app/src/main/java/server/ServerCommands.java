@@ -69,8 +69,13 @@ public class ServerCommands implements IServer {
         Result result = new Result();
         for (User user: serverData.getUsers()) {
             if (user.getUsername().equals(returnUser.getUsername())) {
-                result.setAuthenticationToken(UUID.randomUUID().toString().toUpperCase());
-                result.setSuccesful(true);
+                if (user.getPassword().equals(returnUser.getPassword())) {
+                    result.setAuthenticationToken(UUID.randomUUID().toString().toUpperCase());
+                    result.setSuccesful(true);
+                    return result;
+                }
+                result.setSuccesful(false);
+                result.setErrorMessage("incorrect password...");
                 return result;
             }
         }
