@@ -129,6 +129,7 @@ public class LobbyViewActivity extends AppCompatActivity implements IGameLobby {
 
     }
 
+    @Override
     public void onGameCreated() {
 
     }
