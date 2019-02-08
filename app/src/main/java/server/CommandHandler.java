@@ -22,9 +22,9 @@ public class CommandHandler implements HttpHandler {
             String word = exchange.getRequestURI().getPath().split("/")[2];
             String methodName = exchange.getRequestURI().getPath().split("/")[1];
 
-            ICommandExecuter command = new GeneralCommand(/*"Commands", methodName,
+            ICommandExecuter command = new GeneralCommand("Command", methodName,
                     new Class<?>[]{ String.class },
-                    new Object[] { word }*/);
+                    new Object[] { word });
             CommandResult lr;
             lr = command.exec();
             String jsonStr = gson.toJson(lr);

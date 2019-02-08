@@ -13,6 +13,13 @@ public class Result {
     private String gameName;
     private boolean isSuccessful;
 
+    public Result(String error, String auth, String game, boolean isSuccess) {
+        this.authenticationToken = auth;
+        this.gameName = game;
+        this.errorMessage = error;
+        this.isSuccessful = isSuccess;
+    }
+
     public boolean isSuccessful() {
         return this.isSuccessful;
     }

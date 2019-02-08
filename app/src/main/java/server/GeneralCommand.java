@@ -7,17 +7,13 @@ import models.command.ICommandExecuter;
 
 
 public class GeneralCommand implements ICommandExecuter {
+    /*
     @Override
-    public CommandResult exec() {
-        return null;
-    }
-
-/*
     ---README---
     This code is very good, exactly what we need. The TAs seemed to be
     uncertain about whether this needs to its own class or whether this
     can be done withing the Server class. Please consult a TA about this
-    specific class.
+    specific class.*/
 
 
     private String _className;
@@ -39,16 +35,15 @@ public class GeneralCommand implements ICommandExecuter {
         try {
             Class<?> receiver = Class.forName(String.format("command.%s", _className));
             Method method = receiver.getMethod(_methodName, _paramTypes);
-            result.data = method.invoke(null, _paramValues);
-            result.success = true;
-            result.errorInfo = null;
+            result.setData(method.invoke(null, _paramValues));
+            result.setSuccess(true);
+            result.setErrorInfo(null);
         }
         catch (Exception e) {
             e.printStackTrace();
-            result.errorInfo = e.toString();
-            result.success = false;
+            result.setErrorInfo(e.toString());
+            result.setSuccess(false);
         }
         return result;
     }
-    */
 }

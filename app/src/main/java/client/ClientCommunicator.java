@@ -14,6 +14,7 @@ import java.net.URL;
 import models.data.Request;
 import models.data.User;
 import models.data.Result;
+import server.GeneralCommand;
 
 public class ClientCommunicator /*implements IClient */{
 
@@ -21,13 +22,15 @@ public class ClientCommunicator /*implements IClient */{
     This Class is soley responsible for passing commamnds to the server and
     accepting the results. This class serializes and deserializes the Json,
     handles server exceptions, and general works to contain all internet
-    protocal logic for the client side
+    protocal logic for the client side*/
 
 
 
-    public Result send(String serverHost, String serverPort, Request request) {
+    public Result send(GeneralCommand command) {
         try {
-            URL url = new URL("http://" + serverHost + ":" + serverPort + "/");
+            //String port = Server.getPortNumber();
+            //String address = Server.getAddress();
+            URL url = new URL("http://" + "" /*port*/ + ":" + "" /*address */+ "/");
             HttpURLConnection http = (HttpURLConnection) url.openConnection();
             http.setRequestMethod("POST");
             http.setDoOutput(true);
@@ -35,7 +38,7 @@ public class ClientCommunicator /*implements IClient */{
 
             Gson gson = new Gson();
             OutputStream os = http.getOutputStream();
-            String jsonStr = gson.toJson(request);
+            String jsonStr = gson.toJson(command);
             writeString(jsonStr, os);
 
             http.connect();
@@ -61,35 +64,4 @@ public class ClientCommunicator /*implements IClient */{
         sw.write(str);
         sw.flush();
     }
-
-
-    @Override
-    public void updateClient() {
-
-    }
-
-    @Override
-    public void join() {
-
-    }
-
-    @Override
-    public void create() {
-
-    }
-
-	@Override
-	public void updateAuthToken(String newAuthToken) {
-		
-	}
-
-	@Override
-	public String passAuthToken() {
-		
-		return null;
-	}
-	@Override
-	public void setUserValues(User newUser) {
-		
-	}*/
 }

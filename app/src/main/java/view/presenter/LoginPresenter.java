@@ -45,10 +45,12 @@ public class LoginPresenter implements ILoginPresenter, Observer {
 
 		Result loginResult = null;
 		User newUser = new User(username, password);
-//		loginResult = this.server.login(newUser);
-		//Transition to next view: gameLobby
 		LoginFacadeOut loginFacadeOut = new LoginFacadeOut();
-//		CommandResult result = loginFacadeOut.login(newUser);
+
+		loginResult = loginFacadeOut.login(newUser);
+		//Transition to next view: gameLobby
+
+		Result result = loginFacadeOut.login(newUser);
 
 		if (loginResult == null) {
 			return LOGIN_FAILED;
