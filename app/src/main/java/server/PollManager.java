@@ -11,35 +11,37 @@ import models.data.User;
 //client proxy will switch changed to true when there are changes.
 public class PollManager {
 
-    private Map<Boolean, Game> availableGames;
-    private Map<Boolean, User> users;
+    private Map<Game, Boolean> availableGames;
+    private Map<User, Boolean> users;
 
-    public Map<Boolean, Game> getAvailableGames() {
+    public Map<Game, Boolean> getAvailableGames() {
         return availableGames;
     }
 
-    public void setAvailableGames(Map<Boolean, Game> availableGames) {
-        this.availableGames = availableGames;
+    public void setGame(Game game) {
+        this.availableGames.put(game,true);
     }
 
-    public Map<Boolean, User> getUsers() {
+    public Map<User, Boolean> getUsers() {
         return users;
     }
 
-    public void setUsers(Map<Boolean, User> users) {
-        this.users = users;
+    public void setUser(User user) {
+        this.users.put(user, true);
     }
 
     public PollManagerData getChanges() {
         PollManagerData pollManagerData = new PollManagerData();
-        for (Map.Entry<Boolean, Game> entry : availableGames.entrySet()) {
-            if (entry.getKey()) {
-                pollManagerData.addGamesChanged(entry.getValue());
+        for (Map.Entry<Game, Boolean> entry : availableGames.entrySet()) {
+            if (entry.getValue()) {
+                pollManagerData.addGamesChanged(entry.getKey());
+                entry.setValue(false);
             }
         }
-        for (Map.Entry<Boolean, User> entry : users.entrySet()) {
-            if (entry.getKey()) {
-                pollManagerData.addUsersChanged(entry.getValue());
+        for (Map.Entry<User, Boolean> entry : users.entrySet()) {
+            if (entry.getValue()) {
+                pollManagerData.addUsersChanged(entry.getKey());
+                entry.setValue(false);
             }
         }
         return pollManagerData;

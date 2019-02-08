@@ -1,5 +1,6 @@
 package server.facade;
 
+import models.data.Request;
 import models.data.Result;
 import models.data.User;
 import server.ServerCommands;
@@ -11,7 +12,7 @@ public class RegisterFacade {
         serverCommands = new ServerCommands();
     }
 
-    public Result register(User user) {
-        return serverCommands.register(user);
+    public Result register(Request request) {
+        return serverCommands.register(request.getUser());
     }
 }

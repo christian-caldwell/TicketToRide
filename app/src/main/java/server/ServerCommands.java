@@ -11,6 +11,9 @@ public class ServerCommands implements IServer {
     private final int MAX_PLAYERS = 5;
     private ServerData serverData = ServerData.getInstance();
 
+    public ServerData getServerData() {
+        return serverData;
+    }
 
     @Override
     public Result joinGame(User user, Game game) {
