@@ -1,14 +1,15 @@
 package server;
 
+import models.data.Game;
 import models.data.Result;
 import models.data.User;
 
 public interface IServer {
-    public Result joinGame(String username, String gameName);
+    public Result joinGame(User user, Game gameName);
 
-    public Result createGame(String gameName, String username);
+    public Result createGame(String gameName, User user);
 
-    public String startGame(String gameName,  Integer maxPlayers);
+    public String startGame(Game gameName);
     public Result register(User newUser);
     public Result login(User returnUser);
 }
