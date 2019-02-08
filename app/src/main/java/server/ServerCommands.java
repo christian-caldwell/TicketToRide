@@ -1,9 +1,9 @@
 package server;
 
 
-import models.Game;
-import models.Result;
-import models.User;
+import models.data.Game;
+import models.data.Result;
+import models.data.User;
 
 public class ServerCommands implements IServer {
     private final int MAX_PLAYERS = 5;
@@ -30,6 +30,7 @@ public class ServerCommands implements IServer {
     }
 
     @Override
+
     public Result createGame(String gameName, String username) {
         Game game = new Game(gameName);
         Result result = serverData.setGame(game);
@@ -37,6 +38,7 @@ public class ServerCommands implements IServer {
             joinGame(username, gameName);
         }
         return result;
+
     }
 
     @Override

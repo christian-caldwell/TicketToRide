@@ -7,6 +7,8 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
+import view.presenter.LoginPresenter;
+
 public class LoginViewActivity extends AppCompatActivity {
 
     private EditText username;
@@ -29,6 +31,9 @@ public class LoginViewActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Intent intent = new Intent(LoginViewActivity.this, LobbyViewActivity.class);
                 startActivity(intent);
+
+                LoginPresenter loginPresenter = new LoginPresenter();
+                loginPresenter.loginUser(username.getText().toString(), password.getText().toString());
 
             }
         });

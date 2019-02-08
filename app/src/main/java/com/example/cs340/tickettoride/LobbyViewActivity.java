@@ -15,9 +15,12 @@ import android.widget.Toast;
 
 import java.util.ArrayList;
 
-import viewInterfaces.ILobbyViewActivity;
+import java.util.Map;
 
-public class LobbyViewActivity extends AppCompatActivity implements ILobbyViewActivity {
+import models.data.Game;
+import view.activityInterface.IGameLobby;
+
+public class LobbyViewActivity extends AppCompatActivity implements IGameLobby {
 
     // Member variables
     private ArrayList<String> mGameNames = new ArrayList<>();
@@ -118,6 +121,14 @@ public class LobbyViewActivity extends AppCompatActivity implements ILobbyViewAc
 
 
     @Override
+    public void updateGameList(Map<String, Game> map) {
+    }
+
+    @Override
+    public void updateGamePlayers(Game game) {
+
+    }
+
     public void onGameCreated() {
 
     }
@@ -126,4 +137,5 @@ public class LobbyViewActivity extends AppCompatActivity implements ILobbyViewAc
     public void onCreateGameFailed(String errorMessage) {
 
     }
+
 }
