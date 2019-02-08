@@ -14,11 +14,11 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import java.util.ArrayList;
+
 import java.util.Map;
 
-
-import models.Game;
-import viewInterfaces.IGameLobby;
+import models.data.Game;
+import view.activityInterface.IGameLobby;
 
 public class LobbyViewActivity extends AppCompatActivity implements IGameLobby {
 
@@ -42,9 +42,10 @@ public class LobbyViewActivity extends AppCompatActivity implements IGameLobby {
             @Override
             public void onClick(View v) {
                 // If the user is a host, the button will be enabled
-                // When clicked, the GameBoardActivity will be started
+//                // When clicked, the GameBoardActivity will be started
                 Intent intent = new Intent(LobbyViewActivity.this, GameBoardActivity.class);
                 startActivity(intent);
+
             }
         });
 
@@ -125,5 +126,16 @@ public class LobbyViewActivity extends AppCompatActivity implements IGameLobby {
 
     @Override
     public void updateGamePlayers(Game game) {
+
     }
+
+    public void onGameCreated() {
+
+    }
+
+    @Override
+    public void onCreateGameFailed(String errorMessage) {
+
+    }
+
 }

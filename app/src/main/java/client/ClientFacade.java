@@ -1,6 +1,6 @@
 package client;
 
-import models.User;
+import models.data.User;
 
 public class ClientFacade implements IClient {
     @Override
@@ -20,16 +20,16 @@ public class ClientFacade implements IClient {
 
 	@Override
 	public void updateAuthToken(String newAuthToken) {
-		
+
 	}
 
 	@Override
 	public String passAuthToken() {
-		
+
 		return null;
 	}
 	@Override
 	public void setUserValues(User newUser) {
-		
+
 	}
 }
