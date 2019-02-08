@@ -25,12 +25,16 @@ public class ServerData {
  
     public Result setGame(Game newGame) {
         Result result = new Result();
+        result.setGameName(newGame.getGameName());
         if (availableGames.containsKey(newGame.getGameName())) {
             result.setErrorMessage("ERROR: \"" + newGame.getGameName() + "\" is taken, cannot create game.");
+            result.setSuccesful(false);
+
         }
         else {
             availableGames.put(newGame.getGameName(), newGame);
             result.setErrorMessage("");
+            result.setSuccesful(false);
         }
         return result;
     }
