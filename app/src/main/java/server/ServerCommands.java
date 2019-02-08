@@ -1,6 +1,8 @@
 package server;
 
 
+import java.util.UUID;
+
 import models.data.Game;
 import models.data.Result;
 import models.data.User;
@@ -11,9 +13,8 @@ public class ServerCommands implements IServer {
 
 
     @Override
-    public Result joinGame(String username, String gameName) {
+    public Result joinGame(User user, Game game) {
         Result result = new Result();
-        Game game = serverData.getGame(gameName);
         if (game == null) {
             result.setErrorMessage("Game does not exist!");
             result.setSuccesful(false);
@@ -23,38 +24,51 @@ public class ServerCommands implements IServer {
             result.setSuccesful(false);
         }
         else {
-            result.setGameName(gameName);
+            result.setGameName(game.getGameName());
             result.setErrorMessage("");
             result.setSuccesful(true);
-            game.addPlayer(username);
+            game.addPlayer(user.getUsername());
+            user.addGamesJoined(game);
         }
         return result;
     }
 
     @Override
-    public Result createGame(String gameName, String username) {
+    public Result createGame(String gameName, User user) {
         Game game = new Game(gameName);
         Result result = serverData.setGame(game);
         if (result.isSuccessful()) {
-            joinGame(username, gameName);
+            joinGame(user, game);
         }
         return result;
 
     }
 
+    //more will be done on this later.
     @Override
-    public String startGame(String gameName) {
+    public String startGame(Game gameName) {
         return "Success";
     }
 
     @Override
     public Result register(User returnUser) {
+        Result result = new Result();
+        for (User user: serverData.getUsers()) {
+            if (user.getUsername().equals(returnUser.getUsername())) {
+                result.setErrorMessage("this user already exists...");
+                result.setSuccesful(false);
+                return result;
+            }
+        }
+        if (serverData.get)
+        result.setAuthenticationToken(UUID.randomUUID().toString().toUpperCase());
         return null;
     }
 
     @Override
     public Result login(User returnUser) {
-
+        Result result = new Result();
+        result.setAuthenticationToken(result.setAuthenticationToken(UUID.randomUUID().toString().toUpperCase()););
         return null;
     }
 }
