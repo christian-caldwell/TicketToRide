@@ -5,6 +5,7 @@ import java.util.Observer;
 
 import models.data.Result;
 import client.ServerProxy;
+import models.data.User;
 import view.presenterInterface.ICreateGamePresenter;
 import view.activityInterface.ILobbyViewActivity;
 
@@ -19,7 +20,7 @@ public class CreateGamePresenter implements ICreateGamePresenter, Observer {
 
     @Override
     public void createGame(String gameName) {
-        Result result = serverProxy.createGame(gameName,"???");
+        Result result = serverProxy.createGame(gameName,new User("???", "???"));
         if (result.getErrorMessage().equals("")) {
             activity.onGameCreated();
         }
