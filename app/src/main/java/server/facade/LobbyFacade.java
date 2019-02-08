@@ -1,6 +1,8 @@
 package server.facade;
 
+import models.data.Game;
 import models.data.Result;
+import models.data.User;
 import server.ServerCommands;
 
 public class LobbyFacade {
@@ -10,11 +12,11 @@ public class LobbyFacade {
         serverCommands = new ServerCommands();
     }
 
-    public Result createGame(String gameName, String username) {
-        return serverCommands.createGame(gameName, username);
+    public Result createGame(String gameName, User user) {
+        return serverCommands.createGame(gameName, user);
     }
 
-    public Result joinGame(String gameName, String username) {
-        return serverCommands.joinGame(username, gameName);
+    public Result joinGame(Game game, User user) {
+        return serverCommands.joinGame(user, game);
     }
 }

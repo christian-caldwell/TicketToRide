@@ -1,5 +1,6 @@
 package server.facade;
 
+import models.data.Game;
 import models.data.Result;
 import server.ServerCommands;
 
@@ -11,8 +12,9 @@ public class GameStartFacade {
     }
 
     public Result startGame(String gameName) {
+        Game game = new Game(gameName);
         Result result = new Result();
-        result.setErrorMessage(serverCommands.startGame(gameName, 5));
+        result.setErrorMessage(serverCommands.startGame(game));
         return result;
     }
 }
