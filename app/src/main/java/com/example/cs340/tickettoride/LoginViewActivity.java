@@ -7,9 +7,11 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
+import view.activityInterface.ILoginView;
+import view.activityInterface.IRegisterView;
 import view.presenter.LoginPresenter;
 
-public class LoginViewActivity extends AppCompatActivity {
+public class LoginViewActivity extends AppCompatActivity implements ILoginView, IRegisterView {
 
     private EditText username;
     private EditText password;
@@ -49,5 +51,23 @@ public class LoginViewActivity extends AppCompatActivity {
     }
 
 
+    @Override
+    public void updateServerStatus(String status) {
 
+    }
+
+    @Override
+    public void sendResponse(String message) {
+
+    }
+
+    @Override
+    public void notifyRegisterStarted() {
+
+    }
+
+    @Override
+    public void notifyLoginStarted() {
+
+    }
 }

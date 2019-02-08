@@ -1,5 +1,6 @@
-package client;
+package view.facade.client;
 
+import client.IClient;
 import models.data.User;
 
 public class ClientFacade implements IClient {

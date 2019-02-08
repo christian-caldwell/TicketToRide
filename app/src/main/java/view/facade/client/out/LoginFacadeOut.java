@@ -5,14 +5,14 @@ import models.data.Result;
 import models.data.User;
 
 public class LoginFacadeOut {
-    private ServerProxy server = null;
+    private ServerProxy server;
 
     public LoginFacadeOut () {
         this.server = new ServerProxy();
     }
 
-    public Result login(User newUser) {
+    public Result login(User returningUser) {
 
-        return this.server.login(newUser);
+        return this.server.login(returningUser);
     }
 }

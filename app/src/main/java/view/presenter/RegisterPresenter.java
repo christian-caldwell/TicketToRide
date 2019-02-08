@@ -4,16 +4,16 @@ import java.util.Observable;
 import java.util.Observer;
 import java.util.regex.Pattern;
 
-import client.ClientFacade;
 import client.ServerProxy;
 import models.data.Result;
 import models.data.User;
-import view.activityInterface.ILoginView;
+import view.facade.client.ClientFacade;
+import view.facade.client.out.RegisterFacadeOut;
 import view.presenterInterface.IRegisterPresenter;
+import view.activityInterface.IRegisterView;
 
 public class RegisterPresenter implements IRegisterPresenter, Observer {
     private final String REGISTER_SUCCESSFUL = "Username and Password Registered. Logging In...";
-    private final String LOGIN_SUCCESSFUL = "Username and Password Accepted. Logging In...";
     private final String NO_PASSWORD_MATCH = "Passwords Do Not Match. Please Input Carefully.";
     private final String BAD_PASSWORD = "Password Not Accepted. Password Must Be \n"
             + "- Atleast X Character \n "
@@ -23,16 +23,12 @@ public class RegisterPresenter implements IRegisterPresenter, Observer {
     private final String BAD_USERNAME = "Username Not Accepted. Username Must be \n "
             + "- Atleast Y Charachers \n "
             + "- No Non-Alphanumeric Characters";
-    private final String EXCEPTION_OCCURED = "AN EXCEPTION HAS OCCURED";
     private final String REGISTER_FAILED = "Register Failed Unexpectedly";
-    private final String LOGIN_FAILED = "Login Failed Unexpectedly";
 
     private final String PASSWORD_CRITERIA = "[a-zA-Z1-9]{5,}+";
     private final String USERNAME_CRITERIA = "[a-zA-Z1-9]{5,}+";
 
-    private ServerProxy server = null;
-    private ClientFacade userClient = null;
-    private ILoginView loginView = null;
+    private IRegisterView registerView = null;
 
 
     public RegisterPresenter(ServerProxy server) {
@@ -41,7 +37,7 @@ public class RegisterPresenter implements IRegisterPresenter, Observer {
     @Override
     public String registerUser(String username, String password, String repeatedPassword) {
         //Compare Passwords
-        if (password != repeatedPassword) {
+        if (password.compareTo(repeatedPassword) != 0) {
             return NO_PASSWORD_MATCH; //If no match
         }
 
@@ -55,10 +51,12 @@ public class RegisterPresenter implements IRegisterPresenter, Observer {
             return BAD_USERNAME; //If username characters are unacceptable
         }
 
-        Result registerResult = null;
-        User newUser = new User(username, password);
+        //RegisterActivity.NotifyRegisterStarted()
 
-        registerResult = this.server.register(newUser);
+        User newUser = new User(username, password);
+        RegisterFacadeOut registerFacadeOut = new RegisterFacadeOut();
+
+        Result registerResult = registerFacadeOut.register(newUser);
         //Transistion to next view: gameLobby
 
         if (registerResult == null) {
@@ -66,7 +64,8 @@ public class RegisterPresenter implements IRegisterPresenter, Observer {
         }
 
         if (registerResult.isSuccessful()) {
-            this.userClient.updateAuthToken(registerResult.getAuthenticationToken());
+            ClientFacade client = new ClientFacade();
+            client.updateAuthToken(registerResult.getAuthenticationToken());
             return REGISTER_SUCCESSFUL;
         }
         else {
