@@ -10,7 +10,7 @@ public class ViewFacade {
 	private ServerProxy serverCommunicator = null;
 	
 	public ViewFacade() {
-		serverCommunicator = new ServerProxy(this);
+		serverCommunicator = new ServerProxy();
 	}
 	
 	public Result register(User newUser) {
