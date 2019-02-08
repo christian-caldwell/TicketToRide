@@ -1,22 +1,23 @@
 package server.facade;
 
+import models.data.Game;
 import models.data.User;
 import models.data.Result;
 import server.IServer;
 
 public class ServerFacade implements IServer {
     @Override
-    public Result joinGame(String username, String gameName) {
+    public Result joinGame(User user, Game game) {
         return null;
     }
 
     @Override
-    public Result createGame(String gameName, String username) {
+    public Result createGame(String gameName, User user) {
         return null;
     }
 
     @Override
-    public String startGame(String gameName, Integer maxPlayers) {
+    public String startGame(Game game) {
         return null;
     }
 
