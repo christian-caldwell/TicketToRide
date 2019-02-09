@@ -6,6 +6,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import view.activityInterface.ILoginView;
 import view.activityInterface.IRegisterView;
@@ -36,6 +37,7 @@ public class LoginViewActivity extends AppCompatActivity implements ILoginView, 
 
                 LoginPresenter loginPresenter = new LoginPresenter();
                 loginPresenter.loginUser(username.getText().toString(), password.getText().toString());
+                Toast.makeText(LoginViewActivity.this, "Logged in as " + username.getText(), Toast.LENGTH_SHORT).show();
 
             }
         });

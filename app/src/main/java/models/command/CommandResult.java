@@ -1,15 +1,20 @@
 package models.command;
 
 public class CommandResult {
-    private boolean success;
-    private Object data;
+        private boolean success;
+        public Object data;
+        private String errorInfo;
+
+    public void setSuccesful(boolean b) {
+        success = b;
+    }
+
+    public void setErrorMessage(String toString) {
+        errorInfo = toString;
+    }
 
     public boolean isSuccess() {
         return success;
-    }
-
-    public void setSuccess(boolean success) {
-        this.success = success;
     }
 
     public Object getData() {
@@ -20,15 +25,8 @@ public class CommandResult {
         this.data = data;
     }
 
-    public String getErrorInfo() {
+    public String getErrorMessage() {
         return errorInfo;
     }
-
-    public void setErrorInfo(String errorInfo) {
-        this.errorInfo = errorInfo;
-    }
-
-    private String errorInfo;
-
 
 }

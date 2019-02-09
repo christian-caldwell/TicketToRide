@@ -5,42 +5,104 @@ import com.sun.net.httpserver.HttpExchange;
 import com.sun.net.httpserver.HttpHandler;
 
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.OutputStream;
 import java.io.OutputStreamWriter;
 import java.net.HttpURLConnection;
 
+import helper.HttpHelper;
 import models.command.ICommandExecuter;
 import models.command.CommandResult;
+import models.data.Request;
+import models.data.User;
 
 public class CommandHandler implements HttpHandler {
     public void handle(HttpExchange exchange) throws IOException {
+        /*
+        Create commands that call the command class, which will call the serverCommands
+
+
+         */
         try {
             System.out.println("inside of command.");
-            Gson gson = new Gson();
-            exchange.sendResponseHeaders(HttpURLConnection.HTTP_OK, 0);
+            /*exchange.sendResponseHeaders(HttpURLConnection.HTTP_OK, 0);
             OutputStream respBody = exchange.getResponseBody();
             String word = exchange.getRequestURI().getPath().split("/")[2];
             String methodName = exchange.getRequestURI().getPath().split("/")[1];
+            */
+            // Extract the JSON string from the HTTP request body
+            HttpHelper helper = new HttpHelper();
+            String reqData = helper.httpRequestToJson(exchange);
 
-            ICommandExecuter command = new GeneralCommand("Command", methodName,
+            //Display/log the request JSON data
+            System.out.println(reqData);
+
+            Gson gson = new Gson();
+
+            ICommandExecuter facadeCommand; /* = new GeneralCommand("Commands", methodName,
                     new Class<?>[]{ String.class },
-                    new Object[] { word });
-            CommandResult lr;
-            lr = command.exec();
-            String jsonStr = gson.toJson(lr);
-            writeString(jsonStr, respBody);
-            respBody.close();
+                    new Object[] { word });*/
+            ICommandExecuter clientProxyCommand;
+            Request request =  gson.fromJson(reqData, Request.class);
+
+
+
+
+            switch(exchange.getRequestURI().toString()) {
+                case "/login":
+                    facadeCommand = new GeneralCommand("server.facade.LoginFacade", "login",
+                            new Class<?>[]{Request.class}, new Object[] {request});
+                    facadeCommand.exec();
+                    clientProxyCommand = new GeneralCommand("server.ClientProxy", "updateLogin",
+                            new Class<?>[]{Request.class}, new Object[] {request});
+                    clientProxyCommand.exec();
+                    break;
+
+
+                case "/register":
+                    facadeCommand = new GeneralCommand("server.facade.RegisterFacade", "register",
+                            new Class<?>[]{Request.class}, new Object[] {request});
+                    facadeCommand.exec();
+                    clientProxyCommand = new GeneralCommand("server.ClientProxy", "updateRegister",
+                            new Class<?>[]{Request.class}, new Object[] {request});
+                    clientProxyCommand.exec();
+                    break;
+
+
+                case "/createGame":
+                    facadeCommand = new GeneralCommand("server.facade.LobbyFacade", "createGame",
+                            new Class<?>[]{Request.class}, new Object[] {request});
+                    facadeCommand.exec();
+                    clientProxyCommand = new GeneralCommand("server.ClientProxy", "updateCreateGame",
+                            new Class<?>[]{Request.class}, new Object[] {request});
+                    clientProxyCommand.exec();
+                    break;
+
+
+                case "/joinGame":
+                    facadeCommand = new GeneralCommand("server.facade.LobbyFacade", "joinGame",
+                            new Class<?>[]{Request.class}, new Object[] {request});
+                    facadeCommand.exec();
+                    clientProxyCommand = new GeneralCommand("server.ClientProxy", "updateJoinGame",
+                            new Class<?>[]{Request.class}, new Object[] {request});
+                    clientProxyCommand.exec();
+                    break;
+
+
+                case "/startGame":
+                    facadeCommand = new GeneralCommand("server.facade.GameStartFacade", "startGame",
+                            new Class<?>[]{Request.class}, new Object[] {request});
+                    facadeCommand.exec();
+                    clientProxyCommand = new GeneralCommand("server.ClientProxy", "updateStartGame",
+                            new Class<?>[]{Request.class}, new Object[] {request});
+                    clientProxyCommand.exec();
+                    break;
+            }
 
         } catch (Exception e) {
             exchange.sendResponseHeaders(HttpURLConnection.HTTP_SERVER_ERROR, 0);
             System.out.println("error with command handler...");
         }
     }
-    private void writeString(String str, OutputStream os) throws IOException {
-        OutputStreamWriter sw = new OutputStreamWriter(os);
-        sw.write(str);
-        sw.flush();
-    }
-
 
 }

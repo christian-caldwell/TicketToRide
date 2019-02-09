@@ -8,7 +8,7 @@ public class Result {
      */
 
 
-    private String errorMessage;
+    private String errorMessage = "";
     private String authenticationToken;
     private String gameName;
     private boolean isSuccessful;
