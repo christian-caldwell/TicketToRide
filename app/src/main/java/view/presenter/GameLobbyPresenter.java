@@ -23,28 +23,27 @@ public class GameLobbyPresenter implements IGameLobbyPresenter, Observer {
 
 
     @Override
-    public void addPlayer(String gameName) {
-        serverproxy.joinGame(new User("???", "???"), new Game(gameName));
+    public void addPlayer(Game game, User user) {
+        serverproxy.joinGame(user, game);
         IGameLobby gameLobby = new LobbyViewActivity();
         //gameLobby.updateGamePlayers(gameId);
     }
 
     @Override
-    public void startGame(String gameName) {
-        serverproxy.startGame(new Game(gameName));
+    public void startGame(Game game) {
+        serverproxy.startGame(game);
     }
 
     @Override
     public ArrayList getGameList() {
-        gameList = viewfacade.getGameList();
         //view.updateGameList(gameList);
         return gameList;
     }
 
 
     @Override
-    public void createGame(String gameName) {
-        serverproxy.createGame(gameName, new User("???", "???"));
+    public Game createGame(Game game, User user) {
+        return (serverproxy.createGame(game.getGameName(), user)).getGame();
     }
 
     @Override

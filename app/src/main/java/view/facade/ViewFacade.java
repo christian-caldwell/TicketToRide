@@ -2,12 +2,14 @@ package view.facade;
 
 import java.util.ArrayList;
 
+import client.ClientModel;
+import models.data.Game;
 import models.data.User;
 import models.data.Result;
 import client.ServerProxy;
 
 public class ViewFacade {
-	private ServerProxy serverCommunicator = null;
+	private ServerProxy serverCommunicator;
 	
 	public ViewFacade() {
 		serverCommunicator = new ServerProxy();
@@ -23,8 +25,9 @@ public class ViewFacade {
 		return Result;
 	}
 
-	public ArrayList<String> getGameList() {
-	    return null;
+	public ArrayList<Game> getGameList() {
+        ClientModel model = new ClientModel();
+	    return model.getGames();
 	}
 
 	public Result loginUser(User returningUser) {
