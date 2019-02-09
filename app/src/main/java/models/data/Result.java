@@ -20,6 +20,9 @@ public class Result {
         this.isSuccessful = isSuccess;
     }
 
+    public Result() {
+    }
+
     public boolean isSuccessful() {
         return this.isSuccessful;
     }

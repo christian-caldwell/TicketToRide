@@ -34,6 +34,10 @@ public class RegisterPresenter implements IRegisterPresenter, Observer {
     public RegisterPresenter(ServerProxy server) {
     }
 
+    public RegisterPresenter() {
+
+    }
+
     @Override
     public String registerUser(String username, String password, String repeatedPassword) {
         //Compare Passwords
