@@ -34,9 +34,7 @@ public class CommandHandler implements HttpHandler {
 
             Gson gson = new Gson();
 
-            ICommandExecuter facadeCommand; /* = new GeneralCommand("Commands", methodName,
-                    new Class<?>[]{ String.class },
-                    new Object[] { word });*/
+            ICommandExecuter facadeCommand;
             ICommandExecuter clientProxyCommand;
             Request request =  gson.fromJson(reqData, Request.class);
 
@@ -95,6 +93,7 @@ public class CommandHandler implements HttpHandler {
             }
 
         } catch (Exception e) {
+            e.printStackTrace();
             exchange.sendResponseHeaders(HttpURLConnection.HTTP_SERVER_ERROR, 0);
             System.out.println("error with command handler...");
         }

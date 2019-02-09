@@ -1,5 +1,7 @@
 package server;
 
+import java.io.ObjectOutputStream;
+import java.io.Serializable;
 import java.lang.reflect.Method;
 
 import models.command.CommandResult;
@@ -7,7 +9,7 @@ import models.command.ICommandExecuter;
 import models.data.Result;
 
 
-public class GeneralCommand implements ICommandExecuter {
+public class GeneralCommand implements ICommandExecuter, Serializable {
 /*
     ---README---
     This code is very good, exactly what we need. The TAs seemed to be
@@ -16,11 +18,13 @@ public class GeneralCommand implements ICommandExecuter {
     specific class.
 
 */
+
+
+
     private String _className;
     private String _methodName;
     private Class<?>[] _paramTypes;
     private Object[] _paramValues;
-    private ClientProxy clientProxy;
 
     public GeneralCommand(String className, String methodName,
                           Class<?>[] paramTypes, Object[] paramValues) {
@@ -28,7 +32,6 @@ public class GeneralCommand implements ICommandExecuter {
         _methodName = methodName;
         _paramTypes = paramTypes;
         _paramValues = paramValues;
-        clientProxy = new ClientProxy();
     }
 
     @Override
@@ -49,6 +52,11 @@ public class GeneralCommand implements ICommandExecuter {
             result.setSuccesful(false);
         }
         return result;
+    }
+    @Override
+    public String toString() {
+        return "{GeneralCommand [className=" + _className + ", methodName=" + _methodName
+                + ", paramTypes=" + _paramTypes.toString() + ", paramValues=" + _paramValues + "]}";
     }
 
 }

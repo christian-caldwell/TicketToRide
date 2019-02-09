@@ -36,7 +36,7 @@ public class ClientCommunicator /*implements IClient */{
 
             Gson gson = new Gson();
             OutputStream os = http.getOutputStream();
-            String jsonStr = gson.toJson(command);
+            String jsonStr = gson.toJson(command.toString());
             writeString(jsonStr, os);
 
             http.connect();
