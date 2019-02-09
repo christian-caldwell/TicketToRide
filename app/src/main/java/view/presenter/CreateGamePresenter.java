@@ -19,8 +19,8 @@ public class CreateGamePresenter implements ICreateGamePresenter, Observer {
 
 
     @Override
-    public void createGame(String gameName) {
-        Result result = serverProxy.createGame(gameName,new User("???", "???"));
+    public void createGame(String gameName, User user) {
+        Result result = serverProxy.createGame(gameName,user);
         if (result.getErrorMessage().equals("")) {
             activity.onGameCreated();
         }

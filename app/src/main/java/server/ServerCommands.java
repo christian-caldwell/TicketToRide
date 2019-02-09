@@ -27,7 +27,7 @@ public class ServerCommands implements IServer {
             result.setSuccesful(false);
         }
         else {
-            result.setGameName(game.getGameName());
+            result.setGame(game);
             result.setSuccesful(true);
             game.addPlayer(user.getUsername());
             user.addGamesJoined(game);

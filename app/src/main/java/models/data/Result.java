@@ -10,12 +10,12 @@ public class Result {
 
     private String errorMessage = "";
     private String authenticationToken;
-    private String gameName;
+    private Game game;
     private boolean isSuccessful;
 
-    public Result(String error, String auth, String game, boolean isSuccess) {
+    public Result(String error, String auth, Game game, boolean isSuccess) {
         this.authenticationToken = auth;
-        this.gameName = game;
+        this.game = game;
         this.errorMessage = error;
         this.isSuccessful = isSuccess;
     }
@@ -31,12 +31,12 @@ public class Result {
         this.isSuccessful = success;
     }
 
-    public String getGameName() {
-        return gameName;
+    public Game getGame() {
+        return game;
     }
 
-    public void setGameName(String gameName) {
-        this.gameName = gameName;
+    public void setGame(Game game) {
+        this.game = game;
     }
 
     public String getErrorMessage() {

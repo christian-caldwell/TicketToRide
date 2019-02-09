@@ -2,13 +2,15 @@ package view.presenterInterface;
 
 import java.util.ArrayList;
 
-public interface IGameLobbyPresenter{
-    public void addPlayer(String gameId);
+import models.data.Game;
+import models.data.User;
 
-    public void startGame(String gameId);
+public interface IGameLobbyPresenter {
+    public void addPlayer(Game gameId, User user);
+
+    public void startGame(Game game);
 
     public ArrayList getGameList();
-
-    public void createGame(String gameName);
+    public Game createGame(Game game, User user);
 
 }

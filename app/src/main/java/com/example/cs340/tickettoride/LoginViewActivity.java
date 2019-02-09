@@ -8,6 +8,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import models.data.Result;
 import view.activityInterface.ILoginView;
 import view.activityInterface.IRegisterView;
 import view.presenter.LoginPresenter;
@@ -32,13 +33,18 @@ public class LoginViewActivity extends AppCompatActivity implements ILoginView, 
         loginButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(LoginViewActivity.this, LobbyViewActivity.class);
-                startActivity(intent);
 
                 LoginPresenter loginPresenter = new LoginPresenter();
-                loginPresenter.loginUser(username.getText().toString(), password.getText().toString());
-                Toast.makeText(LoginViewActivity.this, "Logged in as " + username.getText(), Toast.LENGTH_SHORT).show();
+                Result result = loginPresenter.loginUser(username.getText().toString(), password.getText().toString());
+                if (result.isSuccessful()){
+                    Intent intent = new Intent(LoginViewActivity.this, LobbyViewActivity.class);
+                    startActivity(intent);
+                    Toast.makeText(LoginViewActivity.this, "Successfully logged in " + username, Toast.LENGTH_SHORT).show();
 
+                }
+                else {
+                    Toast.makeText(LoginViewActivity.this, result.getErrorMessage(), Toast.LENGTH_SHORT).show();
+                }
             }
         });
 

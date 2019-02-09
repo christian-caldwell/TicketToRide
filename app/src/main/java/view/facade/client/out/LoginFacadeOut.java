@@ -12,7 +12,6 @@ public class LoginFacadeOut {
     }
 
     public Result login(User returningUser) {
-
         return this.server.login(returningUser);
     }
 }
