@@ -90,7 +90,7 @@ public class ServerProxy implements IServer {
        //CommandResult serverResponse = communicator.send(newCommand);
        //Result result = new Result(serverResponse.getErrorInfo(), (String) serverResponse.getData(), null, serverResponse.isSuccess());
 
-        return communicator.send(generatedCommand, "127.0.0.1", "8080");
+        return communicator.send(generatedCommand, "10.0.2.2", "8080");
     }
 
     private GeneralCommand createCommand(String className, Object[] modelObjects) {

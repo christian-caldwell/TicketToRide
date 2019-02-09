@@ -2,6 +2,7 @@ package com.example.cs340.tickettoride;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.StrictMode;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
@@ -24,6 +25,8 @@ public class LoginViewActivity extends AppCompatActivity implements ILoginView, 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+        StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
+        StrictMode.setThreadPolicy(policy);
         username = findViewById(R.id.username);
         password = findViewById(R.id.game_name);
         registerButton = findViewById(R.id.register_button);
