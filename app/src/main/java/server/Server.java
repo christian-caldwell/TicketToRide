@@ -29,7 +29,7 @@ public class Server {
 
         System.out.println("Creating contexts");
         server.createContext("/", new CommandHandler());
-        System.out.println("Starting com.example.testingpurposes.server");
+        System.out.println("Starting server");
         server.start();
         System.out.println("Server started");
     }
@@ -38,7 +38,7 @@ public class Server {
     // "args" should contain one command-line argument, which is the port number
     // on which the com.example.testingpurposes.server should accept incoming com.example.testingpurposes.client connections.
     public static void main(String[] args) {
-        String portNumber = args[0];
+        String portNumber = "8080";
         new Server().run(portNumber);
 
         System.out.println("Started on port: " + portNumber);

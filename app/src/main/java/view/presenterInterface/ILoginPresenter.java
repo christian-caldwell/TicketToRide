@@ -1,5 +1,7 @@
 package view.presenterInterface;
 
+import models.data.Result;
+
 public interface ILoginPresenter {
-	public String loginUser(String username, String password);
+	public Result loginUser(String username, String password);
 }

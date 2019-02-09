@@ -20,7 +20,7 @@ public class LoginPresenter implements ILoginPresenter, Observer {
 			+ "- No Non-Alphanumeric Symbols \n"
 			+ "- Three Fruits or Vegetables Ordered By Flavor";
 	private final String BAD_USERNAME = "Username Not Accepted. Username Must be \n "
-			+ "- Atleast Y Charachers \n "
+			+ "- At least Y Charachers \n "
 			+ "- No Non-Alphanumeric Characters";
 	private final String EXCEPTION_OCCURED = "AN EXCEPTION HAS OCCURED";
 	private final String LOGIN_FAILED = "Login Failed Unexpectedly";
@@ -36,16 +36,20 @@ public class LoginPresenter implements ILoginPresenter, Observer {
 	}
 
 	@Override
-	public String loginUser(String username, String password) {
-
+	public Result loginUser(String username, String password) {
+		Result result = new Result();
 		//Match Password to Reg-ex
 		if (checkRegex(password, this.PASSWORD_CRITERIA)) {
-			return BAD_PASSWORD; //If password characters are unacceptable
+			result.setErrorMessage(BAD_PASSWORD);
+			result.setSuccesful(false);
+			return result; //If password characters are unacceptable
 		}
 
 		//Match Username to Reg-ex
 		if (checkRegex(password, this.USERNAME_CRITERIA)) {
-			return this.BAD_USERNAME; //If password characters are unacceptable
+			result.setErrorMessage(BAD_USERNAME);
+			result.setSuccesful(false);
+			return result; //If password characters are unacceptable
 		}
 
 		//LoginActivity.NotifyLoginStarted()
@@ -57,16 +61,18 @@ public class LoginPresenter implements ILoginPresenter, Observer {
 		//Transition to next view: gameLobby
 
 		if (loginResult == null) {
-			return LOGIN_FAILED;
+			result.setSuccesful(false);
+			result.setErrorMessage(LOGIN_FAILED);
+			return result;
 		}
 		
 		if (loginResult.isSuccessful()) {
 			ClientFacade client = new ClientFacade();
-			client.updateAuthToken(loginResult.getAuthenticationToken());
-			return LOGIN_SUCCESSFUL;
+			client.updateAuthToken(result.getAuthenticationToken());
+			return loginResult;
 		}
 		else {
-			return loginResult.getErrorMessage();
+			return loginResult;
 		}
 	}
 
@@ -76,7 +82,6 @@ public class LoginPresenter implements ILoginPresenter, Observer {
 	}
 
 	private boolean checkRegex(String input, String criteria) {
-
 		return Pattern.matches(criteria, input);
 	}
 
