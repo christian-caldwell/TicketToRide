@@ -3,8 +3,8 @@ package models.data;
 import java.util.ArrayList;
 
 public class PollManagerData {
-    private ArrayList<Game> gamesChanged;
-    private ArrayList<User> usersChanged;
+    public ArrayList<Game> gamesChanged;
+    public ArrayList<User> usersChanged;
 
     public ArrayList<Game> getGamesChanged() {
         return gamesChanged;

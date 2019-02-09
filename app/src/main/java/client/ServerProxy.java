@@ -3,6 +3,7 @@ package client;
 import java.util.ArrayList;
 
 import models.data.Game;
+import models.data.PollManagerData;
 import models.data.Result;
 import models.data.User;
 import server.GeneralCommand;
@@ -11,17 +12,31 @@ import server.facade.GameStartFacade;
 import server.facade.LobbyFacade;
 import server.facade.LoginFacade;
 import server.facade.RegisterFacade;
+import server.PollManager;
+
 
 public class ServerProxy implements IServer {
 
     ClientCommunicator client = new ClientCommunicator();
+
+    @Override
+    public PollManagerData pollServer() {
+        String className = (PollManager.class).toString();
+        String methodName = "getChanges";
+
+        GeneralCommand pollCommand = createCommand(className,null, methodName);
+        ClientCommunicator communicator = new ClientCommunicator();
+        Result result = communicator.send(pollCommand, "127.0.0.1", "8080");
+        return result.getPollResult();
+    }
+
     @Override
     public Result joinGame(User username, Game game) {
 
-        LobbyFacade temp = new LobbyFacade();
+        String className = (LobbyFacade.class).toString();
         String methodName = "joinGame";
 
-        String className = temp.getClass().toString();
+
         Object[] params = new Object[2];
         params[0] = username;
         params[1] = game;
@@ -42,10 +57,9 @@ public class ServerProxy implements IServer {
     @Override
     public Result createGame(String gameName, User user) {
 
-        LobbyFacade temp = new LobbyFacade();
+        String className = (LobbyFacade.class).toString();
         String methodName = "createGame";
 
-        String className = temp.getClass().toString();
         Object[] params = new Object[1];
         params[0] = gameName;
         params[1] = user;
@@ -66,10 +80,9 @@ public class ServerProxy implements IServer {
     @Override
     public String startGame(Game game) {
 
-        GameStartFacade temp = new GameStartFacade();
+        String className = (GameStartFacade.class).toString();
         String methodName = "startGame";
 
-        String className = temp.getClass().toString();
         Object[] params = new Object[1];
         params[0] = game;
 
@@ -85,10 +98,9 @@ public class ServerProxy implements IServer {
 
     @Override
     public Result register(User newUser) {
-        RegisterFacade temp = new RegisterFacade();
+        String className = (RegisterFacade.class).toString();
         String methodName = "register";
 
-        String className = temp.getClass().toString();
         Object[] params = new Object[1];
         params[0] = newUser;
 
@@ -102,11 +114,9 @@ public class ServerProxy implements IServer {
 
     @Override
     public Result login(User returnUser) {
-
-        LoginFacade temp = new LoginFacade();
+        String className = (LoginFacade.class).toString();
         String methodName = "login";
 
-        String className = temp.getClass().toString();
         Object[] params = new Object[1];
         params[0] = returnUser;
 
@@ -121,19 +131,23 @@ public class ServerProxy implements IServer {
     }
 
     private GeneralCommand createCommand(String className, Object[] modelObjects, String methodName) {
+        Object[] parameterDataArray = null;
+        Class<?>[] parameterClassArray = null;
 
-        int decomposedrArrayLength = 0;
-        for (Object currObject : modelObjects) {
-            decomposedrArrayLength += getDecomposedLength(currObject);
-        }
+        if (modelObjects != null) {
+            int decomposedrArrayLength = 0;
+            for (Object currObject : modelObjects) {
+                decomposedrArrayLength += getDecomposedLength(currObject);
+            }
 
-        Object[] parameterDataArray = new Object[decomposedrArrayLength];
-        Class<?>[] parameterClassArray = new Class<?>[decomposedrArrayLength];
+            parameterDataArray = new Object[decomposedrArrayLength];
+            parameterClassArray = new Class<?>[decomposedrArrayLength];
 
-        int arrayPosition = 0;
-        for (Object currentModel : modelObjects) {
-            decompObjectAndAdd(currentModel, parameterClassArray, parameterDataArray, arrayPosition);
-            arrayPosition++;
+            int arrayPosition = 0;
+            for (Object currentModel : modelObjects) {
+                decompObjectAndAdd(currentModel, parameterClassArray, parameterDataArray, arrayPosition);
+                arrayPosition++;
+            }
         }
 
         return new GeneralCommand(className, methodName, parameterClassArray, parameterDataArray);

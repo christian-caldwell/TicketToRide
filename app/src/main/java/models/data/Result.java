@@ -12,6 +12,7 @@ public class Result {
     private String authenticationToken;
     private Game game;
     private boolean isSuccessful;
+    private PollManagerData pollResult;
 
     public Result(String error, String auth, Game game, boolean isSuccess) {
         this.authenticationToken = auth;
@@ -21,6 +22,14 @@ public class Result {
     }
 
     public Result() {
+    }
+
+    public void setPollResult (PollManagerData data) {
+        this.pollResult = data;
+    }
+
+    public PollManagerData getPollResult () {
+        return this.pollResult;
     }
 
     public boolean isSuccessful() {

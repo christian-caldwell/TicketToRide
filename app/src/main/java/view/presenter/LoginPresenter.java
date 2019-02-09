@@ -5,6 +5,8 @@ import java.util.Observer;
 import java.util.regex.Pattern;
 
 import client.ClientModel;
+import client.Poller;
+
 import models.data.Result;
 import models.data.User;
 import view.activityInterface.ILoginView;
@@ -77,12 +79,26 @@ public class LoginPresenter implements ILoginPresenter, Observer {
 	}
 
 	@Override
-	public void update(Observable obs, Object obj) {
-
+	public boolean onCreate() {
+		try {
+			ClientModel.create();
+			Poller.start();
+			return true;
+		}
+		catch (Exception e) {
+			return false;
+		}
 	}
 
 	private boolean checkRegex(String input, String criteria) {
 		return Pattern.matches(criteria, input);
 	}
+
+	///// Observer Functions
+	@Override
+	public void update(Observable obs, Object obj) {
+
+	}
+
 
 }

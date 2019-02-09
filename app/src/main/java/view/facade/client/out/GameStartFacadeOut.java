@@ -12,7 +12,7 @@ public class GameStartFacadeOut {
         this.server = new ServerProxy();
     }
 
-    public Result startGame(Game game) {
+    public String startGame(Game game) {
         return this.server.startGame(game);
     }
 

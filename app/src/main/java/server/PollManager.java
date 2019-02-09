@@ -5,6 +5,7 @@ import java.util.Map;
 
 import models.data.Game;
 import models.data.PollManagerData;
+import models.data.Result;
 import models.data.User;
 
 //after you get the changed data switch changed back to false,
@@ -44,6 +45,9 @@ public class PollManager {
                 entry.setValue(false);
             }
         }
+
+        Result output = new Result();
+        output.setPollResult(pollManagerData);
         return pollManagerData;
     }
 }
