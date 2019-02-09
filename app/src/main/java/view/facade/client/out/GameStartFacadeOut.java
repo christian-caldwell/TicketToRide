@@ -13,7 +13,8 @@ public class GameStartFacadeOut {
     }
 
     public Result startGame(Game game) {
-        return this.server.startGame(game);
+        return new Result();
+//        return this.server.startGame(game);
     }
 
 }

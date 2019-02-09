@@ -1,12 +1,10 @@
 package server;
 
-import java.io.ObjectOutputStream;
 import java.io.Serializable;
 import java.lang.reflect.Method;
 
 import models.command.CommandResult;
 import models.command.ICommandExecuter;
-import models.data.Result;
 
 
 public class GeneralCommand implements ICommandExecuter, Serializable {
@@ -21,10 +19,11 @@ public class GeneralCommand implements ICommandExecuter, Serializable {
 
 
 
-    private String _className;
-    private String _methodName;
-    private Class<?>[] _paramTypes;
-    private Object[] _paramValues;
+    public String _className;
+    public String _methodName;
+    public Class<?>[] _paramTypes;
+    public Object[] _paramValues;
+
 
     public GeneralCommand(String className, String methodName,
                           Class<?>[] paramTypes, Object[] paramValues) {
@@ -53,6 +52,7 @@ public class GeneralCommand implements ICommandExecuter, Serializable {
         }
         return result;
     }
+
     @Override
     public String toString() {
         return "{GeneralCommand [className=" + _className + ", methodName=" + _methodName

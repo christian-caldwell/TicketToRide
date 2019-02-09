@@ -1,5 +1,6 @@
 package client;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.gson.Gson;
 
 import java.io.IOException;
@@ -15,6 +16,7 @@ import models.data.Result;
 import server.GeneralCommand;
 
 public class ClientCommunicator /*implements IClient */{
+
 
     /*
     This Class is soley responsible for passing commamnds to the server and
@@ -34,7 +36,9 @@ public class ClientCommunicator /*implements IClient */{
 
             Gson gson = new Gson();
             OutputStream os = http.getOutputStream();
-            String jsonStr = gson.toJson(command.toString());
+            ObjectMapper mapper = new ObjectMapper();
+            String jsonStr = mapper.writeValueAsString(command);
+//            String jsonStr = gson.toJson(command.toString());
             writeString(jsonStr, os);
 
             http.connect();
@@ -43,7 +47,7 @@ public class ClientCommunicator /*implements IClient */{
                 Reader read = new InputStreamReader(is);
 
                 //Result result = gson.fromJson(read, Result.class);
-                return gson.fromJson(read, Result.class);//result;
+                return mapper.readValue(read, Result.class);//result;
 
             } else {
                 System.out.println("ERROR: " + http.getResponseMessage());
