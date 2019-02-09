@@ -33,7 +33,7 @@ public class GameLobbyPresenter implements IGameLobbyPresenter, Observer {
     @Override
     public void startGame(Game game) {
         LobbyFacadeOut lobbyFacadeOut = new LobbyFacadeOut();
-        lobbyFacadeOut.startGame(game);
+        //lobbyFacadeOut.startGame(game);
     }
 
     @Override

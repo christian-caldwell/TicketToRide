@@ -3,21 +3,23 @@ package view.facade.client.out;
 import client.ServerProxy;
 import models.data.Request;
 import models.data.Result;
+import models.data.Game;
+import models.data.User;
 import server.ServerCommands;
 
 public class LobbyFacadeOut {
-    private ServerCommands serverCommands;
-
+    private ServerProxy server;
     public LobbyFacadeOut() {
-        serverCommands = new ServerCommands();
+        this.server = new ServerProxy();
     }
 
     public Result createGame(Request request) {
-        return serverCommands.createGame(request.getGame().getGameName(), request.getUser());
+        this.server = new ServerProxy();
+        return server.createGame(request.getGame().getGameName(), request.getUser());
     }
 
-    public Result joinGame(Request request) {
-        return serverCommands.joinGame(request.getUser(), request.getGame());
+    public Result joinGame(Game game, User user) {
+        this.server = new ServerProxy();
+        return server.joinGame(user, game);
     }
-
 }
