@@ -8,6 +8,8 @@ import models.data.Result;
 import models.data.User;
 import server.GeneralCommand;
 import server.IServer;
+import server.facade.GameStartFacade;
+import server.facade.LobbyFacade;
 import server.facade.LoginFacade;
 import server.facade.RegisterFacade;
 
@@ -15,49 +17,85 @@ public class ServerProxy implements IServer {
 
     ClientCommunicator client = new ClientCommunicator();
     @Override
-    public Result joinGame(User username, Game gameName) {
-        Request request = new Request();
+    public Result joinGame(User username, Game game) {
+
+        LobbyFacade temp = new LobbyFacade();
+        String methodName = "joinGame";
+
+        String className = temp.getClass().toString();
+        Object[] params = new Object[2];
+        params[0] = username;
+        params[1] = game;
+
+        GeneralCommand generatedCommand = createCommand(className, params, methodName);
+
+        ClientCommunicator communicator = new ClientCommunicator();
+
+        Result result = communicator.send(generatedCommand,"127.0.0.1", "8080");
+
+        //return new Result("nothing", "token", null, true);
+        return result;
+
+        //Request request = new Request();
 //        client.send("127.0.0.1", "8080", request);
-        return null;
     }
 
     @Override
-    public Result createGame(String gameName, User username) {
-        Request request = new Request();
+    public Result createGame(String gameName, User user) {
+
+        LobbyFacade temp = new LobbyFacade();
+        String methodName = "createGame";
+
+        String className = temp.getClass().toString();
+        Object[] params = new Object[1];
+        params[0] = gameName;
+        params[1] = user;
+
+        GeneralCommand generatedCommand = createCommand(className, params, methodName);
+
+        ClientCommunicator communicator = new ClientCommunicator();
+
+        Result result = communicator.send(generatedCommand,"127.0.0.1", "8080");
+
+        //return new Result("nothing", "token", null, true);
+        return result;
+
+        //Request request = new Request();
 //        client.send("127.0.0.1", "8080", request);
-        return null;
     }
 
     @Override
-    public String startGame(Game gameName) {
-        return null;
+    public Result startGame(Game game) {
+
+        GameStartFacade temp = new GameStartFacade();
+        String methodName = "startGame";
+
+        String className = temp.getClass().toString();
+        Object[] params = new Object[1];
+        params[0] = game;
+
+        GeneralCommand generatedCommand = createCommand(className, params, methodName);
+
+        ClientCommunicator communicator = new ClientCommunicator();
+
+        Result result = communicator.send(generatedCommand,"127.0.0.1", "8080");
+
+        //return new Result("nothing", "token", null, true);
+        return result;
     }
 
     @Override
     public Result register(User newUser) {
         RegisterFacade temp = new RegisterFacade();
+        String methodName = "register";
 
         String className = temp.getClass().toString();
         Object[] params = new Object[1];
         params[0] = newUser;
 
-        GeneralCommand generatedCommand = createCommand(className, params);
-
-        /*
-        Class<?>[] userObjName = new Class<?>[1];
-        userObjName[0] = newUser.getUsername().getClass();
-        userObjName[1] = newUser.getPassword().getClass();
-
-        Object[] objectSet = new Object[1];
-        objectSet[0] = newUser.getUsername();
-        objectSet[1] = newUser.getPassword();*/
-
-        //GeneralCommand newCommand = new GeneralCommand(className,"login", userObjName, objectSet);
+        GeneralCommand generatedCommand = createCommand(className, params, methodName);
 
         ClientCommunicator communicator = new ClientCommunicator();
-
-        //CommandResult serverResponse = communicator.send(newCommand);
-        //Result result = new Result(serverResponse.getErrorInfo(), (String) serverResponse.getData(), null, serverResponse.isSuccess());
 
         return new Result("nothing", "token", null, true);
 
@@ -67,12 +105,13 @@ public class ServerProxy implements IServer {
     public Result login(User returnUser) {
 
         LoginFacade temp = new LoginFacade();
+        String methodName = "login";
 
         String className = temp.getClass().toString();
         Object[] params = new Object[1];
         params[0] = returnUser;
 
-        GeneralCommand generatedCommand = createCommand(className, params);
+        GeneralCommand generatedCommand = createCommand(className, params, methodName);
 
         /*
         Class<?>[] userObjName = new Class<?>[1];
@@ -93,8 +132,7 @@ public class ServerProxy implements IServer {
         return communicator.send(generatedCommand, "10.0.2.2", "8080");
     }
 
-    private GeneralCommand createCommand(String className, Object[] modelObjects) {
-        String methodName = getMethodName(className);
+    private GeneralCommand createCommand(String className, Object[] modelObjects, String methodName) {
 
         int decomposedrArrayLength = 0;
         for (Object currObject : modelObjects) {
@@ -114,20 +152,6 @@ public class ServerProxy implements IServer {
 
     }
 
-    private String getMethodName(String className) {
-        switch (className) {
-            case ("LoginFacade") :
-                return "login";
-            case ("RegisterFacade") :
-                return "register";
-            case ("LobbyFacade") :
-                return "";
-            default:
-                return "unknown target class!!!";
-
-        }
-    }
-
     private int getDecomposedLength(Object model) {
         if (model.getClass() == User.class) {
             return 2;
@@ -136,9 +160,21 @@ public class ServerProxy implements IServer {
             Game convertedModel = (Game) model;
             return 2 + convertedModel.getPlayers().size();
         }
+        else if (model.getClass() == String.class) {
+            return 1;
+        }
+        else if (model instanceof Number) {
+            return 1;
+        }
+        else if (model instanceof Boolean) {
+            return 1;
+        }
+        else if (model instanceof Character) {
+            return 1;
+        }
         else {
-            //if it is a primative
-           return 1;  //other models and data containers can be added
+            //Oops!!! We missed a parameter type!
+           return 0;  //return 0 indicates error
         }
     }
 
@@ -146,26 +182,46 @@ public class ServerProxy implements IServer {
         if (model.getClass() == User.class) {
             classArray[pos] = String.class;
             classArray[pos+1] = String.class;
-            User convertedMdel = (User) model;
-            objectArray[pos] = convertedMdel.getUsername();
-            objectArray[pos+1] = convertedMdel.getPassword();
+            User convertedModel = (User) model;
+            objectArray[pos] = convertedModel.getUsername();
+            objectArray[pos+1] = convertedModel.getPassword();
         }
         else if(model.getClass() == Game.class) {
             classArray[pos] = String.class;
             classArray[pos+1] = String.class;
-            Game convertedMdel = (Game) model;
-            objectArray[pos] = convertedMdel.getStatus();
-            objectArray[pos+1] = convertedMdel.getGameName();
-            ArrayList<String> list = convertedMdel.getPlayers();
+            Game convertedModel = (Game) model;
+            objectArray[pos] = convertedModel.getStatus();
+            objectArray[pos+1] = convertedModel.getGameName();
+            ArrayList<String> list = convertedModel.getPlayers();
             int i = 2;
             for (String player: list) {
                 classArray[pos + i] = String.class;
                 objectArray[pos + i] = player;
             }
         }
+        else if (model.getClass() == String.class) {
+            classArray[pos] = String.class;
+            String convertedModel = (String) model;
+            objectArray[pos] = convertedModel;
+        }
+        else if (model instanceof Number) {
+            classArray[pos] = null;
+            int convertedModel = (int) model;
+            objectArray[pos] = convertedModel;
+        }
+        else if (model instanceof Boolean) {
+            classArray[pos] = null;
+            Boolean convertedModel = (Boolean) model;
+            objectArray[pos] = convertedModel;
+        }
+        else if (model instanceof Character) {
+            classArray[pos] = null;
+            char convertedModel = (char) model;
+            objectArray[pos] = convertedModel;
+        }
         else {
-            // Should never reach this branch
-            //other models and data containers can be added
+            //Oops!!! We missed a parameter type!
+            //return 0 indicates error
         }
     }
 }
