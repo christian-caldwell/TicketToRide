@@ -25,7 +25,6 @@ public class LobbyViewActivity extends AppCompatActivity implements IGameLobby {
     // Member variables
     private ArrayList<String> mGameNames = new ArrayList<>();
     private ArrayList<String> mCurrentNumOfPlayers = new ArrayList<>();
-    private ArrayList<String> mMaxNumOfPlayers = new ArrayList<>();
     private Button startGameButton, createGameButton;
     private boolean createGameOpen = false;
     private String create_game_text = "";
@@ -70,6 +69,7 @@ public class LobbyViewActivity extends AppCompatActivity implements IGameLobby {
                         create_game_text = input.getText().toString();
                         Toast.makeText(LobbyViewActivity.this, create_game_text + " created!", Toast.LENGTH_SHORT).show();
                         mGameNames.add(create_game_text);
+                        mCurrentNumOfPlayers.add("1");
                         // Make calls to presenter from here
                     }
                 });
@@ -104,8 +104,6 @@ public class LobbyViewActivity extends AppCompatActivity implements IGameLobby {
         mGameNames.add("game2");
         mCurrentNumOfPlayers.add("3");
         mCurrentNumOfPlayers.add("2");
-        mMaxNumOfPlayers.add("5");
-        mMaxNumOfPlayers.add("4");
         initRecyclerView();
 
     }
@@ -114,7 +112,7 @@ public class LobbyViewActivity extends AppCompatActivity implements IGameLobby {
     // It will be called
     private void initRecyclerView() {
         RecyclerView recyclerView = findViewById(R.id.recycler_view);
-        RecyclerViewAdapter adapter = new RecyclerViewAdapter(mGameNames, mCurrentNumOfPlayers, mMaxNumOfPlayers, this);
+        RecyclerViewAdapter adapter = new RecyclerViewAdapter(mGameNames, mCurrentNumOfPlayers, this);
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
     }

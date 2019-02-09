@@ -19,13 +19,11 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
 
     private ArrayList<String> mGameNames = new ArrayList<>();
     private ArrayList<String> mCurrentNumOfPlayers = new ArrayList<>();
-    private ArrayList<String> mMaxNumOfPlayers = new ArrayList<>();
     private Context mContext;
 
-    public RecyclerViewAdapter(ArrayList<String> mGameNames, ArrayList<String> mCurrentNumOfPlayers, ArrayList<String> mMaxNumOfPlayers, Context mContext) {
+    public RecyclerViewAdapter(ArrayList<String> mGameNames, ArrayList<String> mCurrentNumOfPlayers, Context mContext) {
         this.mGameNames = mGameNames;
         this.mCurrentNumOfPlayers = mCurrentNumOfPlayers;
-        this.mMaxNumOfPlayers = mMaxNumOfPlayers;
         this.mContext = mContext;
     }
 
@@ -39,7 +37,6 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, final int position) {
-        holder.maxNumOfPlayers.setText("Max players: " + mMaxNumOfPlayers.get(position));
         holder.currentNumOfPlayers.setText("Current players: " + mCurrentNumOfPlayers.get(position));
         holder.gameName.setText(mGameNames.get(position));
         holder.parentLayout.setOnClickListener(new View.OnClickListener() {
@@ -59,14 +56,13 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
 
     public class ViewHolder extends RecyclerView.ViewHolder {
 
-        TextView gameName, currentNumOfPlayers, maxNumOfPlayers;
+        TextView gameName, currentNumOfPlayers;
         ConstraintLayout parentLayout;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             gameName = itemView.findViewById(R.id.gameName);
             currentNumOfPlayers = itemView.findViewById(R.id.currentNumOfPlayers);
-            maxNumOfPlayers = itemView.findViewById(R.id.maxNumOfPlayers);
             parentLayout = itemView.findViewById(R.id.parent_layout);
         }
     }
