@@ -112,17 +112,6 @@ public class ServerProxy implements IServer {
 
         GeneralCommand generatedCommand = createCommand(className, params, methodName);
 
-        /*
-        Class<?>[] userObjName = new Class<?>[1];
-        userObjName[0] = returnUser.getUsername().getClass();
-        userObjName[1] = returnUser.getPassword().getClass();
-
-        Object[] objectSet = new Object[1];
-        objectSet[0] = returnUser.getUsername();
-        objectSet[1] = returnUser.getPassword();*/
-
-        //GeneralCommand newCommand = new GeneralCommand(className,"login", userObjName, objectSet);
-
         ClientCommunicator communicator = new ClientCommunicator();
 
        //CommandResult serverResponse = communicator.send(newCommand);
