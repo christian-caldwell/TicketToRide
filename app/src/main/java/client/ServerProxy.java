@@ -3,7 +3,6 @@ package client;
 import java.util.ArrayList;
 
 import models.data.Game;
-import models.data.Request;
 import models.data.Result;
 import models.data.User;
 import server.GeneralCommand;
@@ -65,7 +64,7 @@ public class ServerProxy implements IServer {
     }
 
     @Override
-    public Result startGame(Game game) {
+    public String startGame(Game game) {
 
         GameStartFacade temp = new GameStartFacade();
         String methodName = "startGame";
@@ -81,7 +80,7 @@ public class ServerProxy implements IServer {
         Result result = communicator.send(generatedCommand,"127.0.0.1", "8080");
 
         //return new Result("nothing", "token", null, true);
-        return result;
+        return "The game has started";
     }
 
     @Override
