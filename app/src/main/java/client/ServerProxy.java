@@ -31,7 +31,7 @@ public class ServerProxy implements IServer {
 
         ClientCommunicator communicator = new ClientCommunicator();
 
-        Result result = communicator.send(generatedCommand);
+        Result result = communicator.send(generatedCommand,"127.0.0.1", "8080");
 
         //return new Result("nothing", "token", null, true);
         return result;
@@ -55,7 +55,7 @@ public class ServerProxy implements IServer {
 
         ClientCommunicator communicator = new ClientCommunicator();
 
-        Result result = communicator.send(generatedCommand);
+        Result result = communicator.send(generatedCommand,"127.0.0.1", "8080");
 
         //return new Result("nothing", "token", null, true);
         return result;
@@ -78,7 +78,7 @@ public class ServerProxy implements IServer {
 
         ClientCommunicator communicator = new ClientCommunicator();
 
-        Result result = communicator.send(generatedCommand);
+        Result result = communicator.send(generatedCommand,"127.0.0.1", "8080");
 
         //return new Result("nothing", "token", null, true);
         return result;

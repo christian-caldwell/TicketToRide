@@ -9,6 +9,7 @@ import java.util.Observer;
 
 import models.data.Game;
 import models.data.User;
+import view.facade.client.out.LobbyFacadeOut;
 import view.presenterInterface.IGameLobbyPresenter;
 import view.facade.ViewFacade;
 import view.activityInterface.IGameLobby;
@@ -31,7 +32,8 @@ public class GameLobbyPresenter implements IGameLobbyPresenter, Observer {
 
     @Override
     public void startGame(Game game) {
-        serverproxy.startGame(game);
+        LobbyFacadeOut lobbyFacadeOut = new LobbyFacadeOut();
+        lobbyFacadeOut.startGame(game);
     }
 
     @Override
