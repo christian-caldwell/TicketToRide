@@ -11,8 +11,6 @@ import java.io.Reader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
-import models.data.Request;
-import models.data.User;
 import models.data.Result;
 import server.GeneralCommand;
 

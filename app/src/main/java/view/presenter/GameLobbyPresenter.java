@@ -9,6 +9,8 @@ import java.util.Observer;
 
 import models.data.Game;
 import models.data.User;
+import models.data.Result;
+import view.facade.client.out.GameStartFacadeOut;
 import view.facade.client.out.LobbyFacadeOut;
 import view.presenterInterface.IGameLobbyPresenter;
 import view.facade.ViewFacade;
@@ -19,21 +21,21 @@ import client.ServerProxy;
 public class GameLobbyPresenter implements IGameLobbyPresenter, Observer {
 
     ArrayList<String> gameList;
-    ServerProxy serverproxy = new ServerProxy();
     ViewFacade viewfacade = new ViewFacade();
 
 
     @Override
     public void addPlayer(Game game, User user) {
-        serverproxy.joinGame(user, game);
+        LobbyFacadeOut lobbyFacadeOut = new LobbyFacadeOut();
+        Result joinResult = lobbyFacadeOut.joinGame(game, user);
         IGameLobby gameLobby = new LobbyViewActivity();
         //gameLobby.updateGamePlayers(gameId);
     }
 
     @Override
     public void startGame(Game game) {
-        LobbyFacadeOut lobbyFacadeOut = new LobbyFacadeOut();
-        //lobbyFacadeOut.startGame(game);
+        GameStartFacadeOut gameStartFacadeOut = new GameStartFacadeOut();
+        gameStartFacadeOut.startGame(game);
     }
 
     @Override
@@ -45,7 +47,9 @@ public class GameLobbyPresenter implements IGameLobbyPresenter, Observer {
 
     @Override
     public Game createGame(Game game, User user) {
-        return (serverproxy.createGame(game.getGameName(), user)).getGame();
+        LobbyFacadeOut lobbyFacadeOut = new LobbyFacadeOut();
+        return lobbyFacadeOut.createGame(game.getGameName(), user).getGame();
+
     }
 
     @Override
