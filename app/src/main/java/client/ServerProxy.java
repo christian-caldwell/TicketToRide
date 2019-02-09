@@ -59,7 +59,7 @@ public class ServerProxy implements IServer {
         //CommandResult serverResponse = communicator.send(newCommand);
         //Result result = new Result(serverResponse.getErrorInfo(), (String) serverResponse.getData(), null, serverResponse.isSuccess());
 
-        return new Result("nothing", "token", "game1", true);
+        return new Result("nothing", "token", null, true);
 
     }
 
@@ -90,7 +90,7 @@ public class ServerProxy implements IServer {
        //CommandResult serverResponse = communicator.send(newCommand);
        //Result result = new Result(serverResponse.getErrorInfo(), (String) serverResponse.getData(), null, serverResponse.isSuccess());
 
-        return new Result("nothing", "token", "game1", true);
+        return new Result("nothing", "token", null, true);
     }
 
     private GeneralCommand createCommand(String className, Object[] modelObjects) {
