@@ -1,21 +1,15 @@
 package client;
 
-import android.util.Log;
-
-import java.lang.reflect.Method;
 import java.util.ArrayList;
 
-import models.command.Command;
-import models.command.CommandResult;
+import models.data.Game;
 import models.data.Request;
 import models.data.Result;
 import models.data.User;
-import models.data.Game;
 import server.GeneralCommand;
 import server.IServer;
-import view.facade.server.LobbyFacade;
-import view.facade.server.RegisterFacade;
-import view.facade.server.LoginFacade;
+import server.facade.LoginFacade;
+import server.facade.RegisterFacade;
 
 public class ServerProxy implements IServer {
 

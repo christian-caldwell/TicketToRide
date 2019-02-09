@@ -5,16 +5,11 @@ import com.sun.net.httpserver.HttpExchange;
 import com.sun.net.httpserver.HttpHandler;
 
 import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
-import java.io.OutputStreamWriter;
 import java.net.HttpURLConnection;
 
 import helper.HttpHelper;
 import models.command.ICommandExecuter;
-import models.command.CommandResult;
 import models.data.Request;
-import models.data.User;
 
 public class CommandHandler implements HttpHandler {
     public void handle(HttpExchange exchange) throws IOException {
