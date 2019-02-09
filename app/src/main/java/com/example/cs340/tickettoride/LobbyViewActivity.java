@@ -28,6 +28,7 @@ public class LobbyViewActivity extends AppCompatActivity implements IGameLobby {
     private Button startGameButton, createGameButton;
     private boolean createGameOpen = false;
     private String create_game_text = "";
+    private RecyclerViewAdapter adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -70,6 +71,7 @@ public class LobbyViewActivity extends AppCompatActivity implements IGameLobby {
                         Toast.makeText(LobbyViewActivity.this, create_game_text + " created!", Toast.LENGTH_SHORT).show();
                         mGameNames.add(create_game_text);
                         mCurrentNumOfPlayers.add("1");
+                        adapter.notifyDataSetChanged();
                         // Make calls to presenter from here
                     }
                 });
@@ -112,7 +114,8 @@ public class LobbyViewActivity extends AppCompatActivity implements IGameLobby {
     // It will be called
     private void initRecyclerView() {
         RecyclerView recyclerView = findViewById(R.id.recycler_view);
-        RecyclerViewAdapter adapter = new RecyclerViewAdapter(mGameNames, mCurrentNumOfPlayers, this);
+        adapter = new RecyclerViewAdapter(mGameNames, mCurrentNumOfPlayers, this);
+        recyclerView.setHasFixedSize(true);
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
     }
