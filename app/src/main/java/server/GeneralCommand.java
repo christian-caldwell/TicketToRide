@@ -17,7 +17,40 @@ public class GeneralCommand implements ICommandExecuter, Serializable {
 
 */
 
+    public void set_className(String _className) {
+        this._className = _className;
+    }
 
+    public void set_methodName(String _methodName) {
+        this._methodName = _methodName;
+    }
+
+    public void set_paramTypes(Class<?>[] _paramTypes) {
+        this._paramTypes = _paramTypes;
+    }
+
+    public void set_paramValues(Object[] _paramValues) {
+        this._paramValues = _paramValues;
+    }
+
+    public String get_className() {
+        return _className;
+    }
+
+    public String get_methodName() {
+        return _methodName;
+    }
+
+    public Class<?>[] get_paramTypes() {
+        return _paramTypes;
+    }
+
+    public Object[] get_paramValues() {
+        return _paramValues;
+    }
+
+    public GeneralCommand() {
+    }
 
     public String _className;
     public String _methodName;

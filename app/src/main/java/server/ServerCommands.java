@@ -4,6 +4,7 @@ package server;
 import java.util.UUID;
 
 import models.data.Game;
+import models.data.PollManagerData;
 import models.data.Result;
 import models.data.User;
 
@@ -86,4 +87,11 @@ public class ServerCommands implements IServer {
         result.setSuccesful(false);
         return result;
     }
+
+    @Override
+    public PollManagerData pollServer() {
+        return null;
+    }
+
+
 }

@@ -12,7 +12,7 @@ public class ClientModel extends Observable {
     ArrayList<User> users;
     private static ClientModel singleton;
 
-    private ClientModel() {}
+    public ClientModel() {}
 
     public static ClientModel create() {
         if (singleton == null) {
