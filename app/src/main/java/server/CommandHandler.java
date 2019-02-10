@@ -10,9 +10,7 @@ import java.io.OutputStream;
 import java.net.HttpURLConnection;
 
 import helper.HttpHelper;
-import models.command.Command;
 import models.command.ICommandExecuter;
-import models.data.Request;
 
 public class CommandHandler implements HttpHandler {
     public void handle(HttpExchange exchange) throws IOException {
@@ -40,68 +38,10 @@ public class CommandHandler implements HttpHandler {
             ICommandExecuter facadeCommand;
             ICommandExecuter clientProxyCommand;
 
+//            Create the command through deserialization
             ObjectMapper mapper = new ObjectMapper();
-
-//            This is the JACKSON way to deserialize a json object to java object.
-            Command command = mapper.readValue(reqData, Command.class);
-
-//            This is the GSON way which does not support object serialization of objects
-//            Should the switch statement below create new Command class? Or request class?
-            Request request =  gson.fromJson(reqData, Request.class);
-
-
-
-
-            switch(exchange.getRequestURI().toString()) {
-                case "/login":
-                    facadeCommand = new GeneralCommand("server.facade.LoginFacade", "login",
-                            new Class<?>[]{Request.class}, new Object[] {request});
-                    facadeCommand.exec();
-                    clientProxyCommand = new GeneralCommand("server.ClientProxy", "updateLogin",
-                            new Class<?>[]{Request.class}, new Object[] {request});
-                    clientProxyCommand.exec();
-                    break;
-
-
-                case "/register":
-                    facadeCommand = new GeneralCommand("server.facade.RegisterFacade", "register",
-                            new Class<?>[]{Request.class}, new Object[] {request});
-                    facadeCommand.exec();
-                    clientProxyCommand = new GeneralCommand("server.ClientProxy", "updateRegister",
-                            new Class<?>[]{Request.class}, new Object[] {request});
-                    clientProxyCommand.exec();
-                    break;
-
-
-                case "/createGame":
-                    facadeCommand = new GeneralCommand("server.facade.LobbyFacade", "createGame",
-                            new Class<?>[]{Request.class}, new Object[] {request});
-                    facadeCommand.exec();
-                    clientProxyCommand = new GeneralCommand("server.ClientProxy", "updateCreateGame",
-                            new Class<?>[]{Request.class}, new Object[] {request});
-                    clientProxyCommand.exec();
-                    break;
-
-
-                case "/joinGame":
-                    facadeCommand = new GeneralCommand("server.facade.LobbyFacade", "joinGame",
-                            new Class<?>[]{Request.class}, new Object[] {request});
-                    facadeCommand.exec();
-                    clientProxyCommand = new GeneralCommand("server.ClientProxy", "updateJoinGame",
-                            new Class<?>[]{Request.class}, new Object[] {request});
-                    clientProxyCommand.exec();
-                    break;
-
-
-                case "/startGame":
-                    facadeCommand = new GeneralCommand("server.facade.GameStartFacade", "startGame",
-                            new Class<?>[]{Request.class}, new Object[] {request});
-                    facadeCommand.exec();
-                    clientProxyCommand = new GeneralCommand("server.ClientProxy", "updateStartGame",
-                            new Class<?>[]{Request.class}, new Object[] {request});
-                    clientProxyCommand.exec();
-                    break;
-            }
+            facadeCommand = mapper.readValue(reqData, GeneralCommand.class);
+            facadeCommand.exec();
 
         } catch (Exception e) {
             e.printStackTrace();

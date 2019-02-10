@@ -1,6 +1,7 @@
 package server.facade;
 
 import models.data.Game;
+import models.data.PollManagerData;
 import models.data.User;
 import models.data.Result;
 import server.IServer;
@@ -28,6 +29,11 @@ public class ServerFacade implements IServer {
 
     @Override
     public Result login(User returnUser) {
+        return null;
+    }
+
+    @Override
+    public PollManagerData pollServer() {
         return null;
     }
 }
