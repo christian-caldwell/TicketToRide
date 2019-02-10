@@ -1,6 +1,7 @@
 package server;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Map;
 
 import models.data.Game;
@@ -13,6 +14,10 @@ public class ServerData {
     private Map<String, Game> availableGames;
     private ArrayList<User> users;
 
+    public ServerData() {
+        this.availableGames = new HashMap<>();
+        this.users = new ArrayList<>();
+    }
 
     public Map<String, Game> getAvailableGames() {
         return availableGames;

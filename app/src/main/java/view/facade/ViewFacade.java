@@ -16,8 +16,7 @@ public class ViewFacade {
 	}
 	
 	public Result register(User newUser) {
-		Result Result = serverCommunicator.register(newUser);
-		return Result;
+		return serverCommunicator.register(newUser);
 	}
 
 	public Result login(User returnUser) {

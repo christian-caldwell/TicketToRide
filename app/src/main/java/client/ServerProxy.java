@@ -120,15 +120,19 @@ public class ServerProxy implements IServer {
         Object[] params = new Object[1];
         params[0] = returnUser;
 
-        GeneralCommand generatedCommand = createCommand(className, params, methodName);
+        Object[] parameterDataArray = new Object[2];
+        Class<?>[] parameterClassArray = new Class<?>[2];
+
+        parameterClassArray[0] = String.class;
+        parameterClassArray[1] = String.class;
+        parameterDataArray[0] = returnUser.getUsername();
+        parameterDataArray[1] = returnUser.getPassword();
+
+        GeneralCommand newCommand = new GeneralCommand(className, methodName, parameterClassArray, parameterDataArray);
 
         ClientCommunicator communicator = new ClientCommunicator();
 
-       //CommandResult serverResponse = communicator.send(newCommand);
-       //Result result = new Result(serverResponse.getErrorInfo(), (String) serverResponse.getData(), null, serverResponse.isSuccess());
-
-        return communicator.send(generatedCommand, "10.0.2.2", "8080");
-    }
+        return communicator.send(newCommand, "10.0.2.2", "8080");    }
 
     private GeneralCommand createCommand(String className, Object[] modelObjects, String methodName) {
         Object[] parameterDataArray = null;

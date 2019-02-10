@@ -5,6 +5,7 @@ import java.lang.reflect.Method;
 
 import models.command.CommandResult;
 import models.command.ICommandExecuter;
+import models.data.Result;
 
 
 public class GeneralCommand implements ICommandExecuter, Serializable {
@@ -74,8 +75,10 @@ public class GeneralCommand implements ICommandExecuter, Serializable {
             Class<?> receiver = Class.forName(_className);
             Method method = receiver.getMethod(_methodName, _paramTypes);
             //FIXME: It's possible that the fist param of 'invoke' will need to be a static class
-            result.setData(method.invoke(receiver, _paramValues));
-            result.setSuccesful(true);
+            result.setData(method.invoke(receiver.newInstance(), _paramValues));
+            Result result1 = (Result)result.getData();
+            result.setSuccesful(result1.isSuccessful());
+            result.setErrorMessage(result1.getErrorMessage());
 
         }
         catch (Exception e) {
@@ -85,11 +88,4 @@ public class GeneralCommand implements ICommandExecuter, Serializable {
         }
         return result;
     }
-
-    @Override
-    public String toString() {
-        return "{GeneralCommand [className=" + _className + ", methodName=" + _methodName
-                + ", paramTypes=" + _paramTypes.toString() + ", paramValues=" + _paramValues + "]}";
-    }
-
 }

@@ -22,4 +22,5 @@ public class PollManagerData {
         this.usersChanged.add(usersChanged);
     }
 
+
 }

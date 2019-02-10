@@ -39,13 +39,6 @@ public class PollManager {
                 entry.setValue(false);
             }
         }
-        for (Map.Entry<User, Boolean> entry : users.entrySet()) {
-            if (entry.getValue()) {
-                pollManagerData.addUsersChanged(entry.getKey());
-                entry.setValue(false);
-            }
-        }
-
         Result output = new Result();
         output.setPollResult(pollManagerData);
         return pollManagerData;

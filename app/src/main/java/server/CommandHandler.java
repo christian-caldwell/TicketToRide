@@ -16,15 +16,11 @@ public class CommandHandler implements HttpHandler {
     public void handle(HttpExchange exchange) throws IOException {
         /*
         Create commands that call the command class, which will call the serverCommands
-
-
          */
+
         try {
-            System.out.println("inside of command.");
             exchange.sendResponseHeaders(HttpURLConnection.HTTP_OK, 0);
             OutputStream respBody = exchange.getResponseBody();
-//            String word = exchange.getRequestURI().getPath().split("/")[2];
-//            String methodName = exchange.getRequestURI().getPath().split("/")[1];
 
             // Extract the JSON string from the HTTP request body
             HttpHelper helper = new HttpHelper();
@@ -37,6 +33,10 @@ public class CommandHandler implements HttpHandler {
 
             ICommandExecuter facadeCommand;
             ICommandExecuter clientProxyCommand;
+
+
+            //TODO: need to add in the clientProxy call
+
 
 //            Create the command through deserialization
             ObjectMapper mapper = new ObjectMapper();

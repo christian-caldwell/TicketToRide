@@ -15,10 +15,10 @@ public class User {
         this.gamesJoined.add(gameJoined);
     }
 
-    public User(String username, String password) {}
-
-    public void User(String name, String password) {
-
+    public User(String username, String password) {
+        this.username = username;
+        this.pass = password;
+        this.gamesJoined = new ArrayList<Game>();
     }
 
     public String getUsername() {

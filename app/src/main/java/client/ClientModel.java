@@ -9,7 +9,6 @@ import models.data.User;
 
 public class ClientModel extends Observable {
     ArrayList<Game> games;
-    ArrayList<User> users;
     private static ClientModel singleton;
 
     public ClientModel() {}
@@ -27,14 +26,6 @@ public class ClientModel extends Observable {
 
     public void setGames(ArrayList<Game> games) {
         this.games = games;
-    }
-
-    public ArrayList<User> getUsers() {
-        return users;
-    }
-
-    public void setUsers(ArrayList<User> users) {
-        this.users = users;
     }
 
     @Override
