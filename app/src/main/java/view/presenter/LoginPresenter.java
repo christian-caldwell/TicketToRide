@@ -41,14 +41,14 @@ public class LoginPresenter implements ILoginPresenter, Observer {
 	public Result loginUser(String username, String password) {
 		Result result = new Result();
 		//Match Password to Reg-ex
-		if (checkRegex(password, this.PASSWORD_CRITERIA)) {
+		if (checkRegex(this.PASSWORD_CRITERIA, password)) {
 			result.setErrorMessage(BAD_PASSWORD);
 			result.setSuccesful(false);
 			return result; //If password characters are unacceptable
 		}
 
 		//Match Username to Reg-ex
-		if (checkRegex(password, this.USERNAME_CRITERIA)) {
+		if (checkRegex(this.USERNAME_CRITERIA, username)) {
 			result.setErrorMessage(BAD_USERNAME);
 			result.setSuccesful(false);
 			return result; //If password characters are unacceptable
@@ -90,7 +90,7 @@ public class LoginPresenter implements ILoginPresenter, Observer {
 		}
 	}
 
-	private boolean checkRegex(String input, String criteria) {
+	private boolean checkRegex(String criteria, String input) {
 		return Pattern.matches(criteria, input);
 	}
 
