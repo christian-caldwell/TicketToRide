@@ -20,7 +20,7 @@ public class ClientModel extends Observable {
 
     private static ClientModel singleton;
 
-    private ClientModel() {}
+    public ClientModel() {}
 
     public static ClientModel create() {
         if (singleton == null) {

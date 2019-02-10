@@ -130,7 +130,7 @@ public class ServerProxy implements IServer {
 
     @Override
     public Result login(User returnUser) {
-        String className = (LoginFacade.class).toString();
+        String className = LoginFacade.class.getName();
         String methodName = "login";
 
         Object[] params = new Object[1];
