@@ -10,6 +10,7 @@ import java.util.Observer;
 import models.data.Game;
 import models.data.User;
 import models.data.Result;
+import view.facade.client.ClientFacade;
 import view.facade.client.out.GameStartFacadeOut;
 import view.facade.client.out.LobbyFacadeOut;
 import view.presenterInterface.IGameLobbyPresenter;
@@ -30,12 +31,17 @@ public class GameLobbyPresenter implements IGameLobbyPresenter, Observer {
         Result joinResult = lobbyFacadeOut.joinGame(game, user);
         IGameLobby gameLobby = new LobbyViewActivity();
         //gameLobby.updateGamePlayers(gameId);
+
+        ClientFacade client = new ClientFacade();
+        client.waitingForGame(game);
     }
 
     @Override
     public void startGame(Game game) {
         GameStartFacadeOut gameStartFacadeOut = new GameStartFacadeOut();
         gameStartFacadeOut.startGame(game);
+        ClientFacade client = new ClientFacade();
+        client.joinGame(game);
     }
 
     @Override
@@ -48,6 +54,8 @@ public class GameLobbyPresenter implements IGameLobbyPresenter, Observer {
     @Override
     public Game createGame(Game game, User user) {
         LobbyFacadeOut lobbyFacadeOut = new LobbyFacadeOut();
+        ClientFacade client = new ClientFacade();
+        client.waitingForGame(game);
         return lobbyFacadeOut.createGame(game.getGameName(), user).getGame();
 
     }

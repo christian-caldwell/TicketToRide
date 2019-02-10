@@ -69,7 +69,7 @@ public class RegisterPresenter implements IRegisterPresenter, Observer {
 
         if (registerResult.isSuccessful()) {
             ClientFacade client = new ClientFacade();
-            client.updateAuthToken(registerResult.getAuthenticationToken());
+            client.setUser(newUser);
             return REGISTER_SUCCESSFUL;
         }
         else {

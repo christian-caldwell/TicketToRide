@@ -6,10 +6,18 @@ import java.util.Observer;
 
 import models.data.Game;
 import models.data.User;
+import view.presenter.GameLobbyPresenter;
+import view.presenter.GamePresenter;
+import view.presenter.LoginPresenter;
+import view.presenter.RegisterPresenter;
 
 public class ClientModel extends Observable {
-    ArrayList<Game> games;
-    ArrayList<User> users;
+    private User player;
+    private ArrayList<Game> gamesActive;
+    private ArrayList<Game> gamesWaiting;
+    private ArrayList<Game> gamesLobby;
+    private ArrayList<Object> changedObjects;
+
     private static ClientModel singleton;
 
     private ClientModel() {}
@@ -21,20 +29,79 @@ public class ClientModel extends Observable {
         return singleton;
     }
 
-    public ArrayList<Game> getGames() {
-        return games;
+    public User getPlayer () {
+        return this.player;
     }
 
-    public void setGames(ArrayList<Game> games) {
-        this.games = games;
+    public void setPlayer (User player) {
+        this.player = player;
     }
 
-    public ArrayList<User> getUsers() {
-        return users;
+    public ArrayList<Game> getActiveGames() {
+        return this.gamesActive;
     }
 
-    public void setUsers(ArrayList<User> users) {
-        this.users = users;
+    public void setActiveGames(ArrayList<Game> games) {
+        this.gamesActive = games;
+    }
+
+    public ArrayList<Game> getWaitingGames() {
+        return this.gamesWaiting;
+    }
+
+    public void setWaitingGames(ArrayList<Game> games) {
+        this.gamesWaiting = games;
+    }
+
+    public ArrayList<Game> getLobbyGames() {
+        return this.gamesLobby;
+    }
+
+    public void setLobbyGames(ArrayList<Game> games) {
+        this.gamesLobby = games;
+    }
+
+    public void addChange(Object changedMember) {
+        this.changedObjects.add(changedMember);
+    }
+
+    public void clearChangeList() {
+        this.changedObjects.clear();
+    }
+
+    public void addWaitingGame(Game game) {
+        this.gamesWaiting.add(game);
+    }
+
+    public void addActiveGame(Game game) {
+        this.gamesActive.add(game);
+    }
+
+    public void removeWaitingGame(Game game) {
+        this.gamesWaiting.remove(game);
+    }
+
+    public void removeActiveGame(Game game) {
+        this.gamesActive.remove(game);
+    }
+
+    public void addLobbyGame(Game game) {
+        this.gamesActive.add(game);
+    }
+
+    public void removeLobbyGame(Game game) {
+        this.gamesWaiting.remove(game);
+    }
+
+    public void update() {
+        addObserver(new GameLobbyPresenter());
+        addObserver(new GamePresenter());
+        addObserver(new LoginPresenter());
+        addObserver(new RegisterPresenter());
+        setChanged();
+        notifyObservers();
+        deleteObservers();
+        clearChangeList();
     }
 
     @Override

@@ -70,7 +70,7 @@ public class LoginPresenter implements ILoginPresenter, Observer {
 		
 		if (loginResult.isSuccessful()) {
 			ClientFacade client = new ClientFacade();
-			client.updateAuthToken(result.getAuthenticationToken());
+			client.setUser(returnUser);
 			return loginResult;
 		}
 		else {
