@@ -19,6 +19,23 @@ public class ServerProxy implements IServer {
 
     ClientCommunicator client = new ClientCommunicator();
 
+    /*
+    @Override
+    public PollManagerData userPollServer(User clientUser) {
+        String className = (PollManager.class).toString();
+        String methodName = "getChanges";
+
+        Object[] params = new Object[1];
+        params[0] = clientUser;
+
+        GeneralCommand generatedCommand = createCommand(className, params, methodName);
+
+        ClientCommunicator communicator = new ClientCommunicator();
+
+        Result result = communicator.send(generatedCommand, "10.0.2.2", "8080");
+        return result.getPollResult();
+    }*/
+
     @Override
     public PollManagerData pollServer() {
         String className = (PollManager.class).toString();
@@ -108,8 +125,7 @@ public class ServerProxy implements IServer {
 
         ClientCommunicator communicator = new ClientCommunicator();
 
-        return new Result("nothing", "token", null, true);
-
+        return communicator.send(generatedCommand, "10.0.2.2", "8080");
     }
 
     @Override

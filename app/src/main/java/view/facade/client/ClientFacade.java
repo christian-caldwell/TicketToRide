@@ -1,37 +1,26 @@
 package view.facade.client;
 
-import client.IClient;
+import client.ClientModel;
 import models.data.User;
+import models.data.Game;
 
-public class ClientFacade implements IClient {
-    @Override
-    public void updateClient() {
+public class ClientFacade {
+	private ClientModel client;
 
-    }
-
-    @Override
-    public void join() {
-
-    }
-
-    @Override
-    public void create() {
-
-    }
-
-	@Override
-	public void updateAuthToken(String newAuthToken) {
-
+	public ClientFacade () {
+		this.client = ClientModel.create();
 	}
 
-	@Override
-	public String passAuthToken() {
-
-		return null;
+	public void waitingForGame(Game game) {
+		client.addWaitingGame(game);
 	}
 
-	@Override
-	public void setUserValues(User newUser) {
+	public void joinGame(Game game) {
+		client.removeWaitingGame(game);
+		client.addActiveGame(game);
+	}
 
+	public void setUser(User newUser) {
+		client.setPlayer(newUser);
 	}
 }

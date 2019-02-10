@@ -4,8 +4,11 @@ import java.io.InterruptedIOException;
 import java.nio.channels.ClosedByInterruptException;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.TimeUnit;
+import java.util.ArrayList;
 
 import models.data.PollManagerData;
+import models.data.Game;
+import models.data.User;
 
 public class Poller {
     private Thread pollerThread;
@@ -67,6 +70,43 @@ public class Poller {
     public void poll() throws Exception {
         ServerProxy server = new ServerProxy();
         PollManagerData pollResult = server.pollServer();
+
+        ClientModel client = ClientModel.create();
+
+        ArrayList<User> updatedUsers = pollResult.getUsersChanged();
+        ArrayList<Game> updatedGames = pollResult.getGamesChanged();
+
+        for (User currUser:updatedUsers) {
+           if(currUser.getUsername().compareTo(client.getPlayer().getUsername()) == 0) {
+                client.setPlayer(currUser);
+                client.addChange(currUser);
+
+           }
+        }
+
+
+        for (Game currGame :updatedGames) {
+            for (Game currLobbyGame : client.getLobbyGames()) {
+                if (currGame.getGameName().compareTo(currLobbyGame.getGameName()) == 0) {
+                    client.removeLobbyGame(currLobbyGame);
+                    client.addLobbyGame(currGame);
+                }
+            }
+
+            for (Game currActiveGame : client.getActiveGames()) {
+                if (currGame.getGameName().compareTo(currActiveGame.getGameName()) == 0) {
+                    client.removeActiveGame(currActiveGame);
+                    client.addActiveGame(currGame);
+                }
+            }
+
+            for (Game currWaitingGame : client.getWaitingGames()) {
+                if (currGame.getGameName().compareTo(currWaitingGame.getGameName()) == 0) {
+                    client.removeWaitingGame(currWaitingGame);
+                    client.addWaitingGame(currGame);
+                }
+            }
+        }
     }
 
     public  String getThreadName() {
