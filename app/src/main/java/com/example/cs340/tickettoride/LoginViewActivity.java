@@ -7,6 +7,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import models.data.Result;
@@ -16,10 +17,10 @@ import view.presenter.LoginPresenter;
 
 public class LoginViewActivity extends AppCompatActivity implements ILoginView, IRegisterView {
 
-    private EditText username;
-    private EditText password;
-    private Button registerButton;
-    private Button loginButton;
+    private EditText username, password;
+    private Button registerButton, loginButton;
+    private TextView forgotPassword;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,6 +32,7 @@ public class LoginViewActivity extends AppCompatActivity implements ILoginView, 
         password = findViewById(R.id.game_name);
         registerButton = findViewById(R.id.register_button);
         loginButton = findViewById(R.id.create_game);
+        forgotPassword = findViewById(R.id.forgot_password);
 
         // Login button is pushed
         loginButton.setOnClickListener(new View.OnClickListener() {
@@ -59,6 +61,15 @@ public class LoginViewActivity extends AppCompatActivity implements ILoginView, 
                 startActivity(intent);
             }
         });
+
+        // Initialize the 'Forgot Password?' onClickListener
+        forgotPassword.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                forgotPassword.setText("Sorry bud, you should have written it down");
+            }
+        });
+
     }
 
 

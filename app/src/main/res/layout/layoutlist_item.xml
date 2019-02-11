@@ -43,7 +43,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="right"
-                android:layout_weight="0.33"
+                android:layout_weight="0.20"
                 android:text="Number of players: 4"
                 android:textColor="#000" />
 
@@ -51,18 +51,10 @@
                 android:id="@+id/gameName"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_weight="0.80"
                 android:text="game: 123456"
-                android:layout_weight="0.33"
                 android:textColor="#000" />
 
-            <android.support.v7.widget.AppCompatTextView
-                android:id="@+id/maxNumOfPlayers"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="right"
-                android:layout_weight="0.33"
-                android:text="Max number of players: 5"
-                android:textColor="#000" />
         </LinearLayout>
     </LinearLayout>
 
