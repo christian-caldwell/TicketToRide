@@ -39,20 +39,27 @@ public class RegisterPresenter implements IRegisterPresenter, Observer {
     }
 
     @Override
-    public String registerUser(String username, String password, String repeatedPassword) {
+    public Result registerUser(String username, String password, String repeatedPassword) {
+        Result result = new Result();
         //Compare Passwords
         if (password.compareTo(repeatedPassword) != 0) {
-            return NO_PASSWORD_MATCH; //If no match
+            result.setErrorMessage(NO_PASSWORD_MATCH);
+            result.setSuccessful(false);
+            return result;
         }
 
         //Match Password to Reg-ex
         if (checkRegex(password, this.PASSWORD_CRITERIA)) {
-            return BAD_PASSWORD; //If password characters are unacceptable
+            result.setErrorMessage(BAD_PASSWORD);
+            result.setSuccessful(false);
+            return result; //If password characters are unacceptable
         }
 
         //Match Username to Reg-ex
         if (checkRegex(password, this.USERNAME_CRITERIA)) {
-            return BAD_USERNAME; //If username characters are unacceptable
+            result.setSuccessful(false);
+            result.setErrorMessage(BAD_USERNAME);
+            return result; //If username characters are unacceptable
         }
 
         //RegisterActivity.NotifyRegisterStarted()
@@ -64,16 +71,20 @@ public class RegisterPresenter implements IRegisterPresenter, Observer {
         //Transistion to next view: gameLobby
 
         if (registerResult == null) {
-            return REGISTER_FAILED;
+            result.setErrorMessage(REGISTER_FAILED);
+            result.setSuccessful(false);
+            return result;
         }
 
         if (registerResult.isSuccessful()) {
             ClientFacade client = new ClientFacade();
             client.setUser(newUser);
-            return REGISTER_SUCCESSFUL;
+            result.setErrorMessage(REGISTER_SUCCESSFUL);
+            result.setSuccessful(true);
+            return result;
         }
         else {
-            return registerResult.getErrorMessage();
+            return registerResult;
         }
 
 

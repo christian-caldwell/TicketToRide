@@ -69,25 +69,20 @@ public class GeneralCommand implements ICommandExecuter, Serializable {
 
     @Override
     public Result exec() {
-        CommandResult result = new CommandResult();
-        Result result1 = null;
+        CommandResult commandResult = new CommandResult();
+        Result result = null;
         try {
 
             Class<?> receiver = Class.forName(_className);
             Method method = receiver.getMethod(_methodName, _paramTypes);
-            result.setData(method.invoke(receiver.newInstance(), _paramValues));
-            result1 = (Result)result.getData();
-            /* I don't think this would need to be used since we're basically
-                using the Result class
-            result.setSuccessful(result1.isSuccessful());
-            result.setErrorMessage(result1.getErrorMessage());
-            */
+            commandResult.setData(method.invoke(receiver.newInstance(), _paramValues));
+            result = (Result)commandResult.getData();
         }
         catch (Exception e) {
             e.printStackTrace();
-            result1.setErrorMessage(e.toString());
-            result1.setSuccessful(false);
+            result.setErrorMessage(e.toString());
+            result.setSuccessful(false);
         }
-        return result1;
+        return result;
     }
 }

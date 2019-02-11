@@ -42,7 +42,7 @@ public class LoginViewActivity extends AppCompatActivity implements ILoginView, 
                 if (result.isSuccessful()){
                     Intent intent = new Intent(LoginViewActivity.this, LobbyViewActivity.class);
                     startActivity(intent);
-                    Toast.makeText(LoginViewActivity.this, "Successfully logged in " + username, Toast.LENGTH_SHORT).show();
+                    Toast.makeText(LoginViewActivity.this, "Successfully logged in " + username.getText().toString(), Toast.LENGTH_SHORT).show();
 
                 }
                 else {

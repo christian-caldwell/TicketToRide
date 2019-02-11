@@ -54,10 +54,10 @@ public class ServerCommands implements IServer {
     }
 
     @Override
-    public Result register(User returnUser) {
+    public Result register(User newUser) {
         Result result = new Result();
         for (User user: serverData.getUsers()) {
-            if (user.getUsername().equals(returnUser.getUsername())) {
+            if (user.getUsername().equals(newUser.getUsername())) {
                 result.setErrorMessage("this user already exists...");
                 result.setSuccessful(false);
                 return result;
@@ -65,6 +65,7 @@ public class ServerCommands implements IServer {
         }
         result.setAuthenticationToken(UUID.randomUUID().toString().toUpperCase());
         result.setSuccessful(true);
+        serverData.addUsers(new User(newUser.getUsername(),newUser.getPassword()));
         return result;
     }
 

@@ -38,15 +38,12 @@ public class ClientCommunicator /*implements IClient */{
             OutputStream os = http.getOutputStream();
             ObjectMapper mapper = new ObjectMapper();
             String jsonStr = mapper.writeValueAsString(command);
-//            String jsonStr = gson.toJson(command.toString());
             writeString(jsonStr, os);
 
             http.connect();
             if (http.getResponseCode() == HttpURLConnection.HTTP_OK) {
                 InputStream is = http.getInputStream();
                 Reader read = new InputStreamReader(is);
-
-                //Result result = gson.fromJson(read, Result.class);
                 return mapper.readValue(read, Result.class);//result;
 
             } else {

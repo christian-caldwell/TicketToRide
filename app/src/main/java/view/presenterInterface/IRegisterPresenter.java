@@ -1,5 +1,7 @@
 package view.presenterInterface;
 
+import models.data.Result;
+
 public interface IRegisterPresenter {
-    public String registerUser(String username, String password, String repeatedPassword);
+    public Result registerUser(String username, String password, String repeatedPassword);
 }

@@ -115,17 +115,25 @@ public class ServerProxy implements IServer {
 
     @Override
     public Result register(User newUser) {
-        String className = (RegisterFacade.class).toString();
+        String className = RegisterFacade.class.getName();
         String methodName = "register";
 
         Object[] params = new Object[1];
         params[0] = newUser;
 
-        GeneralCommand generatedCommand = createCommand(className, params, methodName);
+        Object[] parameterDataArray = new Object[2];
+        Class<?>[] parameterClassArray = new Class<?>[2];
+
+        parameterClassArray[0] = String.class;
+        parameterClassArray[1] = String.class;
+        parameterDataArray[0] = newUser.getUsername();
+        parameterDataArray[1] = newUser.getPassword();
+
+        GeneralCommand newCommand = new GeneralCommand(className, methodName, parameterClassArray, parameterDataArray);
 
         ClientCommunicator communicator = new ClientCommunicator();
 
-        return communicator.send(generatedCommand, "10.0.2.2", "8080");
+        return communicator.send(newCommand, "10.0.2.2", "8080");
     }
 
     @Override
