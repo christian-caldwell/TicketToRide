@@ -25,7 +25,7 @@ public class RegisterPresenter implements IRegisterPresenter, Observer {
             + "- No Non-Alphanumeric Characters";
     private final String REGISTER_FAILED = "Register Failed Unexpectedly";
 
-    private final String PASSWORD_CRITERIA = "[a-zA-Z1-9]{5,}+";
+    private final String PASSWORD_CRITERIA = "^(?=[a-zA-Z0-9]{5,})[a-zA-Z]*[0-9][a-zA-Z0-9]*";
     private final String USERNAME_CRITERIA = "[a-zA-Z1-9]{5,}+";
 
     private IRegisterView registerView = null;
@@ -49,14 +49,14 @@ public class RegisterPresenter implements IRegisterPresenter, Observer {
         }
 
         //Match Password to Reg-ex
-        if (checkRegex(password, this.PASSWORD_CRITERIA)) {
+        if (!checkRegex(password, this.PASSWORD_CRITERIA)) {
             result.setErrorMessage(BAD_PASSWORD);
             result.setSuccessful(false);
             return result; //If password characters are unacceptable
         }
 
         //Match Username to Reg-ex
-        if (checkRegex(password, this.USERNAME_CRITERIA)) {
+        if (!checkRegex(password, this.USERNAME_CRITERIA)) {
             result.setSuccessful(false);
             result.setErrorMessage(BAD_USERNAME);
             return result; //If username characters are unacceptable
