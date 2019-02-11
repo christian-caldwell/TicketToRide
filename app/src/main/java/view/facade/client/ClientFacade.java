@@ -1,5 +1,7 @@
 package view.facade.client;
 
+import java.util.ArrayList;
+
 import client.ClientModel;
 import models.data.User;
 import models.data.Game;
@@ -16,6 +18,9 @@ public class ClientFacade {
 		client.setActiveGame(game);
 	}
 
+	public ArrayList<Game> getGames() {
+		return client.getLobbyGames();
+	}
 	public void setUser(User newUser) {
 		client.setPlayer(newUser);
 	}

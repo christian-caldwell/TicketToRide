@@ -73,13 +73,11 @@ public class LobbyViewActivity extends AppCompatActivity implements IGameLobby {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         create_game_text = input.getText().toString();
-                        Toast.makeText(LobbyViewActivity.this, create_game_text + " created!", Toast.LENGTH_SHORT).show();
-
-                        // Call the 'createGame' method in the GameLobbyPresenter
-                        // that method will create a Game using the game name str and current user
-                        // and add it to the arrayList of Games
-                        presenter.createGame(create_game_text);
+                        GameLobbyPresenter presenter = new GameLobbyPresenter();
+                        Game game = new Game(create_game_text);
+                        presenter.createGame(game);
                         adapter.notifyDataSetChanged();
+                        Toast.makeText(LobbyViewActivity.this, create_game_text + " created!", Toast.LENGTH_SHORT).show();
                     }
                 });
                 builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {

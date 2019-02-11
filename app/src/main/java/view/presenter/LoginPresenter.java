@@ -18,8 +18,8 @@ import view.presenterInterface.ILoginPresenter;
 public class LoginPresenter implements ILoginPresenter, Observer {
 	private final String LOGIN_SUCCESSFUL = "Username and Password Accepted. Logging In...";
 	private final String BAD_PASSWORD = "Password Not Accepted. Password Must Be \n"
-			+ "- Atleast X Character \n "
-			+ "- Atleast 1 Number \n "
+			+ "- At least X Character \n "
+			+ "- At least 1 Number \n "
 			+ "- No Non-Alphanumeric Symbols \n"
 			+ "- Three Fruits or Vegetables Ordered By Flavor";
 	private final String BAD_USERNAME = "Username Not Accepted. Username Must be \n "
@@ -28,7 +28,7 @@ public class LoginPresenter implements ILoginPresenter, Observer {
 	private final String EXCEPTION_OCCURED = "AN EXCEPTION HAS OCCURED";
 	private final String LOGIN_FAILED = "Login Failed Unexpectedly";
 
-	private final String PASSWORD_CRITERIA = "[a-zA-Z1-9]{5,}+";
+	private final String PASSWORD_CRITERIA = "^(?=[a-zA-Z0-9]{5,})[a-zA-Z]*[0-9][a-zA-Z0-9]*";
 	private final String USERNAME_CRITERIA = "[a-zA-Z1-9]{5,}+";
 
 	private ILoginView loginView = null;
@@ -42,14 +42,14 @@ public class LoginPresenter implements ILoginPresenter, Observer {
 	public Result loginUser(String username, String password) {
 		Result result = new Result();
 		//Match Password to Reg-ex
-		if (checkRegex(this.PASSWORD_CRITERIA, password)) {
+		if (!checkRegex(this.PASSWORD_CRITERIA, password)) {
 			result.setErrorMessage(BAD_PASSWORD);
 			result.setSuccessful(false);
 			return result; //If password characters are unacceptable
 		}
 
 		//Match Username to Reg-ex
-		if (checkRegex(this.USERNAME_CRITERIA, username)) {
+		if (!checkRegex(this.USERNAME_CRITERIA, username)) {
 			result.setErrorMessage(BAD_USERNAME);
 			result.setSuccessful(false);
 			return result; //If password characters are unacceptable

@@ -20,7 +20,7 @@ import view.activityInterface.IGameLobby;
 
 public class GameLobbyPresenter implements IGameLobbyPresenter, Observer {
 
-    ArrayList<Game> gameList;
+    ArrayList<Game> gameList = new ArrayList<>();
     ViewFacade viewfacade = new ViewFacade();
 
     @Override
@@ -73,20 +73,20 @@ public class GameLobbyPresenter implements IGameLobbyPresenter, Observer {
 
 
     @Override
-    public Game createGame(String gameName) {
-        Game newGame = new Game(gameName);
+    public void createGame(Game game) {
         ClientFacade client = new ClientFacade();
         String playerName = client.getPlayer().getUsername();
-        newGame.addPlayer(playerName);
-        newGame.setHostName(client.getPlayer().getUsername());
+        game.addPlayer(playerName);
+        game.setHostName(playerName);
         User user = new User(playerName, "");
         user.setHost(true);
 
 
         LobbyFacadeOut lobbyFacadeOut = new LobbyFacadeOut();
+        lobbyFacadeOut.createGame(game);
 
-        client.joinGame(newGame);
-        return lobbyFacadeOut.createGame(newGame.getGameName(), user).getGame();
+        client.joinGame(game);
+        lobbyFacadeOut.createGame(game);
 
     }
 

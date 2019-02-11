@@ -12,14 +12,14 @@ public class Result {
 
     private String errorMessage = "";
     private String authenticationToken;
-    private Game game;
+    private String gameName;
     private boolean isSuccessful;
     private PollManagerData pollResult;
     private ArrayList<Game> lobbyList;
 
-    public Result(String error, String auth, Game game, boolean isSuccess) {
+    public Result(String error, String auth, String gameName, boolean isSuccess) {
         this.authenticationToken = auth;
-        this.game = game;
+        this.gameName = gameName;
         this.errorMessage = error;
         this.isSuccessful = isSuccess;
     }
@@ -51,12 +51,12 @@ public class Result {
         this.isSuccessful = success;
     }
 
-    public Game getGame() {
-        return game;
+    public String getGame() {
+        return gameName;
     }
 
-    public void setGame(Game game) {
-        this.game = game;
+    public void setGame(String gameName) {
+        this.gameName = gameName;
     }
 
     public String getErrorMessage() {

@@ -32,7 +32,7 @@ public class ServerData {
  
     public Result setGame(Game newGame) {
         Result result = new Result();
-        result.setGame(newGame);
+        result.setGame(newGame.getGameName());
         if (availableGames.containsKey(newGame.getGameName())) {
             result.setErrorMessage("ERROR: \"" + newGame.getGameName() + "\" is taken, cannot create game.");
             result.setSuccessful(false);
@@ -40,8 +40,7 @@ public class ServerData {
         }
         else {
             availableGames.put(newGame.getGameName(), newGame);
-            result.setErrorMessage("");
-            result.setSuccessful(false);
+            result.setSuccessful(true);
         }
         return result;
     }

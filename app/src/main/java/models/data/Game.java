@@ -8,7 +8,7 @@ public class Game {
     private boolean gameStarted;
     private String gameName;
     private String hostName;
-    private ArrayList<String> players;
+    private ArrayList<String> players = new ArrayList<>();
 
     public Game(String gameName) {
         this.gameName = gameName;
