@@ -20,16 +20,17 @@ import java.util.Map;
 
 import models.data.Game;
 import view.activityInterface.IGameLobby;
+import view.presenter.GameLobbyPresenter;
 
 public class LobbyViewActivity extends AppCompatActivity implements IGameLobby {
 
     // Member variables
-    private ArrayList<String> mGameNames = new ArrayList<>();
-    private ArrayList<String> mCurrentNumOfPlayers = new ArrayList<>();
+    private ArrayList<Game> listOfGames;
     private Button startGameButton, createGameButton;
     private boolean createGameOpen = false;
     private String create_game_text = "";
     private RecyclerViewAdapter adapter;
+    private GameLobbyPresenter presenter = new GameLobbyPresenter();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -73,10 +74,12 @@ public class LobbyViewActivity extends AppCompatActivity implements IGameLobby {
                     public void onClick(DialogInterface dialog, int which) {
                         create_game_text = input.getText().toString();
                         Toast.makeText(LobbyViewActivity.this, create_game_text + " created!", Toast.LENGTH_SHORT).show();
-                        mGameNames.add(create_game_text);
-                        mCurrentNumOfPlayers.add("1");
+
+                        // Call the 'createGame' method in the GameLobbyPresenter
+                        // that method will create a Game using the game name str and current user
+                        // and add it to the arrayList of Games
+                        presenter.createGame(create_game_text);
                         adapter.notifyDataSetChanged();
-                        // Make calls to presenter from here
                     }
                 });
                 builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
@@ -107,7 +110,8 @@ public class LobbyViewActivity extends AppCompatActivity implements IGameLobby {
     // This initializes the recyclerView
     private void initRecyclerView() {
         RecyclerView recyclerView = findViewById(R.id.recycler_view);
-        adapter = new RecyclerViewAdapter(mGameNames, mCurrentNumOfPlayers, this);
+        listOfGames = presenter.getGameList();
+        adapter = new RecyclerViewAdapter(listOfGames, this);
         recyclerView.setHasFixedSize(true);
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
