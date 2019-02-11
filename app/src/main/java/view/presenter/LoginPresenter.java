@@ -43,14 +43,14 @@ public class LoginPresenter implements ILoginPresenter, Observer {
 		//Match Password to Reg-ex
 		if (checkRegex(this.PASSWORD_CRITERIA, password)) {
 			result.setErrorMessage(BAD_PASSWORD);
-			result.setSuccesful(false);
+			result.setSuccessful(false);
 			return result; //If password characters are unacceptable
 		}
 
 		//Match Username to Reg-ex
 		if (checkRegex(this.USERNAME_CRITERIA, username)) {
 			result.setErrorMessage(BAD_USERNAME);
-			result.setSuccesful(false);
+			result.setSuccessful(false);
 			return result; //If password characters are unacceptable
 		}
 
@@ -63,7 +63,7 @@ public class LoginPresenter implements ILoginPresenter, Observer {
 		//Transition to next view: gameLobby
 
 		if (loginResult == null) {
-			result.setSuccesful(false);
+			result.setSuccessful(false);
 			result.setErrorMessage(LOGIN_FAILED);
 			return result;
 		}

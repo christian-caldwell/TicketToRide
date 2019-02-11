@@ -21,15 +21,15 @@ public class ServerCommands implements IServer {
         Result result = new Result();
         if (game == null) {
             result.setErrorMessage("Game does not exist!");
-            result.setSuccesful(false);
+            result.setSuccessful(false);
         }
         else if (MAX_PLAYERS == game.getPlayers().size()) {
             result.setErrorMessage("no more players can be added!");
-            result.setSuccesful(false);
+            result.setSuccessful(false);
         }
         else {
             result.setGame(game);
-            result.setSuccesful(true);
+            result.setSuccessful(true);
             game.addPlayer(user.getUsername());
             user.addGamesJoined(game);
         }
@@ -59,12 +59,12 @@ public class ServerCommands implements IServer {
         for (User user: serverData.getUsers()) {
             if (user.getUsername().equals(returnUser.getUsername())) {
                 result.setErrorMessage("this user already exists...");
-                result.setSuccesful(false);
+                result.setSuccessful(false);
                 return result;
             }
         }
         result.setAuthenticationToken(UUID.randomUUID().toString().toUpperCase());
-        result.setSuccesful(true);
+        result.setSuccessful(true);
         return result;
     }
 
@@ -75,16 +75,16 @@ public class ServerCommands implements IServer {
             if (user.getUsername().equals(returnUser.getUsername())) {
                 if (user.getPassword().equals(returnUser.getPassword())) {
                     result.setAuthenticationToken(UUID.randomUUID().toString().toUpperCase());
-                    result.setSuccesful(true);
+                    result.setSuccessful(true);
                     return result;
                 }
-                result.setSuccesful(false);
+                result.setSuccessful(false);
                 result.setErrorMessage("incorrect password...");
                 return result;
             }
         }
         result.setErrorMessage("user does not exist...");
-        result.setSuccesful(false);
+        result.setSuccessful(false);
         return result;
     }
 

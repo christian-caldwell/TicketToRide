@@ -33,13 +33,13 @@ public class ServerData {
         result.setGame(newGame);
         if (availableGames.containsKey(newGame.getGameName())) {
             result.setErrorMessage("ERROR: \"" + newGame.getGameName() + "\" is taken, cannot create game.");
-            result.setSuccesful(false);
+            result.setSuccessful(false);
 
         }
         else {
             availableGames.put(newGame.getGameName(), newGame);
             result.setErrorMessage("");
-            result.setSuccesful(false);
+            result.setSuccessful(false);
         }
         return result;
     }
