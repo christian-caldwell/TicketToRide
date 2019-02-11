@@ -6,7 +6,7 @@ public class Game {
     public String status;
     private String gameName;
     private String hostName;
-    private ArrayList<String> players;
+    private ArrayList<String> players = new ArrayList<>();
 
     public String getHostName() {
         return this.hostName;

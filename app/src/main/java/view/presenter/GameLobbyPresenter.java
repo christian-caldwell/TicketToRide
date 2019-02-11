@@ -22,7 +22,7 @@ import client.ServerProxy;
 
 public class GameLobbyPresenter implements IGameLobbyPresenter, Observer {
 
-    ArrayList<Game> gameList;
+    ArrayList<Game> gameList = new ArrayList<>();
     ViewFacade viewfacade = new ViewFacade();
 
 
@@ -42,32 +42,29 @@ public class GameLobbyPresenter implements IGameLobbyPresenter, Observer {
         GameStartFacadeOut gameStartFacadeOut = new GameStartFacadeOut();
         gameStartFacadeOut.startGame(game);
         ClientFacade client = new ClientFacade();
-        client.startGame(game);
+        client.joinGame(game);
     }
 
     @Override
     public ArrayList getGameList() {
-
-        return gameList;
+        ClientFacade clientFacade = new ClientFacade();
+        return clientFacade.getGames();
     }
 
 
     @Override
     public void createGame(Game game) {
-        Game newGame = new Game(gameName);
         ClientFacade client = new ClientFacade();
         String playerName = client.getHost();
-        newGame.addPlayer(playerName);
-        newGame.setHostName(client.getHost());
+        game.addPlayer(playerName);
+        game.setHostName(client.getHost());
         User user = new User(playerName, "");
 
         LobbyFacadeOut lobbyFacadeOut = new LobbyFacadeOut();
-        ClientFacade client = new ClientFacade();
-        client.waitingForGame(game);
         lobbyFacadeOut.createGame(game);
 
-        client.joinGame(newGame);
-        return lobbyFacadeOut.createGame(newGame.getGameName(), user).getGame();
+        client.joinGame(game);
+        lobbyFacadeOut.createGame(game);
 
     }
 

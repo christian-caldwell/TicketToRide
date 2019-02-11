@@ -76,8 +76,6 @@ public class LobbyViewActivity extends AppCompatActivity implements IGameLobby {
                         GameLobbyPresenter presenter = new GameLobbyPresenter();
                         Game game = new Game(create_game_text);
                         presenter.createGame(game);
-                        mGameNames.add(create_game_text);
-                        mCurrentNumOfPlayers.add("1");
                         adapter.notifyDataSetChanged();
                         Toast.makeText(LobbyViewActivity.this, create_game_text + " created!", Toast.LENGTH_SHORT).show();
                     }

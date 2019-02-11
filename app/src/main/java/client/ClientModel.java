@@ -14,8 +14,8 @@ import view.presenter.RegisterPresenter;
 public class ClientModel extends Observable {
     private User player;
     private Game gameActive;
-    private ArrayList<Game> gamesLobby;
-    private ArrayList<Object> changedObjects;
+    private ArrayList<Game> gamesLobby = new ArrayList<>();
+    private ArrayList<Object> changedObjects = new ArrayList<>();
 
     private static ClientModel singleton;
 
@@ -52,8 +52,8 @@ public class ClientModel extends Observable {
         return this.changedObjects;
     }
 
-    public void setLobbyGames(ArrayList<Game> games) {
-        this.gamesLobby = games;
+    public void addLobbyGames(Game game) {
+        this.gamesLobby.add(game);
     }
 
     public void addChange(Object changedMember) {

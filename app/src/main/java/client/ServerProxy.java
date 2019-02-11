@@ -91,7 +91,11 @@ public class ServerProxy implements IServer {
 
         ClientCommunicator communicator = new ClientCommunicator();
 
-        return communicator.send(newCommand, "10.0.2.2", "8080");
+        Result result = communicator.send(newCommand, "10.0.2.2", "8080");
+        if (result.isSuccessful()) {
+            ClientModel.create().addLobbyGame(new Game(result.getGame()));
+        }
+        return result;
     }
 
     @Override
