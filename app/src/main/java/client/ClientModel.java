@@ -13,16 +13,13 @@ import view.presenter.RegisterPresenter;
 
 public class ClientModel extends Observable {
     private User player;
-    private ArrayList<Game> gamesActive = new ArrayList<>();
-    private ArrayList<Game> gamesWaiting = new ArrayList<>();
-    private ArrayList<Game> gamesLobby= new ArrayList<>();
+    private Game gameActive;
+    private ArrayList<Game> gamesLobby;
     private ArrayList<Object> changedObjects;
 
     private static ClientModel singleton;
 
-    public ClientModel() {
-
-    }
+    public ClientModel() {}
 
     public static ClientModel create() {
         if (singleton == null) {
@@ -35,28 +32,24 @@ public class ClientModel extends Observable {
         return this.player;
     }
 
-    public void setPlayer(User player) {
+    public void setPlayer (User player) {
         this.player = player;
     }
 
-    public ArrayList<Game> getActiveGames() {
-        return this.gamesActive;
+    public Game getActiveGame() {
+        return this.gameActive;
     }
 
-    public void setActiveGames(ArrayList<Game> games) {
-        this.gamesActive = games;
-    }
-
-    public ArrayList<Game> getWaitingGames() {
-        return this.gamesWaiting;
-    }
-
-    public void setWaitingGames(ArrayList<Game> games) {
-        this.gamesWaiting = games;
+    public void setActiveGame(Game gamePlaying) {
+        this.gameActive = gamePlaying;
     }
 
     public ArrayList<Game> getLobbyGames() {
         return this.gamesLobby;
+    }
+
+    public ArrayList<Object> getChangedObjects() {
+        return this.changedObjects;
     }
 
     public void setLobbyGames(ArrayList<Game> games) {
@@ -71,28 +64,12 @@ public class ClientModel extends Observable {
         this.changedObjects.clear();
     }
 
-    public void addWaitingGame(Game game) {
-        this.gamesWaiting.add(game);
-    }
-
-    public void addActiveGame(Game game) {
-        this.gamesActive.add(game);
-    }
-
-    public void removeWaitingGame(Game game) {
-        this.gamesWaiting.remove(game);
-    }
-
-    public void removeActiveGame(Game game) {
-        this.gamesActive.remove(game);
-    }
-
     public void addLobbyGame(Game game) {
-        this.gamesActive.add(game);
+        this.gamesLobby.add(game);
     }
 
     public void removeLobbyGame(Game game) {
-        this.gamesWaiting.remove(game);
+        this.gamesLobby.remove(game);
     }
 
     public void update() {
