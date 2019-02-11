@@ -66,7 +66,8 @@ public class GameLobbyPresenter implements IGameLobbyPresenter, Observer {
         Result result = lobbyFacade.getLobbyList();
 
         this.gameList = result.getLobbyList();
-
+        ClientFacade client = new ClientFacade();
+        client.setLobbyList(this.getGameList());
         return gameList;
     }
 

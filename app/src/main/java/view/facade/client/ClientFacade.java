@@ -3,6 +3,7 @@ package view.facade.client;
 import client.ClientModel;
 import models.data.User;
 import models.data.Game;
+import java.util.ArrayList;
 
 public class ClientFacade {
 	private ClientModel client;
@@ -21,5 +22,9 @@ public class ClientFacade {
 
 	public User getPlayer() {
 		return this.client.getPlayer();
+	}
+
+	public void setLobbyList(ArrayList<Game> newLobbyList) {
+		this.client.setLobbyGames(newLobbyList);
 	}
 }
