@@ -37,7 +37,7 @@ public class LobbyViewActivity extends AppCompatActivity implements IGameLobby {
         StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
         StrictMode.setThreadPolicy(policy);
         setContentView(R.layout.activity_lobby_view);
-        initArraysTest();
+        initRecyclerView();
 
         // Initialize startGameButton and set onClickListener
         startGameButton = findViewById(R.id.startGameButton);
@@ -62,6 +62,7 @@ public class LobbyViewActivity extends AppCompatActivity implements IGameLobby {
 
                 AlertDialog.Builder builder = new AlertDialog.Builder(LobbyViewActivity.this);
                 builder.setTitle("Create Game");
+                builder.setMessage("Choose a name for your game");
 
                 final EditText input = new EditText(LobbyViewActivity.this);
                 input.setInputType(InputType.TYPE_CLASS_TEXT);
@@ -102,19 +103,8 @@ public class LobbyViewActivity extends AppCompatActivity implements IGameLobby {
         }
     }
 
-    // This will initialize the test arrays to display in recyclerview
-    // it will not be called in the real project
-    private void initArraysTest() {
-        mGameNames.add("game1");
-        mGameNames.add("game2");
-        mCurrentNumOfPlayers.add("3");
-        mCurrentNumOfPlayers.add("2");
-        initRecyclerView();
-
-    }
 
     // This initializes the recyclerView
-    // It will be called
     private void initRecyclerView() {
         RecyclerView recyclerView = findViewById(R.id.recycler_view);
         adapter = new RecyclerViewAdapter(mGameNames, mCurrentNumOfPlayers, this);
