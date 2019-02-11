@@ -41,7 +41,7 @@ public class GameLobbyPresenter implements IGameLobbyPresenter, Observer {
         GameStartFacadeOut gameStartFacadeOut = new GameStartFacadeOut();
         gameStartFacadeOut.startGame(game);
         ClientFacade client = new ClientFacade();
-        client.joinGame(game);
+        client.startGame(game);
     }
 
     @Override
@@ -52,12 +52,11 @@ public class GameLobbyPresenter implements IGameLobbyPresenter, Observer {
 
 
     @Override
-    public Game createGame(Game game, User user) {
+    public void createGame(Game game) {
         LobbyFacadeOut lobbyFacadeOut = new LobbyFacadeOut();
         ClientFacade client = new ClientFacade();
         client.waitingForGame(game);
-        return lobbyFacadeOut.createGame(game.getGameName(), user).getGame();
-
+        lobbyFacadeOut.createGame(game);
     }
 
     @Override

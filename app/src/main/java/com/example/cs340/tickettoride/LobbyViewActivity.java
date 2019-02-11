@@ -19,7 +19,9 @@ import java.util.ArrayList;
 import java.util.Map;
 
 import models.data.Game;
+import models.data.Result;
 import view.activityInterface.IGameLobby;
+import view.presenter.GameLobbyPresenter;
 
 public class LobbyViewActivity extends AppCompatActivity implements IGameLobby {
 
@@ -72,11 +74,13 @@ public class LobbyViewActivity extends AppCompatActivity implements IGameLobby {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         create_game_text = input.getText().toString();
-                        Toast.makeText(LobbyViewActivity.this, create_game_text + " created!", Toast.LENGTH_SHORT).show();
+                        GameLobbyPresenter presenter = new GameLobbyPresenter();
+                        Game game = new Game(create_game_text);
+                        presenter.createGame(game);
                         mGameNames.add(create_game_text);
                         mCurrentNumOfPlayers.add("1");
                         adapter.notifyDataSetChanged();
-                        // Make calls to presenter from here
+                        Toast.makeText(LobbyViewActivity.this, create_game_text + " created!", Toast.LENGTH_SHORT).show();
                     }
                 });
                 builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {

@@ -13,8 +13,8 @@ public class LobbyFacade {
         serverCommands = new ServerCommands();
     }
 
-    public Result createGame(Request request) {
-        return serverCommands.createGame(request.getGame().getGameName(), request.getUser());
+    public Result createGame(String gameName) {
+        return serverCommands.createGame(gameName);
     }
 
     public Result joinGame(Request request) {

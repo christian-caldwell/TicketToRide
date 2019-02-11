@@ -13,14 +13,16 @@ import view.presenter.RegisterPresenter;
 
 public class ClientModel extends Observable {
     private User player;
-    private ArrayList<Game> gamesActive;
-    private ArrayList<Game> gamesWaiting;
-    private ArrayList<Game> gamesLobby;
+    private ArrayList<Game> gamesActive = new ArrayList<>();
+    private ArrayList<Game> gamesWaiting = new ArrayList<>();
+    private ArrayList<Game> gamesLobby= new ArrayList<>();
     private ArrayList<Object> changedObjects;
 
     private static ClientModel singleton;
 
-    public ClientModel() {}
+    public ClientModel() {
+
+    }
 
     public static ClientModel create() {
         if (singleton == null) {
@@ -29,11 +31,11 @@ public class ClientModel extends Observable {
         return singleton;
     }
 
-    public User getPlayer () {
+    public User getPlayer() {
         return this.player;
     }
 
-    public void setPlayer (User player) {
+    public void setPlayer(User player) {
         this.player = player;
     }
 

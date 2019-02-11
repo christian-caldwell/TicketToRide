@@ -56,7 +56,7 @@ public class ServerProxy implements IServer {
 
         Object[] params = new Object[2];
         params[0] = username;
-        params[1] = game;
+        params[1] = game.getGameName();
 
         GeneralCommand generatedCommand = createCommand(className, params, methodName);
 
@@ -72,26 +72,26 @@ public class ServerProxy implements IServer {
     }
 
     @Override
-    public Result createGame(String gameName, User user) {
+    public Result createGame(String gameName) {
 
-        String className = (LobbyFacade.class).toString();
+
+        String className = LobbyFacade.class.getName();
         String methodName = "createGame";
 
         Object[] params = new Object[1];
         params[0] = gameName;
-        params[1] = user;
 
-        GeneralCommand generatedCommand = createCommand(className, params, methodName);
+        Object[] parameterDataArray = new Object[1];
+        Class<?>[] parameterClassArray = new Class<?>[1];
+
+        parameterClassArray[0] = String.class;
+        parameterDataArray[0] = gameName;
+
+        GeneralCommand newCommand = new GeneralCommand(className, methodName, parameterClassArray, parameterDataArray);
 
         ClientCommunicator communicator = new ClientCommunicator();
 
-        Result result = communicator.send(generatedCommand,"127.0.0.1", "8080");
-
-        //return new Result("nothing", "token", null, true);
-        return result;
-
-        //Request request = new Request();
-//        client.send("127.0.0.1", "8080", request);
+        return communicator.send(newCommand, "10.0.2.2", "8080");
     }
 
     @Override
@@ -132,8 +132,11 @@ public class ServerProxy implements IServer {
         GeneralCommand newCommand = new GeneralCommand(className, methodName, parameterClassArray, parameterDataArray);
 
         ClientCommunicator communicator = new ClientCommunicator();
-
-        return communicator.send(newCommand, "10.0.2.2", "8080");
+        Result result = communicator.send(newCommand, "10.0.2.2", "8080");
+        if (result.isSuccessful()) {
+            ClientModel.create().setPlayer(newUser);
+        }
+        return result;
     }
 
     @Override
@@ -155,8 +158,12 @@ public class ServerProxy implements IServer {
         GeneralCommand newCommand = new GeneralCommand(className, methodName, parameterClassArray, parameterDataArray);
 
         ClientCommunicator communicator = new ClientCommunicator();
-
-        return communicator.send(newCommand, "10.0.2.2", "8080");    }
+        Result result = communicator.send(newCommand, "10.0.2.2", "8080");
+        if (result.isSuccessful()) {
+            ClientModel.create().setPlayer(returnUser);
+        }
+        return result;
+    }
 
     private GeneralCommand createCommand(String className, Object[] modelObjects, String methodName) {
         Object[] parameterDataArray = null;

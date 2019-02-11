@@ -15,7 +15,7 @@ public class ClientFacade {
 		client.addWaitingGame(game);
 	}
 
-	public void joinGame(Game game) {
+	public void startGame(Game game) {
 		client.removeWaitingGame(game);
 		client.addActiveGame(game);
 	}
