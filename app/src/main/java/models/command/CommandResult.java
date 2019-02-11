@@ -13,7 +13,7 @@ public class CommandResult {
         errorInfo = toString;
     }
 
-    public boolean isSuccess() {
+    public boolean isSuccessful() {
         return success;
     }
 

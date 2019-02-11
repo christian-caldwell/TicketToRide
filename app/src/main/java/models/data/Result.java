@@ -36,7 +36,7 @@ public class Result {
         return this.isSuccessful;
     }
 
-    public void setSuccesful(boolean success) {
+    public void setSuccessful(boolean success) {
         this.isSuccessful = success;
     }
 
