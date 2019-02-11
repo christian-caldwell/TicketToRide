@@ -26,7 +26,8 @@ public class ViewFacade {
 
 	public ArrayList<Game> getGameList() {
         ClientModel model = new ClientModel();
-	    return model.getGames();
+        //this may need to change
+	    return model.getActiveGames();
 	}
 
 	public Result loginUser(User returningUser) {
