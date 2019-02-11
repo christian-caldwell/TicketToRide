@@ -12,18 +12,19 @@ import android.widget.Toast;
 
 import java.util.ArrayList;
 
+import models.data.Game;
+
 
 // This class will perform all the logic for anything within the recyclerView
 
 public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapter.ViewHolder> {
 
-    private ArrayList<String> mGameNames = new ArrayList<>();
-    private ArrayList<String> mCurrentNumOfPlayers = new ArrayList<>();
+    private ArrayList<Game> listOfGames;
     private Context mContext;
 
-    public RecyclerViewAdapter(ArrayList<String> mGameNames, ArrayList<String> mCurrentNumOfPlayers, Context mContext) {
-        this.mGameNames = mGameNames;
-        this.mCurrentNumOfPlayers = mCurrentNumOfPlayers;
+
+    public RecyclerViewAdapter(ArrayList<Game> listOfGames, Context mContext) {
+        this.listOfGames = listOfGames;
         this.mContext = mContext;
     }
 
@@ -37,21 +38,23 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, final int position) {
-        holder.currentNumOfPlayers.setText("Current players: " + mCurrentNumOfPlayers.get(position));
-        holder.gameName.setText(mGameNames.get(position));
+        holder.currentNumOfPlayers.setText("Current players: " +
+                listOfGames.get(position).getPlayers().size());
+        holder.gameName.setText(listOfGames.get(position).getGameName());
         holder.parentLayout.setOnClickListener(new View.OnClickListener() {
 
 
             @Override
             public void onClick(View v) {
-                Toast.makeText(mContext, "You've been added to " + mGameNames.get(position), Toast.LENGTH_SHORT).show();
+                Toast.makeText(mContext, "You've been added to " +
+                        listOfGames.get(position).getGameName(), Toast.LENGTH_SHORT).show();
             }
         });
     }
 
     @Override
     public int getItemCount() {
-        return mGameNames.size();
+        return listOfGames.size();
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {

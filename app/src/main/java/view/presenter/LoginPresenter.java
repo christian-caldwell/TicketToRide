@@ -1,5 +1,6 @@
 package view.presenter;
 
+import java.util.ArrayList;
 import java.util.Observable;
 import java.util.Observer;
 import java.util.regex.Pattern;
@@ -96,8 +97,14 @@ public class LoginPresenter implements ILoginPresenter, Observer {
 
 	///// Observer Functions
 	@Override
-	public void update(Observable obs, Object obj) {
+	public void update(Observable o, Object obj) {
 
+		ClientModel client = (ClientModel) o;
+		ArrayList<Object> updatedObject = client.getChangedObjects();
+
+		if (updatedObject.isEmpty()) {
+			//No update or server error
+		}
 	}
 
 

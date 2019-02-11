@@ -5,7 +5,16 @@ import java.util.ArrayList;
 public class Game {
     public String status;
     private String gameName;
+    private String hostName;
     private ArrayList<String> players;
+
+    public String getHostName() {
+        return this.hostName;
+    }
+
+    public void setHostName(String hostName) {
+        this.hostName = hostName;
+    }
 
     public Game(String gameName) {
         this.gameName = gameName;
