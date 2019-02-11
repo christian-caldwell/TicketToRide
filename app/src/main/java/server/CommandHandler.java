@@ -11,6 +11,7 @@ import java.net.HttpURLConnection;
 
 import helper.HttpHelper;
 import models.command.ICommandExecuter;
+import models.data.Result;
 
 public class CommandHandler implements HttpHandler {
     public void handle(HttpExchange exchange) throws IOException {

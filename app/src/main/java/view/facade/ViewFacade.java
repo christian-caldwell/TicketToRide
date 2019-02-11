@@ -31,6 +31,7 @@ public class ViewFacade {
 	}
 
 	public Result loginUser(User returningUser) {
+
 		return null;
 	}
 }

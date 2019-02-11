@@ -74,7 +74,6 @@ public class GeneralCommand implements ICommandExecuter, Serializable {
 
             Class<?> receiver = Class.forName(_className);
             Method method = receiver.getMethod(_methodName, _paramTypes);
-            //FIXME: It's possible that the fist param of 'invoke' will need to be a static class
             result.setData(method.invoke(receiver.newInstance(), _paramValues));
             Result result1 = (Result)result.getData();
             result.setSuccesful(result1.isSuccessful());
