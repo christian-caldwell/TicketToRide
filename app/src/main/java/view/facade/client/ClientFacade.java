@@ -19,7 +19,7 @@ public class ClientFacade {
 		client.setPlayer(newUser);
 	}
 
-	public String getHost() {
-		return this.client.getPlayer().getUsername();
+	public User getPlayer() {
+		return this.client.getPlayer();
 	}
 }

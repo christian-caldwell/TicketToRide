@@ -25,6 +25,17 @@ public class GameLobbyPresenter implements IGameLobbyPresenter, Observer {
     ArrayList<Game> gameList;
     ViewFacade viewfacade = new ViewFacade();
 
+    @Override
+    public boolean isUserHosting() {
+        ClientFacade client = new ClientFacade();
+        return client.getPlayer().isHost();
+    }
+
+    @Override
+    public ArrayList<String> getHostedGamePlayers() {
+        ClientFacade client = new ClientFacade();
+        return client.getPlayer().getActiveGame().getPlayers();
+    }
 
     @Override
     public void addPlayer(Game game, User user) {
@@ -56,10 +67,12 @@ public class GameLobbyPresenter implements IGameLobbyPresenter, Observer {
     public Game createGame(String gameName) {
         Game newGame = new Game(gameName);
         ClientFacade client = new ClientFacade();
-        String playerName = client.getHost();
+        String playerName = client.getPlayer().getUsername();
         newGame.addPlayer(playerName);
-        newGame.setHostName(client.getHost());
+        newGame.setHostName(client.getPlayer().getUsername());
         User user = new User(playerName, "");
+        user.setHost(true);
+
 
         LobbyFacadeOut lobbyFacadeOut = new LobbyFacadeOut();
 
