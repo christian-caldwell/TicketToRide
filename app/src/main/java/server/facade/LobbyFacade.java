@@ -21,4 +21,8 @@ public class LobbyFacade {
         return serverCommands.joinGame(request.getUser(), request.getGame());
     }
 
+    public Result getLobbyList() {
+        return serverCommands.getLobbyList();
+    }
+
 }

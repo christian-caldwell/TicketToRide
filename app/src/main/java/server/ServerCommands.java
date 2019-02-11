@@ -31,7 +31,7 @@ public class ServerCommands implements IServer {
             result.setGame(game);
             result.setSuccessful(true);
             game.addPlayer(user.getUsername());
-            user.addGamesJoined(game);
+            user.setActiveGame(game);
         }
         return result;
     }
@@ -91,6 +91,11 @@ public class ServerCommands implements IServer {
 
     @Override
     public PollManagerData pollServer() {
+        return null;
+    }
+
+    @Override
+    public Result getLobbyList() {
         return null;
     }
 

@@ -33,8 +33,8 @@ public class User {
         this.pass = pass;
     }
 
-    public void setActiveGame(Game gamesJoined) {
-        this.activeGame = gamesJoined;
+    public void setActiveGame(Game activeGame) {
+        this.activeGame = activeGame;
     }
 
     public Game getActiveGame() {

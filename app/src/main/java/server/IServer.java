@@ -15,4 +15,5 @@ public interface IServer {
     public Result login(User returnUser);
 
     public PollManagerData pollServer();
+    public Result getLobbyList();
 }
