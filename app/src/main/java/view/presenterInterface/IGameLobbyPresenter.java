@@ -11,6 +11,6 @@ public interface IGameLobbyPresenter {
     public void startGame(Game game);
 
     public ArrayList getGameList();
-    public Game createGame(Game game, User user);
+    public Game createGame(String gameName);
 
 }

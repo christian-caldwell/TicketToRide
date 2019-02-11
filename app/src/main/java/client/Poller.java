@@ -85,26 +85,16 @@ public class Poller {
         }
 
 
-        for (Game currGame :updatedGames) {
+        for (Game currUpdatedGame :updatedGames) {
             for (Game currLobbyGame : client.getLobbyGames()) {
-                if (currGame.getGameName().compareTo(currLobbyGame.getGameName()) == 0) {
+                if (currUpdatedGame.getGameName().compareTo(currLobbyGame.getGameName()) == 0) {
                     client.removeLobbyGame(currLobbyGame);
-                    client.addLobbyGame(currGame);
+                    client.addLobbyGame(currUpdatedGame);
                 }
             }
 
-            for (Game currActiveGame : client.getActiveGames()) {
-                if (currGame.getGameName().compareTo(currActiveGame.getGameName()) == 0) {
-                    client.removeActiveGame(currActiveGame);
-                    client.addActiveGame(currGame);
-                }
-            }
-
-            for (Game currWaitingGame : client.getWaitingGames()) {
-                if (currGame.getGameName().compareTo(currWaitingGame.getGameName()) == 0) {
-                    client.removeWaitingGame(currWaitingGame);
-                    client.addWaitingGame(currGame);
-                }
+            if (client.getActiveGame().getGameName().compareTo(currUpdatedGame.getGameName()) == 0) {
+                client.setActiveGame(currUpdatedGame);
             }
         }
     }

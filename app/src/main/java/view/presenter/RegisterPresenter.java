@@ -1,9 +1,11 @@
 package view.presenter;
 
+import java.util.ArrayList;
 import java.util.Observable;
 import java.util.Observer;
 import java.util.regex.Pattern;
 
+import client.ClientModel;
 import client.ServerProxy;
 import models.data.Result;
 import models.data.User;
@@ -91,7 +93,13 @@ public class RegisterPresenter implements IRegisterPresenter, Observer {
     }
 
     @Override
-    public void update(Observable obs, Object obj) {
+    public void update(Observable o, Object obj) {
+        ClientModel client = (ClientModel) o;
+        ArrayList<Object> updatedObject = client.getChangedObjects();
+
+        if (updatedObject.isEmpty()) {
+            //No update or server error
+        }
 
     }
 

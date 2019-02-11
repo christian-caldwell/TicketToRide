@@ -11,16 +11,15 @@ public class ClientFacade {
 		this.client = ClientModel.create();
 	}
 
-	public void waitingForGame(Game game) {
-		client.addWaitingGame(game);
-	}
-
 	public void joinGame(Game game) {
-		client.removeWaitingGame(game);
-		client.addActiveGame(game);
+		client.setActiveGame(game);
 	}
 
 	public void setUser(User newUser) {
 		client.setPlayer(newUser);
+	}
+
+	public String getHost() {
+		return this.client.getPlayer().getUsername();
 	}
 }

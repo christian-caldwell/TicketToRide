@@ -7,6 +7,7 @@ import java.util.Observable;
 import java.util.Observer;
 
 
+import client.ClientModel;
 import models.data.Game;
 import models.data.User;
 import models.data.Result;
@@ -21,7 +22,7 @@ import client.ServerProxy;
 
 public class GameLobbyPresenter implements IGameLobbyPresenter, Observer {
 
-    ArrayList<String> gameList;
+    ArrayList<Game> gameList;
     ViewFacade viewfacade = new ViewFacade();
 
 
@@ -33,7 +34,7 @@ public class GameLobbyPresenter implements IGameLobbyPresenter, Observer {
         //gameLobby.updateGamePlayers(gameId);
 
         ClientFacade client = new ClientFacade();
-        client.waitingForGame(game);
+        client.joinGame(game);
     }
 
     @Override
@@ -46,22 +47,47 @@ public class GameLobbyPresenter implements IGameLobbyPresenter, Observer {
 
     @Override
     public ArrayList getGameList() {
-        //view.updateGameList(gameList);
+
         return gameList;
     }
 
 
     @Override
-    public Game createGame(Game game, User user) {
-        LobbyFacadeOut lobbyFacadeOut = new LobbyFacadeOut();
+    public Game createGame(String gameName) {
+        Game newGame = new Game(gameName);
         ClientFacade client = new ClientFacade();
-        client.waitingForGame(game);
-        return lobbyFacadeOut.createGame(game.getGameName(), user).getGame();
+        String playerName = client.getHost();
+        newGame.addPlayer(playerName);
+        newGame.setHostName(client.getHost());
+        User user = new User(playerName, "");
+
+        LobbyFacadeOut lobbyFacadeOut = new LobbyFacadeOut();
+
+        client.joinGame(newGame);
+        return lobbyFacadeOut.createGame(newGame.getGameName(), user).getGame();
 
     }
 
     @Override
     public void update(Observable o, Object arg) {
+        ClientModel client = (ClientModel) o;
+        ArrayList<Object> updatedObject = client.getChangedObjects();
 
+        if (updatedObject.isEmpty()) {
+            //No update or server error
+        }
+        else {
+            for (Object currUpdatedObject : this.gameList) {
+                if (currUpdatedObject.getClass() == Game.class) {
+                    Game currUpdatedGame = (Game) currUpdatedObject;
+                    for (Game currentLobbyGame : this.gameList) {
+                        if (currentLobbyGame.getGameName().compareTo(currUpdatedGame.getGameName()) == 0) {
+                            currentLobbyGame = currUpdatedGame;
+                        }
+
+                    }
+                }
+            }
+        }
     }
 }
