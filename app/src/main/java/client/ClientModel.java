@@ -13,6 +13,7 @@ import view.presenter.RegisterPresenter;
 
 public class ClientModel extends Observable {
     private User player;
+    private Boolean isaHost;
     private ArrayList<Game> gamesActive;
     private ArrayList<Game> gamesWaiting;
     private ArrayList<Game> gamesLobby;
@@ -27,6 +28,14 @@ public class ClientModel extends Observable {
             singleton = new ClientModel();
         }
         return singleton;
+    }
+
+    public Boolean getIsaHost() {
+        return isaHost;
+    }
+
+    public void setIsaHost(Boolean isaHost) {
+        this.isaHost = isaHost;
     }
 
     public User getPlayer () {
