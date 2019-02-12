@@ -3,6 +3,7 @@ package view.presenterInterface;
 import java.util.ArrayList;
 
 import models.data.Game;
+import models.data.Request;
 import models.data.User;
 
 public interface IGameLobbyPresenter {
@@ -13,4 +14,5 @@ public interface IGameLobbyPresenter {
     public ArrayList getGameList();
     public void createGame(Game game);
 
+    public User getPlayer();
 }

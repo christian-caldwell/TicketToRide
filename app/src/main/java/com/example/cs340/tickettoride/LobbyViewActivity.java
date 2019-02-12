@@ -3,6 +3,8 @@ package com.example.cs340.tickettoride;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.PorterDuff;
 import android.os.Bundle;
 import android.os.StrictMode;
 import android.support.v7.app.AppCompatActivity;
@@ -44,8 +46,11 @@ public class LobbyViewActivity extends AppCompatActivity implements IGameLobby {
         // Initialize startGameButton and set onClickListener
         // If the user is not a host, disable the 'Start Game' button
         startGameButton = findViewById(R.id.startGameButton);
-        if (!presenter.getPlayer().isHost())
+        if (!presenter.getPlayer().isHost()) {
+            startGameButton.getBackground().setColorFilter(Color.DKGRAY, PorterDuff.Mode.MULTIPLY);
+            startGameButton.setAlpha(.5f);
             startGameButton.setEnabled(false);
+        }
 
         startGameButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -80,6 +85,9 @@ public class LobbyViewActivity extends AppCompatActivity implements IGameLobby {
                         create_game_text = input.getText().toString();
                         Game game = new Game(create_game_text);
                         presenter.createGame(game);
+                        startGameButton.getBackground().setColorFilter(null);
+                        startGameButton.setAlpha(1);
+                        startGameButton.setEnabled(true);
                         adapter.notifyDataSetChanged();
                         Toast.makeText(LobbyViewActivity.this, create_game_text + " created!", Toast.LENGTH_SHORT).show();
                     }

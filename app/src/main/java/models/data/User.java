@@ -5,20 +5,14 @@ import java.util.ArrayList;
 public class User {
     private String username;
     private String pass;
-    private ArrayList<Game> gamesJoined;
+    private Boolean host;
+    private Game gameJoined;
 
-    public ArrayList<Game> getGamesJoined() {
-        return gamesJoined;
-    }
-
-    public void addGamesJoined(Game gameJoined) {
-        this.gamesJoined.add(gameJoined);
-    }
 
     public User(String username, String password) {
         this.username = username;
         this.pass = password;
-        this.gamesJoined = new ArrayList<Game>();
+        this.host = false;
     }
 
     public String getUsername() {
@@ -28,4 +22,19 @@ public class User {
         return pass;
     }
 
+    public void setGameJoined(Game gameJoined) {
+        this.gameJoined = gameJoined;
+    }
+
+    public Game getGame() {
+        return gameJoined;
+    }
+
+    public boolean isHost() {
+        return host;
+    }
+
+    public void setHost(Boolean host) {
+        this.host = host;
+    }
 }
