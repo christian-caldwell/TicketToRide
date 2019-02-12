@@ -6,24 +6,24 @@ import java.util.ArrayList;
 import java.util.Observable;
 import java.util.Observer;
 
-
 import client.ClientModel;
 import models.data.Game;
-import models.data.User;
 import models.data.Result;
+import models.data.User;
+import view.activityInterface.IGameLobby;
+import view.facade.ViewFacade;
 import view.facade.client.ClientFacade;
 import view.facade.client.out.GameStartFacadeOut;
 import view.facade.client.out.LobbyFacadeOut;
 import view.presenterInterface.IGameLobbyPresenter;
-import view.facade.ViewFacade;
-import view.activityInterface.IGameLobby;
-
-import client.ServerProxy;
 
 public class GameLobbyPresenter implements IGameLobbyPresenter, Observer {
 
     ArrayList<Game> gameList = new ArrayList<>();
     ViewFacade viewfacade = new ViewFacade();
+
+
+
 
 
     @Override
@@ -55,7 +55,9 @@ public class GameLobbyPresenter implements IGameLobbyPresenter, Observer {
 
 
     @Override
-    public void createGame(Game game) {
+    public String createGame(Game game) {
+        if(game.getGameName().equals("")) return "Game must have a name";
+
         ClientFacade client = new ClientFacade();
         String playerName = client.getHost();
         game.addPlayer(playerName);
@@ -68,6 +70,8 @@ public class GameLobbyPresenter implements IGameLobbyPresenter, Observer {
 
         client.joinGame(game);
         lobbyFacadeOut.createGame(game, playerName);
+
+        return game.getGameName() + " created!";
 
     }
 

@@ -18,8 +18,6 @@ import android.widget.Toast;
 
 import java.util.ArrayList;
 
-import java.util.Map;
-
 import models.data.Game;
 import view.activityInterface.IGameLobby;
 import view.presenter.GameLobbyPresenter;
@@ -82,14 +80,14 @@ public class LobbyViewActivity extends AppCompatActivity implements IGameLobby {
                 builder.setPositiveButton("Create", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        create_game_text = input.getText().toString();
-                        Game game = new Game(create_game_text);
-                        presenter.createGame(game);
+                        Game game = new Game(input.getText().toString());
+                        create_game_text = presenter.createGame(game);
                         startGameButton.getBackground().setColorFilter(null);
                         startGameButton.setAlpha(1);
                         startGameButton.setEnabled(true);
                         adapter.notifyDataSetChanged();
-                        Toast.makeText(LobbyViewActivity.this, create_game_text + " created!", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(LobbyViewActivity.this, create_game_text , Toast.LENGTH_SHORT).show();
+                        create_game_text = "";
                     }
                 });
                 builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
