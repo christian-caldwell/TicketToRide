@@ -4,9 +4,18 @@ import java.util.ArrayList;
 
 public class Game {
     public String status;
+    private boolean isVisibleInLobby;
     private String gameName;
     private String hostName;
     private ArrayList<String> players = new ArrayList<>();
+
+    public boolean isVisibleInLobby() {
+        return isVisibleInLobby;
+    }
+
+    public void setVisibleInLobby(boolean visibleInLobby) {
+        isVisibleInLobby = visibleInLobby;
+    }
 
     public String getHostName() {
         return this.hostName;

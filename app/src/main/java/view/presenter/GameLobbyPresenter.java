@@ -32,7 +32,7 @@ public class GameLobbyPresenter implements IGameLobbyPresenter, Observer {
     public ArrayList<String> getHostedGamePlayers() {
         ClientFacade client = new ClientFacade();
         if (client.getPlayer().isHost()) {
-            return client.getPlayer().getActiveGame().getPlayers();
+            return client.getActiveGame().getPlayers();
         }
         else {
             //player is not a host
@@ -67,13 +67,8 @@ public class GameLobbyPresenter implements IGameLobbyPresenter, Observer {
 
     @Override
     public ArrayList getGameList() {
-        LobbyFacadeOut lobbyFacade = new LobbyFacadeOut();
-        Result result = lobbyFacade.getLobbyList();
-
-        this.gameList = result.getLobbyList();
         ClientFacade client = new ClientFacade();
-        client.setLobbyList(this.getGameList());
-        return gameList;
+        return client.getGames();
     }
 
 
