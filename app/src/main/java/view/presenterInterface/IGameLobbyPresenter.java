@@ -14,4 +14,5 @@ public interface IGameLobbyPresenter {
     public ArrayList getGameList();
     public void createGame(Game game);
 
+    public User getPlayer();
 }

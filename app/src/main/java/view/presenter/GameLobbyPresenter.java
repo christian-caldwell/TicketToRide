@@ -60,6 +60,8 @@ public class GameLobbyPresenter implements IGameLobbyPresenter, Observer {
         String playerName = client.getHost();
         game.addPlayer(playerName);
         game.setHostName(client.getHost());
+        client.getPlayer().setHost(true);
+        User user = new User(playerName, "");
 
         LobbyFacadeOut lobbyFacadeOut = new LobbyFacadeOut();
         lobbyFacadeOut.createGame(game, playerName);
@@ -67,6 +69,13 @@ public class GameLobbyPresenter implements IGameLobbyPresenter, Observer {
         client.joinGame(game);
         lobbyFacadeOut.createGame(game, playerName);
 
+    }
+
+    @Override
+    public User getPlayer() {
+        ClientFacade clientFacade = new ClientFacade();
+
+        return clientFacade.getPlayer();
     }
 
     @Override

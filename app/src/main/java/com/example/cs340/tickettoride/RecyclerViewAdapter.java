@@ -24,6 +24,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
 
     private ArrayList<Game> listOfGames = new ArrayList<>();
     private Context mContext;
+    private IGameLobbyPresenter presenter = new GameLobbyPresenter();
 
 
     public RecyclerViewAdapter(ArrayList<Game> listOfGames, Context mContext) {
@@ -40,7 +41,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
     }
 
     @Override
-    public void onBindViewHolder(@NonNull ViewHolder holder, final int position) {
+    public void onBindViewHolder(@NonNull final ViewHolder holder, final int position) {
         holder.currentNumOfPlayers.setText("Current players: " +
                 listOfGames.get(position).getPlayers().size());
         holder.gameName.setText(listOfGames.get(position).getGameName());
@@ -49,14 +50,18 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
 
             @Override
             public void onClick(View v) {
-                IGameLobbyPresenter presenter = new GameLobbyPresenter();
-                Result result = presenter.addPlayer(listOfGames.get(position));
-                if (result.isSuccessful()){
-                    Toast.makeText(mContext, "You've been added to " +
-                            listOfGames.get(position).getGameName(), Toast.LENGTH_SHORT).show();
-                }
+                // Check if user is already in a game. If not, add them to game
+                if (presenter.getPlayer().getGame() != null)
+                    Toast.makeText(mContext, "Already part of a game", Toast.LENGTH_SHORT).show();
                 else {
-                    Toast.makeText(mContext, result.getErrorMessage(),Toast.LENGTH_SHORT).show();
+                    Result result = presenter.addPlayer(listOfGames.get(position));
+                    if (result.isSuccessful()){
+                        Toast.makeText(mContext, "You've been added to " +
+                                listOfGames.get(position).getGameName(), Toast.LENGTH_SHORT).show();
+                    }
+                    else {
+                        Toast.makeText(mContext, result.getErrorMessage(),Toast.LENGTH_SHORT).show();
+                    }
                 }
             }
         });

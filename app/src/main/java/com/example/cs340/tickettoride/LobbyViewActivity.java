@@ -3,6 +3,8 @@ package com.example.cs340.tickettoride;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.PorterDuff;
 import android.os.Bundle;
 import android.os.StrictMode;
 import android.support.v7.app.AppCompatActivity;
@@ -21,6 +23,7 @@ import java.util.Map;
 import models.data.Game;
 import view.activityInterface.IGameLobby;
 import view.presenter.GameLobbyPresenter;
+import view.presenterInterface.IGameLobbyPresenter;
 
 public class LobbyViewActivity extends AppCompatActivity implements IGameLobby {
 
@@ -30,7 +33,7 @@ public class LobbyViewActivity extends AppCompatActivity implements IGameLobby {
     private boolean createGameOpen = false;
     private String create_game_text = "";
     private RecyclerViewAdapter adapter;
-    private GameLobbyPresenter presenter = new GameLobbyPresenter();
+    private IGameLobbyPresenter presenter = new GameLobbyPresenter();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,12 +44,19 @@ public class LobbyViewActivity extends AppCompatActivity implements IGameLobby {
         initRecyclerView();
 
         // Initialize startGameButton and set onClickListener
+        // If the user is not a host, disable the 'Start Game' button
         startGameButton = findViewById(R.id.startGameButton);
+        if (!presenter.getPlayer().isHost()) {
+            startGameButton.getBackground().setColorFilter(Color.DKGRAY, PorterDuff.Mode.MULTIPLY);
+            startGameButton.setAlpha(.5f);
+            startGameButton.setEnabled(false);
+        }
+
         startGameButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 // If the user is a host, the button will be enabled
-//                // When clicked, the GameBoardActivity will be started
+//              // When clicked, the GameBoardActivity will be started
                 Intent intent = new Intent(LobbyViewActivity.this, GameBoardActivity.class);
                 startActivity(intent);
 
@@ -73,9 +83,11 @@ public class LobbyViewActivity extends AppCompatActivity implements IGameLobby {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         create_game_text = input.getText().toString();
-                        GameLobbyPresenter presenter = new GameLobbyPresenter();
                         Game game = new Game(create_game_text);
                         presenter.createGame(game);
+                        startGameButton.getBackground().setColorFilter(null);
+                        startGameButton.setAlpha(1);
+                        startGameButton.setEnabled(true);
                         adapter.notifyDataSetChanged();
                         Toast.makeText(LobbyViewActivity.this, create_game_text + " created!", Toast.LENGTH_SHORT).show();
                     }
@@ -117,12 +129,9 @@ public class LobbyViewActivity extends AppCompatActivity implements IGameLobby {
 
 
     @Override
-    public void updateGameList(Map<String, Game> map) {
-    }
-
-    @Override
-    public void updateGamePlayers(Game game) {
-
+    public void updateGameList(ArrayList<Game> lobbyGames) {
+        listOfGames = lobbyGames;
+        adapter.notifyDataSetChanged();
     }
 
     @Override
