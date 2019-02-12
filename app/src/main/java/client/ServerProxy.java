@@ -46,6 +46,7 @@ public class ServerProxy implements IServer {
         return communicator.send(pollCommand, "127.0.0.1", "8080");
     }
 
+
     @Override
     public PollManagerData pollServer() {
         String className = (PollManager.class).toString();
@@ -58,20 +59,30 @@ public class ServerProxy implements IServer {
     }
 
     @Override
-    public Result joinGame(User username, Game game) {
+    public Result joinGame(String username, Game game) {
 
-        String className = (LobbyFacade.class).toString();
+
+        String className = LobbyFacade.class.getName();
         String methodName = "joinGame";
 
         Object[] params = new Object[2];
         params[0] = username;
-        params[1] = game;
+        params[1] = game.getGameName();
 
-        GeneralCommand generatedCommand = createCommand(className, params, methodName);
+
+        Object[] parameterDataArray = new Object[2];
+        Class<?>[] parameterClassArray = new Class<?>[2];
+
+        parameterClassArray[0] = String.class;
+        parameterClassArray[1] = String.class;
+        parameterDataArray[0] = username;
+        parameterDataArray[1] = game.getGameName();
+
+        GeneralCommand newCommand = new GeneralCommand(className, methodName, parameterClassArray, parameterDataArray);
 
         ClientCommunicator communicator = new ClientCommunicator();
-
-        return communicator.send(generatedCommand, "10.0.2.2", "8080");
+        Result result = communicator.send(newCommand, "10.0.2.2", "8080");
+        return result;
     }
 
     @Override
@@ -84,11 +95,17 @@ public class ServerProxy implements IServer {
         Object[] params = new Object[1];
         params[0] = gameName;
 
-        GeneralCommand generatedCommand = createCommand(className, params, methodName);
+        Object[] parameterDataArray = new Object[1];
+        Class<?>[] parameterClassArray = new Class<?>[1];
+
+        parameterClassArray[0] = String.class;
+        parameterDataArray[0] = gameName;
+
+        GeneralCommand newCommand = new GeneralCommand(className, methodName, parameterClassArray, parameterDataArray);
 
         ClientCommunicator communicator = new ClientCommunicator();
 
-        Result result = communicator.send(generatedCommand, "10.0.2.2", "8080");
+        Result result = communicator.send(newCommand, "10.0.2.2", "8080");
         if (result.isSuccessful()) {
             ClientModel.create().addLobbyGame(new Game(result.getGame()));
         }
@@ -122,10 +139,18 @@ public class ServerProxy implements IServer {
         Object[] params = new Object[1];
         params[0] = newUser;
 
-        GeneralCommand generatedCommand = createCommand(className, params, methodName);
+        Object[] parameterDataArray = new Object[2];
+        Class<?>[] parameterClassArray = new Class<?>[2];
+
+        parameterClassArray[0] = String.class;
+        parameterClassArray[1] = String.class;
+        parameterDataArray[0] = newUser.getUsername();
+        parameterDataArray[1] = newUser.getPassword();
+
+        GeneralCommand newCommand = new GeneralCommand(className, methodName, parameterClassArray, parameterDataArray);
 
         ClientCommunicator communicator = new ClientCommunicator();
-        Result result = communicator.send(generatedCommand, "10.0.2.2", "8080");
+        Result result = communicator.send(newCommand, "10.0.2.2", "8080");
         if (result.isSuccessful()) {
             ClientModel.create().setPlayer(newUser);
         }
@@ -140,10 +165,18 @@ public class ServerProxy implements IServer {
         Object[] params = new Object[1];
         params[0] = returnUser;
 
-        GeneralCommand generatedCommand = createCommand(className, params, methodName);
+        Object[] parameterDataArray = new Object[2];
+        Class<?>[] parameterClassArray = new Class<?>[2];
+
+        parameterClassArray[0] = String.class;
+        parameterClassArray[1] = String.class;
+        parameterDataArray[0] = returnUser.getUsername();
+        parameterDataArray[1] = returnUser.getPassword();
+
+        GeneralCommand newCommand = new GeneralCommand(className, methodName, parameterClassArray, parameterDataArray);
 
         ClientCommunicator communicator = new ClientCommunicator();
-        Result result = communicator.send(generatedCommand, "10.0.2.2", "8080");
+        Result result = communicator.send(newCommand, "10.0.2.2", "8080");
         if (result.isSuccessful()) {
             ClientModel.create().setPlayer(returnUser);
         }
@@ -155,18 +188,95 @@ public class ServerProxy implements IServer {
         Class<?>[] parameterClassArray = null;
 
         if (modelObjects != null) {
+            int decomposedrArrayLength = 0;
+            for (Object currObject : modelObjects) {
+                decomposedrArrayLength += getDecomposedLength(currObject);
+            }
 
-            parameterDataArray = new Object[modelObjects.length];
-            parameterClassArray = new Class<?>[modelObjects.length];
+            parameterDataArray = new Object[decomposedrArrayLength];
+            parameterClassArray = new Class<?>[decomposedrArrayLength];
 
             int arrayPosition = 0;
             for (Object currentModel : modelObjects) {
-                parameterClassArray[arrayPosition] = currentModel.getClass();
-                parameterDataArray[arrayPosition] = currentModel;
+                decompObjectAndAdd(currentModel, parameterClassArray, parameterDataArray, arrayPosition);
                 arrayPosition++;
             }
         }
 
         return new GeneralCommand(className, methodName, parameterClassArray, parameterDataArray);
+
+    }
+
+    private int getDecomposedLength(Object model) {
+        if (model.getClass() == User.class) {
+            return 2;
+        }
+        else if(model.getClass() == Game.class) {
+            Game convertedModel = (Game) model;
+            return 2 + convertedModel.getPlayers().size();
+        }
+        else if (model.getClass() == String.class) {
+            return 1;
+        }
+        else if (model instanceof Number) {
+            return 1;
+        }
+        else if (model instanceof Boolean) {
+            return 1;
+        }
+        else if (model instanceof Character) {
+            return 1;
+        }
+        else {
+            //Oops!!! We missed a parameter type!
+           return 0;  //return 0 indicates error
+        }
+    }
+
+    private void decompObjectAndAdd (Object model, Class<?>[] classArray, Object[] objectArray, int pos) {
+        if (model.getClass() == User.class) {
+            classArray[pos] = String.class;
+            classArray[pos+1] = String.class;
+            User convertedModel = (User) model;
+            objectArray[pos] = convertedModel.getUsername();
+            objectArray[pos+1] = convertedModel.getPassword();
+        }
+        else if(model.getClass() == Game.class) {
+            classArray[pos] = String.class;
+            classArray[pos+1] = String.class;
+            Game convertedModel = (Game) model;
+            objectArray[pos] = convertedModel.getStatus();
+            objectArray[pos+1] = convertedModel.getGameName();
+            ArrayList<String> list = convertedModel.getPlayers();
+            int i = 2;
+            for (String player: list) {
+                classArray[pos + i] = String.class;
+                objectArray[pos + i] = player;
+            }
+        }
+        else if (model.getClass() == String.class) {
+            classArray[pos] = String.class;
+            String convertedModel = (String) model;
+            objectArray[pos] = convertedModel;
+        }
+        else if (model instanceof Number) {
+            classArray[pos] = null;
+            int convertedModel = (int) model;
+            objectArray[pos] = convertedModel;
+        }
+        else if (model instanceof Boolean) {
+            classArray[pos] = null;
+            Boolean convertedModel = (Boolean) model;
+            objectArray[pos] = convertedModel;
+        }
+        else if (model instanceof Character) {
+            classArray[pos] = null;
+            char convertedModel = (char) model;
+            objectArray[pos] = convertedModel;
+        }
+        else {
+            //Oops!!! We missed a parameter type!
+            //return 0 indicates error
+        }
     }
 }
