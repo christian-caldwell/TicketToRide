@@ -12,7 +12,7 @@ public class RegisterFacade {
         serverCommands = new ServerCommands();
     }
 
-    public Result register(String username, String password) {
-        return serverCommands.register(new User(username, password));
+    public Result register(User newUser) {
+        return serverCommands.register(newUser);
     }
 }

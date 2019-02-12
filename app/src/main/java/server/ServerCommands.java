@@ -7,6 +7,7 @@ import models.data.Game;
 import models.data.PollManagerData;
 import models.data.Result;
 import models.data.User;
+import java.util.ArrayList;
 
 public class ServerCommands implements IServer {
     private final int MAX_PLAYERS = 5;
@@ -88,12 +89,19 @@ public class ServerCommands implements IServer {
 
     @Override
     public PollManagerData pollServer() {
-        return null;
+
+        //THIS FUNCTION NEEDS HELP!!!!
+        PollManagerData tempPollData = new PollManagerData();
+        return tempPollData;
     }
 
     @Override
     public Result getLobbyList() {
-        return null;
+        //THIS FUNCTION NEEDS HELP!!!!
+        ArrayList<Game> tempReturnArray = new ArrayList<Game>();
+        Result tempResult = new Result();
+        tempResult.setLobbyList(tempReturnArray);
+        return tempResult;
     }
 
 

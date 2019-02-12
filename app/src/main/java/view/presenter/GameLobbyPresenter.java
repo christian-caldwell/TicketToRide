@@ -94,6 +94,7 @@ public class GameLobbyPresenter implements IGameLobbyPresenter, Observer {
     public void update(Observable o, Object arg) {
         ClientModel client = (ClientModel) o;
         ArrayList<Object> updatedObjectList = client.getChangedObjects();
+        this.gameList = client.getLobbyGames();
 
 
         for (Object currUpdatedObject : updatedObjectList) {
