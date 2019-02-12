@@ -15,4 +15,5 @@ public interface IGameLobbyPresenter {
 
     public boolean isUserHosting();
     public ArrayList<String> getHostedGamePlayers();
+    public User getPlayer();
 }
