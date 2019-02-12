@@ -101,16 +101,19 @@ public class GameLobbyPresenter implements IGameLobbyPresenter, Observer {
         ArrayList<Object> updatedObjectList = client.getChangedObjects();
         this.gameList = client.getLobbyGames();
 
+        System.out.println("Lobby Updated");
 
         for (Object currUpdatedObject : updatedObjectList) {
             Game currUpdatedGame = (Game) currUpdatedObject;
 
             if (!currUpdatedGame.isVisibleInLobby()) {
+                System.out.println("Game Removed From Lobby: " + currUpdatedGame.getGameName());
                 removeLobbyGame(currUpdatedGame);
             }
             else {
                 boolean found = replaceLobbyGame(currUpdatedGame);
                 if (!found) {
+                    System.out.println("Game Updated In Lobby: " + currUpdatedGame.getGameName());
                     gameList.add(currUpdatedGame);
                 }
             }
@@ -124,6 +127,7 @@ public class GameLobbyPresenter implements IGameLobbyPresenter, Observer {
     private boolean replaceLobbyGame (Game updatedGame) {
         for (Game currLobbyGame : this.gameList) {
             if (updatedGame.getGameName().compareTo(currLobbyGame.getGameName()) == 0) {
+                System.out.println("Game Updated In Lobby: " + currLobbyGame.getGameName());
                 this.gameList.remove(currLobbyGame);
                 this.gameList.add(updatedGame);
                 return true;
