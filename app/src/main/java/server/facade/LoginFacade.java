@@ -12,7 +12,7 @@ public class LoginFacade {
         serverCommands = new ServerCommands();
     }
 
-    public Result login(User returningUser) {
-        return serverCommands.login(returningUser);
+    public Result login(String username, String password) {
+        return serverCommands.login(new User(username, password));
     }
 }

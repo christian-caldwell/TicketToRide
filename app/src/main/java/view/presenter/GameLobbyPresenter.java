@@ -18,32 +18,18 @@ import view.presenterInterface.IGameLobbyPresenter;
 import view.facade.ViewFacade;
 import view.activityInterface.IGameLobby;
 
+import client.ServerProxy;
+
 public class GameLobbyPresenter implements IGameLobbyPresenter, Observer {
 
     ArrayList<Game> gameList = new ArrayList<>();
+    ViewFacade viewfacade = new ViewFacade();
+
 
     @Override
-    public boolean isUserHosting() {
-        ClientFacade client = new ClientFacade();
-        return client.getPlayer().isHost();
-    }
-
-    @Override
-    public ArrayList<String> getHostedGamePlayers() {
-        ClientFacade client = new ClientFacade();
-        if (client.getPlayer().isHost()) {
-            return client.getPlayer().getActiveGame().getPlayers();
-        }
-        else {
-            //player is not a host
-            return null;
-        }
-    }
-
-    @Override
-    public void addPlayer(Game game) {
+    public void addPlayer(Game game, User user) {
         LobbyFacadeOut lobbyFacadeOut = new LobbyFacadeOut();
-        Result joinResult = lobbyFacadeOut.joinGame(game, ClientModel.create().getPlayer());
+        Result joinResult = lobbyFacadeOut.joinGame(game, user);
         IGameLobby gameLobby = new LobbyViewActivity();
         //gameLobby.updateGamePlayers(gameId);
 
@@ -61,25 +47,18 @@ public class GameLobbyPresenter implements IGameLobbyPresenter, Observer {
 
     @Override
     public ArrayList getGameList() {
-        LobbyFacadeOut lobbyFacade = new LobbyFacadeOut();
-        Result result = lobbyFacade.getLobbyList();
-
-        this.gameList = result.getLobbyList();
-        ClientFacade client = new ClientFacade();
-        client.setLobbyList(this.getGameList());
-        return gameList;
+        ClientFacade clientFacade = new ClientFacade();
+        return clientFacade.getGames();
     }
 
 
     @Override
     public void createGame(Game game) {
         ClientFacade client = new ClientFacade();
-        String playerName = client.getPlayer().getUsername();
+        String playerName = client.getHost();
         game.addPlayer(playerName);
-        game.setHostName(playerName);
+        game.setHostName(client.getHost());
         User user = new User(playerName, "");
-        user.setHost(true);
-
 
         LobbyFacadeOut lobbyFacadeOut = new LobbyFacadeOut();
         lobbyFacadeOut.createGame(game);
@@ -92,43 +71,22 @@ public class GameLobbyPresenter implements IGameLobbyPresenter, Observer {
     @Override
     public void update(Observable o, Object arg) {
         ClientModel client = (ClientModel) o;
-        ArrayList<Object> updatedObjectList = client.getChangedObjects();
-        this.gameList = client.getLobbyGames();
+        ArrayList<Object> updatedObject = client.getChangedObjects();
 
+        if (updatedObject.isEmpty()) {
+            //No update or server error
+        }
+        else {
+            for (Object currUpdatedObject : this.gameList) {
+                if (currUpdatedObject.getClass() == Game.class) {
+                    Game currUpdatedGame = (Game) currUpdatedObject;
+                    for (Game currentLobbyGame : this.gameList) {
+                        if (currentLobbyGame.getGameName().compareTo(currUpdatedGame.getGameName()) == 0) {
+                            currentLobbyGame = currUpdatedGame;
+                        }
 
-        for (Object currUpdatedObject : updatedObjectList) {
-            Game currUpdatedGame = (Game) currUpdatedObject;
-
-            if (!currUpdatedGame.isVisibleInLobby()) {
-                removeLobbyGame(currUpdatedGame);
-            }
-            else {
-                boolean found = replaceLobbyGame(currUpdatedGame);
-                if (!found) {
-                    gameList.add(currUpdatedGame);
+                    }
                 }
-            }
-        }
-
-    }
-
-
-    private boolean replaceLobbyGame (Game updatedGame) {
-        for (Game currLobbyGame : this.gameList) {
-            if (updatedGame.getGameName().compareTo(currLobbyGame.getGameName()) == 0) {
-                this.gameList.remove(currLobbyGame);
-                this.gameList.add(updatedGame);
-                return true;
-            }
-        }
-        return false;
-    }
-
-    private void removeLobbyGame (Game removedGame) {
-        String removedGameName = removedGame.getGameName();
-        for (Game lobbyGame : this.gameList) {
-            if (lobbyGame.getGameName().compareTo(removedGameName) == 0) {
-                this.gameList.remove(lobbyGame);
             }
         }
     }

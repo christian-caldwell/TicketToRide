@@ -1,7 +1,5 @@
 package models.data;
 
-import java.util.ArrayList;
-
 public class Result {
     /*
         This class will need to be more general. Perhaps a member to hold any throwable
@@ -15,7 +13,6 @@ public class Result {
     private String gameName;
     private boolean isSuccessful;
     private PollManagerData pollResult;
-    private ArrayList<Game> lobbyList;
 
     public Result(String error, String auth, String gameName, boolean isSuccess) {
         this.authenticationToken = auth;
@@ -29,14 +26,6 @@ public class Result {
 
     public void setPollResult (PollManagerData data) {
         this.pollResult = data;
-    }
-
-    public void setLobbyList (ArrayList<Game>list) {
-        this.lobbyList = list;
-    }
-
-    public ArrayList<Game> getLobbyList () {
-        return this.lobbyList;
     }
 
     public PollManagerData getPollResult () {

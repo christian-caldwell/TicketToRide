@@ -5,7 +5,6 @@ import java.util.ArrayList;
 import client.ClientModel;
 import models.data.User;
 import models.data.Game;
-import java.util.ArrayList;
 
 public class ClientFacade {
 	private ClientModel client;
@@ -25,11 +24,7 @@ public class ClientFacade {
 		client.setPlayer(newUser);
 	}
 
-	public User getPlayer() {
-		return this.client.getPlayer();
-	}
-
-	public void setLobbyList(ArrayList<Game> newLobbyList) {
-		this.client.setLobbyGames(newLobbyList);
+	public String getHost() {
+		return this.client.getPlayer().getUsername();
 	}
 }

@@ -6,13 +6,11 @@ import models.data.Game;
 import models.data.User;
 
 public interface IGameLobbyPresenter {
-    public void addPlayer(Game gameId);
+    public void addPlayer(Game gameId, User user);
 
     public void startGame(Game game);
 
     public ArrayList getGameList();
     public void createGame(Game game);
 
-    public boolean isUserHosting();
-    public ArrayList<String> getHostedGamePlayers();
 }

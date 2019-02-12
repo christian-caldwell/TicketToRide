@@ -72,27 +72,30 @@ public class Poller {
         PollManagerData pollResult = server.pollServer();
 
         ClientModel client = ClientModel.create();
-        client.clearChangeList();
 
+        ArrayList<User> updatedUsers = pollResult.getUsersChanged();
         ArrayList<Game> updatedGames = pollResult.getGamesChanged();
 
-        if (!updatedGames.isEmpty()) {
-            for (Game currUpdatedGame :updatedGames) {
-                if (client.replaceLobbyGame(currUpdatedGame)){
-                    client.addChange(currUpdatedGame);
-                }
-                else {
-                    client.addLobbyGame(currUpdatedGame);
-                    client.addChange(currUpdatedGame);
-                }
+        for (User currUser:updatedUsers) {
+           if(currUser.getUsername().compareTo(client.getPlayer().getUsername()) == 0) {
+                client.setPlayer(currUser);
+                client.addChange(currUser);
 
-                if (client.getActiveGame().getGameName().compareTo(currUpdatedGame.getGameName()) == 0) {
-                    client.setActiveGame(currUpdatedGame);
-                    client.addChange(currUpdatedGame);
+           }
+        }
+
+
+        for (Game currUpdatedGame :updatedGames) {
+            for (Game currLobbyGame : client.getLobbyGames()) {
+                if (currUpdatedGame.getGameName().compareTo(currLobbyGame.getGameName()) == 0) {
+                    client.removeLobbyGame(currLobbyGame);
+                    client.addLobbyGame(currUpdatedGame);
                 }
             }
 
-            client.update();
+            if (client.getActiveGame().getGameName().compareTo(currUpdatedGame.getGameName()) == 0) {
+                client.setActiveGame(currUpdatedGame);
+            }
         }
     }
 
