@@ -27,9 +27,7 @@ public class Poller {
         singleton.start(0, 3600, false);
     }
 
-    private Poller() {
-        start();
-    }
+
 
     private void runThread(int initialDelaySec, int delaySec, boolean fixedRate) {
         System.out.println("poller starting...");
