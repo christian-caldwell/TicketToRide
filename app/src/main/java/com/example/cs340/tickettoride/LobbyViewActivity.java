@@ -56,7 +56,7 @@ public class LobbyViewActivity extends AppCompatActivity implements IGameLobby {
             @Override
             public void onClick(View v) {
                 // If the user is a host, the button will be enabled
-//                // When clicked, the GameBoardActivity will be started
+//              // When clicked, the GameBoardActivity will be started
                 Intent intent = new Intent(LobbyViewActivity.this, GameBoardActivity.class);
                 startActivity(intent);
 

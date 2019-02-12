@@ -40,7 +40,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
     }
 
     @Override
-    public void onBindViewHolder(@NonNull ViewHolder holder, final int position) {
+    public void onBindViewHolder(@NonNull final ViewHolder holder, final int position) {
         holder.currentNumOfPlayers.setText("Current players: " +
                 listOfGames.get(position).getPlayers().size());
         holder.gameName.setText(listOfGames.get(position).getGameName());
@@ -54,8 +54,8 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
                 if (presenter.getPlayer().getGame() != null)
                     Toast.makeText(mContext, "Already part of a game", Toast.LENGTH_SHORT).show();
                 else {
-                    //FIXME: THIS NEEDS TO CALL SOMETHING TO ADD THE PLAYER TO THE GAME
-
+                    //FIXME: THIS NEEDS TO CALL SOMETHING TO ADD THE PLAYER TO THE GAME AND ASSIGN THE USER.GAME VARIABLE
+                    //presenter.addPlayer();//(holder.gameName.getText().toString());
                     Toast.makeText(mContext, "You've been added to " +
                             listOfGames.get(position).getGameName(), Toast.LENGTH_SHORT).show();
                 }
