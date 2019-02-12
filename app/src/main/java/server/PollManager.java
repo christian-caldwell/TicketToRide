@@ -16,8 +16,13 @@ public class PollManager {
     private Map<Game, Boolean> availableGames = new HashMap<>();
     //private Map<String, Boolean> usernames;
 
-    public Map<Game, Boolean> getAvailableGames() {
-        return availableGames;
+    public ArrayList<Game> getAvailableGames() {
+        ArrayList<Game> games = new ArrayList<>();
+
+        for (Map.Entry<Game, Boolean> entry : availableGames.entrySet()) {
+            games.add(entry.getKey());
+        }
+        return games;
     }
 
     public void setGame(Game game) {
