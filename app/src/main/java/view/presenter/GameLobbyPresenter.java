@@ -6,7 +6,6 @@ import java.util.ArrayList;
 import java.util.Observable;
 import java.util.Observer;
 
-
 import client.ClientModel;
 import models.data.Game;
 import models.data.User;
@@ -24,6 +23,9 @@ public class GameLobbyPresenter implements IGameLobbyPresenter, Observer {
 
     ArrayList<Game> gameList = new ArrayList<>();
     ViewFacade viewfacade = new ViewFacade();
+
+
+
 
 
     @Override
@@ -55,7 +57,8 @@ public class GameLobbyPresenter implements IGameLobbyPresenter, Observer {
 
 
     @Override
-    public void createGame(Game game) {
+    public String createGame(Game game) {
+        if(game.getGameName().equals("")) return "Game must have a name";
 
         ClientFacade client = new ClientFacade();
         String playerName = client.getHost();
@@ -67,6 +70,10 @@ public class GameLobbyPresenter implements IGameLobbyPresenter, Observer {
         lobbyFacadeOut.createGame(game, playerName);
         lobbyFacadeOut.joinGame(game, user);
         client.joinGame(game);
+        lobbyFacadeOut.createGame(game, playerName);
+
+        return game.getGameName() + " created!";
+
     }
 
     @Override
