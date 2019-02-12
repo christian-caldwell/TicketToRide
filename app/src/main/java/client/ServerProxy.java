@@ -47,6 +47,7 @@ public class ServerProxy implements IServer {
         return result.getPollResult();
     }
 
+
     @Override
     public Result joinGame(User username, Game game) {
 
@@ -70,6 +71,7 @@ public class ServerProxy implements IServer {
         //Request request = new Request();
 //        client.send("127.0.0.1", "8080", request);
     }
+
 
     @Override
     public Result createGame(String gameName) {
@@ -118,28 +120,30 @@ public class ServerProxy implements IServer {
     }
 
     @Override
-    public Result register(String userName, String password) {
+    public Result register(User newUser) {
         String className = RegisterFacade.class.getName();
         String methodName = "register";
+
+        Object[] params = new Object[1];
+        params[0] = newUser;
 
         Object[] parameterDataArray = new Object[2];
         Class<?>[] parameterClassArray = new Class<?>[2];
 
         parameterClassArray[0] = String.class;
         parameterClassArray[1] = String.class;
-        parameterDataArray[0] = userName;
-        parameterDataArray[1] = password;
+        parameterDataArray[0] = newUser.getUsername();
+        parameterDataArray[1] = newUser.getPassword();
 
         GeneralCommand newCommand = new GeneralCommand(className, methodName, parameterClassArray, parameterDataArray);
 
         ClientCommunicator communicator = new ClientCommunicator();
         Result result = communicator.send(newCommand, "10.0.2.2", "8080");
         if (result.isSuccessful()) {
-            ClientModel.create().setPlayer(new User(userName,""));
+            ClientModel.create().setPlayer(newUser);
         }
         return result;
     }
-
     @Override
     public Result login(User returnUser) {
         String className = LoginFacade.class.getName();

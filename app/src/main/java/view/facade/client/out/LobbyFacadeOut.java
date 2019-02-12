@@ -20,13 +20,13 @@ public class LobbyFacadeOut {
     public Result createGame(Game game) {
         Result result = server.createGame(game.getGameName());
         if (result.isSuccessful()) {
-            result = server.joinGame(ClientModel.create().getPlayer().getUsername(),game);
+            result = server.joinGame(ClientModel.create().getPlayer(),game);
         }
         return result;
     }
 
     public Result joinGame(Game game, User user) {
-        Result result = server.joinGame(user.getUsername(), game);
+        Result result = server.joinGame(user, game);
         ClientFacade client = new ClientFacade();
         client.joinGame(game);
         return result;

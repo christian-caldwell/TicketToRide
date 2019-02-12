@@ -7,11 +7,20 @@ public class User {
 
     private boolean isHost;
     private String username;
-    private String pass;
+    private String password;
     private Game gamesJoined;
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
     public User(String username, String password) {
         this.username = username;
-        this.pass = password;
+        this.password = password;
     }
 
     public boolean isHost() {
@@ -28,14 +37,6 @@ public class User {
 
     public void setUsername(String username) {
         this.username = username;
-    }
-
-    public String getPass() {
-        return pass;
-    }
-
-    public void setPass(String pass) {
-        this.pass = pass;
     }
 
     public Game getGamesJoined() {
