@@ -12,8 +12,7 @@ public class GameStartFacade {
         serverCommands = new ServerCommands();
     }
 
-    public Result startGame(Request request) {
-        Game game = new Game(request.getGame().getGameName());
+    public Result startGame(Game game) {
         Result result = new Result();
         result.setErrorMessage(serverCommands.startGame(game));
         return result;
