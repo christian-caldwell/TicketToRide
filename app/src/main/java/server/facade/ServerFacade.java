@@ -13,7 +13,7 @@ public class ServerFacade implements IServer {
     }
 
     @Override
-    public Result createGame(String gameName, User user) {
+    public Result createGame(String gameName) {
         return null;
     }
 

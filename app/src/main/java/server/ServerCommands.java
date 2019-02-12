@@ -28,21 +28,18 @@ public class ServerCommands implements IServer {
             result.setSuccessful(false);
         }
         else {
-            result.setGame(game);
+            result.setGame(game.getGameName());
             result.setSuccessful(true);
             game.addPlayer(user.getUsername());
-            user.addGamesJoined(game);
+            user.setActiveGame(game);
         }
         return result;
     }
 
     @Override
-    public Result createGame(String gameName, User user) {
+    public Result createGame(String gameName) {
         Game game = new Game(gameName);
         Result result = serverData.setGame(game);
-        if (result.isSuccessful()) {
-            joinGame(user, game);
-        }
         return result;
 
     }
@@ -91,6 +88,11 @@ public class ServerCommands implements IServer {
 
     @Override
     public PollManagerData pollServer() {
+        return null;
+    }
+
+    @Override
+    public Result getLobbyList() {
         return null;
     }
 

@@ -13,6 +13,6 @@ public class GamePresenter implements IGamePresenter, Observer {
 
     @Override
     public void update(Observable o, Object arg) {
-
+        //do nothing
     }
 }

@@ -19,7 +19,7 @@ import models.data.Game;
 
 public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapter.ViewHolder> {
 
-    private ArrayList<Game> listOfGames;
+    private ArrayList<Game> listOfGames = new ArrayList<>();
     private Context mContext;
 
 

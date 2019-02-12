@@ -8,11 +8,12 @@ import models.data.User;
 public interface IServer {
     public Result joinGame(User user, Game gameName);
 
-    public Result createGame(String gameName, User user);
+    public Result createGame(String gameName);
 
     public String startGame(Game gameName);
     public Result register(User newUser);
     public Result login(User returnUser);
 
     public PollManagerData pollServer();
+    public Result getLobbyList();
 }

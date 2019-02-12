@@ -24,10 +24,10 @@ public class ViewFacade {
 		return Result;
 	}
 
-	public ArrayList<Game> getGameList() {
-        ClientModel model = new ClientModel();
-	    return model.getActiveGames();
-	}
+//	public ArrayList<Game> getGameList() {
+//        ClientModel model = new ClientModel();
+//	    return model.get();
+//	}
 
 	public Result loginUser(User returningUser) {
 		return null;

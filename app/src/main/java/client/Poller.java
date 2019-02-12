@@ -72,40 +72,27 @@ public class Poller {
         PollManagerData pollResult = server.pollServer();
 
         ClientModel client = ClientModel.create();
+        client.clearChangeList();
 
-        ArrayList<User> updatedUsers = pollResult.getUsersChanged();
         ArrayList<Game> updatedGames = pollResult.getGamesChanged();
 
-        for (User currUser:updatedUsers) {
-           if(currUser.getUsername().compareTo(client.getPlayer().getUsername()) == 0) {
-                client.setPlayer(currUser);
-                client.addChange(currUser);
+        if (!updatedGames.isEmpty()) {
+            for (Game currUpdatedGame :updatedGames) {
+                if (client.replaceLobbyGame(currUpdatedGame)){
+                    client.addChange(currUpdatedGame);
+                }
+                else {
+                    client.addLobbyGame(currUpdatedGame);
+                    client.addChange(currUpdatedGame);
+                }
 
-           }
-        }
-
-
-        for (Game currGame :updatedGames) {
-            for (Game currLobbyGame : client.getLobbyGames()) {
-                if (currGame.getGameName().compareTo(currLobbyGame.getGameName()) == 0) {
-                    client.removeLobbyGame(currLobbyGame);
-                    client.addLobbyGame(currGame);
+                if (client.getActiveGame().getGameName().compareTo(currUpdatedGame.getGameName()) == 0) {
+                    client.setActiveGame(currUpdatedGame);
+                    client.addChange(currUpdatedGame);
                 }
             }
 
-            for (Game currActiveGame : client.getActiveGames()) {
-                if (currGame.getGameName().compareTo(currActiveGame.getGameName()) == 0) {
-                    client.removeActiveGame(currActiveGame);
-                    client.addActiveGame(currGame);
-                }
-            }
-
-            for (Game currWaitingGame : client.getWaitingGames()) {
-                if (currGame.getGameName().compareTo(currWaitingGame.getGameName()) == 0) {
-                    client.removeWaitingGame(currWaitingGame);
-                    client.addWaitingGame(currGame);
-                }
-            }
+            client.update();
         }
     }
 

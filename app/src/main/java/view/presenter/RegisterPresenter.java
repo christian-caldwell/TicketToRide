@@ -1,9 +1,11 @@
 package view.presenter;
 
+import java.util.ArrayList;
 import java.util.Observable;
 import java.util.Observer;
 import java.util.regex.Pattern;
 
+import client.ClientModel;
 import client.ServerProxy;
 import models.data.Result;
 import models.data.User;
@@ -25,7 +27,7 @@ public class RegisterPresenter implements IRegisterPresenter, Observer {
             + "- No Non-Alphanumeric Characters";
     private final String REGISTER_FAILED = "Register Failed Unexpectedly";
 
-    private final String PASSWORD_CRITERIA = "[a-zA-Z1-9]{5,}+";
+    private final String PASSWORD_CRITERIA = "^(?=[a-zA-Z0-9]{5,})[a-zA-Z]*[0-9][a-zA-Z0-9]*";
     private final String USERNAME_CRITERIA = "[a-zA-Z1-9]{5,}+";
 
     private IRegisterView registerView = null;
@@ -49,14 +51,14 @@ public class RegisterPresenter implements IRegisterPresenter, Observer {
         }
 
         //Match Password to Reg-ex
-        if (checkRegex(password, this.PASSWORD_CRITERIA)) {
+        if (!checkRegex(password, this.PASSWORD_CRITERIA)) {
             result.setErrorMessage(BAD_PASSWORD);
             result.setSuccessful(false);
             return result; //If password characters are unacceptable
         }
 
         //Match Username to Reg-ex
-        if (checkRegex(password, this.USERNAME_CRITERIA)) {
+        if (!checkRegex(password, this.USERNAME_CRITERIA)) {
             result.setSuccessful(false);
             result.setErrorMessage(BAD_USERNAME);
             return result; //If username characters are unacceptable
@@ -91,7 +93,13 @@ public class RegisterPresenter implements IRegisterPresenter, Observer {
     }
 
     @Override
-    public void update(Observable obs, Object obj) {
+    public void update(Observable o, Object obj) {
+        ClientModel client = (ClientModel) o;
+        ArrayList<Object> updatedObject = client.getChangedObjects();
+
+        if (updatedObject.isEmpty()) {
+            //No update or server error
+        }
 
     }
 
