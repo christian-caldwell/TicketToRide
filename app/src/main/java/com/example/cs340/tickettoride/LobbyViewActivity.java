@@ -25,10 +25,10 @@ public class LobbyViewActivity extends AppCompatActivity implements IGameLobby {
 
     // Member variables
     private ArrayList<Game> listOfGames;
-    private Button startGameButton, createGameButton;
+    static private Button startGameButton, createGameButton;
     private boolean createGameOpen = false;
     private String create_game_text = "";
-    private RecyclerViewAdapter adapter;
+    static private RecyclerViewAdapter adapter;
     private IGameLobbyPresenter presenter = new GameLobbyPresenter();
 
     @Override
@@ -46,6 +46,11 @@ public class LobbyViewActivity extends AppCompatActivity implements IGameLobby {
             startGameButton.getBackground().setColorFilter(Color.DKGRAY, PorterDuff.Mode.MULTIPLY);
             startGameButton.setAlpha(.5f);
             startGameButton.setEnabled(false);
+        }
+        else {
+            startGameButton.getBackground().setColorFilter(null);
+            startGameButton.setAlpha(1);
+            startGameButton.setEnabled(true);
         }
 
         startGameButton.setOnClickListener(new View.OnClickListener() {
@@ -81,12 +86,19 @@ public class LobbyViewActivity extends AppCompatActivity implements IGameLobby {
                         create_game_text = input.getText().toString();
                         Game game = new Game(create_game_text);
                         presenter.createGame(game);
-                        startGameButton.getBackground().setColorFilter(null);
-                        startGameButton.setAlpha(1);
-                        startGameButton.setEnabled(true);
+
+                        // Disable 'create game' button
                         createGameButton.getBackground().setColorFilter(Color.DKGRAY, PorterDuff.Mode.MULTIPLY);
                         createGameButton.setAlpha(.5f);
                         createGameButton.setEnabled(false);
+
+                        //FIXME: THIS TWO LINES SHOULDN'T BE CALLED - IT SHOULD BE THE
+                        //PULLER THAT UPDATES THE GAME LIST
+                        //AND THE CLIENT ARRAY OF GAMES DOESN'T GET UPDATED CORRECTLY - IT IS
+                        //INSTANTIATED WITH 0 AMOUNT OF PLAYERS
+                        //TO FIX THIS, CHECK OUT THE SERVERPROXY
+                        listOfGames = presenter.getGameList();
+                        listOfGames.get(listOfGames.size()-1).addPlayer("this is the host");
                         adapter.notifyDataSetChanged();
                         Toast.makeText(LobbyViewActivity.this, create_game_text + " created!", Toast.LENGTH_SHORT).show();
                     }
@@ -131,6 +143,21 @@ public class LobbyViewActivity extends AppCompatActivity implements IGameLobby {
     public void updateGameList(ArrayList<Game> lobbyGames) {
         listOfGames = lobbyGames;
         adapter.notifyDataSetChanged();
+    }
+
+    public void updateGameListAfterClickingOnGame(ArrayList<Game> lobbyGames) {
+        // Disable 'create game' button
+        createGameButton.getBackground().setColorFilter(Color.DKGRAY, PorterDuff.Mode.MULTIPLY);
+        createGameButton.setAlpha(.5f);
+        createGameButton.setEnabled(false);
+
+        listOfGames = lobbyGames;
+        if (listOfGames.size() > 1) {
+            // Enable 'start game' button
+            startGameButton.getBackground().setColorFilter(null);
+            startGameButton.setAlpha(1);
+            startGameButton.setEnabled(true);
+        }
     }
 
     @Override
