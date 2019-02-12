@@ -1,6 +1,7 @@
 package server;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Map;
 
 import models.data.Game;
@@ -12,8 +13,8 @@ import models.data.User;
 //client proxy will switch changed to true when there are changes.
 public class PollManager {
 
-    private Map<Game, Boolean> availableGames;
-    private Map<User, Boolean> users;
+    private Map<Game, Boolean> availableGames = new HashMap<>();
+    //private Map<String, Boolean> usernames;
 
     public Map<Game, Boolean> getAvailableGames() {
         return availableGames;
@@ -21,14 +22,6 @@ public class PollManager {
 
     public void setGame(Game game) {
         this.availableGames.put(game,true);
-    }
-
-    public Map<User, Boolean> getUsers() {
-        return users;
-    }
-
-    public void setUser(User user) {
-        this.users.put(user, true);
     }
 
     public PollManagerData getChanges() {

@@ -36,14 +36,11 @@ public class CommandHandler implements HttpHandler {
             ICommandExecuter facadeCommand;
             ICommandExecuter clientProxyCommand;
 
-
-            //TODO: need to add in the clientProxy call
-
-
             // Create the command through deserialization
             ObjectMapper mapper = new ObjectMapper();
             facadeCommand = mapper.readValue(reqData, GeneralCommand.class);
             Result result = facadeCommand.exec();
+
 
             //Use ObjectMappper to convert the result to a json object
             String jsonResponse = mapper.writeValueAsString(result);

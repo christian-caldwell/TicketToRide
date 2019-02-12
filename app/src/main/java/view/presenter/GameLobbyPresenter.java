@@ -18,6 +18,8 @@ import view.presenterInterface.IGameLobbyPresenter;
 import view.facade.ViewFacade;
 import view.activityInterface.IGameLobby;
 
+import client.ServerProxy;
+
 public class GameLobbyPresenter implements IGameLobbyPresenter, Observer {
 
     ArrayList<Game> gameList = new ArrayList<>();
@@ -47,14 +49,16 @@ public class GameLobbyPresenter implements IGameLobbyPresenter, Observer {
     }
 
     @Override
-    public void addPlayer(Game game, User user) {
+    public Result addPlayer(Game game) {
         LobbyFacadeOut lobbyFacadeOut = new LobbyFacadeOut();
+        User user = ClientModel.create().getPlayer();
         Result joinResult = lobbyFacadeOut.joinGame(game, user);
         IGameLobby gameLobby = new LobbyViewActivity();
         //gameLobby.updateGamePlayers(gameId);
 
         ClientFacade client = new ClientFacade();
         client.joinGame(game);
+        return joinResult;
     }
 
     @Override
@@ -80,19 +84,25 @@ public class GameLobbyPresenter implements IGameLobbyPresenter, Observer {
     @Override
     public void createGame(Game game) {
         ClientFacade client = new ClientFacade();
-        String playerName = client.getPlayer().getUsername();
+        String playerName = client.getHost();
         game.addPlayer(playerName);
-        game.setHostName(playerName);
+        game.setHostName(client.getHost());
+        client.getPlayer().setHost(true);
         User user = new User(playerName, "");
-        user.setHost(true);
-
 
         LobbyFacadeOut lobbyFacadeOut = new LobbyFacadeOut();
-        lobbyFacadeOut.createGame(game);
+        lobbyFacadeOut.createGame(game, playerName);
 
         client.joinGame(game);
-        lobbyFacadeOut.createGame(game);
+        lobbyFacadeOut.createGame(game, playerName);
 
+    }
+
+    @Override
+    public User getPlayer() {
+        ClientFacade clientFacade = new ClientFacade();
+
+        return clientFacade.getPlayer();
     }
 
     @Override

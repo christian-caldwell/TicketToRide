@@ -18,7 +18,7 @@ public class ServerData {
     public ServerData() {
         this.availableGames = new HashMap<>();
         this.users = new ArrayList<User>();
-        this.users.add(new User("t","t"));
+        this.users.add(new User("test1","test1"));
     }
 
     public Map<String, Game> getAvailableGames() {

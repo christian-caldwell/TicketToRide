@@ -12,35 +12,37 @@ import java.util.ArrayList;
 public class ServerCommands implements IServer {
     private final int MAX_PLAYERS = 5;
     private ServerData serverData = ServerData.getInstance();
+    private ClientProxy clientProxy = new ClientProxy();
 
     public ServerData getServerData() {
         return serverData;
     }
 
     @Override
-    public Result joinGame(User user, Game game) {
+    public Result joinGame(String username, String gameName, Integer numPlayers) {
         Result result = new Result();
-        if (game == null) {
+        if (gameName.equals("")) {
             result.setErrorMessage("Game does not exist!");
             result.setSuccessful(false);
         }
-        else if (MAX_PLAYERS == game.getPlayers().size()) {
+        else if (MAX_PLAYERS == numPlayers) {
             result.setErrorMessage("no more players can be added!");
             result.setSuccessful(false);
         }
         else {
-            result.setGame(game.getGameName());
+            result.setGame(gameName);
             result.setSuccessful(true);
-            game.addPlayer(user.getUsername());
-            user.addGamesJoined(game);
+            serverData.getGame(gameName).addPlayer(username);
         }
+        clientProxy.updateJoinGame(serverData.getGame(gameName));
         return result;
     }
 
     @Override
-    public Result createGame(String gameName) {
+    public Result createGame(String gameName, String username, Integer numPlayers) {
         Game game = new Game(gameName);
         Result result = serverData.setGame(game);
+        clientProxy.updateCreateGame(gameName);
         return result;
 
     }
@@ -48,6 +50,7 @@ public class ServerCommands implements IServer {
     //more will be done on this later.
     @Override
     public String startGame(Game gameName) {
+        clientProxy.updateStartGame(gameName.getGameName());
         return "Success";
     }
 

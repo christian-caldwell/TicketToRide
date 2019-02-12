@@ -27,4 +27,8 @@ public class ClientFacade {
 	public String getHost() {
 		return this.client.getPlayer().getUsername();
 	}
+
+	public User getPlayer() {
+		return client.getPlayer();
+	}
 }

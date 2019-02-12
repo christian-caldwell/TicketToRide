@@ -48,44 +48,47 @@ public class ServerProxy implements IServer {
     }
 
     @Override
-    public Result joinGame(User username, Game game) {
-
-        String className = (LobbyFacade.class).toString();
+    public Result joinGame(String username, String gameName, Integer numPlayers) {
+        String className = LobbyFacade.class.getName();
         String methodName = "joinGame";
 
+        Object[] parameterDataArray = new Object[3];
+        Class<?>[] parameterClassArray = new Class<?>[3];
 
-        Object[] params = new Object[2];
-        params[0] = username;
-        params[1] = game.getGameName();
+        parameterClassArray[0] = String.class;
+        parameterClassArray[1] = String.class;
+        parameterClassArray[2] = Integer.class;
+        parameterDataArray[0] = username;
+        parameterDataArray[1] = gameName;
+        parameterDataArray[2] = numPlayers;
 
-        GeneralCommand generatedCommand = createCommand(className, params, methodName);
+        GeneralCommand newCommand = new GeneralCommand(className, methodName, parameterClassArray, parameterDataArray);
 
         ClientCommunicator communicator = new ClientCommunicator();
 
-        Result result = communicator.send(generatedCommand,"127.0.0.1", "8080");
+        return communicator.send(newCommand, "10.0.2.2", "8080");
 
-        //return new Result("nothing", "token", null, true);
-        return result;
 
         //Request request = new Request();
 //        client.send("127.0.0.1", "8080", request);
     }
 
     @Override
-    public Result createGame(String gameName) {
+    public Result createGame(String gameName, String username, Integer numPlayers) {
 
 
         String className = LobbyFacade.class.getName();
         String methodName = "createGame";
 
-        Object[] params = new Object[1];
-        params[0] = gameName;
-
-        Object[] parameterDataArray = new Object[1];
-        Class<?>[] parameterClassArray = new Class<?>[1];
+        Object[] parameterDataArray = new Object[3];
+        Class<?>[] parameterClassArray = new Class<?>[3];
 
         parameterClassArray[0] = String.class;
+        parameterClassArray[1] = String.class;
+        parameterClassArray[2] = Integer.class;
         parameterDataArray[0] = gameName;
+        parameterDataArray[1] = username;
+        parameterDataArray[2] = numPlayers;
 
         GeneralCommand newCommand = new GeneralCommand(className, methodName, parameterClassArray, parameterDataArray);
 

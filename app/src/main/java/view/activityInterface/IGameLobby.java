@@ -7,7 +7,7 @@ import models.data.Game;
 
 
 public interface IGameLobby {
-    void updateGameList(ArrayList<Game> gameLobby);
+    void updateGameList(ArrayList<Game> lobbyGames);
     void onGameCreated();
     void onCreateGameFailed(String errorMessage);
 }
