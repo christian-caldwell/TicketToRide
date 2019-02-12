@@ -1,13 +1,11 @@
 package server;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
 import models.data.Game;
 import models.data.PollManagerData;
 import models.data.Result;
-import models.data.User;
 
 //after you get the changed data switch changed back to false,
 //client proxy will switch changed to true when there are changes.
@@ -36,4 +34,5 @@ public class PollManager {
         output.setPollResult(pollManagerData);
         return pollManagerData;
     }
+
 }
