@@ -85,6 +85,9 @@ public class LobbyViewActivity extends AppCompatActivity implements IGameLobby {
                         startGameButton.getBackground().setColorFilter(null);
                         startGameButton.setAlpha(1);
                         startGameButton.setEnabled(true);
+                        createGameButton.getBackground().setColorFilter(Color.DKGRAY, PorterDuff.Mode.MULTIPLY);
+                        createGameButton.setAlpha(.5f);
+                        createGameButton.setEnabled(false);
                         adapter.notifyDataSetChanged();
                         Toast.makeText(LobbyViewActivity.this, create_game_text , Toast.LENGTH_SHORT).show();
                         create_game_text = "";

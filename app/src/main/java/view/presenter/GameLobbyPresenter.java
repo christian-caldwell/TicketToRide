@@ -8,14 +8,16 @@ import java.util.Observer;
 
 import client.ClientModel;
 import models.data.Game;
-import models.data.Result;
 import models.data.User;
-import view.activityInterface.IGameLobby;
-import view.facade.ViewFacade;
+import models.data.Result;
 import view.facade.client.ClientFacade;
 import view.facade.client.out.GameStartFacadeOut;
 import view.facade.client.out.LobbyFacadeOut;
 import view.presenterInterface.IGameLobbyPresenter;
+import view.facade.ViewFacade;
+import view.activityInterface.IGameLobby;
+
+import client.ServerProxy;
 
 public class GameLobbyPresenter implements IGameLobbyPresenter, Observer {
 
@@ -63,11 +65,10 @@ public class GameLobbyPresenter implements IGameLobbyPresenter, Observer {
         game.addPlayer(playerName);
         game.setHostName(client.getHost());
         client.getPlayer().setHost(true);
-        User user = new User(playerName, "");
-
+        User user = ClientModel.create().getPlayer();
         LobbyFacadeOut lobbyFacadeOut = new LobbyFacadeOut();
         lobbyFacadeOut.createGame(game, playerName);
-
+        lobbyFacadeOut.joinGame(game, user);
         client.joinGame(game);
         lobbyFacadeOut.createGame(game, playerName);
 
