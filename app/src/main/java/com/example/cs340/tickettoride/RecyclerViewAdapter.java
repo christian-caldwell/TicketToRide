@@ -13,6 +13,9 @@ import android.widget.Toast;
 import java.util.ArrayList;
 
 import models.data.Game;
+import view.activityInterface.IGameLobby;
+import view.presenter.GameLobbyPresenter;
+import view.presenterInterface.IGameLobbyPresenter;
 
 
 // This class will perform all the logic for anything within the recyclerView
@@ -46,6 +49,8 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
 
             @Override
             public void onClick(View v) {
+                IGameLobbyPresenter presenter = new GameLobbyPresenter();
+                presenter.addPlayer(listOfGames.get(position));
                 Toast.makeText(mContext, "You've been added to " +
                         listOfGames.get(position).getGameName(), Toast.LENGTH_SHORT).show();
             }

@@ -23,13 +23,12 @@ import client.ServerProxy;
 public class GameLobbyPresenter implements IGameLobbyPresenter, Observer {
 
     ArrayList<Game> gameList = new ArrayList<>();
-    ViewFacade viewfacade = new ViewFacade();
 
 
     @Override
-    public void addPlayer(Game game, User user) {
+    public void addPlayer(Game game) {
         LobbyFacadeOut lobbyFacadeOut = new LobbyFacadeOut();
-        Result joinResult = lobbyFacadeOut.joinGame(game, user);
+        Result joinResult = lobbyFacadeOut.joinGame(game, ClientModel.create().getPlayer());
         IGameLobby gameLobby = new LobbyViewActivity();
         //gameLobby.updateGamePlayers(gameId);
 
