@@ -54,13 +54,25 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
                 if (presenter.getPlayer().getGame() != null)
                     Toast.makeText(mContext, "Already part of a game", Toast.LENGTH_SHORT).show();
                 else {
-                    Result result = presenter.addPlayer(listOfGames.get(position));
-                    if (result.isSuccessful()){
-                        Toast.makeText(mContext, "You've been added to " +
-                                listOfGames.get(position).getGameName(), Toast.LENGTH_SHORT).show();
+                    if (listOfGames.get(position).getPlayers().size() > 4) {
+                        Toast.makeText(mContext, "Too many players", Toast.LENGTH_SHORT).show();
                     }
                     else {
-                        Toast.makeText(mContext, result.getErrorMessage(),Toast.LENGTH_SHORT).show();
+                        Result result = presenter.addPlayer(listOfGames.get(position));
+                        if (result.isSuccessful()) {
+                            //FIXME: THIS IS SIMILAR TO THE ONCLICKLISTENER FOR CREATE GAME IN LOBBYVIEWACTIVITY
+                            // IT SHOULD NEED TO BE MANUALLY INCREMENTED HERE - IT SHOULD BE UPDATED BOTH
+                            // IN THE MODEL AND BY THE PULLER
+                            listOfGames.get(position).addPlayer("This is another player");
+                            LobbyViewActivity lobbyViewActivity = new LobbyViewActivity();
+                            lobbyViewActivity.updateGameListAfterClickingOnGame(listOfGames);
+                            notifyDataSetChanged();
+
+                            Toast.makeText(mContext, "You've been added to " +
+                                    listOfGames.get(position).getGameName(), Toast.LENGTH_SHORT).show();
+                        } else {
+                            Toast.makeText(mContext, result.getErrorMessage(), Toast.LENGTH_SHORT).show();
+                        }
                     }
                 }
             }
