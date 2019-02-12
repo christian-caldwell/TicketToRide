@@ -23,7 +23,7 @@ public class LobbyFacadeOut {
 
     public Result joinGame(Game game, User user) {
         Result result = server.joinGame(user.getUsername(), game.getGameName(), game.getPlayers().size());
-        user.addGamesJoined(game);
+        user.setGameJoined(game);
         return result;
 
     }

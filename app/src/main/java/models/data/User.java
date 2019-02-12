@@ -26,6 +26,8 @@ public class User {
         this.gameJoined = gameJoined;
     }
 
+
+
     public Game getGame() {
         return gameJoined;
     }
