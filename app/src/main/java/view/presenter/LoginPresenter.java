@@ -41,7 +41,7 @@ public class LoginPresenter implements ILoginPresenter, Observer {
 	@Override
 	public Result loginUser(String username, String password) {
 		Result result = new Result();
-		//Match Password to Reg-ex
+
 		User returnUser = new User(username, password);
 		LoginFacadeOut loginFacadeOut = new LoginFacadeOut();
 

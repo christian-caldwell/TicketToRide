@@ -37,17 +37,6 @@ public class ServerProxy implements IServer {
     }*/
 
     @Override
-    public Result getLobbyList() {
-        String className = (PollManager.class).toString();
-        String methodName = "getChanges";
-
-        GeneralCommand pollCommand = createCommand(className,null, methodName);
-        ClientCommunicator communicator = new ClientCommunicator();
-        return communicator.send(pollCommand, "127.0.0.1", "8080");
-    }
-
-
-    @Override
     public PollManagerData pollServer() {
         String className = (PollManager.class).toString();
         String methodName = "getChanges";
@@ -59,30 +48,27 @@ public class ServerProxy implements IServer {
     }
 
     @Override
-    public Result joinGame(String username, Game game) {
+    public Result joinGame(User username, Game game) {
 
-
-        String className = LobbyFacade.class.getName();
+        String className = (LobbyFacade.class).toString();
         String methodName = "joinGame";
+
 
         Object[] params = new Object[2];
         params[0] = username;
         params[1] = game.getGameName();
 
-
-        Object[] parameterDataArray = new Object[2];
-        Class<?>[] parameterClassArray = new Class<?>[2];
-
-        parameterClassArray[0] = String.class;
-        parameterClassArray[1] = String.class;
-        parameterDataArray[0] = username;
-        parameterDataArray[1] = game.getGameName();
-
-        GeneralCommand newCommand = new GeneralCommand(className, methodName, parameterClassArray, parameterDataArray);
+        GeneralCommand generatedCommand = createCommand(className, params, methodName);
 
         ClientCommunicator communicator = new ClientCommunicator();
-        Result result = communicator.send(newCommand, "10.0.2.2", "8080");
+
+        Result result = communicator.send(generatedCommand,"127.0.0.1", "8080");
+
+        //return new Result("nothing", "token", null, true);
         return result;
+
+        //Request request = new Request();
+//        client.send("127.0.0.1", "8080", request);
     }
 
     @Override

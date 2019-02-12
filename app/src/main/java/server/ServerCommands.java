@@ -18,7 +18,7 @@ public class ServerCommands implements IServer {
     }
 
     @Override
-    public Result joinGame(String user, Game game) {
+    public Result joinGame(User user, Game game) {
         Result result = new Result();
         if (game == null) {
             result.setErrorMessage("Game does not exist!");
@@ -31,7 +31,8 @@ public class ServerCommands implements IServer {
         else {
             result.setGame(game.getGameName());
             result.setSuccessful(true);
-            game.addPlayer(user);
+            game.addPlayer(user.getUsername());
+            user.addGamesJoined(game);
         }
         return result;
     }
@@ -51,10 +52,10 @@ public class ServerCommands implements IServer {
     }
 
     @Override
-    public Result register(String newUser, String password) {
+    public Result register(User newUser) {
         Result result = new Result();
         for (User user: serverData.getUsers()) {
-            if (user.getUsername().equals(newUser)) {
+            if (user.getUsername().equals(newUser.getUsername())) {
                 result.setErrorMessage("this user already exists...");
                 result.setSuccessful(false);
                 return result;
@@ -62,7 +63,7 @@ public class ServerCommands implements IServer {
         }
         result.setAuthenticationToken(UUID.randomUUID().toString().toUpperCase());
         result.setSuccessful(true);
-        serverData.addUsers(new User(newUser,password));
+        serverData.addUsers(new User(newUser.getUsername(),newUser.getPassword()));
         return result;
     }
 
@@ -102,6 +103,5 @@ public class ServerCommands implements IServer {
         tempResult.setLobbyList(tempReturnArray);
         return tempResult;
     }
-
 
 }

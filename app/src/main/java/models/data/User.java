@@ -3,42 +3,22 @@ package models.data;
 import java.util.ArrayList;
 
 public class User {
-    private boolean isHost;
     private String username;
     private String pass;
-    private Game activeGame;
+    private ArrayList<Game> gamesJoined;
+
+    public ArrayList<Game> getGamesJoined() {
+        return gamesJoined;
+    }
+
+    public void addGamesJoined(Game gameJoined) {
+        this.gamesJoined.add(gameJoined);
+    }
 
     public User(String username, String password) {
         this.username = username;
         this.pass = password;
-    }
-
-    public boolean isHost() {
-        return isHost;
-    }
-
-    public void setHost(boolean host) {
-        isHost = host;
-    }
-
-    public void setUsername(String username) {
-        this.username = username;
-    }
-
-    public String getPass() {
-        return pass;
-    }
-
-    public void setPass(String pass) {
-        this.pass = pass;
-    }
-
-    public void setActiveGame(Game activeGame) {
-        this.activeGame = activeGame;
-    }
-
-    public Game getActiveGame() {
-        return activeGame;
+        this.gamesJoined = new ArrayList<Game>();
     }
 
     public String getUsername() {
