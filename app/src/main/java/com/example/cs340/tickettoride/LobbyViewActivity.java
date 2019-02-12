@@ -15,11 +15,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
-
 import java.util.ArrayList;
-
-import java.util.Map;
-
 import models.data.Game;
 import view.activityInterface.IGameLobby;
 import view.presenter.GameLobbyPresenter;
@@ -88,6 +84,9 @@ public class LobbyViewActivity extends AppCompatActivity implements IGameLobby {
                         startGameButton.getBackground().setColorFilter(null);
                         startGameButton.setAlpha(1);
                         startGameButton.setEnabled(true);
+                        createGameButton.getBackground().setColorFilter(Color.DKGRAY, PorterDuff.Mode.MULTIPLY);
+                        createGameButton.setAlpha(.5f);
+                        createGameButton.setEnabled(false);
                         adapter.notifyDataSetChanged();
                         Toast.makeText(LobbyViewActivity.this, create_game_text + " created!", Toast.LENGTH_SHORT).show();
                     }

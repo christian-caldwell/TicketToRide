@@ -56,19 +56,17 @@ public class GameLobbyPresenter implements IGameLobbyPresenter, Observer {
 
     @Override
     public void createGame(Game game) {
+
         ClientFacade client = new ClientFacade();
         String playerName = client.getHost();
         game.addPlayer(playerName);
         game.setHostName(client.getHost());
         client.getPlayer().setHost(true);
-        User user = new User(playerName, "");
-
+        User user = ClientModel.create().getPlayer();
         LobbyFacadeOut lobbyFacadeOut = new LobbyFacadeOut();
         lobbyFacadeOut.createGame(game, playerName);
-
+        lobbyFacadeOut.joinGame(game, user);
         client.joinGame(game);
-        lobbyFacadeOut.createGame(game, playerName);
-
     }
 
     @Override
