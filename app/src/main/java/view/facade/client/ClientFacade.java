@@ -17,6 +17,10 @@ public class ClientFacade {
 		client.setActiveGame(game);
 	}
 
+	public Game getActiveGame() {
+		return client.getActiveGame();
+	}
+
 	public ArrayList<Game> getGames() {
 		return client.getLobbyGames();
 	}
@@ -24,8 +28,8 @@ public class ClientFacade {
 		client.setPlayer(newUser);
 	}
 
-	public String getHost() {
-		return this.client.getPlayer().getUsername();
+	public User getPlayer() {
+		return this.client.getPlayer();
 	}
 
 	public User getPlayer() {

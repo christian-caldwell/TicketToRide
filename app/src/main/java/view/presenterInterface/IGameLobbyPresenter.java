@@ -14,5 +14,7 @@ public interface IGameLobbyPresenter {
     public ArrayList getGameList();
     public void createGame(Game game);
 
+    public boolean isUserHosting();
+    public ArrayList<String> getHostedGamePlayers();
     public User getPlayer();
 }
