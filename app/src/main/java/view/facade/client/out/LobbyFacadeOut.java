@@ -10,6 +10,7 @@ import models.data.Game;
 import models.data.User;
 import server.PollManager;
 import server.ServerCommands;
+import view.facade.client.ClientFacade;
 
 public class LobbyFacadeOut {
     private ServerProxy server;
@@ -21,13 +22,16 @@ public class LobbyFacadeOut {
     public Result createGame(Game game) {
         Result result = server.createGame(game.getGameName());
         if (result.isSuccessful()) {
-            result = server.joinGame(ClientModel.create().getPlayer(),game);
+            result = server.joinGame(ClientModel.create().getPlayer().getUsername(),game);
         }
         return result;
     }
 
     public Result joinGame(Game game, User user) {
-        return server.joinGame(user, game);
+        Result result = server.joinGame(user.getUsername(), game);
+        ClientFacade client = new ClientFacade();
+        client.joinGame(game);
+        return result;
     }
 
     public Result getLobbyList() {
