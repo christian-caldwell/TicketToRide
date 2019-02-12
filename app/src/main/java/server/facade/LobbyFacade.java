@@ -17,8 +17,12 @@ public class LobbyFacade {
         return serverCommands.createGame(gameName);
     }
 
-    public Result joinGame(Request request) {
-        return serverCommands.joinGame(request.getUser(), request.getGame());
+    public Result joinGame(User user, Game game) {
+        return serverCommands.joinGame(user, game);
+    }
+
+    public Result getLobbyList() {
+        return serverCommands.getLobbyList();
     }
 
 }

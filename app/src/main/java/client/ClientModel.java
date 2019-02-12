@@ -48,12 +48,12 @@ public class ClientModel extends Observable {
         return this.gamesLobby;
     }
 
-    public ArrayList<Object> getChangedObjects() {
-        return this.changedObjects;
+    public void setLobbyGames(ArrayList<Game> lobbyGameList) {
+        this.gamesLobby = lobbyGameList;
     }
 
-    public void addLobbyGames(Game game) {
-        this.gamesLobby.add(game);
+    public ArrayList<Object> getChangedObjects() {
+        return this.changedObjects;
     }
 
     public void addChange(Object changedMember) {
@@ -68,9 +68,18 @@ public class ClientModel extends Observable {
         this.gamesLobby.add(game);
     }
 
-    public void removeLobbyGame(Game game) {
-        this.gamesLobby.remove(game);
+    public boolean replaceLobbyGame (Game updatedGame) {
+        for (Game currLobbyGame : this.gamesLobby) {
+            if (updatedGame.getGameName().compareTo(currLobbyGame.getGameName()) == 0) {
+                this.gamesLobby.remove(currLobbyGame);
+                this.gamesLobby.add(updatedGame);
+                return true;
+            }
+        }
+
+        return false;
     }
+
 
     public void update() {
         addObserver(new GameLobbyPresenter());
@@ -80,7 +89,6 @@ public class ClientModel extends Observable {
         setChanged();
         notifyObservers();
         deleteObservers();
-        clearChangeList();
     }
 
     @Override

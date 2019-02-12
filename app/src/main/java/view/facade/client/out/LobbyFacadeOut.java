@@ -1,5 +1,7 @@
 package view.facade.client.out;
 
+import java.util.ArrayList;
+
 import client.ClientModel;
 import client.ServerProxy;
 import models.data.Request;
@@ -26,5 +28,9 @@ public class LobbyFacadeOut {
 
     public Result joinGame(Game game, User user) {
         return server.joinGame(user, game);
+    }
+
+    public Result getLobbyList() {
+        return server.getLobbyList();
     }
 }

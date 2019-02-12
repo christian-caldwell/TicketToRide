@@ -4,9 +4,31 @@ import java.util.ArrayList;
 
 public class Game {
     public String status;
+    private boolean visibleInLobby;
+    private boolean gameStarted;
     private String gameName;
     private String hostName;
     private ArrayList<String> players = new ArrayList<>();
+
+    public Game(String gameName) {
+        this.gameName = gameName;
+    }
+
+    public boolean isVisibleInLobby() {
+        return visibleInLobby;
+    }
+
+    public void setVisibleInLobby(boolean visibleInLobby) {
+        this.visibleInLobby = visibleInLobby;
+    }
+
+    public boolean getGameStarted() {
+        return this.gameStarted;
+    }
+
+    public void setGameStarted(boolean started) {
+        this.gameStarted = started;
+    }
 
     public String getHostName() {
         return this.hostName;
@@ -14,10 +36,6 @@ public class Game {
 
     public void setHostName(String hostName) {
         this.hostName = hostName;
-    }
-
-    public Game(String gameName) {
-        this.gameName = gameName;
     }
 
     public void setStatus(String status) {

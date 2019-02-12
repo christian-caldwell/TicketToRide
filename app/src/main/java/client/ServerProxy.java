@@ -37,6 +37,17 @@ public class ServerProxy implements IServer {
     }*/
 
     @Override
+    public Result getLobbyList() {
+        String className = (PollManager.class).toString();
+        String methodName = "getChanges";
+
+        GeneralCommand pollCommand = createCommand(className,null, methodName);
+        ClientCommunicator communicator = new ClientCommunicator();
+        return communicator.send(pollCommand, "127.0.0.1", "8080");
+    }
+
+
+    @Override
     public PollManagerData pollServer() {
         String className = (PollManager.class).toString();
         String methodName = "getChanges";
