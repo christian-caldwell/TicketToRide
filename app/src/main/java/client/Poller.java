@@ -2,12 +2,12 @@ package client;
 
 import java.io.InterruptedIOException;
 import java.nio.channels.ClosedByInterruptException;
+import java.util.ArrayList;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.TimeUnit;
-import java.util.ArrayList;
 
-import models.data.PollManagerData;
 import models.data.Game;
+import models.data.PollManagerData;
 import models.data.User;
 
 public class Poller {
@@ -25,10 +25,6 @@ public class Poller {
         create();
         singleton.shutdown();
         singleton.start(0, 3600, false);
-    }
-
-    private Poller() {
-        start();
     }
 
     private void runThread(int initialDelaySec, int delaySec, boolean fixedRate) {
