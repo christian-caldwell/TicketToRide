@@ -41,21 +41,6 @@ public class LoginPresenter implements ILoginPresenter, Observer {
 	@Override
 	public Result loginUser(String username, String password) {
 		Result result = new Result();
-		//Match Password to Reg-ex
-		if (!checkRegex(this.PASSWORD_CRITERIA, password)) {
-			result.setErrorMessage(BAD_PASSWORD);
-			result.setSuccessful(false);
-			return result; //If password characters are unacceptable
-		}
-
-		//Match Username to Reg-ex
-		if (!checkRegex(this.USERNAME_CRITERIA, username)) {
-			result.setErrorMessage(BAD_USERNAME);
-			result.setSuccessful(false);
-			return result; //If password characters are unacceptable
-		}
-
-		//LoginActivity.NotifyLoginStarted()
 
 		User returnUser = new User(username, password);
 		LoginFacadeOut loginFacadeOut = new LoginFacadeOut();
