@@ -3,11 +3,11 @@ package view.presenterInterface;
 import java.util.ArrayList;
 
 import models.data.Game;
-import models.data.Request;
+import models.data.Result;
 import models.data.User;
 
 public interface IGameLobbyPresenter {
-    public void addPlayer(Game gameId, User user);
+    public Result addPlayer(Game gameId);
 
     public void startGame(Game game);
 

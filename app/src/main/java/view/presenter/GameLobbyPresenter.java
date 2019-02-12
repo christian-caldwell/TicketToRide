@@ -27,14 +27,16 @@ public class GameLobbyPresenter implements IGameLobbyPresenter, Observer {
 
 
     @Override
-    public void addPlayer(Game game, User user) {
+    public Result addPlayer(Game game) {
         LobbyFacadeOut lobbyFacadeOut = new LobbyFacadeOut();
+        User user = ClientModel.create().getPlayer();
         Result joinResult = lobbyFacadeOut.joinGame(game, user);
         IGameLobby gameLobby = new LobbyViewActivity();
         //gameLobby.updateGamePlayers(gameId);
 
         ClientFacade client = new ClientFacade();
         client.joinGame(game);
+        return joinResult;
     }
 
     @Override
@@ -62,10 +64,10 @@ public class GameLobbyPresenter implements IGameLobbyPresenter, Observer {
         User user = new User(playerName, "");
 
         LobbyFacadeOut lobbyFacadeOut = new LobbyFacadeOut();
-        lobbyFacadeOut.createGame(game);
+        lobbyFacadeOut.createGame(game, playerName);
 
         client.joinGame(game);
-        lobbyFacadeOut.createGame(game);
+        lobbyFacadeOut.createGame(game, playerName);
 
     }
 
