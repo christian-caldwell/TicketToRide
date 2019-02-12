@@ -25,24 +25,6 @@ public class GameLobbyPresenter implements IGameLobbyPresenter, Observer {
     ArrayList<Game> gameList = new ArrayList<>();
 
     @Override
-    public boolean isUserHosting() {
-        ClientFacade client = new ClientFacade();
-        return client.getPlayer().isHost();
-    }
-
-    @Override
-    public ArrayList<String> getHostedGamePlayers() {
-        ClientFacade client = new ClientFacade();
-        if (client.getPlayer().isHost()) {
-            return client.getActiveGame().getPlayers();
-        }
-        else {
-            //player is not a host
-            return null;
-        }
-    }
-
-    @Override
     public User getPlayer() {
         ClientFacade client = new ClientFacade();
         return client.getPlayer();
@@ -93,12 +75,6 @@ public class GameLobbyPresenter implements IGameLobbyPresenter, Observer {
 
     }
 
-    @Override
-    public User getPlayer() {
-        ClientFacade clientFacade = new ClientFacade();
-
-        return clientFacade.getPlayer();
-    }
 
     @Override
     public void update(Observable o, Object arg) {
@@ -112,17 +88,17 @@ public class GameLobbyPresenter implements IGameLobbyPresenter, Observer {
         for (Object currUpdatedObject : updatedObjectList) {
             Game currUpdatedGame = (Game) currUpdatedObject;
 
-            if (!currUpdatedGame.isVisibleInLobby()) {
+            /*if (!currUpdatedGame.isVisibleInLobby()) {
                 System.out.println("Game Removed From Lobby: " + currUpdatedGame.getGameName());
                 removeLobbyGame(currUpdatedGame);
             }
-            else {
-                boolean found = replaceLobbyGame(currUpdatedGame);
-                if (!found) {
-                    System.out.println("Game Updated In Lobby: " + currUpdatedGame.getGameName());
-                    gameList.add(currUpdatedGame);
-                }
+            else {*/
+            boolean found = replaceLobbyGame(currUpdatedGame);
+            if (!found) {
+                System.out.println("Game Updated In Lobby: " + currUpdatedGame.getGameName());
+                gameList.add(currUpdatedGame);
             }
+            //}
         }
 
         IGameLobby gameLobby = new LobbyViewActivity();

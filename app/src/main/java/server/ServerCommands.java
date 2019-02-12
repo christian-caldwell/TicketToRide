@@ -97,14 +97,4 @@ public class ServerCommands implements IServer {
         PollManagerData tempPollData = new PollManagerData();
         return tempPollData;
     }
-
-    @Override
-    public Result getLobbyList() {
-        //THIS FUNCTION NEEDS HELP!!!!
-        ArrayList<Game> tempReturnArray = new ArrayList<Game>();
-        Result tempResult = new Result();
-        tempResult.setLobbyList(tempReturnArray);
-        return tempResult;
-    }
-
 }

@@ -31,8 +31,4 @@ public class ClientFacade {
 	public User getPlayer() {
 		return this.client.getPlayer();
 	}
-
-	public User getPlayer() {
-		return client.getPlayer();
-	}
 }
