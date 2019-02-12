@@ -92,6 +92,7 @@ public class GameLobbyPresenter implements IGameLobbyPresenter, Observer {
 
     @Override
     public void update(Observable o, Object arg) {
+        System.out.println("Server Polled");
         ClientModel client = (ClientModel) o;
         ArrayList<Object> updatedObjectList = client.getChangedObjects();
         this.gameList = client.getLobbyGames();
@@ -111,6 +112,8 @@ public class GameLobbyPresenter implements IGameLobbyPresenter, Observer {
             }
         }
 
+        IGameLobby gameLobby = new LobbyViewActivity();
+        gameLobby.updateGameList(this.gameList);
     }
 
 

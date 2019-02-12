@@ -117,7 +117,7 @@ public class LobbyViewActivity extends AppCompatActivity implements IGameLobby {
 
 
     @Override
-    public void updateGameList(Map<String, Game> map) {
+    public void updateGameList(ArrayList<Game> lobbyGames) {
     }
 
     @Override
