@@ -13,6 +13,8 @@ import android.widget.Toast;
 import java.util.ArrayList;
 
 import models.data.Game;
+import view.presenter.GameLobbyPresenter;
+import view.presenterInterface.IGameLobbyPresenter;
 
 
 // This class will perform all the logic for anything within the recyclerView
@@ -21,6 +23,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
 
     private ArrayList<Game> listOfGames = new ArrayList<>();
     private Context mContext;
+    private IGameLobbyPresenter presenter = new GameLobbyPresenter();
 
 
     public RecyclerViewAdapter(ArrayList<Game> listOfGames, Context mContext) {
@@ -46,8 +49,16 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
 
             @Override
             public void onClick(View v) {
-                Toast.makeText(mContext, "You've been added to " +
-                        listOfGames.get(position).getGameName(), Toast.LENGTH_SHORT).show();
+
+                // Check if user is already in a game. If not, add them to game
+                if (presenter.getPlayer().getGame() != null)
+                    Toast.makeText(mContext, "Already part of a game", Toast.LENGTH_SHORT).show();
+                else {
+                    //FIXME: THIS NEEDS TO CALL SOMETHING TO ADD THE PLAYER TO THE GAME
+
+                    Toast.makeText(mContext, "You've been added to " +
+                            listOfGames.get(position).getGameName(), Toast.LENGTH_SHORT).show();
+                }
             }
         });
     }

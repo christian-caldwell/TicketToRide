@@ -21,6 +21,7 @@ import java.util.Map;
 import models.data.Game;
 import view.activityInterface.IGameLobby;
 import view.presenter.GameLobbyPresenter;
+import view.presenterInterface.IGameLobbyPresenter;
 
 public class LobbyViewActivity extends AppCompatActivity implements IGameLobby {
 
@@ -30,7 +31,7 @@ public class LobbyViewActivity extends AppCompatActivity implements IGameLobby {
     private boolean createGameOpen = false;
     private String create_game_text = "";
     private RecyclerViewAdapter adapter;
-    private GameLobbyPresenter presenter = new GameLobbyPresenter();
+    private IGameLobbyPresenter presenter = new GameLobbyPresenter();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,7 +42,11 @@ public class LobbyViewActivity extends AppCompatActivity implements IGameLobby {
         initRecyclerView();
 
         // Initialize startGameButton and set onClickListener
+        // If the user is not a host, disable the 'Start Game' button
         startGameButton = findViewById(R.id.startGameButton);
+        if (!presenter.getPlayer().isHost())
+            startGameButton.setEnabled(false);
+
         startGameButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -73,7 +78,6 @@ public class LobbyViewActivity extends AppCompatActivity implements IGameLobby {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         create_game_text = input.getText().toString();
-                        GameLobbyPresenter presenter = new GameLobbyPresenter();
                         Game game = new Game(create_game_text);
                         presenter.createGame(game);
                         adapter.notifyDataSetChanged();
@@ -117,12 +121,9 @@ public class LobbyViewActivity extends AppCompatActivity implements IGameLobby {
 
 
     @Override
-    public void updateGameList(Map<String, Game> map) {
-    }
-
-    @Override
-    public void updateGamePlayers(Game game) {
-
+    public void updateGameList(ArrayList<Game> lobbyGames) {
+        listOfGames = lobbyGames;
+        adapter.notifyDataSetChanged();
     }
 
     @Override
