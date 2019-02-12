@@ -36,4 +36,9 @@ public class ServerFacade implements IServer {
     public PollManagerData pollServer() {
         return null;
     }
+
+    @Override
+    public Result getLobbyList() {
+        return null;
+    }
 }

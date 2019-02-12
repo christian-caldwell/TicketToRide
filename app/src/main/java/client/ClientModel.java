@@ -48,12 +48,12 @@ public class ClientModel extends Observable {
         return this.gamesLobby;
     }
 
-    public ArrayList<Object> getChangedObjects() {
-        return this.changedObjects;
+    public void setLobbyGames(ArrayList<Game> lobbyGameList) {
+        this.gamesLobby = lobbyGameList;
     }
 
-    public void addLobbyGames(Game game) {
-        this.gamesLobby.add(game);
+    public ArrayList<Object> getChangedObjects() {
+        return this.changedObjects;
     }
 
     public void addChange(Object changedMember) {
