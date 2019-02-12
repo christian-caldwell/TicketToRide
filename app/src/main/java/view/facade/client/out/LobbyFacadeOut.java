@@ -16,15 +16,15 @@ public class LobbyFacadeOut {
         this.server = new ServerProxy();
     }
 
-    public Result createGame(Game game) {
-        Result result = server.createGame(game.getGameName());
-        if (result.isSuccessful()) {
-            result = server.joinGame(ClientModel.create().getPlayer(),game);
-        }
+    public Result createGame(Game game, String username) {
+        Result result = server.createGame(game.getGameName(), username, game.getPlayers().size());
         return result;
     }
 
     public Result joinGame(Game game, User user) {
-        return server.joinGame(user, game);
+        Result result = server.joinGame(user.getUsername(), game.getGameName(), game.getPlayers().size());
+        user.addGamesJoined(game);
+        return result;
+
     }
 }

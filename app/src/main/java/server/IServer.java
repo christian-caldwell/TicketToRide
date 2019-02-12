@@ -6,9 +6,9 @@ import models.data.Result;
 import models.data.User;
 
 public interface IServer {
-    public Result joinGame(User user, Game gameName);
+    public Result joinGame(String user, String gameName, Integer numPlayers);
 
-    public Result createGame(String gameName);
+    public Result createGame(String gameName, String username, Integer numPlayers);
 
     public String startGame(Game gameName);
     public Result register(User newUser);
