@@ -22,8 +22,12 @@ import client.ServerProxy;
 public class GameLobbyPresenter implements IGameLobbyPresenter, Observer {
 
     ArrayList<Game> gameList = new ArrayList<>();
-    ViewFacade viewfacade = new ViewFacade();
 
+    @Override
+    public User getPlayer() {
+        ClientFacade client = new ClientFacade();
+        return client.getPlayer();
+    }
 
 
 
@@ -51,8 +55,8 @@ public class GameLobbyPresenter implements IGameLobbyPresenter, Observer {
 
     @Override
     public ArrayList getGameList() {
-        ClientFacade clientFacade = new ClientFacade();
-        return clientFacade.getGames();
+        ClientFacade client = new ClientFacade();
+        return client.getGames();
     }
 
 
@@ -76,32 +80,54 @@ public class GameLobbyPresenter implements IGameLobbyPresenter, Observer {
 
     }
 
-    @Override
-    public User getPlayer() {
-        ClientFacade clientFacade = new ClientFacade();
-
-        return clientFacade.getPlayer();
-    }
 
     @Override
     public void update(Observable o, Object arg) {
+        System.out.println("Server Polled");
         ClientModel client = (ClientModel) o;
-        ArrayList<Object> updatedObject = client.getChangedObjects();
+        ArrayList<Object> updatedObjectList = client.getChangedObjects();
+        this.gameList = client.getLobbyGames();
 
-        if (updatedObject.isEmpty()) {
-            //No update or server error
+        System.out.println("Lobby Updated");
+
+        for (Object currUpdatedObject : updatedObjectList) {
+            Game currUpdatedGame = (Game) currUpdatedObject;
+
+            /*if (!currUpdatedGame.isVisibleInLobby()) {
+                System.out.println("Game Removed From Lobby: " + currUpdatedGame.getGameName());
+                removeLobbyGame(currUpdatedGame);
+            }
+            else {*/
+            boolean found = replaceLobbyGame(currUpdatedGame);
+            if (!found) {
+                System.out.println("Game Updated In Lobby: " + currUpdatedGame.getGameName());
+                gameList.add(currUpdatedGame);
+            }
+            //}
         }
-        else {
-            for (Object currUpdatedObject : this.gameList) {
-                if (currUpdatedObject.getClass() == Game.class) {
-                    Game currUpdatedGame = (Game) currUpdatedObject;
-                    for (Game currentLobbyGame : this.gameList) {
-                        if (currentLobbyGame.getGameName().compareTo(currUpdatedGame.getGameName()) == 0) {
-                            currentLobbyGame = currUpdatedGame;
-                        }
 
-                    }
-                }
+        IGameLobby gameLobby = new LobbyViewActivity();
+        gameLobby.updateGameList(this.gameList);
+    }
+
+
+    private boolean replaceLobbyGame (Game updatedGame) {
+        for (Game currLobbyGame : this.gameList) {
+            if (updatedGame.getGameName().compareTo(currLobbyGame.getGameName()) == 0) {
+                System.out.println("Game Updated In Lobby: " + currLobbyGame.getGameName());
+                this.gameList.remove(currLobbyGame);
+                this.gameList.add(updatedGame);
+                return true;
+            }
+        }
+        return false;
+    }
+
+    private void removeLobbyGame (Game removedGame) {
+        String removedGameName = removedGame.getGameName();
+        for (Game lobbyGame : this.gameList) {
+            if (lobbyGame.getGameName().compareTo(removedGameName) == 0) {
+                this.gameList.remove(lobbyGame);
             }
         }
     }
