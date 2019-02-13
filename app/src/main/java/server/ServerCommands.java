@@ -40,6 +40,8 @@ public class ServerCommands implements IServer {
     @Override
     public Result createGame(String gameName, String username, Integer numPlayers) {
         Game game = new Game(gameName);
+        game.setHostName(username);
+        game.addPlayer(username);
         Result result = serverData.setGame(game);
         clientProxy.updateCreateGame(gameName);
         return result;
@@ -88,11 +90,5 @@ public class ServerCommands implements IServer {
         result.setSuccessful(false);
         return result;
     }
-
-    @Override
-    public PollManagerData pollServer() {
-        return null;
-    }
-
 
 }

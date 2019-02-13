@@ -36,15 +36,21 @@ public class ServerProxy implements IServer {
         return result.getPollResult();
     }*/
 
-    @Override
-    public PollManagerData pollServer() {
-        String className = (PollManager.class).toString();
-        String methodName = "getChanges";
+    public ArrayList<Game> getLobbyList() {
 
-        GeneralCommand pollCommand = createCommand(className,null, methodName);
+        String className = PollManager.class.getName();
+        String methodName = "getAvailableGames";
+
+        Object[] parameterDataArray = new Object[0];
+        Class<?>[] parameterClassArray = new Class<?>[0];
+
+
+        GeneralCommand newCommand = new GeneralCommand(className, methodName, parameterClassArray, parameterDataArray);
+
         ClientCommunicator communicator = new ClientCommunicator();
-        Result result = communicator.send(pollCommand, "127.0.0.1", "8080");
-        return result.getPollResult();
+
+        return communicator.send(newCommand, "10.0.2.2", "8080").getPollResult().getGamesChanged();
+
     }
 
     @Override

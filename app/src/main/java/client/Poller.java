@@ -8,7 +8,10 @@ import java.util.ArrayList;
 
 import models.data.PollManagerData;
 import models.data.Game;
+import models.data.Result;
 import models.data.User;
+import server.GeneralCommand;
+import server.PollManager;
 
 public class Poller {
     private Thread pollerThread;
@@ -27,9 +30,16 @@ public class Poller {
         singleton.start(0, 3600, false);
     }
 
-    private Poller() {
-        start();
+    public PollManagerData pollServer() {
+        String className = (PollManager.class).toString();
+        String methodName = "getChanges";
+
+        GeneralCommand pollCommand = new GeneralCommand(className, methodName, null, null);
+        ClientCommunicator communicator = new ClientCommunicator();
+        Result result = communicator.send(pollCommand, "10.0.2.2", "8080");
+        return result.getPollResult();
     }
+
 
     private void runThread(int initialDelaySec, int delaySec, boolean fixedRate) {
         System.out.println("poller starting...");
@@ -69,7 +79,7 @@ public class Poller {
 
     public void poll() throws Exception {
         ServerProxy server = new ServerProxy();
-        PollManagerData pollResult = server.pollServer();
+        PollManagerData pollResult = pollServer();
 
         ClientModel client = ClientModel.create();
 
