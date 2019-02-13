@@ -52,10 +52,6 @@ public class ClientModel extends Observable {
         return this.changedObjects;
     }
 
-    public void addLobbyGames(Game game) {
-        this.gamesLobby.add(game);
-    }
-
     public void addChange(Object changedMember) {
         this.changedObjects.add(changedMember);
     }
