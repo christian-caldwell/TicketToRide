@@ -5,6 +5,7 @@ import java.util.Map;
 
 import models.data.Game;
 
+
 public interface IGameLobby {
     void updateGameList(ArrayList<Game> lobbyGames);
     void onGameCreated();

@@ -53,6 +53,7 @@ public class ServerProxy implements IServer {
 
     }
 
+
     @Override
     public Result joinGame(String username, String gameName, Integer numPlayers) {
         String className = LobbyFacade.class.getName();
@@ -78,6 +79,7 @@ public class ServerProxy implements IServer {
         //Request request = new Request();
 //        client.send("127.0.0.1", "8080", request);
     }
+
 
     @Override
     public Result createGame(String gameName, String username, Integer numPlayers) {
@@ -151,7 +153,6 @@ public class ServerProxy implements IServer {
         }
         return result;
     }
-
     @Override
     public Result login(User returnUser) {
         String className = LoginFacade.class.getName();
