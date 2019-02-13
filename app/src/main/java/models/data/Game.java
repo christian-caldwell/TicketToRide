@@ -6,7 +6,7 @@ public class Game {
     public String status;
     private boolean isVisibleInLobby;
     private String gameName;
-    private String hostName;
+
     private ArrayList<String> players = new ArrayList<>();
 
     public boolean isVisibleInLobby() {
@@ -15,14 +15,6 @@ public class Game {
 
     public void setVisibleInLobby(boolean visibleInLobby) {
         isVisibleInLobby = visibleInLobby;
-    }
-
-    public String getHostName() {
-        return this.hostName;
-    }
-
-    public void setHostName(String hostName) {
-        this.hostName = hostName;
     }
 
     public Game(String gameName) {

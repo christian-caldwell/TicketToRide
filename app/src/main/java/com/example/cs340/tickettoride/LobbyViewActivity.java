@@ -19,6 +19,7 @@ import android.widget.Toast;
 import java.util.ArrayList;
 
 import models.data.Game;
+import models.data.Result;
 import view.activityInterface.IGameLobby;
 import view.presenter.GameLobbyPresenter;
 import view.presenterInterface.IGameLobbyPresenter;
@@ -90,7 +91,7 @@ public class LobbyViewActivity extends AppCompatActivity implements IGameLobby {
                         // Disable 'create game' button
 
                         Game game = new Game(input.getText().toString());
-                        create_game_text = presenter.createGame(game);
+                        Result result = presenter.createGame(game);
                         startGameButton.getBackground().setColorFilter(null);
                         startGameButton.setAlpha(1);
                         startGameButton.setEnabled(true);
@@ -107,8 +108,12 @@ public class LobbyViewActivity extends AppCompatActivity implements IGameLobby {
                         listOfGames = presenter.getGameList();
                         listOfGames.get(listOfGames.size()-1).addPlayer("this is the host");
                         adapter.notifyDataSetChanged();
-                        Toast.makeText(LobbyViewActivity.this, create_game_text , Toast.LENGTH_SHORT).show();
-                        create_game_text = "";
+                        if (result.isSuccessful()) {
+                            Toast.makeText(LobbyViewActivity.this, "Succesfully created game:" + game.getGameName(), Toast.LENGTH_SHORT).show();
+                        }
+                        else {
+                            Toast.makeText(LobbyViewActivity.this, result.getErrorMessage(), Toast.LENGTH_SHORT).show();
+                        }
                     }
                 });
                 builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {

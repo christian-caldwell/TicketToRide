@@ -107,6 +107,7 @@ public class Poller {
                 client.setActiveGame(currUpdatedGame);
             }
         }
+        client.update();
     }
 
     public  String getThreadName() {

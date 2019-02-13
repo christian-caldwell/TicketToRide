@@ -61,22 +61,24 @@ public class GameLobbyPresenter implements IGameLobbyPresenter, Observer {
 
 
     @Override
-    public String createGame(Game game) {
-        if(game.getGameName().equals("")) return "Game must have a name";
+    public Result createGame(Game game) {
+        Result result = new Result();
+        if(game.getGameName().equals("")) {
+            result.setErrorMessage("name invalid...");
+            result.setSuccessful(false);
+            return result;
+        }
 
         ClientFacade client = new ClientFacade();
-        String playerName = client.getHost();
-        game.addPlayer(playerName);
-        game.setHostName(client.getHost());
-        client.getPlayer().setHost(true);
-        User user = ClientModel.create().getPlayer();
+        User player = client.getPlayer();
+        player.setGameJoined(game);
+        player.setHost(true);
+        game.addPlayer(player.getUsername());
         LobbyFacadeOut lobbyFacadeOut = new LobbyFacadeOut();
-        lobbyFacadeOut.createGame(game, playerName);
-        lobbyFacadeOut.joinGame(game, user);
+        result = lobbyFacadeOut.createGame(game, player.getUsername());
         client.joinGame(game);
-        lobbyFacadeOut.createGame(game, playerName);
 
-        return game.getGameName() + " created!";
+        return result;
 
     }
 
