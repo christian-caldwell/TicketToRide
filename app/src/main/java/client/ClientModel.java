@@ -14,12 +14,12 @@ import view.presenter.RegisterPresenter;
 public class ClientModel extends Observable {
     private User player;
     private Game gameActive;
-    private ArrayList<Game> gamesLobby = new ArrayList<>();
-    private ArrayList<Object> changedObjects = new ArrayList<>();
+    private ArrayList<Game> lobbyGameList = new ArrayList<>();
+    private ArrayList<Game> newGameList = new ArrayList<>();
 
     private static ClientModel singleton;
 
-    public ClientModel() {}
+    private ClientModel() {}
 
     public static ClientModel create() {
         if (singleton == null) {
@@ -44,29 +44,34 @@ public class ClientModel extends Observable {
         this.gameActive = gamePlaying;
     }
 
-    public ArrayList<Game> getLobbyGames() {
-        return this.gamesLobby;
+    public ArrayList<Game> getLobbyGamesList() {
+        return this.lobbyGameList;
     }
 
-    public ArrayList<Object> getChangedObjects() {
-        return this.changedObjects;
+    public void setLobbyGamesList(ArrayList<Game> newGameList) {
+        this.lobbyGameList = newGameList;
     }
 
-    public void addChange(Object changedMember) {
-        this.changedObjects.add(changedMember);
+    public void addLobbyGamesList(Game game) {
+        this.lobbyGameList.add(game);
+    }
+
+    public void setChangedGameList(ArrayList<Game> newGameList) {
+        this.newGameList = newGameList;
+    }
+
+    public ArrayList<Game> getChangedGameList() {
+        return this.newGameList;
+    }
+
+    public void addChange(Game changedGame) {
+        this.newGameList.add(changedGame);
     }
 
     public void clearChangeList() {
-        this.changedObjects.clear();
+        this.newGameList.clear();
     }
 
-    public void addLobbyGame(Game game) {
-        this.gamesLobby.add(game);
-    }
-
-    public void removeLobbyGame(Game game) {
-        this.gamesLobby.remove(game);
-    }
 
     public void update() {
         addObserver(new GameLobbyPresenter());

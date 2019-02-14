@@ -95,12 +95,6 @@ public class RegisterPresenter implements IRegisterPresenter, Observer {
     @Override
     public void update(Observable o, Object obj) {
         ClientModel client = (ClientModel) o;
-        ArrayList<Object> updatedObject = client.getChangedObjects();
-
-        if (updatedObject.isEmpty()) {
-            //No update or server error
-        }
-
     }
 
     private boolean checkRegex(String input, String criteria) {
