@@ -1,6 +1,12 @@
 package view.presenter;
 
+import android.app.Activity;
+import android.os.AsyncTask;
+import android.widget.Button;
+import android.widget.Toast;
+
 import com.example.cs340.tickettoride.LobbyViewActivity;
+import com.example.cs340.tickettoride.RecyclerViewAdapter;
 
 import java.util.ArrayList;
 import java.util.Observable;
@@ -22,6 +28,7 @@ import client.ServerProxy;
 public class GameLobbyPresenter implements IGameLobbyPresenter, Observer {
 
     ArrayList<Game> gameList = new ArrayList<>();
+    //LobbyViewActivity gameLobby = new LobbyViewActivity();
 
     @Override
     public User getPlayer() {
@@ -37,7 +44,6 @@ public class GameLobbyPresenter implements IGameLobbyPresenter, Observer {
         LobbyFacadeOut lobbyFacadeOut = new LobbyFacadeOut();
         User user = ClientModel.create().getPlayer();
         Result joinResult = lobbyFacadeOut.joinGame(game, user);
-        IGameLobby gameLobby = new LobbyViewActivity();
         //gameLobby.updateGamePlayers(gameId);
 
         ClientFacade client = new ClientFacade();
@@ -91,7 +97,15 @@ public class GameLobbyPresenter implements IGameLobbyPresenter, Observer {
         this.gameList = client.getChangedGameList();
         System.out.println("Lobby Updated");
 
-        IGameLobby gameLobby = new LobbyViewActivity();
-        gameLobby.updateGameList(this.gameList, client.getPlayer());
+        //IGameLobby gameLobby = new LobbyViewActivity();
+        //gameLobby.updateGameList(this.gameList, client.getPlayer());
+        new LobbyViewActivity.UpdateGameListAsyncTask(client.getPlayer()).execute(this.gameList);
+
     }
+
+
+    // AsyncTask Class
+
+
+
 }

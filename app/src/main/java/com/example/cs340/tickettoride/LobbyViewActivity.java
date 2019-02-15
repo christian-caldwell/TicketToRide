@@ -5,6 +5,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.PorterDuff;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.StrictMode;
 import android.support.v7.app.AppCompatActivity;
@@ -25,14 +26,14 @@ import view.activityInterface.IGameLobby;
 import view.presenter.GameLobbyPresenter;
 import view.presenterInterface.IGameLobbyPresenter;
 
-public class LobbyViewActivity extends AppCompatActivity implements IGameLobby {
+public class LobbyViewActivity extends AppCompatActivity /*implements IGameLobby*/ {
 
     // Member variables
-    private ArrayList<Game> listOfGames;
+    private static ArrayList<Game> listOfGames;
     static private Button startGameButton, createGameButton;
     private boolean createGameOpen = false;
     private String create_game_text = "";
-    static private RecyclerViewAdapter adapter;
+    private static RecyclerViewAdapter adapter;
     private IGameLobbyPresenter presenter = new GameLobbyPresenter();
     private static LobbyViewActivity singleton;
 
@@ -107,7 +108,7 @@ public class LobbyViewActivity extends AppCompatActivity implements IGameLobby {
                         //TO FIX THIS, CHECK OUT THE SERVERPROXY
                         listOfGames = presenter.getGameList();
                         listOfGames.get(listOfGames.size()-1).addPlayer("this is the host");
-                        adapter.notifyDataSetChanged();
+                        //adapter.notifyDataSetChanged();
                         if (result.isSuccessful()) {
                             Toast.makeText(LobbyViewActivity.this, "Succesfully created game:" + game.getGameName(), Toast.LENGTH_SHORT).show();
                         }
@@ -152,14 +153,14 @@ public class LobbyViewActivity extends AppCompatActivity implements IGameLobby {
     }
 
 
-    @Override
-    public void updateGameList(ArrayList<Game> lobbyGames, User user) {
-        //FIXME: ADD A BUNCH OF CHECKS TO SEE IF THE USER IS A HOST, AND IF THERE
-        //ARE ENOUGH PLAYERS AND STUFF AND THEN ENABLE THE CORRESPONDING BUTTONS
 
-        // Get the list of games from the presenter so we can update 'listOfGames'
-        // Get the current user from the presenter so we can check if its a host and enable
-        //  the 'Start game' button and disable the 'Create game' button for him
+    public static Void updateGameList(ArrayList<Game> lobbyGames, User user) {
+
+
+        // FIXME: The poller reaches this line of code, then breaks at 'adapter.notifyDataSetChanged()'
+        // because adapter has not been instantiated yet.  It gets instantiated once the LobbyViewActivity
+        // opens up.  If there is a way for the poller to start calling either once LobbyViewActivity
+        // has openned, or when the create game function has been called, then that would work
         listOfGames = lobbyGames;
         adapter.notifyDataSetChanged();
 
@@ -173,7 +174,11 @@ public class LobbyViewActivity extends AppCompatActivity implements IGameLobby {
             disableStartGameButton();
 
 
+        //Toast.makeText(LobbyViewActivity.this, "Poller successfully updated", Toast.LENGTH_SHORT).show();
+
+        return null;
     }
+
 
     public void updateGameListAfterClickingOnGame(ArrayList<Game> lobbyGames) {
         // Disable 'create game' button
@@ -186,23 +191,15 @@ public class LobbyViewActivity extends AppCompatActivity implements IGameLobby {
         }
     }
 
-    @Override
-    public void onGameCreated() {
 
-    }
 
-    @Override
-    public void onCreateGameFailed(String errorMessage) {
-
-    }
-
-    public void disableStartGameButton(){
+    public static void disableStartGameButton(){
         startGameButton.getBackground().setColorFilter(Color.DKGRAY, PorterDuff.Mode.MULTIPLY);
         startGameButton.setAlpha(.5f);
         startGameButton.setEnabled(false);
     }
 
-    public void enableStartGameButton(){
+    public static void enableStartGameButton(){
         startGameButton.getBackground().setColorFilter(null);
         startGameButton.setAlpha(1);
         startGameButton.setEnabled(true);
@@ -218,6 +215,53 @@ public class LobbyViewActivity extends AppCompatActivity implements IGameLobby {
         createGameButton.getBackground().setColorFilter(null);
         createGameButton.setAlpha(1);
         createGameButton.setEnabled(true);
+    }
+
+
+
+    // AsyncTask class
+    public static class UpdateGameListAsyncTask extends AsyncTask<ArrayList<Game>, Void, Void> {
+        //private IGameLobby gameLobby = new LobbyViewActivity();
+        private User user;
+
+
+
+        //Constructor to make
+        public UpdateGameListAsyncTask(User user) {
+            this.user = user;
+        }
+
+        /**
+         * Override this method to perform a computation on a background thread. The
+         * specified parameters are the parameters passed to {@link #execute}
+         * by the caller of this task.
+         * <p>
+         * This method can call {@link #publishProgress} to publish updates
+         * on the UI thread.
+         */
+
+        // It's possible that having this return 'void' could cause a problem
+        @Override
+        protected Void doInBackground(ArrayList<Game>... arrayLists) {
+            return updateGameList(arrayLists[0], user);
+        }
+
+        protected void onPostExecute() {
+
+            // Check if there is an error message.
+            // If there is no message, create a GetDataAsyncTask, which will pull all
+            // the info pertaining to the user from the database and display a toast
+            //if (result.getMessage() == null) {
+            //    String personID = result.getPersonID();
+            //    new GetDataAsyncTask(host, port, result.getAuthToken()).execute(personID);
+            //}
+            //else {
+            //    Toast.makeText(model.getMainActivityContext(), result.getMessage(), Toast.LENGTH_SHORT).show();
+            //    regBtn.setEnabled(true);
+            //}
+        }
+
+
     }
 
 }
