@@ -51,12 +51,13 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
             @Override
             public void onClick(View v) {
                 // Check if user is already in a game. If not, add them to game
+                // Don't allow more than 5 people join a game
                 if (presenter.getPlayer().getGame() != null)
                     Toast.makeText(mContext, "Already part of a game", Toast.LENGTH_SHORT).show();
                 else {
-                    if (listOfGames.get(position).getPlayers().size() > 4) {
+                    if (listOfGames.get(position).getPlayers().size() > 4)
                         Toast.makeText(mContext, "Too many players", Toast.LENGTH_SHORT).show();
-                    }
+
                     else {
                         Result result = presenter.addPlayer(listOfGames.get(position));
                         if (result.isSuccessful()) {
