@@ -52,6 +52,11 @@ public class LobbyViewActivity extends AppCompatActivity /*implements IGameLobby
         StrictMode.setThreadPolicy(policy);
         setContentView(R.layout.activity_lobby_view);
         initRecyclerView();
+        final GameLobbyPresenter lobbyPresenter = new GameLobbyPresenter();
+
+
+        lobbyPresenter.onCreate();
+
 
         // Initialize startGameButton and set onClickListener
         // If the user is not a host, disable the 'Start Game' button

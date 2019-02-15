@@ -13,6 +13,7 @@ import java.util.Observable;
 import java.util.Observer;
 
 import client.ClientModel;
+import client.Poller;
 import models.data.Game;
 import models.data.User;
 import models.data.Result;
@@ -86,6 +87,17 @@ public class GameLobbyPresenter implements IGameLobbyPresenter, Observer {
 
         return result;
 
+    }
+
+    @Override
+    public boolean onCreate() {
+        try {
+            Poller.start();
+            return true;
+        }
+        catch (Exception e) {
+            return false;
+        }
     }
 
 
