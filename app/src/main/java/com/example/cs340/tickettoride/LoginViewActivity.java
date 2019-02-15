@@ -43,6 +43,20 @@ public class LoginViewActivity extends AppCompatActivity implements ILoginView, 
         }
 
 
+        // this was a test
+//        new Timer().scheduleAtFixedRate(new TimerTask(){
+//            @Override
+//            public void run(){
+//                runOnUiThread(new Runnable() {
+//                    public void run() {
+//                        Toast.makeText(getApplicationContext(), "Interval Completed" , Toast.LENGTH_SHORT).show();
+//                    }
+//        });
+//
+//            }
+//        },0,3000);
+
+
         // Login button is pushed
         loginButton.setOnClickListener(new View.OnClickListener() {
             @Override

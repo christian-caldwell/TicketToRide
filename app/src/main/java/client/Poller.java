@@ -1,15 +1,11 @@
 package client;
 
-import java.io.InterruptedIOException;
-import java.nio.channels.ClosedByInterruptException;
+import java.util.ArrayList;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.TimeUnit;
-import java.util.ArrayList;
 
-import models.data.PollManagerData;
 import models.data.Game;
 import models.data.Result;
-import models.data.User;
 import server.GeneralCommand;
 import server.PollManager;
 
@@ -27,11 +23,11 @@ public class Poller {
     public static void start() {
         create();
         singleton.shutdown();
-        singleton.start(0, 3600, false);
+        singleton.start(0, 1000, false);
     }
 
     public ArrayList<Game> pollServer() {
-        String className = (PollManager.class).toString();
+        String className = PollManager.class.getName();
         String methodName = "getAvailableGames";
 
         Object[] parameterDataArray = new Object[0];
@@ -50,7 +46,7 @@ public class Poller {
     private void runThread(int initialDelaySec, int delaySec, boolean fixedRate) {
         System.out.println("poller starting...");
         boolean initiating = true;
-        long sleepTime = delaySec * 1000L;
+        long sleepTime = delaySec;
         while (true) {
             try {
                 if (initiating) {
@@ -70,6 +66,7 @@ public class Poller {
                 break;
             }
             catch (Exception e) {
+                e.printStackTrace();
                 System.out.println("Error polling" + e.getMessage());
             }
         }

@@ -78,6 +78,7 @@ public class ClientModel extends Observable {
         addObserver(new GamePresenter());
         addObserver(new LoginPresenter());
         addObserver(new RegisterPresenter());
+
         setChanged();
         notifyObservers();
         deleteObservers();
