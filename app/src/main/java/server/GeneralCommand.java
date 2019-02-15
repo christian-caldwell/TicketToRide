@@ -85,4 +85,5 @@ public class GeneralCommand implements ICommandExecuter, Serializable {
         }
         return result;
     }
+
 }

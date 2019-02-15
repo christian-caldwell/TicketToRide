@@ -12,7 +12,7 @@ public interface IGameLobbyPresenter {
     public void startGame(Game game);
 
     public ArrayList getGameList();
-    public String createGame(Game game);
+    public Result createGame(Game game);
 
     public User getPlayer();
 }

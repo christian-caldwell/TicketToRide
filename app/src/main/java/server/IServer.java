@@ -14,5 +14,4 @@ public interface IServer {
     public Result register(User newUser);
     public Result login(User returnUser);
 
-    public PollManagerData pollServer();
 }

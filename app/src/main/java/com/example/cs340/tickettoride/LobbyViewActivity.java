@@ -19,6 +19,8 @@ import android.widget.Toast;
 import java.util.ArrayList;
 
 import models.data.Game;
+import models.data.Result;
+import models.data.User;
 import view.activityInterface.IGameLobby;
 import view.presenter.GameLobbyPresenter;
 import view.presenterInterface.IGameLobbyPresenter;
@@ -32,6 +34,15 @@ public class LobbyViewActivity extends AppCompatActivity implements IGameLobby {
     private String create_game_text = "";
     static private RecyclerViewAdapter adapter;
     private IGameLobbyPresenter presenter = new GameLobbyPresenter();
+    private static LobbyViewActivity singleton;
+
+
+    public static LobbyViewActivity create() {
+        if (singleton == null) {
+            singleton = new LobbyViewActivity();
+        }
+        return singleton;
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,14 +56,10 @@ public class LobbyViewActivity extends AppCompatActivity implements IGameLobby {
         // If the user is not a host, disable the 'Start Game' button
         startGameButton = findViewById(R.id.startGameButton);
         if (!presenter.getPlayer().isHost()) {
-            startGameButton.getBackground().setColorFilter(Color.DKGRAY, PorterDuff.Mode.MULTIPLY);
-            startGameButton.setAlpha(.5f);
-            startGameButton.setEnabled(false);
+            disableStartGameButton();
         }
         else {
-            startGameButton.getBackground().setColorFilter(null);
-            startGameButton.setAlpha(1);
-            startGameButton.setEnabled(true);
+            enableStartGameButton();
         }
 
         startGameButton.setOnClickListener(new View.OnClickListener() {
@@ -87,19 +94,13 @@ public class LobbyViewActivity extends AppCompatActivity implements IGameLobby {
                     public void onClick(DialogInterface dialog, int which) {
                         
 
-                        // Disable 'create game' button
-
+                        // Enable startGameButton and disable createGameButton
                         Game game = new Game(input.getText().toString());
-                        create_game_text = presenter.createGame(game);
-                        startGameButton.getBackground().setColorFilter(null);
-                        startGameButton.setAlpha(1);
-                        startGameButton.setEnabled(true);
+                        Result result = presenter.createGame(game);
+                        enableStartGameButton();
+                        disableCreateGameButton();
 
-                        createGameButton.getBackground().setColorFilter(Color.DKGRAY, PorterDuff.Mode.MULTIPLY);
-                        createGameButton.setAlpha(.5f);
-                        createGameButton.setEnabled(false);
-
-                        //FIXME: THIS TWO LINES SHOULDN'T BE CALLED - IT SHOULD BE THE
+                        //FIXME: THESE TWO LINES SHOULDN'T BE CALLED - IT SHOULD BE THE
                         //PULLER THAT UPDATES THE GAME LIST
                         //AND THE CLIENT ARRAY OF GAMES DOESN'T GET UPDATED CORRECTLY - IT IS
                         //INSTANTIATED WITH 0 AMOUNT OF PLAYERS
@@ -107,8 +108,12 @@ public class LobbyViewActivity extends AppCompatActivity implements IGameLobby {
                         listOfGames = presenter.getGameList();
                         listOfGames.get(listOfGames.size()-1).addPlayer("this is the host");
                         adapter.notifyDataSetChanged();
-                        Toast.makeText(LobbyViewActivity.this, create_game_text , Toast.LENGTH_SHORT).show();
-                        create_game_text = "";
+                        if (result.isSuccessful()) {
+                            Toast.makeText(LobbyViewActivity.this, "Succesfully created game:" + game.getGameName(), Toast.LENGTH_SHORT).show();
+                        }
+                        else {
+                            Toast.makeText(LobbyViewActivity.this, result.getErrorMessage(), Toast.LENGTH_SHORT).show();
+                        }
                     }
                 });
                 builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
@@ -148,23 +153,36 @@ public class LobbyViewActivity extends AppCompatActivity implements IGameLobby {
 
 
     @Override
-    public void updateGameList(ArrayList<Game> lobbyGames) {
+    public void updateGameList(ArrayList<Game> lobbyGames, User user) {
+        //FIXME: ADD A BUNCH OF CHECKS TO SEE IF THE USER IS A HOST, AND IF THERE
+        //ARE ENOUGH PLAYERS AND STUFF AND THEN ENABLE THE CORRESPONDING BUTTONS
+
+        // Get the list of games from the presenter so we can update 'listOfGames'
+        // Get the current user from the presenter so we can check if its a host and enable
+        //  the 'Start game' button and disable the 'Create game' button for him
         listOfGames = lobbyGames;
         adapter.notifyDataSetChanged();
+
+        // If user is a host and the game they are a part of has
+        // more than 2 people, enable start game button
+        if (user.isHost())
+            if (user.getGame().getPlayers().size() > 1)
+                enableStartGameButton();
+        // If not a host, disable the 'Start game' button
+        else
+            disableStartGameButton();
+
+
     }
 
     public void updateGameListAfterClickingOnGame(ArrayList<Game> lobbyGames) {
         // Disable 'create game' button
-        createGameButton.getBackground().setColorFilter(Color.DKGRAY, PorterDuff.Mode.MULTIPLY);
-        createGameButton.setAlpha(.5f);
-        createGameButton.setEnabled(false);
+        disableCreateGameButton();
 
         listOfGames = lobbyGames;
         if (listOfGames.size() > 1) {
             // Enable 'start game' button
-            startGameButton.getBackground().setColorFilter(null);
-            startGameButton.setAlpha(1);
-            startGameButton.setEnabled(true);
+            enableStartGameButton();
         }
     }
 
@@ -176,6 +194,30 @@ public class LobbyViewActivity extends AppCompatActivity implements IGameLobby {
     @Override
     public void onCreateGameFailed(String errorMessage) {
 
+    }
+
+    public void disableStartGameButton(){
+        startGameButton.getBackground().setColorFilter(Color.DKGRAY, PorterDuff.Mode.MULTIPLY);
+        startGameButton.setAlpha(.5f);
+        startGameButton.setEnabled(false);
+    }
+
+    public void enableStartGameButton(){
+        startGameButton.getBackground().setColorFilter(null);
+        startGameButton.setAlpha(1);
+        startGameButton.setEnabled(true);
+    }
+
+    public void disableCreateGameButton(){
+        createGameButton.getBackground().setColorFilter(Color.DKGRAY, PorterDuff.Mode.MULTIPLY);
+        createGameButton.setAlpha(.5f);
+        createGameButton.setEnabled(false);
+    }
+
+    public void enableCreateGameButton(){
+        createGameButton.getBackground().setColorFilter(null);
+        createGameButton.setAlpha(1);
+        createGameButton.setEnabled(true);
     }
 
 }

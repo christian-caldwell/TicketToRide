@@ -22,8 +22,12 @@ import client.ServerProxy;
 public class GameLobbyPresenter implements IGameLobbyPresenter, Observer {
 
     ArrayList<Game> gameList = new ArrayList<>();
-    ViewFacade viewfacade = new ViewFacade();
 
+    @Override
+    public User getPlayer() {
+        ClientFacade client = new ClientFacade();
+        return client.getPlayer();
+    }
 
 
 
@@ -51,58 +55,43 @@ public class GameLobbyPresenter implements IGameLobbyPresenter, Observer {
 
     @Override
     public ArrayList getGameList() {
-        ClientFacade clientFacade = new ClientFacade();
-        return clientFacade.getGames();
+        ClientFacade client = new ClientFacade();
+        return client.getGames();
     }
 
 
     @Override
-    public String createGame(Game game) {
-        if(game.getGameName().equals("")) return "Game must have a name";
+    public Result createGame(Game game) {
+        Result result = new Result();
+        if(game.getGameName().equals("")) {
+            result.setErrorMessage("name invalid...");
+            result.setSuccessful(false);
+            return result;
+        }
 
         ClientFacade client = new ClientFacade();
-        String playerName = client.getHost();
-        game.addPlayer(playerName);
-        game.setHostName(client.getHost());
-        client.getPlayer().setHost(true);
-        User user = ClientModel.create().getPlayer();
+        User player = client.getPlayer();
+        player.setGameJoined(game);
+        player.setHost(true);
+        game.addPlayer(player.getUsername());
         LobbyFacadeOut lobbyFacadeOut = new LobbyFacadeOut();
-        lobbyFacadeOut.createGame(game, playerName);
-        lobbyFacadeOut.joinGame(game, user);
+        result = lobbyFacadeOut.createGame(game, player.getUsername());
         client.joinGame(game);
-        lobbyFacadeOut.createGame(game, playerName);
 
-        return game.getGameName() + " created!";
+        return result;
 
     }
 
-    @Override
-    public User getPlayer() {
-        ClientFacade clientFacade = new ClientFacade();
-
-        return clientFacade.getPlayer();
-    }
 
     @Override
     public void update(Observable o, Object arg) {
+        System.out.println("Server Polled");
         ClientModel client = (ClientModel) o;
-        ArrayList<Object> updatedObject = client.getChangedObjects();
 
-        if (updatedObject.isEmpty()) {
-            //No update or server error
-        }
-        else {
-            for (Object currUpdatedObject : this.gameList) {
-                if (currUpdatedObject.getClass() == Game.class) {
-                    Game currUpdatedGame = (Game) currUpdatedObject;
-                    for (Game currentLobbyGame : this.gameList) {
-                        if (currentLobbyGame.getGameName().compareTo(currUpdatedGame.getGameName()) == 0) {
-                            currentLobbyGame = currUpdatedGame;
-                        }
+        this.gameList = client.getChangedGameList();
+        System.out.println("Lobby Updated");
 
-                    }
-                }
-            }
-        }
+        IGameLobby gameLobby = new LobbyViewActivity();
+        gameLobby.updateGameList(this.gameList, client.getPlayer());
     }
 }

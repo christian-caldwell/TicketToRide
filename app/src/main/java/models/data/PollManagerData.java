@@ -6,6 +6,7 @@ public class PollManagerData {
     public ArrayList<Game> gamesChanged;
     public ArrayList<User> usersChanged;
 
+    public void setGamesChanged(ArrayList<Game> games) { this.gamesChanged = games;}
     public ArrayList<Game> getGamesChanged() {
         return gamesChanged;
     }
