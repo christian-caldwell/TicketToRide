@@ -43,6 +43,7 @@ public class Poller {
     }
 
 
+//    We have to use Async tasks here
     private void runThread(int initialDelaySec, int delaySec, boolean fixedRate) {
         System.out.println("poller starting...");
         boolean initiating = true;
