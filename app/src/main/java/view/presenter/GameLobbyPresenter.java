@@ -103,16 +103,15 @@ public class GameLobbyPresenter implements IGameLobbyPresenter, Observer {
 
     @Override
     public void update(Observable o, Object arg) {
-        System.out.println("Server Polled");
         ClientModel client = (ClientModel) o;
+        System.out.println("Server Polled by User: " + client.getPlayer().getUsername() );
+
 
         this.gameList = client.getChangedGameList();
-        System.out.println("Lobby Updated");
 
         //IGameLobby gameLobby = new LobbyViewActivity();
         //gameLobby.updateGameList(this.gameList, client.getPlayer());
         new LobbyViewActivity.UpdateGameListAsyncTask(client.getPlayer()).execute(this.gameList);
-
     }
 
 

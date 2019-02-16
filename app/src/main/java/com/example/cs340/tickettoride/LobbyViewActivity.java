@@ -166,17 +166,20 @@ public class LobbyViewActivity extends AppCompatActivity /*implements IGameLobby
         // because adapter has not been instantiated yet.  It gets instantiated once the LobbyViewActivity
         // opens up.  If there is a way for the poller to start calling either once LobbyViewActivity
         // has openned, or when the create game function has been called, then that would work
-        listOfGames = lobbyGames;
-        adapter.notifyDataSetChanged();
+        //listOfGames = lobbyGames;
+       // System.out.println(listOfGames.toString());
+        //adapter.notifyDataSetChanged();
+       // System.out.println("done");
 
+        listOfGames = lobbyGames;
         // If user is a host and the game they are a part of has
         // more than 2 people, enable start game button
-        if (user.isHost())
-            if (user.getGame().getPlayers().size() > 1)
-                enableStartGameButton();
+        //if (user.isHost())
+          //  if (user.getGame().getPlayers().size() > 1)
+              //  enableStartGameButton();
         // If not a host, disable the 'Start game' button
-        else
-            disableStartGameButton();
+      //  else
+      //      disableStartGameButton();
 
 
         //Toast.makeText(LobbyViewActivity.this, "Poller successfully updated", Toast.LENGTH_SHORT).show();
@@ -264,6 +267,15 @@ public class LobbyViewActivity extends AppCompatActivity /*implements IGameLobby
             //    Toast.makeText(model.getMainActivityContext(), result.getMessage(), Toast.LENGTH_SHORT).show();
             //    regBtn.setEnabled(true);
             //}
+
+            adapter.notifyDataSetChanged();
+
+            if (user.isHost())
+                if (user.getGame().getPlayers().size() > 1)
+                    enableStartGameButton();
+                    // If not a host, disable the 'Start game' button
+                else
+                    disableStartGameButton();
         }
 
 

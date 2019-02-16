@@ -11,6 +11,15 @@ import models.data.Result;
 //after you get the changed data switch changed back to false,
 //client proxy will switch changed to true when there are changes.
 public class PollManager {
+    private static PollManager singleton;
+
+    public static PollManager create() {
+        if (singleton == null){
+            singleton = new PollManager();
+        }
+
+        return singleton;
+    }
 
     private Map<Game, Boolean> availableGames = new HashMap<>();
     //private Map<String, Boolean> usernames;
@@ -18,9 +27,13 @@ public class PollManager {
     public Result getAvailableGames() {
         ArrayList<Game> games = new ArrayList<>();
 
+
         for (Map.Entry<Game, Boolean> entry : availableGames.entrySet()) {
             games.add(entry.getKey());
         }
+
+        System.out.println("Current Complete Game List: " + games.toString());
+
         Result result = new Result();
         PollManagerData data = new PollManagerData();
         data.setGamesChanged(games);
@@ -29,7 +42,9 @@ public class PollManager {
     }
 
     public void setGame(Game game) {
+        System.out.println("Game Added to full game list. GameName: " + game.getGameName());
         this.availableGames.put(game,true);
+        System.out.println("Current Complete Game List: " + this.availableGames.toString());
     }
 
     public PollManagerData getChanges() {
