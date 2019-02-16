@@ -22,7 +22,6 @@ import java.util.ArrayList;
 import models.data.Game;
 import models.data.Result;
 import models.data.User;
-import view.activityInterface.IGameLobby;
 import view.presenter.GameLobbyPresenter;
 import view.presenterInterface.IGameLobbyPresenter;
 
@@ -254,7 +253,8 @@ public class LobbyViewActivity extends AppCompatActivity /*implements IGameLobby
             return updateGameList(arrayLists[0], user);
         }
 
-        protected void onPostExecute() {
+        @Override
+        protected void onPostExecute(Void result) {
 
             // Check if there is an error message.
             // If there is no message, create a GetDataAsyncTask, which will pull all
@@ -268,6 +268,7 @@ public class LobbyViewActivity extends AppCompatActivity /*implements IGameLobby
             //    regBtn.setEnabled(true);
             //}
 
+            adapter.setListOfGames(listOfGames);
             adapter.notifyDataSetChanged();
 
             if (user.isHost())

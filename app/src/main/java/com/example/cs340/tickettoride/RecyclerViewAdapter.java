@@ -40,6 +40,10 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
         return holder;
     }
 
+    public void setListOfGames(ArrayList<Game> listOfGames) {
+        this.listOfGames = listOfGames;
+    }
+
     @Override
     public void onBindViewHolder(@NonNull final ViewHolder holder, final int position) {
         holder.currentNumOfPlayers.setText("Current players: " +

@@ -1,7 +1,6 @@
 package server;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.Map;
 
 import models.data.Game;
@@ -12,6 +11,10 @@ import models.data.Result;
 //client proxy will switch changed to true when there are changes.
 public class PollManager {
     private static PollManager singleton;
+
+    public PollManager() {
+
+    }
 
 /*
     public static PollManager create() {

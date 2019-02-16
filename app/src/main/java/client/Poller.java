@@ -23,7 +23,7 @@ public class Poller {
     public static void start() {
         create();
         singleton.shutdown();
-        singleton.start(0, 10000, false);
+        singleton.start(0, 3600, false);
     }
 
     public ArrayList<Game> pollServer() {
