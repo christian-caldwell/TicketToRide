@@ -9,6 +9,9 @@ public class Game {
 
     private ArrayList<String> players = new ArrayList<>();
 
+    public Game() {
+    }
+
     public boolean isVisibleInLobby() {
         return isVisibleInLobby;
     }

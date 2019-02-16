@@ -68,7 +68,6 @@ public class LoginPresenter implements ILoginPresenter, Observer {
 	public boolean onCreate() {
 		try {
 			ClientModel.create();
-			Poller.start();
 			return true;
 		}
 		catch (Exception e) {

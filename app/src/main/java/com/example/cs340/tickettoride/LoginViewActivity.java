@@ -34,13 +34,9 @@ public class LoginViewActivity extends AppCompatActivity implements ILoginView, 
         registerButton = findViewById(R.id.register_button);
         loginButton = findViewById(R.id.create_game);
         forgotPassword = findViewById(R.id.forgot_password);
-        boolean firstTime = true;
         final LoginPresenter loginPresenter = new LoginPresenter();
 
-        if(firstTime){
-            loginPresenter.onCreate();
-            firstTime = false;
-        }
+        loginPresenter.onCreate();
 
 
         // this was a test

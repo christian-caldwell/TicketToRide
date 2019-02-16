@@ -11,7 +11,6 @@ import models.data.User;
 public class ClientProxy implements IClient {
     private static ServerCommands serverCommands = new ServerCommands();
     private static ServerData data = serverCommands.getServerData();
-    private static PollManager pollManager = new PollManager();
 
     @Override
     public void updateClient() {
@@ -45,15 +44,17 @@ public class ClientProxy implements IClient {
     }
 
     public void updateCreateGame(String gameName) {
-
-        pollManager.setGame(data.getGame(gameName));
+        //PollManager manager = PollManager.create();
+       // manager.setGame(data.getGame(gameName));
     }
     public void updateJoinGame(Game game) {
 
-        pollManager.setGame(game);
+       // PollManager manager = PollManager.create();
+       // manager.setGame(game);
     }
     public void updateStartGame(String gameName) {
 
-        pollManager.setGame(data.getGame(gameName));
+      //  PollManager manager = PollManager.create();
+       // manager.setGame(data.getGame(gameName));
     }
 }
