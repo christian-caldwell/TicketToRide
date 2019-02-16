@@ -1,5 +1,6 @@
 package server;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -14,13 +15,17 @@ public class PollManager {
     private Map<Game, Boolean> availableGames = new HashMap<>();
     //private Map<String, Boolean> usernames;
 
-    public ArrayList<Game> getAvailableGames() {
+    public Result getAvailableGames() {
         ArrayList<Game> games = new ArrayList<>();
 
         for (Map.Entry<Game, Boolean> entry : availableGames.entrySet()) {
             games.add(entry.getKey());
         }
-        return games;
+        Result result = new Result();
+        PollManagerData data = new PollManagerData();
+        data.setGamesChanged(games);
+        result.setPollResult(data);
+        return result;
     }
 
     public void setGame(Game game) {

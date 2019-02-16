@@ -19,33 +19,6 @@ public class ServerProxy implements IServer {
 
     ClientCommunicator client = new ClientCommunicator();
 
-    /*
-    @Override
-    public PollManagerData userPollServer(User clientUser) {
-        String className = (PollManager.class).toString();
-        String methodName = "getChanges";
-
-        Object[] params = new Object[1];
-        params[0] = clientUser;
-
-        GeneralCommand generatedCommand = createCommand(className, params, methodName);
-
-        ClientCommunicator communicator = new ClientCommunicator();
-
-        Result result = communicator.send(generatedCommand, "10.0.2.2", "8080");
-        return result.getPollResult();
-    }*/
-
-    @Override
-    public PollManagerData pollServer() {
-        String className = (PollManager.class).toString();
-        String methodName = "getChanges";
-
-        GeneralCommand pollCommand = createCommand(className,null, methodName);
-        ClientCommunicator communicator = new ClientCommunicator();
-        Result result = communicator.send(pollCommand, "127.0.0.1", "8080");
-        return result.getPollResult();
-    }
 
     @Override
     public Result joinGame(String username, String gameName, Integer numPlayers) {
@@ -73,6 +46,7 @@ public class ServerProxy implements IServer {
 //        client.send("127.0.0.1", "8080", request);
     }
 
+
     @Override
     public Result createGame(String gameName, String username, Integer numPlayers) {
 
@@ -96,7 +70,7 @@ public class ServerProxy implements IServer {
 
         Result result = communicator.send(newCommand, "10.0.2.2", "8080");
         if (result.isSuccessful()) {
-            ClientModel.create().addLobbyGame(new Game(result.getGame()));
+            ClientModel.create().addLobbyGamesList(new Game(result.getGame()));
         }
         return result;
     }
@@ -145,7 +119,6 @@ public class ServerProxy implements IServer {
         }
         return result;
     }
-
     @Override
     public Result login(User returnUser) {
         String className = LoginFacade.class.getName();

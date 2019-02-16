@@ -24,6 +24,7 @@ public class LoginViewActivity extends AppCompatActivity implements ILoginView, 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
         StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
@@ -33,13 +34,35 @@ public class LoginViewActivity extends AppCompatActivity implements ILoginView, 
         registerButton = findViewById(R.id.register_button);
         loginButton = findViewById(R.id.create_game);
         forgotPassword = findViewById(R.id.forgot_password);
+        boolean firstTime = true;
+        final LoginPresenter loginPresenter = new LoginPresenter();
+
+        if(firstTime){
+            loginPresenter.onCreate();
+            firstTime = false;
+        }
+
+
+        // this was a test
+//        new Timer().scheduleAtFixedRate(new TimerTask(){
+//            @Override
+//            public void run(){
+//                runOnUiThread(new Runnable() {
+//                    public void run() {
+//                        Toast.makeText(getApplicationContext(), "Interval Completed" , Toast.LENGTH_SHORT).show();
+//                    }
+//        });
+//
+//            }
+//        },0,3000);
+
 
         // Login button is pushed
         loginButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+//                LoginPresenter loginPresenter = new LoginPresenter();
 
-                LoginPresenter loginPresenter = new LoginPresenter();
                 Result result = loginPresenter.loginUser(username.getText().toString(), password.getText().toString());
                 if (result.isSuccessful()){
                     Intent intent = new Intent(LoginViewActivity.this, LobbyViewActivity.class);

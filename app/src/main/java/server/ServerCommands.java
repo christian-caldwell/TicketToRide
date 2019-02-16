@@ -7,6 +7,7 @@ import models.data.Game;
 import models.data.PollManagerData;
 import models.data.Result;
 import models.data.User;
+import java.util.ArrayList;
 
 public class ServerCommands implements IServer {
     private final int MAX_PLAYERS = 5;
@@ -40,6 +41,7 @@ public class ServerCommands implements IServer {
     @Override
     public Result createGame(String gameName, String username, Integer numPlayers) {
         Game game = new Game(gameName);
+        game.addPlayer(username);
         Result result = serverData.setGame(game);
         clientProxy.updateCreateGame(gameName);
         return result;
@@ -88,11 +90,5 @@ public class ServerCommands implements IServer {
         result.setSuccessful(false);
         return result;
     }
-
-    @Override
-    public PollManagerData pollServer() {
-        return null;
-    }
-
 
 }
