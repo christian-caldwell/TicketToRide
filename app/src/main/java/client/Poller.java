@@ -92,6 +92,7 @@ public class Poller {
             client.setLobbyGamesList(pollResult);
         }
 
+        System.out.println("Current Complete Game List: " + client.getLobbyGamesList().toString());
     }
 
     public  String getThreadName() {

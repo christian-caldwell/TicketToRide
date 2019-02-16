@@ -44,17 +44,17 @@ public class ClientProxy implements IClient {
     }
 
     public void updateCreateGame(String gameName) {
-        PollManager manager = PollManager.create();
-        manager.setGame(data.getGame(gameName));
+        //PollManager manager = PollManager.create();
+       // manager.setGame(data.getGame(gameName));
     }
     public void updateJoinGame(Game game) {
 
-        PollManager manager = PollManager.create();
-        manager.setGame(game);
+       // PollManager manager = PollManager.create();
+       // manager.setGame(game);
     }
     public void updateStartGame(String gameName) {
 
-        PollManager manager = PollManager.create();
-        manager.setGame(data.getGame(gameName));
+      //  PollManager manager = PollManager.create();
+       // manager.setGame(data.getGame(gameName));
     }
 }

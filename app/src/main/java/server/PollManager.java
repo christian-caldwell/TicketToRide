@@ -13,6 +13,7 @@ import models.data.Result;
 public class PollManager {
     private static PollManager singleton;
 
+/*
     public static PollManager create() {
         if (singleton == null){
             singleton = new PollManager();
@@ -58,6 +59,25 @@ public class PollManager {
         Result output = new Result();
         output.setPollResult(pollManagerData);
         return pollManagerData;
+    }*/
+
+    public Result getAvailableGames() {
+        ServerData dataContainer = ServerData.getInstance();
+        Map<String, Game> availableGames =  dataContainer.getAvailableGames();
+
+        ArrayList<Game> games = new ArrayList<>();
+
+
+        for (Map.Entry<String, Game> entry : availableGames.entrySet()) {
+            games.add(entry.getValue());
+        }
+        System.out.println("Current Complete Game List: " + games.toString());
+
+        Result result = new Result();
+        PollManagerData data = new PollManagerData();
+        data.setGamesChanged(games);
+        result.setPollResult(data);
+        return result;
     }
 
 }
