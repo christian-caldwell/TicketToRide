@@ -68,7 +68,6 @@ public class LoginPresenter implements ILoginPresenter, Observer {
 	public boolean onCreate() {
 		try {
 			ClientModel.create();
-			Poller.start();
 			return true;
 		}
 		catch (Exception e) {
@@ -85,11 +84,6 @@ public class LoginPresenter implements ILoginPresenter, Observer {
 	public void update(Observable o, Object obj) {
 
 		ClientModel client = (ClientModel) o;
-		ArrayList<Object> updatedObject = client.getChangedObjects();
-
-		if (updatedObject.isEmpty()) {
-			//No update or server error
-		}
 	}
 
 

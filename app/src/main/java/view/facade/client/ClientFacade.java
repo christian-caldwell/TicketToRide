@@ -22,7 +22,7 @@ public class ClientFacade {
 	}
 
 	public ArrayList<Game> getGames() {
-		return client.getLobbyGames();
+		return client.getLobbyGamesList();
 	}
 	public void setUser(User newUser) {
 		client.setPlayer(newUser);

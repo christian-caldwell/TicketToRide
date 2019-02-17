@@ -1,15 +1,11 @@
 package client;
 
-import java.io.InterruptedIOException;
-import java.nio.channels.ClosedByInterruptException;
+import java.util.ArrayList;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.TimeUnit;
-import java.util.ArrayList;
 
-import models.data.PollManagerData;
 import models.data.Game;
 import models.data.Result;
-import models.data.User;
 import server.GeneralCommand;
 import server.PollManager;
 
@@ -30,26 +26,33 @@ public class Poller {
         singleton.start(0, 3600, false);
     }
 
-    public PollManagerData pollServer() {
-        String className = (PollManager.class).toString();
-        String methodName = "getChanges";
+    public ArrayList<Game> pollServer() {
+        String className = PollManager.class.getName();
+        String methodName = "getAvailableGames";
 
-        GeneralCommand pollCommand = new GeneralCommand(className, methodName, null, null);
+        Object[] parameterDataArray = new Object[0];
+        Class<?>[] parameterClassArray = new Class<?>[0];
+
+
+        GeneralCommand newCommand = new GeneralCommand(className, methodName, parameterClassArray, parameterDataArray);
+
         ClientCommunicator communicator = new ClientCommunicator();
-        Result result = communicator.send(pollCommand, "10.0.2.2", "8080");
-        return result.getPollResult();
+
+        Result result = communicator.send(newCommand, "10.0.2.2", "8080");
+        return result.getPollResult().getGamesChanged();
     }
 
 
+//    We have to use Async tasks here
     private void runThread(int initialDelaySec, int delaySec, boolean fixedRate) {
         System.out.println("poller starting...");
         boolean initiating = true;
-        long sleepTime = delaySec * 1000L;
+        long sleepTime = delaySec;
         while (true) {
             try {
                 if (initiating) {
                     if (initialDelaySec > 0) {
-                        Thread.sleep(initialDelaySec * 1000L);
+                        Thread.sleep(initialDelaySec);
                     }
                     initiating = false;
                 }
@@ -58,18 +61,13 @@ public class Poller {
 
                 long startMillis = System.currentTimeMillis();
                 poll();
-                sleepTime = fixedRate ? delaySec * 1000L - (System.currentTimeMillis() - startMillis) : delaySec * 1000L;
+                sleepTime = fixedRate ? delaySec - (System.currentTimeMillis() - startMillis) : delaySec;
             }
             catch (InterruptedException e) {
                 break;
             }
-            catch (InterruptedIOException e) {
-                break;
-            }
-            catch (ClosedByInterruptException e) {
-                break;
-            }
             catch (Exception e) {
+                e.printStackTrace();
                 System.out.println("Error polling" + e.getMessage());
             }
         }
@@ -77,37 +75,24 @@ public class Poller {
         System.out.println("poller stopping.");
     }
 
-    public void poll() throws Exception {
+    public void poll() {
         ServerProxy server = new ServerProxy();
-        PollManagerData pollResult = pollServer();
-
+        ArrayList<Game> pollResult = pollServer();
         ClientModel client = ClientModel.create();
 
-        ArrayList<User> updatedUsers = pollResult.getUsersChanged();
-        ArrayList<Game> updatedGames = pollResult.getGamesChanged();
-
-        for (User currUser:updatedUsers) {
-           if(currUser.getUsername().compareTo(client.getPlayer().getUsername()) == 0) {
-                client.setPlayer(currUser);
-                client.addChange(currUser);
-
-           }
+        if (true) {
+            /*  Eventually, we will include code to disable this block of code
+                This block updates the lobby list with all games, replacing the
+                list completely every time. This is needlessly intensive if the
+                player is in a game and does not care about the lobby and can be
+                disabled by checking the active game in the if statement above
+            */
+            client.setChangedGameList(pollResult);
+            client.update();
+            client.setLobbyGamesList(pollResult);
         }
 
-
-        for (Game currUpdatedGame :updatedGames) {
-            for (Game currLobbyGame : client.getLobbyGames()) {
-                if (currUpdatedGame.getGameName().compareTo(currLobbyGame.getGameName()) == 0) {
-                    client.removeLobbyGame(currLobbyGame);
-                    client.addLobbyGame(currUpdatedGame);
-                }
-            }
-
-            if (client.getActiveGame().getGameName().compareTo(currUpdatedGame.getGameName()) == 0) {
-                client.setActiveGame(currUpdatedGame);
-            }
-        }
-        client.update();
+        System.out.println("Current Complete Game List: " + client.getLobbyGamesList().toString());
     }
 
     public  String getThreadName() {

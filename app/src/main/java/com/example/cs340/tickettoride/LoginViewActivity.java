@@ -34,13 +34,23 @@ public class LoginViewActivity extends AppCompatActivity implements ILoginView, 
         registerButton = findViewById(R.id.register_button);
         loginButton = findViewById(R.id.create_game);
         forgotPassword = findViewById(R.id.forgot_password);
-        boolean firstTime = true;
         final LoginPresenter loginPresenter = new LoginPresenter();
 
-        if(firstTime){
-            loginPresenter.onCreate();
-            firstTime = false;
-        }
+        loginPresenter.onCreate();
+
+
+        // this was a test
+//        new Timer().scheduleAtFixedRate(new TimerTask(){
+//            @Override
+//            public void run(){
+//                runOnUiThread(new Runnable() {
+//                    public void run() {
+//                        Toast.makeText(getApplicationContext(), "Interval Completed" , Toast.LENGTH_SHORT).show();
+//                    }
+//        });
+//
+//            }
+//        },0,3000);
 
 
         // Login button is pushed

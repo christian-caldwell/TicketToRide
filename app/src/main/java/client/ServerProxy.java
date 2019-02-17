@@ -19,40 +19,6 @@ public class ServerProxy implements IServer {
 
     ClientCommunicator client = new ClientCommunicator();
 
-    /*
-    @Override
-    public PollManagerData userPollServer(User clientUser) {
-        String className = (PollManager.class).toString();
-        String methodName = "getChanges";
-
-        Object[] params = new Object[1];
-        params[0] = clientUser;
-
-        GeneralCommand generatedCommand = createCommand(className, params, methodName);
-
-        ClientCommunicator communicator = new ClientCommunicator();
-
-        Result result = communicator.send(generatedCommand, "10.0.2.2", "8080");
-        return result.getPollResult();
-    }*/
-
-    public ArrayList<Game> getLobbyList() {
-
-        String className = PollManager.class.getName();
-        String methodName = "getAvailableGames";
-
-        Object[] parameterDataArray = new Object[0];
-        Class<?>[] parameterClassArray = new Class<?>[0];
-
-
-        GeneralCommand newCommand = new GeneralCommand(className, methodName, parameterClassArray, parameterDataArray);
-
-        ClientCommunicator communicator = new ClientCommunicator();
-
-        return communicator.send(newCommand, "10.0.2.2", "8080").getPollResult().getGamesChanged();
-
-    }
-
 
     @Override
     public Result joinGame(String username, String gameName, Integer numPlayers) {
@@ -104,7 +70,7 @@ public class ServerProxy implements IServer {
 
         Result result = communicator.send(newCommand, "10.0.2.2", "8080");
         if (result.isSuccessful()) {
-            ClientModel.create().addLobbyGame(new Game(result.getGame()));
+            ClientModel.create().addLobbyGamesList(new Game(result.getGame()));
         }
         return result;
     }

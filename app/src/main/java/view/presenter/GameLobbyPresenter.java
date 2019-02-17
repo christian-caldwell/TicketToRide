@@ -1,12 +1,19 @@
 package view.presenter;
 
+import android.app.Activity;
+import android.os.AsyncTask;
+import android.widget.Button;
+import android.widget.Toast;
+
 import com.example.cs340.tickettoride.LobbyViewActivity;
+import com.example.cs340.tickettoride.RecyclerViewAdapter;
 
 import java.util.ArrayList;
 import java.util.Observable;
 import java.util.Observer;
 
 import client.ClientModel;
+import client.Poller;
 import models.data.Game;
 import models.data.User;
 import models.data.Result;
@@ -22,6 +29,7 @@ import client.ServerProxy;
 public class GameLobbyPresenter implements IGameLobbyPresenter, Observer {
 
     ArrayList<Game> gameList = new ArrayList<>();
+    //LobbyViewActivity gameLobby = new LobbyViewActivity();
 
     @Override
     public User getPlayer() {
@@ -37,7 +45,6 @@ public class GameLobbyPresenter implements IGameLobbyPresenter, Observer {
         LobbyFacadeOut lobbyFacadeOut = new LobbyFacadeOut();
         User user = ClientModel.create().getPlayer();
         Result joinResult = lobbyFacadeOut.joinGame(game, user);
-        IGameLobby gameLobby = new LobbyViewActivity();
         //gameLobby.updateGamePlayers(gameId);
 
         ClientFacade client = new ClientFacade();
@@ -82,55 +89,34 @@ public class GameLobbyPresenter implements IGameLobbyPresenter, Observer {
 
     }
 
+    @Override
+    public boolean onCreate() {
+        try {
+            Poller.start();
+            return true;
+        }
+        catch (Exception e) {
+            return false;
+        }
+    }
+
 
     @Override
     public void update(Observable o, Object arg) {
-        System.out.println("Server Polled");
         ClientModel client = (ClientModel) o;
-        ArrayList<Object> updatedObjectList = client.getChangedObjects();
-        this.gameList = client.getLobbyGames();
+        System.out.println("Server Polled by User: " + client.getPlayer().getUsername() );
 
-        System.out.println("Lobby Updated");
 
-        for (Object currUpdatedObject : updatedObjectList) {
-            Game currUpdatedGame = (Game) currUpdatedObject;
+        this.gameList = client.getChangedGameList();
 
-            /*if (!currUpdatedGame.isVisibleInLobby()) {
-                System.out.println("Game Removed From Lobby: " + currUpdatedGame.getGameName());
-                removeLobbyGame(currUpdatedGame);
-            }
-            else {*/
-            boolean found = replaceLobbyGame(currUpdatedGame);
-            if (!found) {
-                System.out.println("Game Updated In Lobby: " + currUpdatedGame.getGameName());
-                gameList.add(currUpdatedGame);
-            }
-            //}
-        }
-
-        IGameLobby gameLobby = new LobbyViewActivity();
-        gameLobby.updateGameList(this.gameList);
+        //IGameLobby gameLobby = new LobbyViewActivity();
+        //gameLobby.updateGameList(this.gameList, client.getPlayer());
+        new LobbyViewActivity.UpdateGameListAsyncTask(client.getPlayer()).execute(this.gameList);
     }
 
 
-    private boolean replaceLobbyGame (Game updatedGame) {
-        for (Game currLobbyGame : this.gameList) {
-            if (updatedGame.getGameName().compareTo(currLobbyGame.getGameName()) == 0) {
-                System.out.println("Game Updated In Lobby: " + currLobbyGame.getGameName());
-                this.gameList.remove(currLobbyGame);
-                this.gameList.add(updatedGame);
-                return true;
-            }
-        }
-        return false;
-    }
+    // AsyncTask Class
 
-    private void removeLobbyGame (Game removedGame) {
-        String removedGameName = removedGame.getGameName();
-        for (Game lobbyGame : this.gameList) {
-            if (lobbyGame.getGameName().compareTo(removedGameName) == 0) {
-                this.gameList.remove(lobbyGame);
-            }
-        }
-    }
+
+
 }
