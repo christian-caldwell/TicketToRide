@@ -90,12 +90,6 @@ public class LobbyViewActivity extends AppCompatActivity implements IGameLobby {
                         Result result = presenter.createGame(game);
                         enableStartGameButton();
                         disableCreateGameButton();
-
-                        //FIXME: THESE TWO LINES SHOULDN'T BE CALLED - IT SHOULD BE THE
-                        //PULLER THAT UPDATES THE GAME LIST
-                        //AND THE CLIENT ARRAY OF GAMES DOESN'T GET UPDATED CORRECTLY - IT IS
-                        //INSTANTIATED WITH 0 AMOUNT OF PLAYERS
-                        //TO FIX THIS, CHECK OUT THE SERVERPROXY
                         listOfGames = presenter.getGameList();
                         listOfGames.get(listOfGames.size()-1).addPlayer("this is the host");
                         adapter.notifyDataSetChanged();
