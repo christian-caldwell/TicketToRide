@@ -110,8 +110,8 @@ public class LobbyViewActivity extends AppCompatActivity /*implements IGameLobby
                         //AND THE CLIENT ARRAY OF GAMES DOESN'T GET UPDATED CORRECTLY - IT IS
                         //INSTANTIATED WITH 0 AMOUNT OF PLAYERS
                         //TO FIX THIS, CHECK OUT THE SERVERPROXY
-                        listOfGames = presenter.getGameList();
-                        listOfGames.get(listOfGames.size()-1).addPlayer("this is the host");
+//                        listOfGames = presenter.getGameList();
+//                        listOfGames.get(listOfGames.size()-1).addPlayer("this is the host");
                         //adapter.notifyDataSetChanged();
                         if (result.isSuccessful()) {
                             Toast.makeText(LobbyViewActivity.this, "Succesfully created game:" + game.getGameName(), Toast.LENGTH_SHORT).show();

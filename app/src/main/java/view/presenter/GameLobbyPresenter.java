@@ -1,12 +1,6 @@
 package view.presenter;
 
-import android.app.Activity;
-import android.os.AsyncTask;
-import android.widget.Button;
-import android.widget.Toast;
-
 import com.example.cs340.tickettoride.LobbyViewActivity;
-import com.example.cs340.tickettoride.RecyclerViewAdapter;
 
 import java.util.ArrayList;
 import java.util.Observable;
@@ -15,16 +9,12 @@ import java.util.Observer;
 import client.ClientModel;
 import client.Poller;
 import models.data.Game;
-import models.data.User;
 import models.data.Result;
+import models.data.User;
 import view.facade.client.ClientFacade;
 import view.facade.client.out.GameStartFacadeOut;
 import view.facade.client.out.LobbyFacadeOut;
 import view.presenterInterface.IGameLobbyPresenter;
-import view.facade.ViewFacade;
-import view.activityInterface.IGameLobby;
-
-import client.ServerProxy;
 
 public class GameLobbyPresenter implements IGameLobbyPresenter, Observer {
 
@@ -78,11 +68,13 @@ public class GameLobbyPresenter implements IGameLobbyPresenter, Observer {
 
         ClientFacade client = new ClientFacade();
         User player = client.getPlayer();
-        player.setGameJoined(game);
-        player.setHost(true);
-        game.addPlayer(player.getUsername());
         LobbyFacadeOut lobbyFacadeOut = new LobbyFacadeOut();
         result = lobbyFacadeOut.createGame(game, player.getUsername());
+        if(result.isSuccessful()) {
+            player.setGameJoined(game);
+            player.setHost(true);
+            game.addPlayer(player.getUsername());
+        }
         client.joinGame(game);
 
         return result;

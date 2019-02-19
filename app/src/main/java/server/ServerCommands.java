@@ -4,10 +4,8 @@ package server;
 import java.util.UUID;
 
 import models.data.Game;
-import models.data.PollManagerData;
 import models.data.Result;
 import models.data.User;
-import java.util.ArrayList;
 
 public class ServerCommands implements IServer {
     private final int MAX_PLAYERS = 5;
@@ -41,7 +39,10 @@ public class ServerCommands implements IServer {
     @Override
     public Result createGame(String gameName, String username, Integer numPlayers) {
         Game game = new Game(gameName);
-        game.addPlayer(username);
+//        game.addPlayer(username);
+        for(User user: serverData.getUsers()) {
+            if(user.getUsername().equals(username)) user.setHost(true);
+        }
         Result result = serverData.setGame(game);
         clientProxy.updateCreateGame(gameName);
         return result;

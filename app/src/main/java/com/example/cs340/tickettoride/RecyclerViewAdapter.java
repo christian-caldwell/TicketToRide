@@ -69,8 +69,8 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
                             // IT SHOULDn't NEED TO BE MANUALLY INCREMENTED HERE - IT SHOULD BE UPDATED BOTH
                             // IN THE MODEL AND BY THE PULLER
                             listOfGames.get(position).addPlayer("This is another player");
-                            LobbyViewActivity lobbyViewActivity = new LobbyViewActivity();
-                            lobbyViewActivity.updateGameListAfterClickingOnGame(listOfGames);
+//                            LobbyViewActivity lobbyViewActivity = new LobbyViewActivity();
+//                            lobbyViewActivity.updateGameListAfterClickingOnGame(listOfGames);
                             notifyDataSetChanged();
 
                             Toast.makeText(mContext, "You've been added to " +
