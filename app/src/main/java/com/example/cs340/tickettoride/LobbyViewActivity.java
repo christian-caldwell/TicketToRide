@@ -102,11 +102,11 @@ public class LobbyViewActivity extends AppCompatActivity /*implements IGameLobby
                         // Enable startGameButton and disable createGameButton
                         Game game = new Game(input.getText().toString());
                         Result result = presenter.createGame(game);
-                        enableStartGameButton();
-                        disableCreateGameButton();
+                        //enableStartGameButton();
+                        //disableCreateGameButton();
 
                         if (result.isSuccessful()) {
-                            enableStartGameButton();
+                            //enableStartGameButton();
                             disableCreateGameButton();
                             Toast.makeText(LobbyViewActivity.this, "Succesfully created game:" + game.getGameName(), Toast.LENGTH_SHORT).show();
                         }
@@ -160,20 +160,24 @@ public class LobbyViewActivity extends AppCompatActivity /*implements IGameLobby
         // opens up.  If there is a way for the poller to start calling either once LobbyViewActivity
         // has openned, or when the create game function has been called, then that would work
         //listOfGames = lobbyGames;
-       // System.out.println(listOfGames.toString());
+        // System.out.println(listOfGames.toString());
         //adapter.notifyDataSetChanged();
-       // System.out.println("done");
+        // System.out.println("done");
 
         listOfGames = lobbyGames;
         // If user is a host and the game they are a part of has
         // more than 2 people, enable start game button
-        //if (user.isHost())
-          //  if (user.getGame().getPlayers().size() > 1)
-              //  enableStartGameButton();
-        // If not a host, disable the 'Start game' button
-      //  else
-      //      disableStartGameButton();
+        /*
+        if (user.isHost()) {
+            // if (user.getGame().getPlayers().size() > 1)
 
+            enableStartGameButton();
+        }
+
+        // If not a host, disable the 'Start game' button
+        else
+            disableStartGameButton();
+*/
 
         //Toast.makeText(LobbyViewActivity.this, "Poller successfully updated", Toast.LENGTH_SHORT).show();
 
@@ -206,7 +210,7 @@ public class LobbyViewActivity extends AppCompatActivity /*implements IGameLobby
         startGameButton.setEnabled(true);
     }
 
-    public void disableCreateGameButton(){
+    public static void disableCreateGameButton(){
         createGameButton.getBackground().setColorFilter(Color.DKGRAY, PorterDuff.Mode.MULTIPLY);
         createGameButton.setAlpha(.5f);
         createGameButton.setEnabled(false);
@@ -250,27 +254,27 @@ public class LobbyViewActivity extends AppCompatActivity /*implements IGameLobby
         @Override
         protected void onPostExecute(Void result) {
 
-            // Check if there is an error message.
-            // If there is no message, create a GetDataAsyncTask, which will pull all
-            // the info pertaining to the user from the database and display a toast
-            //if (result.getMessage() == null) {
-            //    String personID = result.getPersonID();
-            //    new GetDataAsyncTask(host, port, result.getAuthToken()).execute(personID);
-            //}
-            //else {
-            //    Toast.makeText(model.getMainActivityContext(), result.getMessage(), Toast.LENGTH_SHORT).show();
-            //    regBtn.setEnabled(true);
-            //}
-
             adapter.setListOfGames(listOfGames);
             adapter.notifyDataSetChanged();
 
-            if (user.isHost())
-                if (user.getGame().getPlayers().size() > 1)
-                    enableStartGameButton();
-                    // If not a host, disable the 'Start game' button
-                else
-                    disableStartGameButton();
+            // If user is part of a game, disable the createGameButton
+            if (user.getGame() != null)
+                disableCreateGameButton();
+
+            // If user isn't part of a game, disable the startGameButton
+            else
+                disableStartGameButton();
+
+
+            // If user is a host and the amount of players in the game is greater than 1, then
+            // enable the startGamebutton
+            if (user.isHost() && user.getGame().getPlayers().size() > 1)
+                enableStartGameButton();
+
+            // If not a host or if there aren't enough players, disable the 'Start game' button
+            else
+                disableStartGameButton();
+
         }
 
 
