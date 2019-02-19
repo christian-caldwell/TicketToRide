@@ -105,15 +105,9 @@ public class LobbyViewActivity extends AppCompatActivity /*implements IGameLobby
                         enableStartGameButton();
                         disableCreateGameButton();
 
-                        //FIXME: THESE TWO LINES SHOULDN'T BE CALLED - IT SHOULD BE THE
-                        //PULLER THAT UPDATES THE GAME LIST
-                        //AND THE CLIENT ARRAY OF GAMES DOESN'T GET UPDATED CORRECTLY - IT IS
-                        //INSTANTIATED WITH 0 AMOUNT OF PLAYERS
-                        //TO FIX THIS, CHECK OUT THE SERVERPROXY
-//                        listOfGames = presenter.getGameList();
-//                        listOfGames.get(listOfGames.size()-1).addPlayer("this is the host");
-                        //adapter.notifyDataSetChanged();
                         if (result.isSuccessful()) {
+                            enableStartGameButton();
+                            disableCreateGameButton();
                             Toast.makeText(LobbyViewActivity.this, "Succesfully created game:" + game.getGameName(), Toast.LENGTH_SHORT).show();
                         }
                         else {
