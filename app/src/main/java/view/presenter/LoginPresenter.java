@@ -1,13 +1,10 @@
 package view.presenter;
 
-import java.util.ArrayList;
 import java.util.Observable;
 import java.util.Observer;
 import java.util.regex.Pattern;
 
 import client.ClientModel;
-import client.Poller;
-
 import models.data.Result;
 import models.data.User;
 import view.activityInterface.ILoginView;
@@ -57,6 +54,7 @@ public class LoginPresenter implements ILoginPresenter, Observer {
 		if (loginResult.isSuccessful()) {
 			ClientFacade client = new ClientFacade();
 			client.setUser(returnUser);
+			client.getPlayer().setHost(loginResult.isHost());
 			return loginResult;
 		}
 		else {

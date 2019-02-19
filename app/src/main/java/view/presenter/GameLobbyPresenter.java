@@ -69,11 +69,11 @@ public class GameLobbyPresenter implements IGameLobbyPresenter, Observer {
         ClientFacade client = new ClientFacade();
         User player = client.getPlayer();
         LobbyFacadeOut lobbyFacadeOut = new LobbyFacadeOut();
+        player.setGameJoined(game);
+        game.addPlayer(player.getUsername());
         result = lobbyFacadeOut.createGame(game, player.getUsername());
         if(result.isSuccessful()) {
-            player.setGameJoined(game);
             player.setHost(true);
-            game.addPlayer(player.getUsername());
         }
         client.joinGame(game);
 

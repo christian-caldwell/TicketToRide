@@ -62,8 +62,7 @@ public class LobbyViewActivity extends AppCompatActivity /*implements IGameLobby
         startGameButton = findViewById(R.id.startGameButton);
         if (!presenter.getPlayer().isHost()) {
             disableStartGameButton();
-        }
-        else {
+        } else {
             enableStartGameButton();
         }
 
@@ -97,7 +96,7 @@ public class LobbyViewActivity extends AppCompatActivity /*implements IGameLobby
                 builder.setPositiveButton("Create", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        
+
 
                         // Enable startGameButton and disable createGameButton
                         Game game = new Game(input.getText().toString());
@@ -109,8 +108,7 @@ public class LobbyViewActivity extends AppCompatActivity /*implements IGameLobby
                             enableStartGameButton();
                             disableCreateGameButton();
                             Toast.makeText(LobbyViewActivity.this, "Succesfully created game:" + game.getGameName(), Toast.LENGTH_SHORT).show();
-                        }
-                        else {
+                        } else {
                             Toast.makeText(LobbyViewActivity.this, result.getErrorMessage(), Toast.LENGTH_SHORT).show();
                         }
                     }
@@ -129,7 +127,7 @@ public class LobbyViewActivity extends AppCompatActivity /*implements IGameLobby
         // This is the button to create game in the dialogue box
         final Button createGameButtonDialog;
         createGameButtonDialog = findViewById(R.id.create_game_button);
-        if(createGameOpen) {
+        if (createGameOpen) {
             createGameButtonDialog.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -151,7 +149,6 @@ public class LobbyViewActivity extends AppCompatActivity /*implements IGameLobby
     }
 
 
-
     public static Void updateGameList(ArrayList<Game> lobbyGames, User user) {
 
 
@@ -160,19 +157,19 @@ public class LobbyViewActivity extends AppCompatActivity /*implements IGameLobby
         // opens up.  If there is a way for the poller to start calling either once LobbyViewActivity
         // has openned, or when the create game function has been called, then that would work
         //listOfGames = lobbyGames;
-       // System.out.println(listOfGames.toString());
+        // System.out.println(listOfGames.toString());
         //adapter.notifyDataSetChanged();
-       // System.out.println("done");
+        // System.out.println("done");
 
         listOfGames = lobbyGames;
         // If user is a host and the game they are a part of has
         // more than 2 people, enable start game button
         //if (user.isHost())
-          //  if (user.getGame().getPlayers().size() > 1)
-              //  enableStartGameButton();
+        //  if (user.getGame().getPlayers().size() > 1)
+        //  enableStartGameButton();
         // If not a host, disable the 'Start game' button
-      //  else
-      //      disableStartGameButton();
+        //  else
+        //      disableStartGameButton();
 
 
         //Toast.makeText(LobbyViewActivity.this, "Poller successfully updated", Toast.LENGTH_SHORT).show();
@@ -193,38 +190,35 @@ public class LobbyViewActivity extends AppCompatActivity /*implements IGameLobby
     }
 
 
-
-    public static void disableStartGameButton(){
+    public static void disableStartGameButton() {
         startGameButton.getBackground().setColorFilter(Color.DKGRAY, PorterDuff.Mode.MULTIPLY);
         startGameButton.setAlpha(.5f);
         startGameButton.setEnabled(false);
     }
 
-    public static void enableStartGameButton(){
+    public static void enableStartGameButton() {
         startGameButton.getBackground().setColorFilter(null);
         startGameButton.setAlpha(1);
         startGameButton.setEnabled(true);
     }
 
-    public void disableCreateGameButton(){
+    public void disableCreateGameButton() {
         createGameButton.getBackground().setColorFilter(Color.DKGRAY, PorterDuff.Mode.MULTIPLY);
         createGameButton.setAlpha(.5f);
         createGameButton.setEnabled(false);
     }
 
-    public void enableCreateGameButton(){
+    public void enableCreateGameButton() {
         createGameButton.getBackground().setColorFilter(null);
         createGameButton.setAlpha(1);
         createGameButton.setEnabled(true);
     }
 
 
-
     // AsyncTask class
     public static class UpdateGameListAsyncTask extends AsyncTask<ArrayList<Game>, Void, Void> {
         //private IGameLobby gameLobby = new LobbyViewActivity();
         private User user;
-
 
 
         //Constructor to make
@@ -265,12 +259,16 @@ public class LobbyViewActivity extends AppCompatActivity /*implements IGameLobby
             adapter.setListOfGames(listOfGames);
             adapter.notifyDataSetChanged();
 
-            if (user.isHost())
-                if (user.getGame().getPlayers().size() > 1)
-                    enableStartGameButton();
-                    // If not a host, disable the 'Start game' button
-                else
-                    disableStartGameButton();
+            if (user.getGame() != null) {
+                if (user.isHost())
+                    if (user.getGame().getPlayers().size() > 1)
+                        enableStartGameButton();
+                        // If not a host, disable the 'Start game' button
+                    else {
+                        disableStartGameButton();
+                    }
+            }
+
         }
 
 

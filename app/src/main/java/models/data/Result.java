@@ -13,12 +13,22 @@ public class Result {
     private String gameName;
     private boolean isSuccessful;
     private PollManagerData pollResult;
+    private boolean isHost;
+
+    public boolean isHost() {
+        return isHost;
+    }
+
+    public void setHost(boolean host) {
+        isHost = host;
+    }
 
     public Result(String error, String auth, String gameName, boolean isSuccess) {
         this.authenticationToken = auth;
         this.gameName = gameName;
         this.errorMessage = error;
         this.isSuccessful = isSuccess;
+        this.isHost = false;
     }
 
     public Result() {

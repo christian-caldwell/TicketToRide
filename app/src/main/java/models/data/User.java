@@ -11,6 +11,7 @@ public class User {
         this.username = username;
         this.pass = password;
         this.host = false;
+        this.gameJoined = new Game();
     }
 
     public String getUsername() {
