@@ -48,17 +48,13 @@ public class ClientModel extends Observable {
         return this.lobbyGameList;
     }
 
-    public void setLobbyGamesList(ArrayList<Game> newGameList) {
-        this.lobbyGameList = newGameList;
-    }
+    public void setLobbyGamesList(ArrayList<Game> newGameList) { this.lobbyGameList = new ArrayList<>(newGameList);}
 
     public void addLobbyGamesList(Game game) {
         this.lobbyGameList.add(game);
     }
 
-    public void setChangedGameList(ArrayList<Game> newGameList) {
-        this.newGameList = newGameList;
-    }
+    public void setChangedGameList(ArrayList<Game> newGameList) { this.newGameList = new ArrayList<>(newGameList);}
 
     public ArrayList<Game> getChangedGameList() {
         return this.newGameList;
@@ -82,7 +78,7 @@ public class ClientModel extends Observable {
         setChanged();
         notifyObservers();
         deleteObservers();
-        clearChangeList();
+        //clearChangeList();
     }
 
     @Override

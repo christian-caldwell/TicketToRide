@@ -15,4 +15,5 @@ public interface IGameLobbyPresenter {
     public Result createGame(Game game);
 
     public User getPlayer();
+    public boolean onCreate();
 }

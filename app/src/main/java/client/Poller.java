@@ -23,7 +23,7 @@ public class Poller {
     public static void start() {
         create();
         singleton.shutdown();
-        singleton.start(0, 1000, false);
+        singleton.start(0, 3600, false);
     }
 
     public ArrayList<Game> pollServer() {
@@ -52,7 +52,7 @@ public class Poller {
             try {
                 if (initiating) {
                     if (initialDelaySec > 0) {
-                        Thread.sleep(initialDelaySec * 1000L);
+                        Thread.sleep(initialDelaySec);
                     }
                     initiating = false;
                 }
@@ -61,7 +61,7 @@ public class Poller {
 
                 long startMillis = System.currentTimeMillis();
                 poll();
-                sleepTime = fixedRate ? delaySec * 1000L - (System.currentTimeMillis() - startMillis) : delaySec * 1000L;
+                sleepTime = fixedRate ? delaySec - (System.currentTimeMillis() - startMillis) : delaySec;
             }
             catch (InterruptedException e) {
                 break;
@@ -92,6 +92,7 @@ public class Poller {
             client.setLobbyGamesList(pollResult);
         }
 
+        System.out.println("Current Complete Game List: " + client.getLobbyGamesList().toString());
     }
 
     public  String getThreadName() {
