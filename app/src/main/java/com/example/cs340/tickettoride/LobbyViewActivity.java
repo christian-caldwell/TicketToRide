@@ -102,12 +102,10 @@ public class LobbyViewActivity extends AppCompatActivity /*implements IGameLobby
                         // Enable startGameButton and disable createGameButton
                         Game game = new Game(input.getText().toString());
                         Result result = presenter.createGame(game);
-                        enableStartGameButton();
-                        disableCreateGameButton();
-                        listOfGames = presenter.getGameList();
-                        listOfGames.get(listOfGames.size()-1).addPlayer("this is the host");
                         //adapter.notifyDataSetChanged();
                         if (result.isSuccessful()) {
+                            enableStartGameButton();
+                            disableCreateGameButton();
                             Toast.makeText(LobbyViewActivity.this, "Succesfully created game:" + game.getGameName(), Toast.LENGTH_SHORT).show();
                         }
                         else {
