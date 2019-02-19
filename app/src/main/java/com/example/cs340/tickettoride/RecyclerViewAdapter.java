@@ -65,13 +65,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
                     else {
                         Result result = presenter.addPlayer(listOfGames.get(position));
                         if (result.isSuccessful()) {
-                            //FIXME: THIS IS SIMILAR TO THE ONCLICKLISTENER FOR CREATE GAME IN LOBBYVIEWACTIVITY
-                            // IT SHOULDn't NEED TO BE MANUALLY INCREMENTED HERE - IT SHOULD BE UPDATED BOTH
-                            // IN THE MODEL AND BY THE PULLER
-                            listOfGames.get(position).addPlayer("This is another player");
-//                            LobbyViewActivity lobbyViewActivity = new LobbyViewActivity();
-//                            lobbyViewActivity.updateGameListAfterClickingOnGame(listOfGames);
-                            notifyDataSetChanged();
+
 
                             Toast.makeText(mContext, "You've been added to " +
                                     listOfGames.get(position).getGameName(), Toast.LENGTH_SHORT).show();
