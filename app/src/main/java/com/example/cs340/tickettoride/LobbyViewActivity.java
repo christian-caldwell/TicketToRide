@@ -1,6 +1,8 @@
 package com.example.cs340.tickettoride;
 
+import android.app.Activity;
 import android.app.AlertDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
@@ -35,7 +37,7 @@ public class LobbyViewActivity extends AppCompatActivity /*implements IGameLobby
     private static RecyclerViewAdapter adapter;
     private IGameLobbyPresenter presenter = new GameLobbyPresenter();
     private static LobbyViewActivity singleton;
-
+    private Activity a = LobbyViewActivity.this;
 
     public static LobbyViewActivity create() {
         if (singleton == null) {
@@ -52,7 +54,6 @@ public class LobbyViewActivity extends AppCompatActivity /*implements IGameLobby
         setContentView(R.layout.activity_lobby_view);
         initRecyclerView();
         final GameLobbyPresenter lobbyPresenter = new GameLobbyPresenter();
-
 
         lobbyPresenter.onCreate();
 
@@ -219,15 +220,18 @@ public class LobbyViewActivity extends AppCompatActivity /*implements IGameLobby
     }
 
 
+
     // AsyncTask class
     public static class UpdateGameListAsyncTask extends AsyncTask<ArrayList<Game>, Void, Void> {
         //private IGameLobby gameLobby = new LobbyViewActivity();
         private User user;
+       // private Context context;
 
 
         //Constructor to make
-        public UpdateGameListAsyncTask(User user) {
+        public UpdateGameListAsyncTask(User user){//, Context context) {
             this.user = user;
+           // this.context = context.getApplicationContext();
         }
 
         /**
@@ -262,12 +266,20 @@ public class LobbyViewActivity extends AppCompatActivity /*implements IGameLobby
 
             // If user is a host and the amount of players in the game is greater than 1, then
             // enable the startGamebutton
-            if (user.isHost() && user.getGame().getPlayers().size() > 1)
-                enableStartGameButton();
+            if (user.getGame() != null) {
+                if (user.isHost() && user.getGame().getPlayers().size() > 1) {
+                    enableStartGameButton();
+                }
+                // If not a host or if there aren't enough players, disable the 'Start game' button
+                else {
+                    disableStartGameButton();
+                }
+//                if (user.getGame().isStarted()) {
+//                    Intent intent = new Intent(context, GameBoardActivity.class);
+//                    context.startActivity(intent);
+//                }
+            }
 
-            // If not a host or if there aren't enough players, disable the 'Start game' button
-            else
-                disableStartGameButton();
 
         }
 

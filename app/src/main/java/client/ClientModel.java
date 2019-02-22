@@ -28,7 +28,7 @@ public class ClientModel extends Observable {
         return singleton;
     }
 
-    public User getPlayer() {
+    public User getUser() {
         return this.player;
     }
 

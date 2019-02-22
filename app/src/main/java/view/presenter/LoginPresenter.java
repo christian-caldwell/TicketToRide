@@ -50,16 +50,7 @@ public class LoginPresenter implements ILoginPresenter, Observer {
 			result.setErrorMessage(LOGIN_FAILED);
 			return result;
 		}
-		
-		if (loginResult.isSuccessful()) {
-			ClientFacade client = new ClientFacade();
-			client.setUser(returnUser);
-			client.getPlayer().setHost(loginResult.isHost());
-			return loginResult;
-		}
-		else {
-			return loginResult;
-		}
+		return loginResult;
 	}
 
 	@Override

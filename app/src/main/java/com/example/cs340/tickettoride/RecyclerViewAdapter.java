@@ -61,7 +61,6 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
                 else {
                     if (listOfGames.get(position).getPlayers().size() > 4)
                         Toast.makeText(mContext, "Too many players", Toast.LENGTH_SHORT).show();
-
                     else {
                         Result result = presenter.addPlayer(listOfGames.get(position));
                         if (result.isSuccessful()) {

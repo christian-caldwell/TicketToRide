@@ -33,12 +33,10 @@ public class GameLobbyPresenter implements IGameLobbyPresenter, Observer {
     @Override
     public Result addPlayer(Game game) {
         LobbyFacadeOut lobbyFacadeOut = new LobbyFacadeOut();
-        User user = ClientModel.create().getPlayer();
+        User user = ClientModel.create().getUser();
         Result joinResult = lobbyFacadeOut.joinGame(game, user);
         //gameLobby.updateGamePlayers(gameId);
 
-        ClientFacade client = new ClientFacade();
-        client.joinGame(game);
         return joinResult;
     }
 
@@ -46,8 +44,6 @@ public class GameLobbyPresenter implements IGameLobbyPresenter, Observer {
     public void startGame(Game game) {
         GameStartFacadeOut gameStartFacadeOut = new GameStartFacadeOut();
         gameStartFacadeOut.startGame(game);
-        ClientFacade client = new ClientFacade();
-        client.joinGame(game);
     }
 
     @Override
@@ -75,7 +71,6 @@ public class GameLobbyPresenter implements IGameLobbyPresenter, Observer {
         if(result.isSuccessful()) {
             player.setHost(true);
         }
-        client.joinGame(game);
 
         return result;
 
@@ -96,14 +91,15 @@ public class GameLobbyPresenter implements IGameLobbyPresenter, Observer {
     @Override
     public void update(Observable o, Object arg) {
         ClientModel client = (ClientModel) o;
-        System.out.println("Server Polled by User: " + client.getPlayer().getUsername() );
+        System.out.println("Server Polled by User: " + client.getUser().getUsername() );
 
 
         this.gameList = client.getChangedGameList();
 
         //IGameLobby gameLobby = new LobbyViewActivity();
-        //gameLobby.updateGameList(this.gameList, client.getPlayer());
-        new LobbyViewActivity.UpdateGameListAsyncTask(client.getPlayer()).execute(this.gameList);
+        //gameLobby.updateGameList(this.gameList, client.getUser());
+        //TODO: i think we need new LobbyViewActivity() here as second param
+        new LobbyViewActivity.UpdateGameListAsyncTask(client.getUser()).execute(this.gameList);
     }
 
 

@@ -26,7 +26,7 @@ public class Poller {
         singleton.start(0, 3600, false);
     }
 
-    public ArrayList<Game> pollServer() {
+    public ArrayList<Game> pollServerForGames() {
         String className = PollManager.class.getName();
         String methodName = "getAvailableGames";
 
@@ -42,8 +42,24 @@ public class Poller {
         return result.getPollResult().getGamesChanged();
     }
 
+    public ArrayList<Game> pollServerForStartedGame() {
+        String className = PollManager.class.getName();
+        String methodName = "checkStarted";
 
-//    We have to use Async tasks here
+        Object[] parameterDataArray = new Object[0];
+        Class<?>[] parameterClassArray = new Class<?>[0];
+
+
+        GeneralCommand newCommand = new GeneralCommand(className, methodName, parameterClassArray, parameterDataArray);
+
+        ClientCommunicator communicator = new ClientCommunicator();
+
+        Result result = communicator.send(newCommand, "10.0.2.2", "8080");
+        return result.getPollResult().getGamesChanged();
+    }
+
+
+    //    We have to use Async tasks here
     private void runThread(int initialDelaySec, int delaySec, boolean fixedRate) {
         System.out.println("poller starting...");
         boolean initiating = true;
@@ -77,7 +93,7 @@ public class Poller {
 
     public void poll() {
         ServerProxy server = new ServerProxy();
-        ArrayList<Game> pollResult = pollServer();
+        ArrayList<Game> pollResult = pollServerForGames();
         ClientModel client = ClientModel.create();
 
         if (true) {
@@ -90,6 +106,11 @@ public class Poller {
             client.setChangedGameList(pollResult);
             client.update();
             client.setLobbyGamesList(pollResult);
+            for (Game game: client.getLobbyGamesList()) {
+                if (game.getGameName().equals(client.getUser().getGame().getGameName())) {
+                    client.getUser().setGameJoined(game);
+                }
+            }
         }
 
         System.out.println("Current Complete Game List: " + client.getLobbyGamesList().toString());
