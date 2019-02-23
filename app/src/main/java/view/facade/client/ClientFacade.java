@@ -13,14 +13,6 @@ public class ClientFacade {
 		this.client = ClientModel.create();
 	}
 
-	public void joinGame(Game game) {
-		client.setActiveGame(game);
-	}
-
-	public Game getActiveGame() {
-		return client.getActiveGame();
-	}
-
 	public ArrayList<Game> getGames() {
 		return client.getLobbyGamesList();
 	}
@@ -29,6 +21,6 @@ public class ClientFacade {
 	}
 
 	public User getPlayer() {
-		return this.client.getPlayer();
+		return this.client.getUser();
 	}
 }

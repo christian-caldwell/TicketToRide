@@ -1,12 +1,6 @@
 package view.presenter;
 
-import android.app.Activity;
-import android.os.AsyncTask;
-import android.widget.Button;
-import android.widget.Toast;
-
 import com.example.cs340.tickettoride.LobbyViewActivity;
-import com.example.cs340.tickettoride.RecyclerViewAdapter;
 
 import java.util.ArrayList;
 import java.util.Observable;
@@ -15,16 +9,12 @@ import java.util.Observer;
 import client.ClientModel;
 import client.Poller;
 import models.data.Game;
-import models.data.User;
 import models.data.Result;
+import models.data.User;
 import view.facade.client.ClientFacade;
 import view.facade.client.out.GameStartFacadeOut;
 import view.facade.client.out.LobbyFacadeOut;
 import view.presenterInterface.IGameLobbyPresenter;
-import view.facade.ViewFacade;
-import view.activityInterface.IGameLobby;
-
-import client.ServerProxy;
 
 public class GameLobbyPresenter implements IGameLobbyPresenter, Observer {
 
@@ -43,12 +33,10 @@ public class GameLobbyPresenter implements IGameLobbyPresenter, Observer {
     @Override
     public Result addPlayer(Game game) {
         LobbyFacadeOut lobbyFacadeOut = new LobbyFacadeOut();
-        User user = ClientModel.create().getPlayer();
+        User user = ClientModel.create().getUser();
         Result joinResult = lobbyFacadeOut.joinGame(game, user);
         //gameLobby.updateGamePlayers(gameId);
 
-        ClientFacade client = new ClientFacade();
-        client.joinGame(game);
         return joinResult;
     }
 
@@ -56,8 +44,6 @@ public class GameLobbyPresenter implements IGameLobbyPresenter, Observer {
     public void startGame(Game game) {
         GameStartFacadeOut gameStartFacadeOut = new GameStartFacadeOut();
         gameStartFacadeOut.startGame(game);
-        ClientFacade client = new ClientFacade();
-        client.joinGame(game);
     }
 
     @Override
@@ -78,12 +64,13 @@ public class GameLobbyPresenter implements IGameLobbyPresenter, Observer {
 
         ClientFacade client = new ClientFacade();
         User player = client.getPlayer();
-        player.setGameJoined(game);
-        player.setHost(true);
-        game.addPlayer(player.getUsername());
         LobbyFacadeOut lobbyFacadeOut = new LobbyFacadeOut();
+        player.setGameJoined(game);
+        game.addPlayer(player.getUsername());
         result = lobbyFacadeOut.createGame(game, player.getUsername());
-        client.joinGame(game);
+        if(result.isSuccessful()) {
+            player.setHost(true);
+        }
 
         return result;
 
@@ -104,14 +91,15 @@ public class GameLobbyPresenter implements IGameLobbyPresenter, Observer {
     @Override
     public void update(Observable o, Object arg) {
         ClientModel client = (ClientModel) o;
-        System.out.println("Server Polled by User: " + client.getPlayer().getUsername() );
+        System.out.println("Server Polled by User: " + client.getUser().getUsername() );
 
 
         this.gameList = client.getChangedGameList();
 
         //IGameLobby gameLobby = new LobbyViewActivity();
-        //gameLobby.updateGameList(this.gameList, client.getPlayer());
-        new LobbyViewActivity.UpdateGameListAsyncTask(client.getPlayer()).execute(this.gameList);
+        //gameLobby.updateGameList(this.gameList, client.getUser());
+        //TODO: i think we need new LobbyViewActivity() here as second param
+        new LobbyViewActivity.UpdateGameListAsyncTask(client.getUser()).execute(this.gameList);
     }
 
 

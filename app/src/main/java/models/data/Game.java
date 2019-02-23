@@ -4,20 +4,21 @@ import java.util.ArrayList;
 
 public class Game {
     public String status;
-    private boolean isVisibleInLobby;
+    private boolean isStarted;
     private String gameName;
 
     private ArrayList<String> players = new ArrayList<>();
 
     public Game() {
+        this.isStarted = false;
     }
 
-    public boolean isVisibleInLobby() {
-        return isVisibleInLobby;
+    public boolean isStarted() {
+        return isStarted;
     }
 
-    public void setVisibleInLobby(boolean visibleInLobby) {
-        isVisibleInLobby = visibleInLobby;
+    public void setStarted(boolean started) {
+        isStarted = started;
     }
 
     public Game(String gameName) {

@@ -140,6 +140,15 @@ public class ServerProxy implements IServer {
         ClientCommunicator communicator = new ClientCommunicator();
         Result result = communicator.send(newCommand, "10.0.2.2", "8080");
         if (result.isSuccessful()) {
+            returnUser.setHost(result.isHost());
+            if (result.getGameJoined() != null) {
+                for (Game game : ClientModel.create().getLobbyGamesList()) {
+                    if (game.getGameName().equals(result.getGameJoined())) {
+                        returnUser.setGameJoined(game);
+                        break;
+                    }
+                }
+            }
             ClientModel.create().setPlayer(returnUser);
         }
         return result;

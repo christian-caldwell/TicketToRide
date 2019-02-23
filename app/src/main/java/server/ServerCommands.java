@@ -4,10 +4,8 @@ package server;
 import java.util.UUID;
 
 import models.data.Game;
-import models.data.PollManagerData;
 import models.data.Result;
 import models.data.User;
-import java.util.ArrayList;
 
 public class ServerCommands implements IServer {
     private final int MAX_PLAYERS = 5;
@@ -30,6 +28,12 @@ public class ServerCommands implements IServer {
             result.setSuccessful(false);
         }
         else {
+            for (User user: serverData.getUsers()){
+                if (user.getUsername().equals(username)) {
+                    user.setGameJoined(serverData.getGame(gameName));
+                    break;
+                }
+            }
             result.setGame(gameName);
             result.setSuccessful(true);
             serverData.getGame(gameName).addPlayer(username);
@@ -41,7 +45,11 @@ public class ServerCommands implements IServer {
     @Override
     public Result createGame(String gameName, String username, Integer numPlayers) {
         Game game = new Game(gameName);
-        game.addPlayer(username);
+        for(User user: serverData.getUsers()) {
+            if(user.getUsername().equals(username)) {
+                user.setHost(true);
+            }
+        }
         Result result = serverData.setGame(game);
         clientProxy.updateCreateGame(gameName);
         return result;
@@ -50,8 +58,9 @@ public class ServerCommands implements IServer {
 
     //more will be done on this later.
     @Override
-    public String startGame(Game gameName) {
-        clientProxy.updateStartGame(gameName.getGameName());
+    public String startGame(Game game) {
+        clientProxy.updateStartGame(game.getGameName());
+        serverData.getGame(game.getGameName()).setStarted(true);
         return "Success";
     }
 
@@ -77,6 +86,12 @@ public class ServerCommands implements IServer {
         for (User user: serverData.getUsers()) {
             if (user.getUsername().equals(returnUser.getUsername())) {
                 if (user.getPassword().equals(returnUser.getPassword())) {
+                    if(user.isHost()) {
+                        result.setHost(true);
+                    }
+                    if (user.getGame() != null) {
+                        result.setGameJoined(user.getGame().getGameName());
+                    }
                     result.setAuthenticationToken(UUID.randomUUID().toString().toUpperCase());
                     result.setSuccessful(true);
                     return result;
