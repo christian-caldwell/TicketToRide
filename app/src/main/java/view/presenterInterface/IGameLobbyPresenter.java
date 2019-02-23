@@ -9,7 +9,7 @@ import models.data.User;
 public interface IGameLobbyPresenter {
     public Result addPlayer(Game gameId);
 
-    public void startGame(Game game);
+    public void startGame();
 
     public ArrayList getGameList();
     public Result createGame(Game game);

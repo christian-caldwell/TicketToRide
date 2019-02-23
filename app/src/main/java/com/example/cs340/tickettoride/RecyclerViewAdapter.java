@@ -14,7 +14,6 @@ import java.util.ArrayList;
 
 import models.data.Game;
 import models.data.Result;
-import view.presenter.GameLobbyPresenter;
 import view.presenterInterface.IGameLobbyPresenter;
 
 
@@ -24,12 +23,13 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
 
     private ArrayList<Game> listOfGames = new ArrayList<>();
     private Context mContext;
-    private IGameLobbyPresenter presenter = new GameLobbyPresenter();
+    private IGameLobbyPresenter presenter; // = new GameLobbyPresenter();
 
 
     public RecyclerViewAdapter(ArrayList<Game> listOfGames, Context mContext) {
         this.listOfGames = listOfGames;
         this.mContext = mContext;
+        presenter = ((LobbyViewActivity)mContext).getPresenter();
     }
 
     @NonNull

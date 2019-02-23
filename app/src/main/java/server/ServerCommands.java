@@ -58,10 +58,13 @@ public class ServerCommands implements IServer {
 
     //more will be done on this later.
     @Override
-    public String startGame(Game game) {
-        clientProxy.updateStartGame(game.getGameName());
-        serverData.getGame(game.getGameName()).setStarted(true);
-        return "Success";
+    public Result startGame(String gameName) {
+        clientProxy.updateStartGame(gameName);
+        serverData.getGame(gameName).setStarted(true);
+        Result result = new Result();
+        result.setSuccessful(true);
+
+        return result;
     }
 
     @Override
