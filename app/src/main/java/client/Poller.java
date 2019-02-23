@@ -14,6 +14,10 @@ public class Poller {
     private CountDownLatch threadDoneSignal;
     private static Poller singleton;
 
+    public static void end() {
+        singleton.shutdown();
+    }
+
     private static void create() {
         if (singleton == null){
             singleton = new Poller();
@@ -107,8 +111,10 @@ public class Poller {
             client.update();
             client.setLobbyGamesList(pollResult);
             for (Game game: client.getLobbyGamesList()) {
-                if (game.getGameName().equals(client.getUser().getGame().getGameName())) {
-                    client.getUser().setGameJoined(game);
+                for (String userName: game.getPlayers()) {
+                    if (userName.equals(client.getUser().getUsername())) {
+                        client.getUser().setGameJoined(game);
+                    }
                 }
             }
         }

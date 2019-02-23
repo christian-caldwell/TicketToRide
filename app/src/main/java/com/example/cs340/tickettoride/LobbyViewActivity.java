@@ -21,6 +21,7 @@ import android.widget.Toast;
 
 import java.util.ArrayList;
 
+import client.Poller;
 import models.data.Game;
 import models.data.Result;
 import models.data.User;
@@ -35,16 +36,16 @@ public class LobbyViewActivity extends AppCompatActivity /*implements IGameLobby
     private boolean createGameOpen = false;
     private String create_game_text = "";
     private static RecyclerViewAdapter adapter;
-    private IGameLobbyPresenter presenter = new GameLobbyPresenter();
+    private IGameLobbyPresenter presenter;
     private static LobbyViewActivity singleton;
     private Activity a = LobbyViewActivity.this;
 
-    public static LobbyViewActivity create() {
-        if (singleton == null) {
-            singleton = new LobbyViewActivity();
-        }
-        return singleton;
-    }
+//    public static LobbyViewActivity create() {
+//        if (singleton == null) {
+//            singleton = new LobbyViewActivity();
+//        }
+//        return singleton;
+//    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,10 +53,10 @@ public class LobbyViewActivity extends AppCompatActivity /*implements IGameLobby
         StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
         StrictMode.setThreadPolicy(policy);
         setContentView(R.layout.activity_lobby_view);
-        initRecyclerView();
-        final GameLobbyPresenter lobbyPresenter = new GameLobbyPresenter();
+        presenter = new GameLobbyPresenter(LobbyViewActivity.this);
 
-        lobbyPresenter.onCreate();
+        presenter.onCreate();
+        initRecyclerView();
 
 
         // Initialize startGameButton and set onClickListener
@@ -72,8 +73,9 @@ public class LobbyViewActivity extends AppCompatActivity /*implements IGameLobby
             public void onClick(View v) {
                 // If the user is a host, the button will be enabled
 //              // When clicked, the GameBoardActivity will be started
-                Intent intent = new Intent(LobbyViewActivity.this, GameBoardActivity.class);
-                startActivity(intent);
+//                Intent intent = new Intent(LobbyViewActivity.this, GameBoardActivity.class);
+//                startActivity(intent);
+                presenter.startGame();
 
             }
         });
@@ -138,6 +140,10 @@ public class LobbyViewActivity extends AppCompatActivity /*implements IGameLobby
         }
     }
 
+
+    public IGameLobbyPresenter getPresenter() {
+        return presenter;
+    }
 
     // This initializes the recyclerView
     private void initRecyclerView() {
@@ -225,13 +231,13 @@ public class LobbyViewActivity extends AppCompatActivity /*implements IGameLobby
     public static class UpdateGameListAsyncTask extends AsyncTask<ArrayList<Game>, Void, Void> {
         //private IGameLobby gameLobby = new LobbyViewActivity();
         private User user;
-       // private Context context;
+        private Context context;
 
 
         //Constructor to make
-        public UpdateGameListAsyncTask(User user){//, Context context) {
+        public UpdateGameListAsyncTask(User user, Context context) {
             this.user = user;
-           // this.context = context.getApplicationContext();
+            this.context = context.getApplicationContext();
         }
 
         /**
@@ -274,10 +280,12 @@ public class LobbyViewActivity extends AppCompatActivity /*implements IGameLobby
                 else {
                     disableStartGameButton();
                 }
-//                if (user.getGame().isStarted()) {
-//                    Intent intent = new Intent(context, GameBoardActivity.class);
-//                    context.startActivity(intent);
-//                }
+                if (user.getGame().isStarted()) {
+                    Intent intent = new Intent(context, GameBoardActivity.class);
+                    intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                    Poller.end();
+                    context.startActivity(intent);
+                }
             }
 
 

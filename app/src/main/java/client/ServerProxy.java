@@ -3,7 +3,6 @@ package client;
 import java.util.ArrayList;
 
 import models.data.Game;
-import models.data.PollManagerData;
 import models.data.Result;
 import models.data.User;
 import server.GeneralCommand;
@@ -12,7 +11,6 @@ import server.facade.GameStartFacade;
 import server.facade.LobbyFacade;
 import server.facade.LoginFacade;
 import server.facade.RegisterFacade;
-import server.PollManager;
 
 
 public class ServerProxy implements IServer {
@@ -76,22 +74,25 @@ public class ServerProxy implements IServer {
     }
 
     @Override
-    public String startGame(Game game) {
+    public Result startGame(String gameName) {
 
-        String className = (GameStartFacade.class).toString();
+        String className = GameStartFacade.class.getName();
         String methodName = "startGame";
 
-        Object[] params = new Object[1];
-        params[0] = game;
+        Object[] parameterDataArray = new Object[1];
+        Class<?>[] parameterClassArray = new Class<?>[1];
 
-        GeneralCommand generatedCommand = createCommand(className, params, methodName);
+        parameterClassArray[0] = String.class;
+        parameterDataArray[0] = gameName;
+
+        GeneralCommand newCommand = new GeneralCommand(className, methodName, parameterClassArray, parameterDataArray);
 
         ClientCommunicator communicator = new ClientCommunicator();
 
-        Result result = communicator.send(generatedCommand,"127.0.0.1", "8080");
+        Result result = communicator.send(newCommand,"10.0.2.2", "8080");
 
         //return new Result("nothing", "token", null, true);
-        return "The game has started";
+        return result;
     }
 
     @Override
