@@ -1,10 +1,16 @@
 package com.example.cs340.tickettoride;
 
+import android.os.Bundle;
 import android.os.StrictMode;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
+import android.widget.Toast;
 
 public class GameBoardActivity extends AppCompatActivity {
+
+    @Override
+    public void onBackPressed() {
+        Toast.makeText(this, "You committed to this game. No turning back.", Toast.LENGTH_LONG).show();
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

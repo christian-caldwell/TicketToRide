@@ -11,15 +11,13 @@ import models.data.Game;
 import models.data.Player;
 import models.data.User;
 import view.presenter.GameLobbyPresenter;
-import view.presenter.GamePresenter;
-import view.presenter.LoginPresenter;
-import view.presenter.RegisterPresenter;
 
 public class ClientModel extends Observable {
     private User userPlayer;
     private Game gameActive;
     private ArrayList<Game> lobbyGameList = new ArrayList<>();
     private ArrayList<Game> newGameList = new ArrayList<>();
+    private GameLobbyPresenter mGameLobbyPresenter;
 
     //new stuff for phase 2
     private Map<Enums.Color, Integer> ticketCardHand;
@@ -122,11 +120,19 @@ public class ClientModel extends Observable {
 
 
 
+    public GameLobbyPresenter getGameLobbyPresenter() {
+        return mGameLobbyPresenter;
+    }
+
+    public void setGameLobbyPresenter(GameLobbyPresenter gameLobbyPresenter) {
+        mGameLobbyPresenter = gameLobbyPresenter;
+    }
+
     public void update() {
-        addObserver(new GameLobbyPresenter());
-        addObserver(new GamePresenter());
-        addObserver(new LoginPresenter());
-        addObserver(new RegisterPresenter());
+        addObserver(this.mGameLobbyPresenter);
+//        addObserver(new GamePresenter());
+//        addObserver(new LoginPresenter());
+//        addObserver(new RegisterPresenter());
 
         setChanged();
         notifyObservers();
