@@ -18,8 +18,8 @@ import view.presenterInterface.IGameLobbyPresenter;
 
 public class GameLobbyPresenter implements IGameLobbyPresenter, Observer {
 
-    ArrayList<Game> gameList = new ArrayList<>();
-    //LobbyViewActivity gameLobby = new LobbyViewActivity();
+    private ArrayList<Game> gameList = new ArrayList<>();
+    LobbyViewActivity gameLobby;
 
     @Override
     public User getPlayer() {
@@ -28,6 +28,10 @@ public class GameLobbyPresenter implements IGameLobbyPresenter, Observer {
     }
 
 
+    public GameLobbyPresenter(LobbyViewActivity lobbyViewActivity) {
+        this.gameLobby = lobbyViewActivity;
+        ClientModel.create().setGameLobbyPresenter(this);
+    }
 
 
     @Override
@@ -41,9 +45,10 @@ public class GameLobbyPresenter implements IGameLobbyPresenter, Observer {
     }
 
     @Override
-    public void startGame(Game game) {
+    public void startGame() {
+        User user = ClientModel.create().getUser();
         GameStartFacadeOut gameStartFacadeOut = new GameStartFacadeOut();
-        gameStartFacadeOut.startGame(game);
+        gameStartFacadeOut.startGame(user.getGame().getGameName());
     }
 
     @Override
@@ -82,10 +87,14 @@ public class GameLobbyPresenter implements IGameLobbyPresenter, Observer {
             Poller.start();
             return true;
         }
+
+
         catch (Exception e) {
             return false;
         }
     }
+
+
 
 
     @Override
@@ -99,7 +108,7 @@ public class GameLobbyPresenter implements IGameLobbyPresenter, Observer {
         //IGameLobby gameLobby = new LobbyViewActivity();
         //gameLobby.updateGameList(this.gameList, client.getUser());
         //TODO: i think we need new LobbyViewActivity() here as second param
-        new LobbyViewActivity.UpdateGameListAsyncTask(client.getUser()).execute(this.gameList);
+        new LobbyViewActivity.UpdateGameListAsyncTask(client.getUser(), gameLobby).execute(this.gameList);
     }
 
 
