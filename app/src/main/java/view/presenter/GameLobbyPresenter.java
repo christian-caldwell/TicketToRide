@@ -87,6 +87,8 @@ public class GameLobbyPresenter implements IGameLobbyPresenter, Observer {
             Poller.start();
             return true;
         }
+
+
         catch (Exception e) {
             return false;
         }
