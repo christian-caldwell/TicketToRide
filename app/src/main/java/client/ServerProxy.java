@@ -116,7 +116,7 @@ public class ServerProxy implements IServer {
         ClientCommunicator communicator = new ClientCommunicator();
         Result result = communicator.send(newCommand, "10.0.2.2", "8080");
         if (result.isSuccessful()) {
-            ClientModel.create().setPlayer(newUser);
+            ClientModel.create().setUserPlayer(newUser);
         }
         return result;
     }
@@ -150,7 +150,7 @@ public class ServerProxy implements IServer {
                     }
                 }
             }
-            ClientModel.create().setPlayer(returnUser);
+            ClientModel.create().setUserPlayer(returnUser);
         }
         return result;
     }
