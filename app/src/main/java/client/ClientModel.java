@@ -1,10 +1,14 @@
 package client;
 
 import java.util.ArrayList;
+import java.util.Map;
 import java.util.Observable;
 import java.util.Observer;
 
+import models.data.DestinationCard;
+import models.data.Enums;
 import models.data.Game;
+import models.data.Player;
 import models.data.User;
 import view.presenter.GameLobbyPresenter;
 import view.presenter.GamePresenter;
@@ -12,10 +16,50 @@ import view.presenter.LoginPresenter;
 import view.presenter.RegisterPresenter;
 
 public class ClientModel extends Observable {
-    private User player;
+    private User userPlayer;
     private Game gameActive;
     private ArrayList<Game> lobbyGameList = new ArrayList<>();
     private ArrayList<Game> newGameList = new ArrayList<>();
+
+    //new stuff for phase 2
+    private Map<Enums.Color, Integer> ticketCardHand;
+    private ArrayList<DestinationCard> destinationCardHand;
+    private Player player;
+    private ArrayList<Object> changedObjects;
+
+    public Map<Enums.Color, Integer> getTicketCardHand() {
+        return ticketCardHand;
+    }
+
+    public void setTicketCardHand(Map<Enums.Color, Integer> ticketCardHand) {
+        this.ticketCardHand = ticketCardHand;
+    }
+
+    public ArrayList<DestinationCard> getDestinationCardHand() {
+        return destinationCardHand;
+    }
+
+    public void setDestinationCardHand(ArrayList<DestinationCard> destinationCardHand) {
+        this.destinationCardHand = destinationCardHand;
+    }
+
+    public Player getPlayer() {
+        return player;
+    }
+
+    public void setPlayer(Player player) {
+        this.player = player;
+    }
+
+    public ArrayList<Object> getChangedObjects() {
+        return changedObjects;
+    }
+
+    public void setChangedObjects(ArrayList<Object> changedObjects) {
+        this.changedObjects = changedObjects;
+    }
+
+/////////////
 
     private static ClientModel singleton;
 
@@ -29,11 +73,11 @@ public class ClientModel extends Observable {
     }
 
     public User getUser() {
-        return this.player;
+        return this.userPlayer;
     }
 
-    public void setPlayer (User player) {
-        this.player = player;
+    public void setUserPlayer(User userPlayer) {
+        this.userPlayer = userPlayer;
     }
 
     public Game getActiveGame() {
@@ -67,6 +111,15 @@ public class ClientModel extends Observable {
     public void clearChangeList() {
         this.newGameList.clear();
     }
+
+    //not implemented
+    private Player initGame(String userName) {
+        return null;
+    }
+    private void initHands() {
+
+    }
+
 
 
     public void update() {

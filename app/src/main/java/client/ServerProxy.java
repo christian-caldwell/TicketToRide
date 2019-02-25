@@ -3,7 +3,6 @@ package client;
 import java.util.ArrayList;
 
 import models.data.Game;
-import models.data.PollManagerData;
 import models.data.Result;
 import models.data.User;
 import server.GeneralCommand;
@@ -12,7 +11,6 @@ import server.facade.GameStartFacade;
 import server.facade.LobbyFacade;
 import server.facade.LoginFacade;
 import server.facade.RegisterFacade;
-import server.PollManager;
 
 
 public class ServerProxy implements IServer {
@@ -115,7 +113,7 @@ public class ServerProxy implements IServer {
         ClientCommunicator communicator = new ClientCommunicator();
         Result result = communicator.send(newCommand, "10.0.2.2", "8080");
         if (result.isSuccessful()) {
-            ClientModel.create().setPlayer(newUser);
+            ClientModel.create().setUserPlayer(newUser);
         }
         return result;
     }
@@ -149,7 +147,7 @@ public class ServerProxy implements IServer {
                     }
                 }
             }
-            ClientModel.create().setPlayer(returnUser);
+            ClientModel.create().setUserPlayer(returnUser);
         }
         return result;
     }

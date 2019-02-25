@@ -17,7 +17,7 @@ public class ClientFacade {
 		return client.getLobbyGamesList();
 	}
 	public void setUser(User newUser) {
-		client.setPlayer(newUser);
+		client.setUserPlayer(newUser);
 	}
 
 	public User getPlayer() {
