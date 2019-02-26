@@ -228,10 +228,11 @@ public class LobbyViewActivity extends AppCompatActivity /*implements IGameLobby
 
 
     // AsyncTask class
-    public static class UpdateGameListAsyncTask extends AsyncTask<ArrayList<Game>, Void, Void> {
+    public class UpdateGameListAsyncTask extends AsyncTask<ArrayList<Game>, Void, Void> {
         //private IGameLobby gameLobby = new LobbyViewActivity();
         private User user;
         private Context context;
+
 
 
         //Constructor to make

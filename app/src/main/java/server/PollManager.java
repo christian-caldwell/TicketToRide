@@ -83,6 +83,11 @@ public class PollManager {
         return result;
     }
 
+    public void getRunningGame(String gameName, String userName, int knownMoves) {
+        ServerData dataContainer = ServerData.getInstance();
+        Game game = dataContainer.getGame(gameName);
+        
+    }
 
 
 }
