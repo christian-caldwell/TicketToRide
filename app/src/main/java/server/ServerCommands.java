@@ -3,8 +3,10 @@ package server;
 
 import java.util.UUID;
 
+import models.data.DestinationCard;
 import models.data.Game;
 import models.data.Result;
+import models.data.Route;
 import models.data.User;
 
 public class ServerCommands implements IServer {
@@ -54,6 +56,26 @@ public class ServerCommands implements IServer {
         clientProxy.updateCreateGame(gameName);
         return result;
 
+    }
+
+    @Override
+    public Result returnDestinationCards(DestinationCard[] returnedCards, String userName, String gameName) {
+        return null;
+    }
+
+    @Override
+    public Result purchaseRoute(Route purchasedRoute, String userName, String gameName) {
+        return null;
+    }
+
+    @Override
+    public Result requestDestinationCards(String userName, String gameName) {
+        return null;
+    }
+
+    @Override
+    public Result requestTicketCards(boolean[] faceUpCardsDrawn, String userName, String gameName) {
+        return null;
     }
 
     //more will be done on this later.

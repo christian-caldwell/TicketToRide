@@ -47,7 +47,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
     @Override
     public void onBindViewHolder(@NonNull final ViewHolder holder, final int position) {
         holder.currentNumOfPlayers.setText("Current players: " +
-                listOfGames.get(position).getPlayers().size());
+                listOfGames.get(position).getPlayerUsernames().size());
         holder.gameName.setText(listOfGames.get(position).getGameName());
         holder.parentLayout.setOnClickListener(new View.OnClickListener() {
 
@@ -59,7 +59,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
                 if (presenter.getPlayer().getGame() != null)
                     Toast.makeText(mContext, "Already part of a game", Toast.LENGTH_SHORT).show();
                 else {
-                    if (listOfGames.get(position).getPlayers().size() > 4)
+                    if (listOfGames.get(position).getPlayerUsernames().size() > 4)
                         Toast.makeText(mContext, "Too many players", Toast.LENGTH_SHORT).show();
                     else {
                         Result result = presenter.addPlayer(listOfGames.get(position));
