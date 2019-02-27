@@ -185,7 +185,7 @@ public class ServerProxy implements IServer {
         }
         else if(model.getClass() == Game.class) {
             Game convertedModel = (Game) model;
-            return 2 + convertedModel.getPlayers().size();
+            return 2 + convertedModel.getPlayerUsernames().size();
         }
         else if (model.getClass() == String.class) {
             return 1;
@@ -219,7 +219,7 @@ public class ServerProxy implements IServer {
             Game convertedModel = (Game) model;
             objectArray[pos] = convertedModel.getStatus();
             objectArray[pos+1] = convertedModel.getGameName();
-            ArrayList<String> list = convertedModel.getPlayers();
+            ArrayList<String> list = convertedModel.getPlayerUsernames();
             int i = 2;
             for (String player: list) {
                 classArray[pos + i] = String.class;
