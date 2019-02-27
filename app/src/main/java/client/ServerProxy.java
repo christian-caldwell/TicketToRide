@@ -2,8 +2,10 @@ package client;
 
 import java.util.ArrayList;
 
+import models.data.DestinationCard;
 import models.data.Game;
 import models.data.Result;
+import models.data.Route;
 import models.data.User;
 import server.GeneralCommand;
 import server.IServer;
@@ -153,5 +155,25 @@ public class ServerProxy implements IServer {
             ClientModel.create().setUserPlayer(returnUser);
         }
         return result;
+    }
+
+    @Override
+    public Result returnDestinationCards(DestinationCard[] returnedCards, String userName, String gameName) {
+        return null;
+    }
+
+    @Override
+    public Result purchaseRoute(Route purchasedRoute, String userName, String gameName) {
+        return null;
+    }
+
+    @Override
+    public Result requestDestinationCards(String userName, String gameName) {
+        return null;
+    }
+
+    @Override
+    public Result requestTicketCards(boolean[] faceUpCardsDrawn, String userName, String gameName) {
+        return null;
     }
 }
