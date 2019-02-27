@@ -111,7 +111,7 @@ public class Poller {
             client.update();
             client.setLobbyGamesList(pollResult);
             for (Game game: client.getLobbyGamesList()) {
-                for (String userName: game.getPlayers()) {
+                for (String userName: game.getPlayerNames()) {
                     if (userName.equals(client.getUser().getUsername())) {
                         client.getUser().setGameJoined(game);
                     }

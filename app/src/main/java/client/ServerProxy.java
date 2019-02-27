@@ -219,7 +219,7 @@ public class ServerProxy implements IServer {
             Game convertedModel = (Game) model;
             objectArray[pos] = convertedModel.getStatus();
             objectArray[pos+1] = convertedModel.getGameName();
-            ArrayList<String> list = convertedModel.getPlayers();
+            ArrayList<String> list = convertedModel.getPlayerNames();
             int i = 2;
             for (String player: list) {
                 classArray[pos + i] = String.class;

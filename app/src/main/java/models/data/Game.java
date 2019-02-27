@@ -124,6 +124,10 @@ public class Game {
         return players;
     }
 
+    public ArrayList<String> getPlayerNames() {
+        return playerUsernames;
+    }
+
     public void setPlayers(ArrayList<Player> players) {
         this.players = players;
     }
@@ -201,5 +205,13 @@ public class Game {
         clone.currentLongestRouteValue = new Integer(currentLongestRouteValue);
 
         return clone;
+    }
+
+    public void hideSecrets(String viewingUser) {
+        for (Player p: players) {
+            if (!p.getUsername().equals(viewingUser)) {
+                p.hideCards();
+            }
+        }
     }
 }
