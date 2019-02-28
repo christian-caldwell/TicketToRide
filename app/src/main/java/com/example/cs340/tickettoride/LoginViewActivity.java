@@ -18,7 +18,7 @@ import view.presenter.LoginPresenter;
 public class LoginViewActivity extends AppCompatActivity implements ILoginView, IRegisterView {
 
     private EditText username, password;
-    private Button registerButton, loginButton;
+    private Button registerButton, loginButton, startGame;
     private TextView forgotPassword;
 
 
@@ -34,6 +34,7 @@ public class LoginViewActivity extends AppCompatActivity implements ILoginView, 
         registerButton = findViewById(R.id.register_button);
         loginButton = findViewById(R.id.create_game);
         forgotPassword = findViewById(R.id.forgot_password);
+        startGame = findViewById(R.id.startGame);
         final LoginPresenter loginPresenter = new LoginPresenter();
 
         loginPresenter.onCreate();
@@ -51,6 +52,14 @@ public class LoginViewActivity extends AppCompatActivity implements ILoginView, 
 //
 //            }
 //        },0,3000);
+
+        startGame.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(LoginViewActivity.this, GameBoardActivity.class);
+                startActivity(intent);
+            }
+        });
 
 
         // Login button is pushed
