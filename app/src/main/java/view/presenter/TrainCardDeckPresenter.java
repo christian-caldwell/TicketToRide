@@ -1,4 +1,11 @@
 package view.presenter;
 
-public class TrainCardDeckPresenter {
+import models.data.TrainCard;
+import view.presenterInterface.ITrainCardDeckPresenter;
+
+public class TrainCardDeckPresenter implements ITrainCardDeckPresenter {
+    @Override
+    public TrainCard drawCard() {
+        return null;
+    }
 }

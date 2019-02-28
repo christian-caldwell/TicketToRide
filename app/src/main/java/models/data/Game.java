@@ -123,8 +123,8 @@ public class Game {
         return chatLog;
     }
 
-    public void setChatLog(ArrayList<ChatMessage> chatLog) {
-        this.chatLog = chatLog;
+    public void addChat(ChatMessage chat) {
+        this.chatLog.add(chat);
     }
 
     public Enums.Color getCurrentTurnPlayer() {
