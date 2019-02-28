@@ -273,7 +273,7 @@ public class LobbyViewActivity extends AppCompatActivity /*implements IGameLobby
             // If user is a host and the amount of players in the game is greater than 1, then
             // enable the startGamebutton
             if (user.getGame() != null) {
-                if (user.isHost() && user.getGame().getPlayers().size() > 1) {
+                if (user.isHost() && user.getGame().getPlayerUsernames().size() > 1) {
                     enableStartGameButton();
                 }
                 // If not a host or if there aren't enough players, disable the 'Start game' button

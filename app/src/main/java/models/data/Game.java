@@ -1,6 +1,5 @@
 package models.data;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Map;
 import java.util.Queue;
@@ -14,6 +13,11 @@ public class Game {
 
     //new stuff for phase 2
     private Map<Enums.Color, Integer> ticketCardDeck;
+
+    public ArrayList<String> getPlayerUsernames() {
+        return playerUsernames;
+    }
+
     private Map<Enums.Color, Integer> ticketCardDiscard;
     private ArrayList<TrainCard> faceUpTrainCards = new ArrayList<>(5);
     private Queue<DestinationCard> destinationCards;
