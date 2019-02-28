@@ -1,46 +1,126 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/tabletop"
     tools:context=".GameBoardActivity">
 
+    <Button
+        android:id="@+id/open_chat_button"
+        android:layout_width="110dp"
+        android:layout_height="60dp"
+        android:layout_marginTop="4dp"
+        android:layout_marginEnd="4dp"
+        android:layout_marginRight="4dp"
+        android:text="Open/Close Chat"
+        android:background="#FFF"
+        android:alpha=".8"
+        android:textAllCaps="false"
+        android:textSize="15sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <ImageView
         android:id="@+id/game_board_pic"
-        android:layout_width="730dp"
-        android:layout_height="wrap_content"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true"
-        android:src="@drawable/game_board" />
+        android:layout_width="859dp"
+        android:layout_height="521dp"
+        android:src="@drawable/game_board"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        tools:ignore="MissingConstraints" />
 
     <ImageView
-        android:layout_width="132dp"
-        android:layout_height="81dp"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentTop="true"
-        android:layout_marginStart="9dp"
-        android:layout_marginLeft="9dp"
-        android:layout_marginTop="8dp"
-        android:src="@drawable/train_card_black" />
+        android:id="@+id/imageView1"
+        android:layout_width="99dp"
+        android:layout_height="65dp"
+        android:layout_marginEnd="4dp"
+        android:layout_marginRight="4dp"
+        android:src="@drawable/train_card_wild"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        tools:layout_editor_absoluteY="527dp" />
 
     <ImageView
-        android:layout_width="124dp"
-        android:layout_height="54dp"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentBottom="true"
-        android:layout_marginStart="149dp"
-        android:layout_marginLeft="149dp"
-        android:layout_marginBottom="526dp"
-        android:rotation="90"
-        android:src="@drawable/train_card_blue" />
+        android:id="@+id/imageView2"
+        android:layout_width="99dp"
+        android:layout_height="65dp"
+        android:layout_marginEnd="4dp"
+        android:layout_marginRight="4dp"
+        android:src="@drawable/train_card_white"
+        app:layout_constraintBottom_toTopOf="@id/imageView1"
+        app:layout_constraintEnd_toEndOf="parent"
+        tools:layout_editor_absoluteY="453dp" />
 
+    <ImageView
+        android:id="@+id/imageView3"
+        android:layout_width="99dp"
+        android:layout_height="65dp"
+        android:layout_marginEnd="4dp"
+        android:layout_marginRight="4dp"
+        android:src="@drawable/train_card_black"
+        app:layout_constraintBottom_toTopOf="@id/imageView2"
+        app:layout_constraintEnd_toEndOf="parent"
+        tools:layout_editor_absoluteY="379dp" />
 
+    <ImageView
+        android:id="@+id/imageView4"
+        android:layout_width="99dp"
+        android:layout_height="65dp"
+        android:layout_marginEnd="4dp"
+        android:layout_marginRight="4dp"
+        android:src="@drawable/train_card_purple"
+        app:layout_constraintBottom_toTopOf="@id/imageView3"
+        app:layout_constraintEnd_toEndOf="parent"
+        tools:layout_editor_absoluteY="305dp" />
 
+    <ImageView
+        android:id="@+id/imageView5"
+        android:layout_width="99dp"
+        android:layout_height="65dp"
+        android:layout_marginEnd="4dp"
+        android:layout_marginRight="4dp"
+        android:src="@drawable/train_card_blue"
+        app:layout_constraintBottom_toTopOf="@id/imageView4"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintLeft_toRightOf="@id/game_board_pic"
+        tools:layout_editor_absoluteY="231dp" />
 
-</RelativeLayout>
+    <ImageView
+        android:id="@+id/imageView6"
+        android:layout_width="99dp"
+        android:layout_height="65dp"
+        android:layout_marginEnd="4dp"
+        android:layout_marginRight="4dp"
+        android:src="@drawable/train_card_green"
+        app:layout_constraintBottom_toTopOf="@id/imageView5"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintLeft_toRightOf="@id/game_board_pic"
+        tools:layout_editor_absoluteY="157dp" />
+
+    <ImageView
+        android:id="@+id/imageView7"
+        android:layout_width="99dp"
+        android:layout_height="65dp"
+        android:layout_marginEnd="4dp"
+        android:layout_marginRight="4dp"
+        android:src="@drawable/train_card_yellow"
+        app:layout_constraintBottom_toTopOf="@id/imageView6"
+        app:layout_constraintEnd_toEndOf="parent"
+        tools:layout_editor_absoluteY="83dp" />
+
+    <ImageView
+        android:id="@+id/imageView8"
+        android:layout_width="99dp"
+        android:layout_height="65dp"
+        android:layout_marginEnd="4dp"
+        android:layout_marginRight="4dp"
+        android:src="@drawable/train_card_red"
+        app:layout_constraintBottom_toTopOf="@id/imageView7"
+        app:layout_constraintEnd_toEndOf="parent"
+        tools:layout_editor_absoluteY="9dp" />
+
+</android.support.constraint.ConstraintLayout>
 
 
