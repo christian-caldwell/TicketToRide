@@ -56,7 +56,7 @@ public class GameBoardActivity extends AppCompatActivity {
     }
 
     private void initRecyclerView() {
-        RecyclerView recyclerView = findViewById(R.id.recycler_view);
+        RecyclerView recyclerView = findViewById(R.id.chat_recycler_view);
         chatMessages = presenter.getMessages();
         adapter = new ChatRecyclerViewAdapter(chatMessages);
         recyclerView.setHasFixedSize(true);
@@ -70,8 +70,8 @@ public class GameBoardActivity extends AppCompatActivity {
 
         private ArrayList<ChatMessage> listOfMessages = new ArrayList<>();
 
-        public ChatRecyclerViewAdapter(ArrayList<ChatMessage> listOfGames) {
-            this.listOfMessages = listOfGames;
+        public ChatRecyclerViewAdapter(ArrayList<ChatMessage> listOfMessages) {
+            this.listOfMessages = listOfMessages;
         }
 
         @NonNull
