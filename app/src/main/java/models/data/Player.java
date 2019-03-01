@@ -93,17 +93,17 @@ public class Player {
         destinationCards = null;
     }
 
-    public Player copy() {
-        Player clone = new Player(username, playerColor);
-        clone.score = score;
-        clone.trainsRemaining = trainsRemaining;
-        clone.routesOwned = new HashSet<>(routesOwned);
-        clone.individualLongestRouteValue = individualLongestRouteValue;
-        clone.hasLongestRoute = hasLongestRoute;
-        clone.destinationCards = new ArrayList<>(destinationCards);
-        clone.numDestinationCards = numDestinationCards;
-        clone.tickets = new HashMap<>(tickets);
-        clone.numTickets = numTickets;
-        return clone;
-    }
+//    public Player copy() {
+//        Player clone = new Player(username, playerColor);
+//        clone.score = score;
+//        clone.trainsRemaining = trainsRemaining;
+//        clone.routesOwned = new HashSet<>(routesOwned);
+//        clone.individualLongestRouteValue = individualLongestRouteValue;
+//        clone.hasLongestRoute = hasLongestRoute;
+//        clone.destinationCards = new ArrayList<>(destinationCards);
+//        clone.numDestinationCards = numDestinationCards;
+//        clone.tickets = new HashMap<>(tickets);
+//        clone.numTickets = numTickets;
+//        return clone;
+//    }
 }
