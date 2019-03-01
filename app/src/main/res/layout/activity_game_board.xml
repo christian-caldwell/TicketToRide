@@ -21,91 +21,99 @@
         app:layout_constraintLeft_toLeftOf="parent"
         tools:ignore="MissingConstraints" />
 
-    <ImageView
+    <Button
         android:id="@+id/imageView1"
         android:layout_width="99dp"
         android:layout_height="65dp"
         android:layout_marginEnd="4dp"
         android:layout_marginRight="4dp"
+        android:background="@drawable/train_card_wild"
         android:src="@drawable/train_card_wild"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         tools:layout_editor_absoluteY="527dp" />
 
-    <ImageView
+    <Button
         android:id="@+id/imageView2"
         android:layout_width="99dp"
         android:layout_height="65dp"
         android:layout_marginEnd="4dp"
         android:layout_marginRight="4dp"
+        android:background="@drawable/train_card_white"
         android:src="@drawable/train_card_white"
         app:layout_constraintBottom_toTopOf="@id/imageView1"
         app:layout_constraintEnd_toEndOf="parent"
         tools:layout_editor_absoluteY="453dp" />
 
-    <ImageView
+    <Button
         android:id="@+id/imageView3"
         android:layout_width="99dp"
         android:layout_height="65dp"
         android:layout_marginEnd="4dp"
         android:layout_marginRight="4dp"
+        android:background="@drawable/train_card_black"
         android:src="@drawable/train_card_black"
         app:layout_constraintBottom_toTopOf="@id/imageView2"
         app:layout_constraintEnd_toEndOf="parent"
         tools:layout_editor_absoluteY="379dp" />
 
-    <ImageView
+    <Button
         android:id="@+id/imageView4"
         android:layout_width="99dp"
         android:layout_height="65dp"
         android:layout_marginEnd="4dp"
         android:layout_marginRight="4dp"
+        android:background="@drawable/train_card_purple"
         android:src="@drawable/train_card_purple"
         app:layout_constraintBottom_toTopOf="@id/imageView3"
         app:layout_constraintEnd_toEndOf="parent"
         tools:layout_editor_absoluteY="305dp" />
 
-    <ImageView
+    <Button
         android:id="@+id/imageView5"
         android:layout_width="99dp"
         android:layout_height="65dp"
         android:layout_marginEnd="4dp"
         android:layout_marginRight="4dp"
+        android:background="@drawable/train_card_blue"
         android:src="@drawable/train_card_blue"
         app:layout_constraintBottom_toTopOf="@id/imageView4"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintLeft_toRightOf="@id/game_board_pic"
         tools:layout_editor_absoluteY="231dp" />
 
-    <ImageView
+    <Button
         android:id="@+id/imageView6"
         android:layout_width="99dp"
         android:layout_height="65dp"
         android:layout_marginEnd="4dp"
         android:layout_marginRight="4dp"
+        android:background="@drawable/train_card_green"
         android:src="@drawable/train_card_green"
         app:layout_constraintBottom_toTopOf="@id/imageView5"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintLeft_toRightOf="@id/game_board_pic"
         tools:layout_editor_absoluteY="157dp" />
 
-    <ImageView
+    <Button
         android:id="@+id/imageView7"
         android:layout_width="99dp"
         android:layout_height="65dp"
         android:layout_marginEnd="4dp"
         android:layout_marginRight="4dp"
+        android:background="@drawable/train_card_yellow"
         android:src="@drawable/train_card_yellow"
         app:layout_constraintBottom_toTopOf="@id/imageView6"
         app:layout_constraintEnd_toEndOf="parent"
         tools:layout_editor_absoluteY="83dp" />
 
-    <ImageView
+    <Button
         android:id="@+id/imageView8"
         android:layout_width="99dp"
         android:layout_height="65dp"
         android:layout_marginEnd="4dp"
         android:layout_marginRight="4dp"
+        android:background="@drawable/train_card_red"
         android:src="@drawable/train_card_red"
         app:layout_constraintBottom_toTopOf="@id/imageView7"
         app:layout_constraintEnd_toEndOf="parent"

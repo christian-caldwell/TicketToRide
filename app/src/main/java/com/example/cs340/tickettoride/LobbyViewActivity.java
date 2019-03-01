@@ -40,12 +40,6 @@ public class LobbyViewActivity extends AppCompatActivity /*implements IGameLobby
     private static LobbyViewActivity singleton;
     private Activity a = LobbyViewActivity.this;
 
-//    public static LobbyViewActivity create() {
-//        if (singleton == null) {
-//            singleton = new LobbyViewActivity();
-//        }
-//        return singleton;
-//    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -73,8 +67,6 @@ public class LobbyViewActivity extends AppCompatActivity /*implements IGameLobby
             public void onClick(View v) {
                 // If the user is a host, the button will be enabled
 //              // When clicked, the GameBoardActivity will be started
-//                Intent intent = new Intent(LobbyViewActivity.this, GameBoardActivity.class);
-//                startActivity(intent);
                 presenter.startGame();
 
             }
@@ -157,34 +149,7 @@ public class LobbyViewActivity extends AppCompatActivity /*implements IGameLobby
 
 
     public static Void updateGameList(ArrayList<Game> lobbyGames, User user) {
-
-
-        // FIXME: The poller reaches this line of code, then breaks at 'adapter.notifyDataSetChanged()'
-        // because adapter has not been instantiated yet.  It gets instantiated once the LobbyViewActivity
-        // opens up.  If there is a way for the poller to start calling either once LobbyViewActivity
-        // has openned, or when the create game function has been called, then that would work
-        //listOfGames = lobbyGames;
-        // System.out.println(listOfGames.toString());
-        //adapter.notifyDataSetChanged();
-        // System.out.println("done");
-
         listOfGames = lobbyGames;
-        // If user is a host and the game they are a part of has
-        // more than 2 people, enable start game button
-        /*
-        if (user.isHost()) {
-            // if (user.getGame().getPlayers().size() > 1)
-
-            enableStartGameButton();
-        }
-
-        // If not a host, disable the 'Start game' button
-        else
-            disableStartGameButton();
-*/
-
-        //Toast.makeText(LobbyViewActivity.this, "Poller successfully updated", Toast.LENGTH_SHORT).show();
-
         return null;
     }
 
