@@ -5,9 +5,6 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 import java.lang.reflect.Array;
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.LinkedList;
 import java.util.Map;
 import java.util.Queue;
 import java.util.Set;
@@ -20,6 +17,11 @@ public class Game {
 
     //new stuff for phase 2
     private Map<Enums.Color, Integer> ticketCardDeck;
+
+    public ArrayList<String> getPlayerUsernames() {
+        return playerUsernames;
+    }
+
     private Map<Enums.Color, Integer> ticketCardDiscard;
     private ArrayList<TrainCard> faceUpTrainCards = new ArrayList<>(5);
     private Queue<DestinationCard> destinationCards;
@@ -125,10 +127,6 @@ public class Game {
 
     public ArrayList<Player> getPlayers() {
         return players;
-    }
-
-    public ArrayList<String> getPlayerNames() {
-        return playerUsernames;
     }
 
     public void setPlayers(ArrayList<Player> players) {
