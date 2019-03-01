@@ -5,6 +5,7 @@ import java.util.Map;
 import java.util.Observable;
 import java.util.Observer;
 
+import models.data.ChatMessage;
 import models.data.DestinationCard;
 import models.data.Enums;
 import models.data.Game;
@@ -14,7 +15,6 @@ import view.presenter.GameLobbyPresenter;
 
 public class ClientModel extends Observable {
     private User userPlayer;
-    private Game gameActive;
     private ArrayList<Game> lobbyGameList = new ArrayList<>();
     private ArrayList<Game> newGameList = new ArrayList<>();
     private GameLobbyPresenter mGameLobbyPresenter;
@@ -24,6 +24,15 @@ public class ClientModel extends Observable {
     private ArrayList<DestinationCard> destinationCardHand;
     private Player player;
     private ArrayList<Object> changedObjects;
+    private ArrayList<ChatMessage> chatMessages;
+
+    public ArrayList<ChatMessage> getChatMessages() {
+        return chatMessages;
+    }
+
+    public void addChatMessages(ChatMessage chatMessage) {
+        this.chatMessages.add(chatMessage);
+    }
 
     public Map<Enums.Color, Integer> getTicketCardHand() {
         return ticketCardHand;
@@ -76,14 +85,6 @@ public class ClientModel extends Observable {
 
     public void setUserPlayer(User userPlayer) {
         this.userPlayer = userPlayer;
-    }
-
-    public Game getActiveGame() {
-        return this.gameActive;
-    }
-
-    public void setActiveGame(Game gamePlaying) {
-        this.gameActive = gamePlaying;
     }
 
     public ArrayList<Game> getLobbyGamesList() {

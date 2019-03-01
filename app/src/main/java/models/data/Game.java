@@ -23,7 +23,7 @@ public class Game {
     private Queue<DestinationCard> destinationCards;
     private Set<Route> availableRoutes;
     private ArrayList<Player> players;
-    private ArrayList<ChatMessage> chatLog;
+    private ArrayList<ChatMessage> chatLog = new ArrayList<>();
     private Enums.Color currentTurnPlayer;
     private Integer numPlayerActions;
     private Integer currentLongestRouteValue;
@@ -127,8 +127,8 @@ public class Game {
         return chatLog;
     }
 
-    public void setChatLog(ArrayList<ChatMessage> chatLog) {
-        this.chatLog = chatLog;
+    public void addChat(ChatMessage chat) {
+        this.chatLog.add(chat);
     }
 
     public Enums.Color getCurrentTurnPlayer() {
