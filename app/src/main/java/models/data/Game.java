@@ -23,7 +23,7 @@ public class Game {
     private Queue<DestinationCard> destinationCards;
     private Set<Route> availableRoutes;
     private ArrayList<Player> players;
-    private ArrayList<ChatMessage> chatLog;
+    private ArrayList<ChatMessage> chatLog = new ArrayList<>();
     private Enums.Color currentTurnPlayer;
     private Integer numPlayerActions;
     private Integer currentLongestRouteValue;

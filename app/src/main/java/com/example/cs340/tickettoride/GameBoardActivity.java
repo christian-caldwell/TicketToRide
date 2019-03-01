@@ -1,6 +1,5 @@
 package com.example.cs340.tickettoride;
 
-import android.content.Context;
 import android.os.Bundle;
 import android.os.StrictMode;
 import android.support.annotation.NonNull;
@@ -10,7 +9,6 @@ import android.view.View;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
-import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -18,12 +16,8 @@ import android.widget.Toast;
 import java.util.ArrayList;
 
 import models.data.ChatMessage;
-import models.data.Game;
-import models.data.Result;
 import view.presenter.ChatPresenter;
-import view.presenter.GameLobbyPresenter;
 import view.presenterInterface.IChatPresenter;
-import view.presenterInterface.IGameLobbyPresenter;
 
 public class GameBoardActivity extends AppCompatActivity {
 
@@ -64,7 +58,7 @@ public class GameBoardActivity extends AppCompatActivity {
     private void initRecyclerView() {
         RecyclerView recyclerView = findViewById(R.id.recycler_view);
         chatMessages = presenter.getMessages();
-        adapter = new ChatRecyclerViewAdapter(chatMessages, this);
+        adapter = new ChatRecyclerViewAdapter(chatMessages);
         recyclerView.setHasFixedSize(true);
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
@@ -72,60 +66,53 @@ public class GameBoardActivity extends AppCompatActivity {
 
 
 
-    public class ChatRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapter.ViewHolder> {
+    public class ChatRecyclerViewAdapter extends RecyclerView.Adapter<ChatRecyclerViewAdapter.ViewHolder> {
 
-        private ArrayList<ChatMessage> listOfGames = new ArrayList<>();
-        private Context mContext;
+        private ArrayList<ChatMessage> listOfMessages = new ArrayList<>();
 
-
-        public ChatRecyclerViewAdapter(ArrayList<ChatMessage> listOfGames, Context mContext) {
-            this.listOfGames = listOfGames;
-            this.mContext = mContext;
+        public ChatRecyclerViewAdapter(ArrayList<ChatMessage> listOfGames) {
+            this.listOfMessages = listOfGames;
         }
 
         @NonNull
         @Override
         public ViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
             View view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.layoutlist_item, viewGroup, false);
-            ViewHolder holder = new ChatRecyclerViewAdapter(view);
-            return holder;
-        }
-
-        public void setListOfGames(ArrayList<Game> listOfGames) {
-            this.listOfGames = listOfGames;
+            return new ViewHolder(view);
         }
 
         @Override
         public void onBindViewHolder(@NonNull final ViewHolder holder, final int position) {
-            holder.currentNumOfPlayers.setText("Current players: " +
-                    listOfGames.get(position).getPlayerUsernames().size());
-            holder.gameName.setText(listOfGames.get(position).getGameName());
+            holder.currentMessage.setText(listOfMessages.get(position).getMessageContents());
+            holder.timestamp.setText(listOfMessages.get(position).getTimeStamp());
+            holder.user.setText(presenter.getSenderName());
             holder.parentLayout.setOnClickListener(new View.OnClickListener() {
 
 
                 @Override
                 public void onClick(View v) {
-                    // Check if user is already in a game. If not, add them to game
-                    // Don't allow more than 5 people join a game
+                    // do nothing
                 }
             });
         }
 
         @Override
         public int getItemCount() {
-            return listOfGames.size();
+            return listOfMessages.size();
         }
 
         public class ViewHolder extends RecyclerView.ViewHolder {
 
-            TextView gameName, currentNumOfPlayers;
+            TextView user, currentMessage, timestamp;
             ConstraintLayout parentLayout;
 
             public ViewHolder(@NonNull View itemView) {
                 super(itemView);
-                gameName = itemView.findViewById(R.id.gameName);
-                currentNumOfPlayers = itemView.findViewById(R.id.currentNumOfPlayers);
-                parentLayout = itemView.findViewById(R.id.parent_layout);
+                user = itemView.findViewById(R.id.gameName);
+                currentMessage = itemView.findViewById(R.id.currentNumOfPlayers);
+                timestamp = itemView.findViewById(R.id.currentNumOfPlayers);
+                //TODO: add parent layout.
+                //parentLayout = itemView.findViewById(R.id.parent_layout_chat);
             }
         }
     }

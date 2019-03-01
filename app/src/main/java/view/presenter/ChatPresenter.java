@@ -34,7 +34,11 @@ public class ChatPresenter implements IChatPresenter {
         clientModel.getUser().getGame().addChat(chatMessage);
         //TODO: this method needs to be added to server proxy.
         //serverProxy.addMessage(chatMessage);
-
-
     }
+
+    @Override
+    public String getSenderName() {
+        return clientModel.getUser().getUsername();
+    }
+
 }
