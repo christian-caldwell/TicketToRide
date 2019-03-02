@@ -1,5 +1,9 @@
 package models.data;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Map;
 import java.util.Queue;
@@ -30,7 +34,17 @@ public class Game {
     ////////////
 
     public Game() {
-        this.isStarted = false;
+        isStarted = false;
+        initRoutes();
+        initTicketContainers();
+        initDestinationCards();
+        initPlayers();
+        initChatLog();
+    }
+
+    public Game(String gameName) {
+        this.gameName = gameName;
+        isStarted = false;
         initRoutes();
         initTicketContainers();
         initDestinationCards();
@@ -44,10 +58,6 @@ public class Game {
 
     public void setStarted(boolean started) {
         isStarted = started;
-    }
-
-    public Game(String gameName) {
-        this.gameName = gameName;
     }
     
     public String getGameName() {
@@ -157,5 +167,61 @@ public class Game {
 
     private void initChatLog() {
 
+    }
+
+    public Game copy() {
+//        Game clone = new Game();
+//        /*
+//        public String status;
+//        private boolean isStarted;
+//        private String gameName;
+//        private ArrayList<String> playerUsernames = new ArrayList<>();
+//
+//        //new stuff for phase 2
+//        private Map<Enums.Color, Integer> ticketCardDeck;
+//        private Map<Enums.Color, Integer> ticketCardDiscard;
+//        private ArrayList<TrainCard> faceUpTrainCards = new ArrayList<>(5);
+//        private Queue<DestinationCard> destinationCards;
+//        private Set<Route> availableRoutes;
+//        private ArrayList<Player> players;
+//        private ArrayList<ChatMessage> chatLog;
+//        private Enums.Color currentTurnPlayer;
+//        private Integer numPlayerActions;
+//        private Integer currentLongestRouteValue;
+//        */
+//
+//        clone.status = new String(status);
+//        clone.isStarted = new Boolean(isStarted);
+//        clone.gameName = new String(gameName);
+//        clone.playerUsernames = new ArrayList<>(playerUsernames);
+//        clone.ticketCardDeck = new HashMap<>(ticketCardDeck);
+//        clone.ticketCardDiscard = new HashMap<>(ticketCardDiscard);
+//        clone.faceUpTrainCards = new ArrayList<>(faceUpTrainCards);
+//        clone.destinationCards = new LinkedList<>(destinationCards);
+//        clone.availableRoutes = new HashSet<>(availableRoutes);
+//        clone.players = new ArrayList<>(players);
+//        clone.chatLog = new ArrayList<>(chatLog);
+//        clone.currentTurnPlayer = currentTurnPlayer;
+//        clone.numPlayerActions = new Integer(numPlayerActions);
+//        clone.currentLongestRouteValue = new Integer(currentLongestRouteValue);
+        ObjectMapper om = new ObjectMapper();
+        String info;
+        Game clone = null;
+        try {
+            info = om.writeValueAsString(this);
+            clone = om.readValue(info, Game.class);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+        return clone;
+    }
+
+    public void hideSecrets(String viewingUser) {
+        for (Player p: players) {
+            if (!p.getUsername().equals(viewingUser)) {
+                p.hideCards();
+            }
+        }
     }
 }

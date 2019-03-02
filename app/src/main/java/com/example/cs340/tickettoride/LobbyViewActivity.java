@@ -265,7 +265,7 @@ public class LobbyViewActivity extends AppCompatActivity /*implements IGameLobby
             if (user.getGame() != null)
                 disableCreateGameButton();
 
-            // If user isn't part of a game, disable the startGameButton
+                // If user isn't part of a game, disable the startGameButton
             else
                 disableStartGameButton();
 

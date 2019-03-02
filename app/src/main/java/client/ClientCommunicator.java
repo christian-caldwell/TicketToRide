@@ -16,6 +16,8 @@ import models.data.Result;
 import server.GeneralCommand;
 
 public class ClientCommunicator /*implements IClient */{
+    final static String HOST = "10.0.2.2";
+    final static String PORT = "8080";
 
 
     /*
@@ -34,7 +36,6 @@ public class ClientCommunicator /*implements IClient */{
             http.setDoOutput(true);
             http.addRequestProperty("Accept", "application/json");
 
-            Gson gson = new Gson();
             OutputStream os = http.getOutputStream();
             ObjectMapper mapper = new ObjectMapper();
             String jsonStr = mapper.writeValueAsString(command);
@@ -56,9 +57,44 @@ public class ClientCommunicator /*implements IClient */{
         }
     }
 
+    public String send(String json) {
+        try {
+            URL url = new URL("http://" + HOST + ":" + PORT + "/");
+            HttpURLConnection http = (HttpURLConnection) url.openConnection();
+            http.setRequestMethod("POST");
+            http.setDoOutput(true);
+            http.addRequestProperty("Accept", "application/json");
+
+            OutputStream os = http.getOutputStream();
+            writeString(json, os);
+
+            http.connect();
+            if (http.getResponseCode() == HttpURLConnection.HTTP_OK) {
+                InputStream is = http.getInputStream();
+                return readString(is);//result;
+
+            } else {
+                System.out.println("ERROR: " + http.getResponseMessage());
+                return null;
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
     private static void writeString(String str, OutputStream os) throws IOException {
         OutputStreamWriter sw = new OutputStreamWriter(os);
         sw.write(str);
         sw.flush();
+    }
+
+    private static String readString(InputStream is) throws IOException {
+        int ch;
+        StringBuilder sb = new StringBuilder();
+        while ((ch = is.read()) != -1) {
+            sb.append((char)ch);
+        }
+        return sb.toString();
     }
 }
