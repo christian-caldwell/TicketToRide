@@ -140,6 +140,13 @@ public class ClientModel extends Observable {
         //clearChangeList();
     }
 
+    public void updateGame() {
+        //add GamePresenter
+        setChanged();
+        notifyObservers();
+        deleteObservers();
+    }
+
     @Override
     public synchronized void addObserver(Observer o) {
         super.addObserver(o);

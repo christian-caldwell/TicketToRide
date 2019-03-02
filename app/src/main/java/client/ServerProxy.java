@@ -1,5 +1,7 @@
 package client;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+
 import java.util.ArrayList;
 
 import models.data.DestinationCard;
@@ -9,6 +11,7 @@ import models.data.Route;
 import models.data.User;
 import server.GeneralCommand;
 import server.IServer;
+import server.PollManager;
 import server.facade.GameStartFacade;
 import server.facade.LobbyFacade;
 import server.facade.LoginFacade;
@@ -175,5 +178,34 @@ public class ServerProxy implements IServer {
     @Override
     public Result requestTicketCards(boolean[] faceUpCardsDrawn, String userName, String gameName) {
         return null;
+    }
+
+    public ArrayList<Game> getGames() {
+        String className = PollManager.class.getName();
+        String methodName = "getAvailableGames";
+
+        Object[] parameterDataArray = new Object[0];
+        Class<?>[] parameterClassArray = new Class<?>[0];
+
+
+        GeneralCommand newCommand = new GeneralCommand(className, methodName, parameterClassArray, parameterDataArray);
+
+
+        try {
+            ObjectMapper mapper = new ObjectMapper();
+            String json = mapper.writeValueAsString(newCommand);
+
+            ClientCommunicator communicator = new ClientCommunicator();
+
+            json = communicator.send(json);
+
+            Result result = mapper.readValue(json, Result.class);
+
+            return result.getPollResult().getGamesChanged();
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
     }
 }

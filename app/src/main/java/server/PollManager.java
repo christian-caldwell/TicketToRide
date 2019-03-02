@@ -87,11 +87,11 @@ public class PollManager {
         ServerData dataContainer = ServerData.getInstance();
         Game game = dataContainer.getGame(gameName);
 
-        if (game.getNumPlayerActions() == playerActions) {
+        if (game.getNumPlayerActions().equals(playerActions)) {
             return null;
         }
 
-        if (!game.getPlayerNames().contains(userName)) {
+        if (!game.getPlayerUsernames().contains(userName)) {
             System.out.println("This user doesn't belong here!!!!");
             return null;
         }

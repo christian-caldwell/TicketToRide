@@ -25,9 +25,17 @@ public class Poller {
         }
     }
 
-    public static void start() {
+    public static void startLobbyPoller() {
         create();
         singleton.shutdown();
+        singleton.startPollingLobby();
+        singleton.start(0, 3600, false);
+    }
+
+    public static void startGamePoller() {
+        create();
+        singleton.shutdown();
+        singleton.startPollingGame();
         singleton.start(0, 3600, false);
     }
 
@@ -186,6 +194,7 @@ public class Poller {
     }
 
     private class PSLobby implements PollerState {
+        @Override
         public void poll() {
             ArrayList<Game> pollResult = pollServerForGames();
             ClientModel client = ClientModel.create();
@@ -201,7 +210,7 @@ public class Poller {
                 client.update();
                 client.setLobbyGamesList(pollResult);
                 for (Game game: client.getLobbyGamesList()) {
-                    for (String userName: game.getPlayerNames()) {
+                    for (String userName: game.getPlayerUsernames()) {
                         if (userName.equals(client.getUser().getUsername())) {
                             client.getUser().setGameJoined(game);
                         }
@@ -214,6 +223,7 @@ public class Poller {
     }
 
     private class PSGame implements PollerState {
+        @Override
         public void poll() {
 //            ServerProxy server = new ServerProxy();
 //            Game game = pollServerForStartedGame();
@@ -221,6 +231,8 @@ public class Poller {
 //                ClientModel client = ClientModel.create();
 //                client.setActiveGame(game);
 //            }
+            ClientModel client = ClientModel.create();
+            client.updateGame();
         }
     }
 }
