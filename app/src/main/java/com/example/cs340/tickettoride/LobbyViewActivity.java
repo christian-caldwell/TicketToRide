@@ -228,11 +228,10 @@ public class LobbyViewActivity extends AppCompatActivity /*implements IGameLobby
 
 
     // AsyncTask class
-    public class UpdateGameListAsyncTask extends AsyncTask<ArrayList<Game>, Void, Void> {
+    public static class UpdateGameListAsyncTask extends AsyncTask<ArrayList<Game>, Void, Void> {
         //private IGameLobby gameLobby = new LobbyViewActivity();
         private User user;
         private Context context;
-
 
 
         //Constructor to make
@@ -266,7 +265,7 @@ public class LobbyViewActivity extends AppCompatActivity /*implements IGameLobby
             if (user.getGame() != null)
                 disableCreateGameButton();
 
-            // If user isn't part of a game, disable the startGameButton
+                // If user isn't part of a game, disable the startGameButton
             else
                 disableStartGameButton();
 
