@@ -1,6 +1,9 @@
 package client;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+
 import java.util.ArrayList;
+import java.util.Date;
 
 import models.data.DestinationCard;
 import models.data.Game;
@@ -174,6 +177,11 @@ public class ServerProxy implements IServer {
 
     @Override
     public Result requestTicketCards(boolean[] faceUpCardsDrawn, String userName, String gameName) {
+        return null;
+    }
+
+    @Override
+    public Result postChatMessage(String userName, String gameName, String message, Date timeStamp) {
         return null;
     }
 }
