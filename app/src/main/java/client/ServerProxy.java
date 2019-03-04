@@ -1,9 +1,10 @@
 package client;
 
+import android.util.Pair;
+
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import java.util.ArrayList;
-import java.util.Date;
 
 import models.data.ChatMessage;
 import models.data.DestinationCard;
@@ -20,8 +21,6 @@ import server.facade.LobbyFacade;
 import server.facade.LoginFacade;
 import server.facade.RegisterFacade;
 import server.facade.RunGameFacade;
-
-import android.util.Pair;
 
 
 public class ServerProxy implements IServer {
@@ -216,7 +215,7 @@ public class ServerProxy implements IServer {
         parameterClassArray[2] = Integer.class;
         parameterClassArray[3] = String.class;
         parameterClassArray[4] = String.class;
-        parameterClassArray[5] = Enums.Color;
+        parameterClassArray[5] = Enums.Color.class;
         parameterDataArray[0] = userName;
         parameterDataArray[1] = gameName;
         parameterDataArray[2] = purchasedRoute.getPoints();
