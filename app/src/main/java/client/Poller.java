@@ -66,15 +66,17 @@ public class Poller {
 
         Game game = client.getUser().getGame();
 
-        Object[] parameterDataArray = new Object[3];
+        Object[] parameterDataArray = new Object[4];
         parameterDataArray[0] = game.getGameName();
         parameterDataArray[1] = client.getUser().getUsername();
         parameterDataArray[2] = game.getNumPlayerActions();
+        parameterDataArray[3] = game.getChatLog().size();
 
-        Class<?>[] parameterClassArray = new Class<?>[3];
+        Class<?>[] parameterClassArray = new Class<?>[4];
         parameterClassArray[0] = String.class;
         parameterClassArray[1] = String.class;
         parameterClassArray[2] = Integer.class;
+        parameterClassArray[3] = Integer.class;
 
         GeneralCommand newCommand = new GeneralCommand(className, methodName, parameterClassArray, parameterDataArray);
 

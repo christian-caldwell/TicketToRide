@@ -40,6 +40,7 @@ public class Game {
         initDestinationCards();
         initPlayers();
         initChatLog();
+        numPlayerActions = 0;
     }
 
     public Game(String gameName) {
@@ -50,6 +51,7 @@ public class Game {
         initDestinationCards();
         initPlayers();
         initChatLog();
+        numPlayerActions = 0;
     }
 
     public boolean isStarted() {
@@ -73,7 +75,8 @@ public class Game {
 
 
     private void initRoutes() {
-
+        currentLongestRouteValue = 0;
+        numPlayerActions = 0;
     }
     private void initTicketContainers() {
 
@@ -175,7 +178,7 @@ public class Game {
     }
 
     private void initChatLog() {
-
+        chatLog = new ArrayList<>();
     }
 
     public Game copy() {
