@@ -111,6 +111,22 @@ public class Player {
         this.newDestinationCards = null;
     }
 
+    public Map<Enums.Color, Integer> getTickets() {
+        return tickets;
+    }
+
+    public Integer getNumTickets() {
+        return numTickets;
+    }
+
+    public ArrayList<DestinationCard> getDestinationCards() {
+        return destinationCards;
+    }
+
+    public Integer getNumDestinationCards() {
+        return numDestinationCards;
+    }
+
 //    public Player copy() {
 //        Player clone = new Player(username, playerColor);
 //        clone.score = score;

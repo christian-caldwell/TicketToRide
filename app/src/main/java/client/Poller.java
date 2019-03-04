@@ -15,6 +15,10 @@ public class Poller {
     private PollerState state;
     private static Poller singleton;
 
+    public static Poller instance() {
+        return singleton;
+    }
+
     public static void end() {
         singleton.shutdown();
     }
@@ -55,27 +59,31 @@ public class Poller {
         return result.getPollResult().getGamesChanged();
     }
 
-    public ArrayList<Game> pollServerForStartedGame() {
+    public Game pollServerForStartedGame() {
         ClientModel client = ClientModel.create();
         String className = PollManager.class.getName();
         String methodName = "getRunningGame";
 
-        Object[] parameterDataArray = new Object[3];
-        parameterDataArray[0] = client.getActiveGame().getGameName();
-        parameterDataArray[1] = client.getUser().getUsername();
-        parameterDataArray[2] = client.getActiveGame().getNumPlayerActions();
+        Game game = client.getUser().getGame();
 
-        Class<?>[] parameterClassArray = new Class<?>[3];
+        Object[] parameterDataArray = new Object[4];
+        parameterDataArray[0] = game.getGameName();
+        parameterDataArray[1] = client.getUser().getUsername();
+        parameterDataArray[2] = game.getNumPlayerActions();
+        parameterDataArray[3] = game.getChatLog().size();
+
+        Class<?>[] parameterClassArray = new Class<?>[4];
         parameterClassArray[0] = String.class;
         parameterClassArray[1] = String.class;
         parameterClassArray[2] = Integer.class;
+        parameterClassArray[3] = Integer.class;
 
         GeneralCommand newCommand = new GeneralCommand(className, methodName, parameterClassArray, parameterDataArray);
 
         ClientCommunicator communicator = new ClientCommunicator();
 
         Result result = communicator.send(newCommand, "10.0.2.2", "8080");
-        return result.getPollResult().getGamesChanged();
+        return result.getRunningGame();
     }
 
 
@@ -143,9 +151,7 @@ public class Poller {
         return getClass().getName();
     }
 
-    public void startPollingLobby() {
-        state = new PSLobby();
-    }
+    public void startPollingLobby() { state = new PSLobby(); }
 
     public void startPollingGame() {
         state = new PSGame();
@@ -231,8 +237,13 @@ public class Poller {
 //                ClientModel client = ClientModel.create();
 //                client.setActiveGame(game);
 //            }
-            ClientModel client = ClientModel.create();
-            client.updateGame();
+            Game updatedGame = pollServerForStartedGame();
+            if (updatedGame != null) {
+                ClientModel client = ClientModel.create();
+                client.setActiveGame(updatedGame);
+                client.updateGame();
+            }
+            System.out.println("Current running game: ");// + ClientModel.create().getActiveGame().toString());
         }
     }
 }

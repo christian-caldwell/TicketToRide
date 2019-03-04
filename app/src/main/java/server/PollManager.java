@@ -83,23 +83,27 @@ public class PollManager {
         return result;
     }
 
-    public Game getRunningGame(String gameName, String userName, Integer playerActions) {
+    public Result getRunningGame(String gameName, String userName, Integer playerActions, Integer chatSize) {
         ServerData dataContainer = ServerData.getInstance();
         Game game = dataContainer.getGame(gameName);
 
-        if (game.getNumPlayerActions().equals(playerActions)) {
-            return null;
+        if (game.getNumPlayerActions().equals(playerActions) && chatSize.equals(game.getChatLog().size())) {
+            game = null;
+        }
+        else if (!game.getPlayerUsernames().contains(userName)) {
+            System.out.println("This user doesn't belong here!!!!");
+            game = null;
         }
 
-        if (!game.getPlayerUsernames().contains(userName)) {
-            System.out.println("This user doesn't belong here!!!!");
-            return null;
-        }
 
         //game = deep copy of game, serialize and deserialize? make everything cloneable?
 
-        game.hideSecrets(userName);
-        return game;
+        if (game != null) {
+            game.hideSecrets(userName);
+        }
+        Result result = new Result();
+        result.setRunningGame(game);
+        return result;
     }
 
 

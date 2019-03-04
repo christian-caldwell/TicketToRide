@@ -41,6 +41,7 @@ public class Game {
         initDestinationCards();
         initPlayers();
         initChatLog();
+        numPlayerActions = 0;
     }
 
     public Game(String gameName) {
@@ -52,6 +53,7 @@ public class Game {
         initDestinationCards();
         initPlayers();
         initChatLog();
+        numPlayerActions = 0;
     }
 
     public boolean isStarted() {
@@ -75,7 +77,8 @@ public class Game {
 
 
     private void initRoutes() {
-
+        currentLongestRouteValue = 0;
+        numPlayerActions = 0;
     }
     private void initTicketContainers() {
 
@@ -129,6 +132,15 @@ public class Game {
 
     public ArrayList<Player> getPlayers() {
         return players;
+    }
+
+    public Player getPlayer(String username) {
+        for (Player p: players) {
+            if (p.getUsername().equals(username)) {
+                return p;
+            }
+        }
+        return null;
     }
 
     public void setPlayers(ArrayList<Player> players) {
@@ -185,7 +197,7 @@ public class Game {
     }
 
     private void initChatLog() {
-
+        chatLog = new ArrayList<>();
     }
 
     public Game copy() {
