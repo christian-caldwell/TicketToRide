@@ -91,7 +91,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
             super(itemView);
             gameName = itemView.findViewById(R.id.gameName);
             currentNumOfPlayers = itemView.findViewById(R.id.currentNumOfPlayers);
-            parentLayout = itemView.findViewById(R.id.parent_layout);
+            parentLayout = itemView.findViewById(R.id.parent_layout_lobby);
         }
     }
 }

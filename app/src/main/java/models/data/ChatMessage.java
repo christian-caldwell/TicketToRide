@@ -5,7 +5,7 @@ import java.util.Date;
 public class ChatMessage {
     private String authorUserName;
     private String messageContents;
-    private Date timeStamp;
+    private String timeStamp;
 
     public String getAuthorUserName() {
         return authorUserName;
@@ -23,11 +23,11 @@ public class ChatMessage {
         this.messageContents = messageContents;
     }
 
-    public Date getTimeStamp() {
+    public String getTimeStamp() {
         return timeStamp;
     }
 
-    public void setTimeStamp(Date timeStamp) {
+    public void setTimeStamp(String timeStamp) {
         this.timeStamp = timeStamp;
     }
 

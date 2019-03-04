@@ -14,11 +14,10 @@ public class Player {
     private Set<Route> routesOwned;
     private Integer individualLongestRouteValue;
     private Boolean hasLongestRoute;
-    // Added by Jarom 2/26
     private Map<Enums.Color, Integer> tickets;
     private Integer numTickets;
-    private ArrayList<DestinationCard> destinationCards;
-    private Integer numDestinationCards;
+    private ArrayList<DestinationCard> destinationCardHand;
+    private ArrayList<DestinationCard> newDestinationCards;
 
     public Player(String username, Enum playerColor) {
         this.username = username;
@@ -28,9 +27,27 @@ public class Player {
         this.routesOwned = new HashSet<>(0);
         this.individualLongestRouteValue = 0;
         this.hasLongestRoute = false;
-        this.destinationCards = new ArrayList<>();
-        this.numDestinationCards = 0;
+        this.destinationCardHand = new ArrayList<>(0);
+        this.newDestinationCards = new ArrayList<>(0);;
         initTickets();
+    }
+
+    public ArrayList<DestinationCard> getDestinationCardHand() {
+        return destinationCardHand;
+    }
+
+    public void addToDestinationCardHand(DestinationCard destinationCard) {
+        this.destinationCardHand.add(destinationCard);
+    }
+
+    public ArrayList<DestinationCard> getNewDestinationCards() {
+        return newDestinationCards;
+    }
+
+    public void removeFromNewDestinationCards(DestinationCard[] returnedCards) {
+        for (DestinationCard card: returnedCards) {
+            this.destinationCardHand.add(card);
+        }
     }
 
     public String getUsername() {
@@ -90,7 +107,8 @@ public class Player {
 
     public void hideCards() {
         tickets = null;
-        destinationCards = null;
+        this.destinationCardHand = null;
+        this.newDestinationCards = null;
     }
 
     public Map<Enums.Color, Integer> getTickets() {

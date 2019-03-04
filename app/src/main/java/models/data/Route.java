@@ -14,4 +14,28 @@ public class Route {
         this.location = location;
 //        this.ownerColor = ownerColor;
     }
+
+    public Integer getPoints() {
+        return points;
+    }
+
+    public void setPoints(Integer points) {
+        this.points = points;
+    }
+
+    public Enums.Color getCardColor() {
+        return cardColor;
+    }
+
+    public void setCardColor(Enums.Color cardColor) {
+        this.cardColor = cardColor;
+    }
+
+    public Pair<String, String> getLocation() {
+        return location;
+    }
+
+    public void setLocation(Pair<String, String> location) {
+        this.location = location;
+    }
 }
