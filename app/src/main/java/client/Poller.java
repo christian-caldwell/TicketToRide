@@ -242,8 +242,9 @@ public class Poller {
                 ClientModel client = ClientModel.create();
                 client.setActiveGame(updatedGame);
                 client.updateGame();
+
+                System.out.println("Current running game: " + ClientModel.create().getActiveGame().toString());
             }
-            System.out.println("Current running game: ");// + ClientModel.create().getActiveGame().toString());
         }
     }
 }

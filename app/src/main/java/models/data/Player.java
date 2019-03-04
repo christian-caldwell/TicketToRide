@@ -19,6 +19,7 @@ public class Player {
     private ArrayList<DestinationCard> destinationCardHand;
     private ArrayList<DestinationCard> newDestinationCards;
 
+
     public Player(String username, Enum playerColor) {
         this.username = username;
         this.playerColor = playerColor;
@@ -120,11 +121,7 @@ public class Player {
     }
 
     public ArrayList<DestinationCard> getDestinationCards() {
-        return destinationCards;
-    }
-
-    public Integer getNumDestinationCards() {
-        return numDestinationCards;
+        return destinationCardHand;
     }
 
 //    public Player copy() {

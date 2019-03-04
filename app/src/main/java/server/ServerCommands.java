@@ -1,7 +1,6 @@
 package server;
 
 
-import java.util.Date;
 import java.util.UUID;
 
 import models.data.ChatMessage;
@@ -124,7 +123,7 @@ public class ServerCommands implements IServer {
             if (targetPlayer != null) {
                 targetPlayer.removeFromNewDestinationCards(returnedCards);
                 targetGame.returnDestinationCards(returnedCards);
-                targetGame.incrementPlayerActionCount();
+                targetGame.incrementNumPlayerActions();
                 result.setSuccessful(true);
                 return result;
             }

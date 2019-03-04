@@ -1,9 +1,7 @@
 package models.data;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Map;
 import java.util.Queue;
@@ -29,12 +27,11 @@ public class Game {
     private ArrayList<Player> players;
     private ArrayList<ChatMessage> chatLog = new ArrayList<>();
     private Enums.Color currentTurnPlayer;
-    private Integer playerActionCount;
+    private Integer numPlayerActions;
     private Integer currentLongestRouteValue;
     ////////////
 
     public Game() {
-        this.playerActionCount = 0;
         isStarted = false;
         initRoutes();
         initTicketContainers();
@@ -45,7 +42,6 @@ public class Game {
     }
 
     public Game(String gameName) {
-        this.playerActionCount = 0;
         this.gameName = gameName;
         isStarted = false;
         initRoutes();
@@ -164,11 +160,11 @@ public class Game {
     }
 
     public Integer getNumPlayerActions() {
-        return playerActionCount;
+        return numPlayerActions;
     }
 
-    public void incrementPlayerActionCount() {
-        playerActionCount++;
+    public void incrementNumPlayerActions() {
+        ++numPlayerActions;
     }
 
     public Integer getCurrentLongestRouteValue() {
