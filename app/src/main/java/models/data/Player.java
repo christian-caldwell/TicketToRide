@@ -13,7 +13,8 @@ public class Player {
     private Integer individualLongestRouteValue;
     private Boolean hasLongestRoute;
     private ArrayList<TrainCard> trainCards;
-    private ArrayList<DestinationCard> destinationCards;
+    private ArrayList<DestinationCard> destinationCardHand;
+    private ArrayList<DestinationCard> newDestinationCards;
 
     public Player(String username, Enum playerColor) {
         this.username = username;
@@ -24,16 +25,28 @@ public class Player {
         this.individualLongestRouteValue = 0;
         this.hasLongestRoute = false;
         this.trainCards = new ArrayList<>(0);
-        this.destinationCards = new ArrayList<>(0);
+        this.destinationCardHand = new ArrayList<>(0);
+        this.newDestinationCards = new ArrayList<>(0);
     }
 
-    public ArrayList<DestinationCard> getDestinationCards() {
-        return destinationCards;
+    public ArrayList<DestinationCard> getDestinationCardHand() {
+        return destinationCardHand;
     }
 
-    public void addDestinationCard(DestinationCard destinationCard) {
-        this.destinationCards.add(destinationCard);
+    public void addToDestinationCardHand(DestinationCard destinationCard) {
+        this.destinationCardHand.add(destinationCard);
     }
+
+    public ArrayList<DestinationCard> getNewDestinationCards() {
+        return newDestinationCards;
+    }
+
+    public void removeFromNewDestinationCards(DestinationCard[] returnedCards) {
+        for (DestinationCard card: returnedCards) {
+            this.destinationCardHand.add(card);
+        }
+    }
+
     public ArrayList<TrainCard> getTrainCards() {
         return trainCards;
     }

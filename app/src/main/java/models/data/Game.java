@@ -25,11 +25,12 @@ public class Game {
     private ArrayList<Player> players;
     private ArrayList<ChatMessage> chatLog = new ArrayList<>();
     private Enums.Color currentTurnPlayer;
-    private Integer numPlayerActions;
+    private Integer playerActionCount;
     private Integer currentLongestRouteValue;
     ////////////
 
     public Game() {
+        this.playerActionCount = 0;
         this.isStarted = false;
         initRoutes();
         initTicketContainers();
@@ -140,11 +141,11 @@ public class Game {
     }
 
     public Integer getNumPlayerActions() {
-        return numPlayerActions;
+        return playerActionCount;
     }
 
-    public void setNumPlayerActions(Integer numPlayerActions) {
-        this.numPlayerActions = numPlayerActions;
+    public void incrementPlayerActionCount() {
+        playerActionCount++;
     }
 
     public Integer getCurrentLongestRouteValue() {
@@ -153,6 +154,23 @@ public class Game {
 
     public void setCurrentLongestRouteValue(Integer currentLongestRouteValue) {
         this.currentLongestRouteValue = currentLongestRouteValue;
+    }
+
+    public void returnDestinationCards (DestinationCard[] returnedCards) {
+        if (returnedCards != null) {
+            for (DestinationCard card: returnedCards) {
+                destinationCards.add(card);
+            }
+        }
+    }
+
+    public Player findPlayer(String username){
+        for (Player foundPlayer: this.players) {
+            if (foundPlayer.getUsername().equals(username)) {
+                return foundPlayer;
+            }
+        }
+        return null;
     }
 
     private void initChatLog() {

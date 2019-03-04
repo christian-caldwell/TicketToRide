@@ -24,6 +24,6 @@ public class PlayersHandPresenter implements IPlayersHandPresenter {
 
     @Override
     public ArrayList<DestinationCard> getDestinationCards() {
-        return clientModel.getPlayer().getDestinationCards();
+        return clientModel.getPlayer().getDestinationCardHand();
     }
 }
