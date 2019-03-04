@@ -129,6 +129,15 @@ public class Game {
         return players;
     }
 
+    public Player getPlayer(String username) {
+        for (Player p: players) {
+            if (p.getUsername().equals(username)) {
+                return p;
+            }
+        }
+        return null;
+    }
+
     public void setPlayers(ArrayList<Player> players) {
         this.players = players;
     }

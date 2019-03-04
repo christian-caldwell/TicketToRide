@@ -11,6 +11,7 @@ import models.data.Game;
 import models.data.Player;
 import models.data.User;
 import view.presenter.GameLobbyPresenter;
+import view.presenter.GamePresenter;
 
 public class ClientModel extends Observable {
     private User userPlayer;
@@ -18,6 +19,7 @@ public class ClientModel extends Observable {
     private ArrayList<Game> lobbyGameList = new ArrayList<>();
     private ArrayList<Game> newGameList = new ArrayList<>();
     private GameLobbyPresenter mGameLobbyPresenter;
+    private GamePresenter mGamePresenter;
 
     //new stuff for phase 2
     private Map<Enums.Color, Integer> ticketCardHand;
@@ -84,6 +86,10 @@ public class ClientModel extends Observable {
 
     public void setActiveGame(Game gamePlaying) {
         this.gameActive = gamePlaying;
+        this.userPlayer.setGameJoined(gamePlaying);
+        this.player = gamePlaying.getPlayer(player.getUsername());
+        this.ticketCardHand = player.getTickets();
+        this.destinationCardHand = player.getDestinationCards();
     }
 
     public ArrayList<Game> getLobbyGamesList() {
@@ -126,6 +132,12 @@ public class ClientModel extends Observable {
 
     public void setGameLobbyPresenter(GameLobbyPresenter gameLobbyPresenter) {
         mGameLobbyPresenter = gameLobbyPresenter;
+    }
+
+    public GamePresenter getGamePresenter() { return mGamePresenter; }
+
+    public void setGamePresenter(GamePresenter gamePresenter) {
+        mGamePresenter = gamePresenter;
     }
 
     public void update() {

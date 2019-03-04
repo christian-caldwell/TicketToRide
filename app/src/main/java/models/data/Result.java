@@ -15,6 +15,7 @@ public class Result {
     private PollManagerData pollResult;
     private boolean isHost;
     private String gameJoined;
+    private Game runningGame;
 
     public boolean isHost() {
         return isHost;
@@ -82,5 +83,13 @@ public class Result {
 
     public void setAuthenticationToken(String authenticationToken) {
         this.authenticationToken = authenticationToken;
+    }
+
+    public void setRunningGame(Game game) {
+        runningGame = game;
+    }
+
+    public Game getRunningGame() {
+        return runningGame;
     }
 }

@@ -55,7 +55,7 @@ public class Poller {
         return result.getPollResult().getGamesChanged();
     }
 
-    public ArrayList<Game> pollServerForStartedGame() {
+    public Game pollServerForStartedGame() {
         ClientModel client = ClientModel.create();
         String className = PollManager.class.getName();
         String methodName = "getRunningGame";
@@ -75,7 +75,7 @@ public class Poller {
         ClientCommunicator communicator = new ClientCommunicator();
 
         Result result = communicator.send(newCommand, "10.0.2.2", "8080");
-        return result.getPollResult().getGamesChanged();
+        return result.getRunningGame();
     }
 
 
@@ -231,8 +231,11 @@ public class Poller {
 //                ClientModel client = ClientModel.create();
 //                client.setActiveGame(game);
 //            }
-            ClientModel client = ClientModel.create();
-            client.updateGame();
+            Game updatedGame = pollServerForStartedGame();
+            if (updatedGame != null) {
+                ClientModel client = ClientModel.create();
+                client.updateGame();
+            }
         }
     }
 }
