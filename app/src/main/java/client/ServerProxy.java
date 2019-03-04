@@ -1,10 +1,14 @@
 package client;
 
+import android.util.Pair;
+
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import java.util.ArrayList;
 
+import models.data.ChatMessage;
 import models.data.DestinationCard;
+import models.data.Enums;
 import models.data.Game;
 import models.data.Result;
 import models.data.Route;
@@ -16,6 +20,7 @@ import server.facade.GameStartFacade;
 import server.facade.LobbyFacade;
 import server.facade.LoginFacade;
 import server.facade.RegisterFacade;
+import server.facade.RunGameFacade;
 
 
 public class ServerProxy implements IServer {
@@ -43,10 +48,6 @@ public class ServerProxy implements IServer {
         ClientCommunicator communicator = new ClientCommunicator();
 
         return communicator.send(newCommand, "10.0.2.2", "8080");
-
-
-        //Request request = new Request();
-//        client.send("127.0.0.1", "8080", request);
     }
 
 
@@ -161,23 +162,138 @@ public class ServerProxy implements IServer {
     }
 
     @Override
-    public Result returnDestinationCards(DestinationCard[] returnedCards, String userName, String gameName) {
-        return null;
+    public Result returnDestinationCards(String userName, String gameName, DestinationCard[] returnedCards) {
+        String className = RunGameFacade.class.getName();
+        String methodName = "requestDestinationCards";
+
+
+        Object[] parameterDataArray = new Object[2 + returnedCards.length];
+        Class<?>[] parameterClassArray = new Class<?>[2 + returnedCards.length];
+
+        parameterClassArray[0] = String.class;
+        parameterClassArray[1] = String.class;
+        parameterDataArray[0] = userName;
+        parameterDataArray[1] = gameName;
+
+        int position = 0;
+        for (DestinationCard currentCard : returnedCards) {
+            Pair<String, String> location = returnedCards[position].getLocations();
+            String first_location = location.first;
+            String second_location = location.second;
+            Integer points = returnedCards[position].getPoints();
+
+            parameterClassArray[2 + position*3] = String.class;
+            parameterClassArray[3 + position*3] = String.class;
+            parameterClassArray[4 + position*3] = Integer.class;
+            parameterDataArray[2 + position*3] = first_location;
+            parameterDataArray[3 + position*3] = second_location;
+            parameterDataArray[4 + position*3] = points;
+            position++;
+        }
+
+        GeneralCommand newCommand = new GeneralCommand(className, methodName, parameterClassArray, parameterDataArray);
+
+        ClientCommunicator communicator = new ClientCommunicator();
+
+        return communicator.send(newCommand, "10.0.2.2", "8080");
     }
 
     @Override
-    public Result purchaseRoute(Route purchasedRoute, String userName, String gameName) {
-        return null;
+    public Result purchaseRoute(String userName, String gameName, Route purchasedRoute) {
+        String className = RunGameFacade.class.getName();
+        String methodName = "purchaseRoute";
+
+        Pair<String, String> location = purchasedRoute.getLocation();
+        String first_location = location.first;
+        String second_location = location.second;
+
+        Object[] parameterDataArray = new Object[6];
+        Class<?>[] parameterClassArray = new Class<?>[6];
+
+        parameterClassArray[0] = String.class;
+        parameterClassArray[1] = String.class;
+        parameterClassArray[2] = Integer.class;
+        parameterClassArray[3] = String.class;
+        parameterClassArray[4] = String.class;
+        parameterClassArray[5] = Enums.Color.class;
+        parameterDataArray[0] = userName;
+        parameterDataArray[1] = gameName;
+        parameterDataArray[2] = purchasedRoute.getPoints();
+        parameterDataArray[3] = first_location;
+        parameterDataArray[4] = second_location;
+        parameterDataArray[5] = purchasedRoute.getCardColor();
+
+        GeneralCommand newCommand = new GeneralCommand(className, methodName, parameterClassArray, parameterDataArray);
+
+        ClientCommunicator communicator = new ClientCommunicator();
+
+        return communicator.send(newCommand, "10.0.2.2", "8080");
     }
 
     @Override
     public Result requestDestinationCards(String userName, String gameName) {
-        return null;
+        String className = RunGameFacade.class.getName();
+        String methodName = "requestDestinationCards";
+
+        Object[] parameterDataArray = new Object[4];
+        Class<?>[] parameterClassArray = new Class<?>[4];
+
+        parameterClassArray[0] = String.class;
+        parameterClassArray[1] = String.class;
+        parameterDataArray[0] = userName;
+        parameterDataArray[1] = gameName;
+
+        GeneralCommand newCommand = new GeneralCommand(className, methodName, parameterClassArray, parameterDataArray);
+
+        ClientCommunicator communicator = new ClientCommunicator();
+
+        return communicator.send(newCommand, "10.0.2.2", "8080");
     }
 
     @Override
-    public Result requestTicketCards(boolean[] faceUpCardsDrawn, String userName, String gameName) {
-        return null;
+    public Result requestTicketCard(String userName, String gameName, Integer selectedCard) {
+        String className = RunGameFacade.class.getName();
+        String methodName = "requestTicketCard";
+
+        Object[] parameterDataArray = new Object[4];
+        Class<?>[] parameterClassArray = new Class<?>[4];
+
+        parameterClassArray[0] = String.class;
+        parameterClassArray[1] = String.class;
+        parameterClassArray[2] = Integer.class;
+        parameterDataArray[0] = userName;
+        parameterDataArray[1] = gameName;
+        parameterDataArray[2] = selectedCard;
+
+        GeneralCommand newCommand = new GeneralCommand(className, methodName, parameterClassArray, parameterDataArray);
+
+        ClientCommunicator communicator = new ClientCommunicator();
+
+        return communicator.send(newCommand, "10.0.2.2", "8080");
+    }
+
+    @Override
+    public Result postChatMessage(String gameName, ChatMessage chatMessage) {
+        String className = RunGameFacade.class.getName();
+        String methodName = "postChatMessage";
+
+        Object[] parameterDataArray = new Object[4];
+        Class<?>[] parameterClassArray = new Class<?>[4];
+
+        parameterClassArray[0] = String.class;
+        parameterClassArray[1] = String.class;
+        parameterClassArray[2] = String.class;
+        parameterClassArray[3] = String.class;
+        parameterDataArray[0] = chatMessage.getAuthorUserName();
+        parameterDataArray[1] = gameName;
+        parameterDataArray[2] = chatMessage.getMessageContents();
+        parameterDataArray[3] = chatMessage.getTimeStamp();
+
+        GeneralCommand newCommand = new GeneralCommand(className, methodName, parameterClassArray, parameterDataArray);
+
+        ClientCommunicator communicator = new ClientCommunicator();
+
+        return communicator.send(newCommand, "10.0.2.2", "8080");
     }
 
     public ArrayList<Game> getGames() {

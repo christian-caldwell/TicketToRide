@@ -80,4 +80,8 @@ public class ServerData {
         return sServerData;
     }
 
+    public Game findGame(String gameName) {
+        return availableGames.get(gameName);
+    }
+
 }

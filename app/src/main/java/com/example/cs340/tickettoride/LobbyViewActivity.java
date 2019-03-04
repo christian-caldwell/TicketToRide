@@ -37,15 +37,6 @@ public class LobbyViewActivity extends AppCompatActivity /*implements IGameLobby
     private String create_game_text = "";
     private static RecyclerViewAdapter adapter;
     private IGameLobbyPresenter presenter;
-    private static LobbyViewActivity singleton;
-    private Activity a = LobbyViewActivity.this;
-
-//    public static LobbyViewActivity create() {
-//        if (singleton == null) {
-//            singleton = new LobbyViewActivity();
-//        }
-//        return singleton;
-//    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
