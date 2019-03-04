@@ -281,9 +281,9 @@ public class LobbyViewActivity extends AppCompatActivity /*implements IGameLobby
                     disableStartGameButton();
                 }
                 if (user.getGame().isStarted()) {
+                    Poller.instance().startPollingGame();
                     Intent intent = new Intent(context, GameBoardActivity.class);
                     intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                    Poller.end();
                     context.startActivity(intent);
                 }
             }

@@ -90,11 +90,11 @@ public class PollManager {
         if (game.getNumPlayerActions().equals(playerActions)) {
             game = null;
         }
-
-        if (!game.getPlayerUsernames().contains(userName)) {
+        else if (!game.getPlayerUsernames().contains(userName)) {
             System.out.println("This user doesn't belong here!!!!");
             game = null;
         }
+
 
         //game = deep copy of game, serialize and deserialize? make everything cloneable?
 

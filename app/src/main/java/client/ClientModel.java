@@ -85,11 +85,13 @@ public class ClientModel extends Observable {
     }
 
     public void setActiveGame(Game gamePlaying) {
-        this.gameActive = gamePlaying;
-        this.userPlayer.setGameJoined(gamePlaying);
-        this.player = gamePlaying.getPlayer(player.getUsername());
-        this.ticketCardHand = player.getTickets();
-        this.destinationCardHand = player.getDestinationCards();
+        if (gamePlaying.getPlayer(player.getUsername()) != null) {
+            this.gameActive = gamePlaying;
+            this.userPlayer.setGameJoined(gamePlaying);
+            this.player = gamePlaying.getPlayer(player.getUsername());
+            this.ticketCardHand = player.getTickets();
+            this.destinationCardHand = player.getDestinationCards();
+        }
     }
 
     public ArrayList<Game> getLobbyGamesList() {
@@ -141,22 +143,26 @@ public class ClientModel extends Observable {
     }
 
     public void update() {
-        addObserver(this.mGameLobbyPresenter);
+        if (mGameLobbyPresenter != null) {
+            addObserver(this.mGameLobbyPresenter);
 //        addObserver(new GamePresenter());
 //        addObserver(new LoginPresenter());
 //        addObserver(new RegisterPresenter());
 
-        setChanged();
-        notifyObservers();
-        deleteObservers();
-        //clearChangeList();
+            setChanged();
+            notifyObservers();
+            deleteObservers();
+            //clearChangeList();
+        }
     }
 
     public void updateGame() {
-        //add GamePresenter
-        setChanged();
-        notifyObservers();
-        deleteObservers();
+        if (mGamePresenter != null) {
+            addObserver(this.mGamePresenter);
+            setChanged();
+            notifyObservers();
+            deleteObservers();
+        }
     }
 
     @Override

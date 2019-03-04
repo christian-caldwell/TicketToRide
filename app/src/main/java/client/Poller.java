@@ -15,6 +15,10 @@ public class Poller {
     private PollerState state;
     private static Poller singleton;
 
+    public static Poller instance() {
+        return singleton;
+    }
+
     public static void end() {
         singleton.shutdown();
     }
@@ -60,10 +64,12 @@ public class Poller {
         String className = PollManager.class.getName();
         String methodName = "getRunningGame";
 
+        Game game = client.getUser().getGame();
+
         Object[] parameterDataArray = new Object[3];
-        parameterDataArray[0] = client.getActiveGame().getGameName();
+        parameterDataArray[0] = game.getGameName();
         parameterDataArray[1] = client.getUser().getUsername();
-        parameterDataArray[2] = client.getActiveGame().getNumPlayerActions();
+        parameterDataArray[2] = game.getNumPlayerActions();
 
         Class<?>[] parameterClassArray = new Class<?>[3];
         parameterClassArray[0] = String.class;
@@ -143,9 +149,7 @@ public class Poller {
         return getClass().getName();
     }
 
-    public void startPollingLobby() {
-        state = new PSLobby();
-    }
+    public void startPollingLobby() { state = new PSLobby(); }
 
     public void startPollingGame() {
         state = new PSGame();
@@ -234,8 +238,10 @@ public class Poller {
             Game updatedGame = pollServerForStartedGame();
             if (updatedGame != null) {
                 ClientModel client = ClientModel.create();
+                client.setActiveGame(updatedGame);
                 client.updateGame();
             }
+            System.out.println("Current running game: ");// + ClientModel.create().getActiveGame().toString());
         }
     }
 }
