@@ -1,7 +1,9 @@
 package models.data;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Map;
 import java.util.Set;
 
 public class Player {
@@ -12,7 +14,8 @@ public class Player {
     private Set<Route> routesOwned;
     private Integer individualLongestRouteValue;
     private Boolean hasLongestRoute;
-    private ArrayList<TrainCard> trainCards;
+    private Map<Enums.Color, Integer> tickets;
+    private Integer numTickets;
     private ArrayList<DestinationCard> destinationCardHand;
     private ArrayList<DestinationCard> newDestinationCards;
 
@@ -24,9 +27,9 @@ public class Player {
         this.routesOwned = new HashSet<>(0);
         this.individualLongestRouteValue = 0;
         this.hasLongestRoute = false;
-        this.trainCards = new ArrayList<>(0);
         this.destinationCardHand = new ArrayList<>(0);
-        this.newDestinationCards = new ArrayList<>(0);
+        this.newDestinationCards = new ArrayList<>(0);;
+        initTickets();
     }
 
     public ArrayList<DestinationCard> getDestinationCardHand() {
@@ -46,15 +49,6 @@ public class Player {
             this.destinationCardHand.add(card);
         }
     }
-
-    public ArrayList<TrainCard> getTrainCards() {
-        return trainCards;
-    }
-
-    public void addTrainCards(TrainCard trainCard) {
-        this.trainCards.add(trainCard);
-    }
-
 
     public String getUsername() {
         return username;
@@ -102,4 +96,32 @@ public class Player {
     public void setHasLongestRoute(Boolean hasLongestRoute) {
         this.hasLongestRoute = hasLongestRoute;
     }
+
+    private void initTickets() {
+        tickets = new HashMap<>();
+        for (Enums.Color c: Enums.Color.values()) {
+            tickets.put(c, 0);
+        }
+        numTickets = 0;
+    }
+
+    public void hideCards() {
+        tickets = null;
+        this.destinationCardHand = null;
+        this.newDestinationCards = null;
+    }
+
+//    public Player copy() {
+//        Player clone = new Player(username, playerColor);
+//        clone.score = score;
+//        clone.trainsRemaining = trainsRemaining;
+//        clone.routesOwned = new HashSet<>(routesOwned);
+//        clone.individualLongestRouteValue = individualLongestRouteValue;
+//        clone.hasLongestRoute = hasLongestRoute;
+//        clone.destinationCards = new ArrayList<>(destinationCards);
+//        clone.numDestinationCards = numDestinationCards;
+//        clone.tickets = new HashMap<>(tickets);
+//        clone.numTickets = numTickets;
+//        return clone;
+//    }
 }

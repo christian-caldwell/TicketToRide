@@ -58,6 +58,21 @@ public class ServerData {
         this.users.add(user);
     }
 
+    public boolean isHost(User user) {
+        for (String s: availableGames.keySet()) {
+            if (availableGames.get(s).getPlayers().get(0).equals(user.getUsername())) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public void removeFromGames(User user) {
+        for (String s: availableGames.keySet()) {
+            availableGames.get(s).getPlayers().remove(user.getUsername());
+        }
+    }
+
     public static ServerData getInstance() {
         if (sServerData == null) {
             sServerData = new ServerData();
