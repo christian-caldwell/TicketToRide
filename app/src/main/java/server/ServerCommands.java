@@ -40,7 +40,7 @@ public class ServerCommands implements IServer {
             }
             result.setGame(gameName);
             result.setSuccessful(true);
-            serverData.getGame(gameName).addPlayer(username);
+            serverData.getGame(gameName).addPlayerUsername(username);
         }
         clientProxy.updateJoinGame(serverData.getGame(gameName));
         return result;
@@ -64,10 +64,13 @@ public class ServerCommands implements IServer {
     @Override
     public Result startGame(String gameName) {
         clientProxy.updateStartGame(gameName);
-        serverData.getGame(gameName).setStarted(true);
+        Game targetGame = serverData.getGame(gameName);
+        serverData.initializeGamePlayers(targetGame);
+        serverData.initializeContainers(targetGame);
+        serverData.dealHands(targetGame);
+        targetGame.setStarted(true);
         Result result = new Result();
         result.setSuccessful(true);
-
         return result;
     }
 

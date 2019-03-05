@@ -2,10 +2,9 @@ package models.data;
 
 public class Enums {
     public enum Color {
-        GREEN, RED, YELLOW, BLUE, OARNGE, PURPLE, WHITE, BLACK, WILD
+        GREEN, RED, YELLOW, BLUE, ORANGE, PURPLE, WHITE, BLACK, WILD
     }
-    public enum playerColor {
+    public enum PlayerColor {
         RED, GREEN, BLUE, YELLOW, BLACK
     }
-
 }

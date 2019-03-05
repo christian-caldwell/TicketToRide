@@ -2,54 +2,43 @@ package models.data;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+import java.util.ArrayDeque;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Map;
 import java.util.Queue;
 import java.util.Set;
 
 public class Game {
-    public String status;
     private boolean isStarted;
     private String gameName;
-    private ArrayList<String> playerUsernames = new ArrayList<>();
-
-    //new stuff for phase 2
-    private Map<Enums.Color, Integer> ticketCardDeck;
-
-    public ArrayList<String> getPlayerUsernames() {
-        return playerUsernames;
-    }
-
-    private Map<Enums.Color, Integer> ticketCardDiscard;
-    private ArrayList<TrainCard> faceUpTrainCards = new ArrayList<>(5);
-    private Queue<DestinationCard> destinationCards;
-    private Set<Route> availableRoutes;
-    private ArrayList<Player> players;
-    private ArrayList<ChatMessage> chatLog = new ArrayList<>();
-    private Enums.Color currentTurnPlayer;
     private Integer numPlayerActions;
     private Integer currentLongestRouteValue;
-    ////////////
+    private Enums.Color currentTurnPlayer;
 
-    public Game() {
-        isStarted = false;
-        initRoutes();
-        initTicketContainers();
-        initDestinationCards();
-        initPlayers();
-        initChatLog();
-        numPlayerActions = 0;
-    }
+    private ArrayList<String> playerUsernames = new ArrayList<>();
+
+    private ArrayList<Player> players;
+    private ArrayList<ChatMessage> chatLog = new ArrayList<>();
+    private Map<Enums.Color, Integer> ticketCardDeck = new HashMap<>();
+    private Map<Enums.Color, Integer> ticketCardDiscard = new HashMap<>();
+    private TrainCard[] faceUpTrainCards = new TrainCard[5];
+    private Set<DestinationCard> destinationDeck = new HashSet<>();
+    private Set<Route> availableRoutes = new HashSet<>();
+
+    ////////////
 
     public Game(String gameName) {
         this.gameName = gameName;
         isStarted = false;
-        initRoutes();
-        initTicketContainers();
-        initDestinationCards();
-        initPlayers();
-        initChatLog();
         numPlayerActions = 0;
+        currentLongestRouteValue = 0;
+        currentTurnPlayer = Enums.Color.RED;
+    }
+
+    public ArrayList<String> getPlayerUsernames() {
+        return playerUsernames;
     }
 
     public boolean isStarted() {
@@ -69,22 +58,7 @@ public class Game {
         return "";
     }
 
-    public void addPlayer(String userName) { this.playerUsernames.add(userName); }
-
-
-    private void initRoutes() {
-        currentLongestRouteValue = 0;
-        numPlayerActions = 0;
-    }
-    private void initTicketContainers() {
-
-    }
-    private void initDestinationCards() {
-
-    }
-    private void initPlayers() {
-
-    }
+    public void addPlayerUsername(String userName) { this.playerUsernames.add(userName); }
 
     public Map<Enums.Color, Integer> getTicketCardDeck() {
         return ticketCardDeck;
@@ -102,20 +76,20 @@ public class Game {
         this.ticketCardDiscard = ticketCardDiscard;
     }
 
-    public ArrayList<TrainCard> getFaceUpTrainCards() {
+    public TrainCard[] getFaceUpTrainCards() {
         return faceUpTrainCards;
     }
 
-    public void setFaceUpTrainCards(ArrayList<TrainCard> faceUpTrainCards) {
-        this.faceUpTrainCards = faceUpTrainCards;
+    public void setFaceUpTrainCard(TrainCard card, int position) {
+        this.faceUpTrainCards[position] = card;
     }
 
-    public Queue<DestinationCard> getDestinationCards() {
-        return destinationCards;
+    public Set<DestinationCard> getDestinationDeck() {
+        return destinationDeck;
     }
 
-    public void setDestinationCards(Queue<DestinationCard> destinationCards) {
-        this.destinationCards = destinationCards;
+    public void setDestinationDeck(Set<DestinationCard> destinationDeck) {
+        this.destinationDeck = destinationDeck;
     }
 
     public Set<Route> getAvailableRoutes() {
@@ -139,8 +113,8 @@ public class Game {
         return null;
     }
 
-    public void setPlayers(ArrayList<Player> players) {
-        this.players = players;
+    public void addInitializedPlayer(Player newPlayer) {
+        this.players.add(newPlayer);
     }
 
     public ArrayList<ChatMessage> getChatLog() {
@@ -155,16 +129,45 @@ public class Game {
         return currentTurnPlayer;
     }
 
-    public void setCurrentTurnPlayer(Enums.Color currentTurnPlayer) {
-        this.currentTurnPlayer = currentTurnPlayer;
-    }
-
     public Integer getNumPlayerActions() {
         return numPlayerActions;
     }
 
     public void incrementNumPlayerActions() {
         ++numPlayerActions;
+    }
+
+    public void incrementCurrentTurnPlayer() {
+        if (this.currentTurnPlayer == Enums.Color.RED) {
+            this.currentTurnPlayer = Enums.Color.GREEN;
+        }
+        else if (this.currentTurnPlayer == Enums.Color.GREEN) {
+            if (this.players.size() > 2) {
+                this.currentTurnPlayer = Enums.Color.BLUE;
+            }
+            else {
+                this.currentTurnPlayer = Enums.Color.RED;
+            }
+        }
+        else if (this.currentTurnPlayer == Enums.Color.BLUE) {
+            if (this.players.size() > 3) {
+                this.currentTurnPlayer = Enums.Color.YELLOW;
+            }
+            else {
+                this.currentTurnPlayer = Enums.Color.RED;
+            }
+        }
+        else if (this.currentTurnPlayer == Enums.Color.YELLOW) {
+            if (this.players.size() > 4) {
+                this.currentTurnPlayer = Enums.Color.BLACK;
+            }
+            else {
+                this.currentTurnPlayer = Enums.Color.RED;
+            }
+        }
+        else if (this.currentTurnPlayer == Enums.Color.BLACK) {
+            this.currentTurnPlayer = Enums.Color.RED;
+        }
     }
 
     public Integer getCurrentLongestRouteValue() {
@@ -178,7 +181,7 @@ public class Game {
     public void returnDestinationCards (DestinationCard[] returnedCards) {
         if (returnedCards != null) {
             for (DestinationCard card: returnedCards) {
-                destinationCards.add(card);
+                destinationDeck.add(card);
             }
         }
     }
@@ -190,10 +193,6 @@ public class Game {
             }
         }
         return null;
-    }
-
-    private void initChatLog() {
-        chatLog = new ArrayList<>();
     }
 
     public Game copy() {

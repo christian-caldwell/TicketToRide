@@ -1,5 +1,6 @@
 package models.data;
 
+import models.Constants;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -7,29 +8,27 @@ import java.util.Map;
 import java.util.Set;
 
 public class Player {
-    private String username;
-    private Enum playerColor;
+    private Boolean hasLongestRoute;
     private Integer score;
     private Integer trainsRemaining;
-    private Set<Route> routesOwned;
     private Integer individualLongestRouteValue;
-    private Boolean hasLongestRoute;
-    private Map<Enums.Color, Integer> tickets;
     private Integer numTickets;
-    private ArrayList<DestinationCard> destinationCardHand;
-    private ArrayList<DestinationCard> newDestinationCards;
+    private String username;
+    private Enum playerColor;
+
+    private Set<Route> routesOwned = new HashSet<>(0);
+    private Map<Enums.Color, Integer> tickets = new HashMap<>();
+    private ArrayList<DestinationCard> destinationCardHand = new ArrayList<>(0);
+    private ArrayList<DestinationCard> newDestinationCards = new ArrayList<>(0);
 
 
     public Player(String username, Enum playerColor) {
         this.username = username;
         this.playerColor = playerColor;
-        this.score =0;
-        this.trainsRemaining = 45;//TODO: i cant remember if this is the right # of trains that a player starts with
-        this.routesOwned = new HashSet<>(0);
+        this.score = 0;
+        this.trainsRemaining = Constants.TRAIN_STARTING_COUNT;//TODO: i cant remember if this is the right # of trains that a player starts with
         this.individualLongestRouteValue = 0;
         this.hasLongestRoute = false;
-        this.destinationCardHand = new ArrayList<>(0);
-        this.newDestinationCards = new ArrayList<>(0);;
         initTickets();
     }
 
@@ -98,8 +97,11 @@ public class Player {
         this.hasLongestRoute = hasLongestRoute;
     }
 
+    public void addTicketToHand(Enums.Color color) {
+        this.tickets.put(color,tickets.get(color)+1);
+    }
+
     private void initTickets() {
-        tickets = new HashMap<>();
         for (Enums.Color c: Enums.Color.values()) {
             tickets.put(c, 0);
         }

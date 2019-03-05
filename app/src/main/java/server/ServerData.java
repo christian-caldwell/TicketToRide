@@ -1,10 +1,21 @@
 package server;
 
+import java.util.ArrayDeque;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Map;
+import java.util.Collections;
+import java.util.Queue;
+import java.util.Set;
 
+import models.Constants;
+import models.data.DestinationCard;
+import models.data.Enums;
 import models.data.Game;
+import models.data.Player;
+import models.data.Route;
+import models.data.TrainCard;
 import models.data.User;
 
 import models.data.Result;
@@ -13,6 +24,13 @@ public class ServerData {
     private static ServerData sServerData;
     private Map<String, Game> availableGames;
     private ArrayList<User> users;
+
+    private Map<Enums.Color, Integer> initialTicketDeck = new HashMap<>();
+    private Queue<DestinationCard> initialDestinationDeck = new ArrayDeque<>();
+    private Set<Route> initialRouteSet = new HashSet<>();
+
+
+
 
 
     public ServerData() {
@@ -84,4 +102,54 @@ public class ServerData {
         return availableGames.get(gameName);
     }
 
+    public void initializeGamePlayers(Game targetGame) {
+        ArrayList<String> usernameList = targetGame.getPlayerUsernames();
+        Collections.shuffle(usernameList);
+        int playerCount = 0;
+        for(String username: usernameList) {
+            playerCount++;
+            Player userPlayer = null;
+            switch (playerCount) {
+                case (1):
+                    userPlayer = new Player(username, Enums.PlayerColor.RED);
+                    break;
+                case (2):
+                    userPlayer = new Player(username, Enums.PlayerColor.GREEN);
+                    break;
+                case (3):
+                    userPlayer = new Player(username, Enums.PlayerColor.BLUE);
+                    break;
+                case (4):
+                    userPlayer = new Player(username, Enums.PlayerColor.YELLOW);
+                    break;
+                case (5):
+                    userPlayer = new Player(username, Enums.PlayerColor.BLACK);
+                    break;
+                default:
+                    System.out.println("Initializing more than 5 players!");
+            }
+            if (userPlayer != null) {
+                targetGame.addInitializedPlayer(userPlayer);
+            }
+        }
+    }
+
+    public void initializeContainers(Game targetGame) {
+        targetGame.setTicketCardDeck(Constants.getStartingTicketDeck());
+        targetGame.setAvailableRoutes(Constants.getStartingRouteSet());
+        targetGame.setDestinationDeck(Constants.getStartingDestinationDeck());
+        for(int i  = 0; i < 5; i++) {
+            TrainCard card = targetGame.dealTicketCard(0);
+            targetGame.setFaceUpTrainCard(card, i);
+        }
+    }
+
+    public void dealHands (Game targetGame) {
+        for (Player targetPlayer: targetGame.getPlayers()) {
+            for (int i = 0; i < 3; i++) {
+                TrainCard card = targetGame.dealTicketCard(0);
+                targetPlayer.addTicketToHand(card.getCardColor());
+            }
+        }
+    }
 }

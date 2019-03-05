@@ -71,7 +71,7 @@ public class GameLobbyPresenter implements IGameLobbyPresenter, Observer {
         User player = client.getPlayer();
         LobbyFacadeOut lobbyFacadeOut = new LobbyFacadeOut();
         player.setGameJoined(game);
-        game.addPlayer(player.getUsername());
+        game.addPlayerUsername(player.getUsername());
         result = lobbyFacadeOut.createGame(game, player.getUsername());
         if(result.isSuccessful()) {
             player.setHost(true);
@@ -87,15 +87,10 @@ public class GameLobbyPresenter implements IGameLobbyPresenter, Observer {
             Poller.startLobbyPoller();
             return true;
         }
-
-
         catch (Exception e) {
             return false;
         }
     }
-
-
-
 
     @Override
     public void update(Observable o, Object arg) {
@@ -110,10 +105,5 @@ public class GameLobbyPresenter implements IGameLobbyPresenter, Observer {
         //TODO: i think we need new LobbyViewActivity() here as second param
         new LobbyViewActivity.UpdateGameListAsyncTask(client.getUser(), gameLobby).execute(this.gameList);
     }
-
-
-    // AsyncTask Class
-
-
 
 }
