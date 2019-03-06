@@ -129,7 +129,7 @@ public class ServerData {
                     System.out.println("Initializing more than 5 players!");
             }
             if (userPlayer != null) {
-                targetGame.addInitializedPlayer(userPlayer);
+                targetGame.addPlayer(userPlayer);
             }
         }
     }
@@ -138,10 +138,7 @@ public class ServerData {
         targetGame.setTicketCardDeck(Constants.getStartingTicketDeck());
         targetGame.setAvailableRoutes(Constants.getStartingRouteSet());
         targetGame.setDestinationDeck(Constants.getStartingDestinationDeck());
-        for(int i  = 0; i < 5; i++) {
-            TrainCard card = targetGame.dealTicketCard(0);
-            targetGame.setFaceUpTrainCard(card, i);
-        }
+        targetGame.dealFaceUpTicketCards();
     }
 
     public void dealHands (Game targetGame) {
@@ -150,6 +147,7 @@ public class ServerData {
                 TrainCard card = targetGame.dealTicketCard(0);
                 targetPlayer.addTicketToHand(card.getCardColor());
             }
+            targetPlayer.addToNewDestinationCardHand(targetGame.dealDestinationCard());
         }
     }
 }

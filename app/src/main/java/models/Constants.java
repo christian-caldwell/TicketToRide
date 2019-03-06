@@ -12,6 +12,7 @@ import java.util.Set;
 import models.data.DestinationCard;
 import models.data.Enums;
 import models.data.Route;
+import models.data.TrainCard;
 
 public class Constants {
     public final static String ATLANTA_STRING = "Atlanta";
@@ -46,6 +47,27 @@ public class Constants {
 /*
     public final Route VAN_TO_SEA_1 = new Route(, Enums.Color. , new Pair<String, String>(, ));
     public final Route VAN_TO_SEA_2 = new Route(, Enums.Color. , new Pair<String, String>(, ));
+    public final Route  = new Route(, Enums.Color. , new Pair<String, String>(, ));
+    public final Route  = new Route(, Enums.Color. , new Pair<String, String>(, ));
+    public final Route  = new Route(, Enums.Color. , new Pair<String, String>(, ));
+    public final Route  = new Route(, Enums.Color. , new Pair<String, String>(, ));
+    public final Route  = new Route(, Enums.Color. , new Pair<String, String>(, ));
+    public final Route  = new Route(, Enums.Color. , new Pair<String, String>(, ));
+    public final Route  = new Route(, Enums.Color. , new Pair<String, String>(, ));
+    public final Route  = new Route(, Enums.Color. , new Pair<String, String>(, ));
+    public final Route  = new Route(, Enums.Color. , new Pair<String, String>(, ));
+    public final Route  = new Route(, Enums.Color. , new Pair<String, String>(, ));
+    public final Route  = new Route(, Enums.Color. , new Pair<String, String>(, ));
+    public final Route  = new Route(, Enums.Color. , new Pair<String, String>(, ));
+    public final Route  = new Route(, Enums.Color. , new Pair<String, String>(, ));
+    public final Route  = new Route(, Enums.Color. , new Pair<String, String>(, ));
+    public final Route  = new Route(, Enums.Color. , new Pair<String, String>(, ));
+    public final Route  = new Route(, Enums.Color. , new Pair<String, String>(, ));
+    public final Route  = new Route(, Enums.Color. , new Pair<String, String>(, ));
+    public final Route  = new Route(, Enums.Color. , new Pair<String, String>(, ));
+    public final Route  = new Route(, Enums.Color. , new Pair<String, String>(, ));
+    public final Route  = new Route(, Enums.Color. , new Pair<String, String>(, ));
+    public final Route  = new Route(, Enums.Color. , new Pair<String, String>(, ));
     public final Route  = new Route(, Enums.Color. , new Pair<String, String>(, ));
     public final Route  = new Route(, Enums.Color. , new Pair<String, String>(, ));
     public final Route  = new Route(, Enums.Color. , new Pair<String, String>(, ));*/
@@ -101,8 +123,8 @@ public class Constants {
         return newDeck;
     }
 
-    public static Set<DestinationCard> getStartingDestinationDeck(){
-        HashSet<DestinationCard> newDeck = new HashSet<>();
+    public static ArrayList<DestinationCard> getStartingDestinationDeck(){
+        ArrayList<DestinationCard> newDeck = new ArrayList<>();
 
         newDeck.add(DEN_TO_EL);
         newDeck.add(KAN_TO_HOU);
@@ -142,5 +164,20 @@ public class Constants {
         HashSet<Route> newDeck = new HashSet<>();
 
         return newDeck;
+    }
+
+    public static TrainCard getTicket(int colorNumber) {
+        switch (colorNumber) {
+            case (0): return new TrainCard(Enums.Color.RED);
+            case (1): return new TrainCard(Enums.Color.GREEN);
+            case (2): return new TrainCard(Enums.Color.BLUE);
+            case (3): return new TrainCard(Enums.Color.YELLOW);
+            case (4): return new TrainCard(Enums.Color.ORANGE);
+            case (5): return new TrainCard(Enums.Color.PURPLE);
+            case (6): return new TrainCard(Enums.Color.BLACK);
+            case (7): return new TrainCard(Enums.Color.WHITE);
+            case (8): return new TrainCard(Enums.Color.WILD);
+            default: return null;
+        }
     }
 }

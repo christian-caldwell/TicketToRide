@@ -69,6 +69,7 @@ public class ServerCommands implements IServer {
         serverData.initializeContainers(targetGame);
         serverData.dealHands(targetGame);
         targetGame.setStarted(true);
+        targetGame.incrementNumPlayerActions();
         Result result = new Result();
         result.setSuccessful(true);
         return result;

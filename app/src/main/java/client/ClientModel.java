@@ -100,7 +100,7 @@ public class ClientModel extends Observable {
             this.userPlayer.setGameJoined(gamePlaying);
             this.player = gamePlaying.getPlayer(player.getUsername());
             this.ticketCardHand = player.getTickets();
-            this.destinationCardHand = player.getDestinationCards();
+            this.destinationCardHand = player.getDestinationCardHand();
         }
     }
 

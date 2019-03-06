@@ -2,6 +2,7 @@ package server.facade;
 
 import android.util.Pair;
 
+import models.data.ChatMessage;
 import models.data.DestinationCard;
 import models.data.Result;
 import server.ServerCommands;
@@ -39,5 +40,13 @@ public class RunGameFacade {
         returnedCards[0] = card_1;
         returnedCards[1] = card_2;
         return serverCommands.returnDestinationCards(userName, gameName, returnedCards);
+    }
+
+    public Result postChatMessage(String userName, String gameName, String contents, String timpStamp) {
+        ChatMessage message = new ChatMessage();
+        message.setAuthorUserName(userName);
+        message.setMessageContents(contents);
+        message.setTimeStamp(timpStamp);
+        return serverCommands.postChatMessage(gameName, message);
     }
 }

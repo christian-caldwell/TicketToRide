@@ -4,11 +4,15 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 import java.util.ArrayDeque;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
 import java.util.Queue;
+import java.util.Random;
 import java.util.Set;
+
+import models.Constants;
 
 public class Game {
     private boolean isStarted;
@@ -24,7 +28,7 @@ public class Game {
     private Map<Enums.Color, Integer> ticketCardDeck = new HashMap<>();
     private Map<Enums.Color, Integer> ticketCardDiscard = new HashMap<>();
     private TrainCard[] faceUpTrainCards = new TrainCard[5];
-    private Set<DestinationCard> destinationDeck = new HashSet<>();
+    private ArrayList<DestinationCard> destinationDeck = new ArrayList<>();
     private Set<Route> availableRoutes = new HashSet<>();
 
     ////////////
@@ -37,73 +41,132 @@ public class Game {
         currentTurnPlayer = Enums.Color.RED;
     }
 
-    public ArrayList<String> getPlayerUsernames() {
-        return playerUsernames;
-    }
 
     public boolean isStarted() {
         return isStarted;
     }
-
     public void setStarted(boolean started) {
         isStarted = started;
     }
-    
+    //////////////////////////////////////////////////////////////////////////////
+
     public String getGameName() {
         return gameName;
     }
-    
-    
-    public String getStatus() {
-        return "";
-    }
+//////////////////////////////////////////////////////////////////////////////
 
+    public ArrayList<String> getPlayerUsernames() {
+        return playerUsernames;
+    }
     public void addPlayerUsername(String userName) { this.playerUsernames.add(userName); }
+//////////////////////////////////////////////////////////////////////////////
 
     public Map<Enums.Color, Integer> getTicketCardDeck() {
         return ticketCardDeck;
     }
-
     public void setTicketCardDeck(Map<Enums.Color, Integer> ticketCardDeck) {
         this.ticketCardDeck = ticketCardDeck;
     }
+    public TrainCard dealTicketCard(int position) {
+        TrainCard dealtCard = null;
+        if (position == 0) {
+            Enums.Color dealtCardColor = null;
+            int remainingCardCount = 0;
+
+            do {
+                Random generator = new Random();
+                int colorNumber = generator.nextInt(9);
+                dealtCard = Constants.getTicket(colorNumber);
+                dealtCardColor = dealtCard.getCardColor();
+                remainingCardCount = this.ticketCardDeck.get(dealtCardColor);
+            } while (remainingCardCount == 0);
+
+            this.ticketCardDeck.put(dealtCardColor,remainingCardCount - 1);
+        }
+        else if (position < 6) {
+            dealtCard = this.faceUpTrainCards[position - 1];
+            this.faceUpTrainCards[position - 1] = dealTicketCard(0);
+
+            int wildCardCount = 0;
+            for (TrainCard card :this.faceUpTrainCards) {
+                if (card.getCardColor() == Enums.Color.WILD) {
+                    wildCardCount++;
+                }
+            }
+
+            if (wildCardCount >= 3) {
+                reshuffleTicketDecks();
+            }
+        }
+
+        return dealtCard;
+    }
+//////////////////////////////////////////////////////////////////////////////
 
     public Map<Enums.Color, Integer> getTicketCardDiscard() {
         return ticketCardDiscard;
     }
-
     public void setTicketCardDiscard(Map<Enums.Color, Integer> ticketCardDiscard) {
         this.ticketCardDiscard = ticketCardDiscard;
     }
+    public void reshuffleTicketDecks() {
+        for (TrainCard card:this.faceUpTrainCards) {
+            this.ticketCardDiscard.put(card.getCardColor(), ticketCardDeck.get(card.getCardColor()) + 1);
+        }
+        for (Enums.Color color: this.ticketCardDiscard.keySet()){
+            this.ticketCardDeck.put(color,this.ticketCardDeck.get(color) + this.ticketCardDiscard.get(color));
+        }
+
+        dealFaceUpTicketCards();
+    }
+//////////////////////////////////////////////////////////////////////////////
 
     public TrainCard[] getFaceUpTrainCards() {
         return faceUpTrainCards;
     }
-
     public void setFaceUpTrainCard(TrainCard card, int position) {
         this.faceUpTrainCards[position] = card;
     }
+    public void dealFaceUpTicketCards() {
+        for(int i  = 0; i < 5; i++) {
+            TrainCard card = this.dealTicketCard(0);
+            this.setFaceUpTrainCard(card, i);
+        }
+    }
+//////////////////////////////////////////////////////////////////////////////
 
-    public Set<DestinationCard> getDestinationDeck() {
+    public ArrayList<DestinationCard> getDestinationDeck() {
         return destinationDeck;
     }
-
-    public void setDestinationDeck(Set<DestinationCard> destinationDeck) {
+    public void setDestinationDeck(ArrayList<DestinationCard> destinationDeck) {
         this.destinationDeck = destinationDeck;
     }
+    public void returnDestinationCards (DestinationCard[] returnedCards) {
+        if (returnedCards != null) {
+            for (DestinationCard card: returnedCards) {
+                destinationDeck.add(card);
+            }
+        }
+    }
+    public DestinationCard dealDestinationCard() {
+        Collections.shuffle(this.destinationDeck);
+        DestinationCard card = this.destinationDeck.get(0);
+        this.destinationDeck.remove(card);
+        return card;
+    }
+    //////////////////////////////////////////////////////////////////////////////
 
     public Set<Route> getAvailableRoutes() {
         return availableRoutes;
     }
-
     public void setAvailableRoutes(Set<Route> availableRoutes) {
         this.availableRoutes = availableRoutes;
     }
+//////////////////////////////////////////////////////////////////////////////
 
     public ArrayList<Player> getPlayers() {
         return players;
     }
-
     public Player getPlayer(String username) {
         for (Player p: players) {
             if (p.getUsername().equals(username)) {
@@ -112,31 +175,38 @@ public class Game {
         }
         return null;
     }
-
-    public void addInitializedPlayer(Player newPlayer) {
+    public void addPlayer(Player newPlayer) {
         this.players.add(newPlayer);
     }
+    public Player findPlayer(String username){
+        for (Player foundPlayer: this.players) {
+            if (foundPlayer.getUsername().equals(username)) {
+                return foundPlayer;
+            }
+        }
+        return null;
+    }
+//////////////////////////////////////////////////////////////////////////////
 
     public ArrayList<ChatMessage> getChatLog() {
         return chatLog;
     }
-
     public void addChat(ChatMessage chat) {
         this.chatLog.add(chat);
     }
-
-    public Enums.Color getCurrentTurnPlayer() {
-        return currentTurnPlayer;
-    }
+//////////////////////////////////////////////////////////////////////////////
 
     public Integer getNumPlayerActions() {
         return numPlayerActions;
     }
-
     public void incrementNumPlayerActions() {
         ++numPlayerActions;
     }
+//////////////////////////////////////////////////////////////////////////////
 
+    public Enums.Color getCurrentTurnPlayer() {
+        return currentTurnPlayer;
+    }
     public void incrementCurrentTurnPlayer() {
         if (this.currentTurnPlayer == Enums.Color.RED) {
             this.currentTurnPlayer = Enums.Color.GREEN;
@@ -169,31 +239,21 @@ public class Game {
             this.currentTurnPlayer = Enums.Color.RED;
         }
     }
+//////////////////////////////////////////////////////////////////////////////
 
     public Integer getCurrentLongestRouteValue() {
         return currentLongestRouteValue;
     }
-
     public void setCurrentLongestRouteValue(Integer currentLongestRouteValue) {
         this.currentLongestRouteValue = currentLongestRouteValue;
     }
 
-    public void returnDestinationCards (DestinationCard[] returnedCards) {
-        if (returnedCards != null) {
-            for (DestinationCard card: returnedCards) {
-                destinationDeck.add(card);
-            }
-        }
-    }
 
-    public Player findPlayer(String username){
-        for (Player foundPlayer: this.players) {
-            if (foundPlayer.getUsername().equals(username)) {
-                return foundPlayer;
-            }
-        }
-        return null;
-    }
+
+
+
+
+
 
     public Game copy() {
 //        Game clone = new Game();
