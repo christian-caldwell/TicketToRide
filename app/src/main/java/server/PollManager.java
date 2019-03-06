@@ -72,7 +72,9 @@ public class PollManager {
 
 
         for (Map.Entry<String, Game> entry : availableGames.entrySet()) {
-            games.add(entry.getValue());
+            if (!entry.getValue().isStarted()) {
+                games.add(entry.getValue());
+            }
         }
         System.out.println("Current Complete Game List: " + games.toString());
 
