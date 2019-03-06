@@ -1,6 +1,5 @@
 package com.example.cs340.tickettoride;
 
-import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -101,7 +100,7 @@ public class LobbyViewActivity extends AppCompatActivity /*implements IGameLobby
                         if (result.isSuccessful()) {
                             //enableStartGameButton();
                             disableCreateGameButton();
-                            Toast.makeText(LobbyViewActivity.this, "Succesfully created game:" + game.getGameName(), Toast.LENGTH_SHORT).show();
+                            Toast.makeText(LobbyViewActivity.this, "Succesfully created game: " + game.getGameName(), Toast.LENGTH_SHORT).show();
                         } else {
                             Toast.makeText(LobbyViewActivity.this, result.getErrorMessage(), Toast.LENGTH_SHORT).show();
                         }
