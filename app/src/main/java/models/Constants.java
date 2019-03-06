@@ -2,8 +2,6 @@ package models;
 
 import android.util.Pair;
 
-import java.util.ArrayList;
-import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
@@ -23,7 +21,7 @@ public class Constants {
     public final static String DULUTH_STRING = "Duluth";
     public final static String ELPASO_STRING = "El Paso";
     public final static String HELENA_STRING = "Helena";
-    public final static String HOUSTON_STRING = "Houton";
+    public final static String HOUSTON_STRING = "Houston";
     public final static String KANSASCITY_STRING = "Kansas City";
     public final static String LITTLEROCK_STRING = "Little Rock";
     public final static String LOSANGELES_STRING = "Los Angeles";
