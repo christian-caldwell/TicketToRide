@@ -2,6 +2,7 @@ package models;
 
 import android.util.Pair;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
@@ -38,7 +39,7 @@ public class Constants {
     public final static String PHOENIX_STRING = "Phoenix";
     public final static String PITTSBURGH_STRING = "Pittsburgh";
     public final static String PORTLAND_STRING = "Portland";
-    pulbic final static String RALEIGH_STRING = "Raleigh";
+    public final static String RALEIGH_STRING = "Raleigh";
     public final static String SAINTLOUIS_STRING = "Saint Louis";
     public final static String SALTLAKECITY_STRING = "Salt Lake City";
     public final static String SANFRANCISCO_STRING = "San Francisco";
@@ -50,6 +51,7 @@ public class Constants {
     public final static String WASHINGTON_STRING = "Washington";
     public final static String WINNIPEG_STRING = "Winnipeg";
 
+   /*
     public final Route R_VAN_TO_SEA_1 = new Route(1, Enums.Color.WILD , new Pair<String, String>(VANCOUVER_STRING, SEATTLE_STRING));
     public final Route R_VAN_TO_SEA_2 = new Route(1, Enums.Color.WILD , new Pair<String, String>(VANCOUVER_STRING, SEATTLE_STRING));
     public final Route R_SEA_TO_POR_1 = new Route(1, Enums.Color.WILD , new Pair<String, String>(SEATTLE_STRING, PORTLAND_STRING));
@@ -149,7 +151,7 @@ public class Constants {
     public final Route R_NYC_TO_BOS_1 = new Route(, Enums.Color. , new Pair<String, String>(, ));
     public final Route R_NYC_TO_BOS_2 = new Route(, Enums.Color. , new Pair<String, String>(, ));
     public final Route R_MON_TO_BOS_1 = new Route(, Enums.Color. , new Pair<String, String>(, ));
-    public final Route R_MON_TO_BOS_2 = new Route(, Enums.Color. , new Pair<String, String>(, ));
+    public final Route R_MON_TO_BOS_2 = new Route(, Enums.Color. , new Pair<String, String>(, ));*/
 
 
     public final static DestinationCard DEN_TO_EL = new DestinationCard(new Pair<String, String>(DENVER_STRING, ELPASO_STRING), 4);
