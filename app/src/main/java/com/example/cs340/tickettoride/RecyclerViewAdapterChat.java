@@ -32,7 +32,11 @@ public class RecyclerViewAdapterChat  extends RecyclerView.Adapter<RecyclerViewA
     public void onBindViewHolder(@NonNull final ViewHolder holder, final int position) {
         holder.currentMessage.setText(listOfMessages.get(position).getMessageContents());
         holder.timestamp.setText(listOfMessages.get(position).getTimeStamp());
-        //holder.user.setText(presenter.getSenderName());
+        holder.user.setText(listOfMessages.get(position).getAuthorUserName());
+    }
+
+    public void setListOfMessages(ArrayList<ChatMessage> newArrayList) {
+        this.listOfMessages = newArrayList;
     }
 
     @Override
