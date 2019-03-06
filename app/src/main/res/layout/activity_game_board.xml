@@ -5,6 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/tabletop"
+    tools:openDrawer="start"
     tools:context=".GameBoardActivity">
 
     <android.support.constraint.ConstraintLayout
@@ -21,91 +22,99 @@
         app:layout_constraintLeft_toLeftOf="parent"
         tools:ignore="MissingConstraints" />
 
-    <ImageView
+    <Button
         android:id="@+id/imageView1"
         android:layout_width="99dp"
         android:layout_height="65dp"
         android:layout_marginEnd="4dp"
         android:layout_marginRight="4dp"
+        android:background="@drawable/train_card_wild"
         android:src="@drawable/train_card_wild"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         tools:layout_editor_absoluteY="527dp" />
 
-    <ImageView
+    <Button
         android:id="@+id/imageView2"
         android:layout_width="99dp"
         android:layout_height="65dp"
         android:layout_marginEnd="4dp"
         android:layout_marginRight="4dp"
+        android:background="@drawable/train_card_white"
         android:src="@drawable/train_card_white"
         app:layout_constraintBottom_toTopOf="@id/imageView1"
         app:layout_constraintEnd_toEndOf="parent"
         tools:layout_editor_absoluteY="453dp" />
 
-    <ImageView
+    <Button
         android:id="@+id/imageView3"
         android:layout_width="99dp"
         android:layout_height="65dp"
         android:layout_marginEnd="4dp"
         android:layout_marginRight="4dp"
+        android:background="@drawable/train_card_black"
         android:src="@drawable/train_card_black"
         app:layout_constraintBottom_toTopOf="@id/imageView2"
         app:layout_constraintEnd_toEndOf="parent"
         tools:layout_editor_absoluteY="379dp" />
 
-    <ImageView
+    <Button
         android:id="@+id/imageView4"
         android:layout_width="99dp"
         android:layout_height="65dp"
         android:layout_marginEnd="4dp"
         android:layout_marginRight="4dp"
+        android:background="@drawable/train_card_purple"
         android:src="@drawable/train_card_purple"
         app:layout_constraintBottom_toTopOf="@id/imageView3"
         app:layout_constraintEnd_toEndOf="parent"
         tools:layout_editor_absoluteY="305dp" />
 
-    <ImageView
+    <Button
         android:id="@+id/imageView5"
         android:layout_width="99dp"
         android:layout_height="65dp"
         android:layout_marginEnd="4dp"
         android:layout_marginRight="4dp"
+        android:background="@drawable/train_card_blue"
         android:src="@drawable/train_card_blue"
         app:layout_constraintBottom_toTopOf="@id/imageView4"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintLeft_toRightOf="@id/game_board_pic"
         tools:layout_editor_absoluteY="231dp" />
 
-    <ImageView
+    <Button
         android:id="@+id/imageView6"
         android:layout_width="99dp"
         android:layout_height="65dp"
         android:layout_marginEnd="4dp"
         android:layout_marginRight="4dp"
+        android:background="@drawable/train_card_green"
         android:src="@drawable/train_card_green"
         app:layout_constraintBottom_toTopOf="@id/imageView5"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintLeft_toRightOf="@id/game_board_pic"
         tools:layout_editor_absoluteY="157dp" />
 
-    <ImageView
+    <Button
         android:id="@+id/imageView7"
         android:layout_width="99dp"
         android:layout_height="65dp"
         android:layout_marginEnd="4dp"
         android:layout_marginRight="4dp"
+        android:background="@drawable/train_card_yellow"
         android:src="@drawable/train_card_yellow"
         app:layout_constraintBottom_toTopOf="@id/imageView6"
         app:layout_constraintEnd_toEndOf="parent"
         tools:layout_editor_absoluteY="83dp" />
 
-    <ImageView
+    <Button
         android:id="@+id/imageView8"
         android:layout_width="99dp"
         android:layout_height="65dp"
         android:layout_marginEnd="4dp"
         android:layout_marginRight="4dp"
+        android:background="@drawable/train_card_red"
         android:src="@drawable/train_card_red"
         app:layout_constraintBottom_toTopOf="@id/imageView7"
         app:layout_constraintEnd_toEndOf="parent"
@@ -120,15 +129,223 @@
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
         android:layout_gravity="start"
+        android:background="#fff"
+        android:alpha=".9"
         android:fitsSystemWindows="true"
         app:menu="@menu/drawer_view">
 
-        <android.support.v7.widget.RecyclerView
-            android:id="@+id/chat_recycler_view"
+        <RelativeLayout
+            xmlns:android="http://schemas.android.com/apk/res/android"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:id="@+id/navigation_drawer"
+            android:padding="5dp">
 
-        </android.support.v7.widget.RecyclerView>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:id="@+id/layout_for_players_info">
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="70dp"
+                    android:orientation="vertical"
+                    android:layout_weight="0.2">
+
+                    <ImageView
+                        android:layout_width="match_parent"
+                        android:layout_height="20dp"
+                        android:background="@drawable/white_background" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="20dp"
+                        android:text="Player 1"
+                        android:id="@+id/player1_name_text_view"/>
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="20dp"
+                        android:text="Score: 0"
+                        android:id="@+id/player1_score_text_view"/>
+
+                    <ImageView
+                        android:layout_width="match_parent"
+                        android:layout_height="10dp"
+                        android:background="@drawable/white_background" />
+
+                </LinearLayout>
+
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="70dp"
+                    android:orientation="vertical"
+                    android:layout_weight="0.2">
+
+                    <ImageView
+                        android:layout_width="match_parent"
+                        android:layout_height="20dp"
+                        android:background="@drawable/blue_background" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="20dp"
+                        android:text="Player 2"
+                        android:id="@+id/player2_name_text_view"/>
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="20dp"
+                        android:text="Score: 0"
+                        android:id="@+id/player2_score_text_view"/>
+
+                    <ImageView
+                        android:layout_width="match_parent"
+                        android:layout_height="10dp"
+                        android:background="@drawable/blue_background" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="70dp"
+                    android:orientation="vertical"
+                    android:layout_weight="0.2">
+
+                    <ImageView
+                        android:layout_width="match_parent"
+                        android:layout_height="20dp"
+                        android:background="@drawable/red_background" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="20dp"
+                        android:text="Player 3"
+                        android:id="@+id/player3_name_text_view"/>
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="20dp"
+                        android:text="Score: 0"
+                        android:id="@+id/player3_score_text_view"/>
+
+                    <ImageView
+                        android:layout_width="match_parent"
+                        android:layout_height="10dp"
+                        android:background="@drawable/red_background" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="70dp"
+                    android:orientation="vertical"
+                    android:layout_weight="0.2">
+
+                    <ImageView
+                        android:layout_width="match_parent"
+                        android:layout_height="20dp"
+                        android:background="@drawable/green_background" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="20dp"
+                        android:text="Player 4"
+                        android:id="@+id/player4_name_text_view"/>
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="20dp"
+                        android:text="Score: 0"
+                        android:id="@+id/player4_score_text_view"/>
+
+                    <ImageView
+                        android:layout_width="match_parent"
+                        android:layout_height="10dp"
+                        android:background="@drawable/green_background" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="70dp"
+                    android:orientation="vertical"
+                    android:layout_weight="0.2">
+
+                    <ImageView
+                        android:layout_width="match_parent"
+                        android:layout_height="20dp"
+                        android:background="@drawable/yellow_background" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="20dp"
+                        android:text="Player 5"
+                        android:id="@+id/player5_name_text_view"/>
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="20dp"
+                        android:text="Score: 0"
+                        android:id="@+id/player5_score_text_view"/>
+
+                    <ImageView
+                        android:layout_width="match_parent"
+                        android:layout_height="10dp"
+                        android:background="@drawable/yellow_background" />
+
+                </LinearLayout>
+
+
+            </LinearLayout>
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/chat_recycler_view"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="6dp"
+                android:layout_below="@id/layout_for_players_info"
+                android:layout_above="@id/layout_for_sending_message">
+
+            </android.support.v7.widget.RecyclerView>
+
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="#FFF"
+                android:orientation="horizontal"
+                android:layout_gravity="bottom"
+                android:layout_above="@+id/blank_space"
+                android:id="@+id/layout_for_sending_message">
+
+                <EditText
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.9"
+                    android:id="@+id/input_edit_text"/>
+
+                <Button
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:id="@+id/send_message_button"
+                    android:background="@drawable/sendmessagebutton"/>
+
+            </LinearLayout>
+
+            <Space
+                android:layout_width="match_parent"
+                android:layout_height="20dp"
+
+                android:layout_alignParentBottom="true"
+                android:id="@+id/blank_space"/>
+
+
+        </RelativeLayout>
+
 
 
     </android.support.design.widget.NavigationView>

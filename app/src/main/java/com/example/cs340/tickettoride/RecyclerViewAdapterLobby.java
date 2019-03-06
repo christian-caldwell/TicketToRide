@@ -19,14 +19,14 @@ import view.presenterInterface.IGameLobbyPresenter;
 
 // This class will perform all the logic for anything within the recyclerView
 
-public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapter.ViewHolder> {
+public class RecyclerViewAdapterLobby extends RecyclerView.Adapter<RecyclerViewAdapterLobby.ViewHolder> {
 
     private ArrayList<Game> listOfGames = new ArrayList<>();
     private Context mContext;
     private IGameLobbyPresenter presenter; // = new GameLobbyPresenter();
 
 
-    public RecyclerViewAdapter(ArrayList<Game> listOfGames, Context mContext) {
+    public RecyclerViewAdapterLobby(ArrayList<Game> listOfGames, Context mContext) {
         this.listOfGames = listOfGames;
         this.mContext = mContext;
         presenter = ((LobbyViewActivity)mContext).getPresenter();
