@@ -25,6 +25,7 @@ public class GameBoardActivity extends AppCompatActivity {
     IChatPresenter presenter;
     private static ChatRecyclerViewAdapter adapter;
 
+
     @Override
     public void onBackPressed() {
         Toast.makeText(this, "You committed to this game. No turning back.", Toast.LENGTH_LONG).show();
