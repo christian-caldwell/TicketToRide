@@ -1,7 +1,9 @@
 package models.data;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Map;
 import java.util.Set;
 
 public class Player {
@@ -12,8 +14,11 @@ public class Player {
     private Set<Route> routesOwned;
     private Integer individualLongestRouteValue;
     private Boolean hasLongestRoute;
-    private ArrayList<TrainCard> trainCards;
-    private ArrayList<DestinationCard> destinationCards;
+    private Map<Enums.Color, Integer> tickets;
+    private Integer numTickets;
+    private ArrayList<DestinationCard> destinationCardHand;
+    private ArrayList<DestinationCard> newDestinationCards;
+
 
     public Player(String username, Enum playerColor) {
         this.username = username;
@@ -23,25 +28,28 @@ public class Player {
         this.routesOwned = new HashSet<>(0);
         this.individualLongestRouteValue = 0;
         this.hasLongestRoute = false;
-        this.trainCards = new ArrayList<>(0);
-        this.destinationCards = new ArrayList<>(0);
+        this.destinationCardHand = new ArrayList<>(0);
+        this.newDestinationCards = new ArrayList<>(0);;
+        initTickets();
     }
 
-    public ArrayList<DestinationCard> getDestinationCards() {
-        return destinationCards;
+    public ArrayList<DestinationCard> getDestinationCardHand() {
+        return destinationCardHand;
     }
 
-    public void addDestinationCard(DestinationCard destinationCard) {
-        this.destinationCards.add(destinationCard);
-    }
-    public ArrayList<TrainCard> getTrainCards() {
-        return trainCards;
+    public void addToDestinationCardHand(DestinationCard destinationCard) {
+        this.destinationCardHand.add(destinationCard);
     }
 
-    public void addTrainCards(TrainCard trainCard) {
-        this.trainCards.add(trainCard);
+    public ArrayList<DestinationCard> getNewDestinationCards() {
+        return newDestinationCards;
     }
 
+    public void removeFromNewDestinationCards(DestinationCard[] returnedCards) {
+        for (DestinationCard card: returnedCards) {
+            this.destinationCardHand.add(card);
+        }
+    }
 
     public String getUsername() {
         return username;
@@ -89,4 +97,44 @@ public class Player {
     public void setHasLongestRoute(Boolean hasLongestRoute) {
         this.hasLongestRoute = hasLongestRoute;
     }
+
+    private void initTickets() {
+        tickets = new HashMap<>();
+        for (Enums.Color c: Enums.Color.values()) {
+            tickets.put(c, 0);
+        }
+        numTickets = 0;
+    }
+
+    public void hideCards() {
+        tickets = null;
+        this.destinationCardHand = null;
+        this.newDestinationCards = null;
+    }
+
+    public Map<Enums.Color, Integer> getTickets() {
+        return tickets;
+    }
+
+    public Integer getNumTickets() {
+        return numTickets;
+    }
+
+    public ArrayList<DestinationCard> getDestinationCards() {
+        return destinationCardHand;
+    }
+
+//    public Player copy() {
+//        Player clone = new Player(username, playerColor);
+//        clone.score = score;
+//        clone.trainsRemaining = trainsRemaining;
+//        clone.routesOwned = new HashSet<>(routesOwned);
+//        clone.individualLongestRouteValue = individualLongestRouteValue;
+//        clone.hasLongestRoute = hasLongestRoute;
+//        clone.destinationCards = new ArrayList<>(destinationCards);
+//        clone.numDestinationCards = numDestinationCards;
+//        clone.tickets = new HashMap<>(tickets);
+//        clone.numTickets = numTickets;
+//        return clone;
+//    }
 }

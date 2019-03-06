@@ -1,29 +1,25 @@
 package view.presenter;
 
 import java.util.ArrayList;
+import java.util.Map;
 
 import client.ClientModel;
 import models.data.DestinationCard;
-import models.data.TrainCard;
+import models.data.Enums;
 import view.presenterInterface.IPlayersHandPresenter;
 
 public class PlayersHandPresenter implements IPlayersHandPresenter {
     ClientModel clientModel = ClientModel.create();
 
     @Override
-    public Integer getTrainCardAmount(String color) {
-        Integer return_num = 0;
-        ArrayList<TrainCard> trainCards = clientModel.getPlayer().getTrainCards();
-        for (TrainCard trainCard: trainCards) {
-            if (trainCard.getCardColor().equals(color)) {
-                return_num+=1;
-            }
-        }
-        return return_num;
+    public Integer getTrainCardAmount(Enums.Color color) {
+
+        Map<Enums.Color, Integer> trainCards = clientModel.getPlayer().getTickets();
+        return trainCards.get(color);
     }
 
     @Override
     public ArrayList<DestinationCard> getDestinationCards() {
-        return clientModel.getPlayer().getDestinationCards();
+        return clientModel.getPlayer().getDestinationCardHand();
     }
 }

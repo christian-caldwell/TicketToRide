@@ -84,7 +84,7 @@ public class GameLobbyPresenter implements IGameLobbyPresenter, Observer {
     @Override
     public boolean onCreate() {
         try {
-            Poller.start();
+            Poller.startLobbyPoller();
             return true;
         }
 

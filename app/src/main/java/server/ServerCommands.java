@@ -3,8 +3,10 @@ package server;
 
 import java.util.UUID;
 
+import models.data.ChatMessage;
 import models.data.DestinationCard;
 import models.data.Game;
+import models.data.Player;
 import models.data.Result;
 import models.data.Route;
 import models.data.User;
@@ -56,26 +58,6 @@ public class ServerCommands implements IServer {
         clientProxy.updateCreateGame(gameName);
         return result;
 
-    }
-
-    @Override
-    public Result returnDestinationCards(DestinationCard[] returnedCards, String userName, String gameName) {
-        return null;
-    }
-
-    @Override
-    public Result purchaseRoute(Route purchasedRoute, String userName, String gameName) {
-        return null;
-    }
-
-    @Override
-    public Result requestDestinationCards(String userName, String gameName) {
-        return null;
-    }
-
-    @Override
-    public Result requestTicketCards(boolean[] faceUpCardsDrawn, String userName, String gameName) {
-        return null;
     }
 
     //more will be done on this later.
@@ -131,4 +113,61 @@ public class ServerCommands implements IServer {
         return result;
     }
 
+    @Override
+    public Result returnDestinationCards(String userName, String gameName, DestinationCard[] returnedCards) {
+        Result result = new Result();
+        Game targetGame = serverData.findGame(gameName);
+
+        if (targetGame != null) {
+            Player targetPlayer = targetGame.findPlayer(userName);
+            if (targetPlayer != null) {
+                targetPlayer.removeFromNewDestinationCards(returnedCards);
+                targetGame.returnDestinationCards(returnedCards);
+                targetGame.incrementNumPlayerActions();
+                result.setSuccessful(true);
+                return result;
+            }
+            else {
+                result.setSuccessful(false);
+                return result;
+            }
+        }
+        else {
+            result.setSuccessful(false);
+            return result;
+        }
+    }
+
+    @Override
+    public Result purchaseRoute(String userName, String gameName, Route purchasedRoute) {
+        return null;
+    }
+
+    @Override
+    public Result requestDestinationCards(String userName, String gameName) {
+        return null;
+    }
+
+    @Override
+    public Result requestTicketCard(String userName, String gameName, Integer selectedCard) {
+        return null;
+    }
+
+    @Override
+    public Result postChatMessage(String gameName, ChatMessage chatMessage) {
+        Result result = new Result();
+        chatMessage.setAuthorUserName(chatMessage.getAuthorUserName());
+        chatMessage.setMessageContents(chatMessage.getMessageContents());
+        chatMessage.setTimeStamp(chatMessage.getTimeStamp());
+        Game targetGame = serverData.findGame(gameName);
+        if (targetGame != null) {
+            targetGame.addChat(chatMessage);
+            result.setSuccessful(true);
+            return result;
+        }
+        else {
+            result.setSuccessful(false);
+            return result;
+        }
+    }
 }

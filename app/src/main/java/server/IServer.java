@@ -1,9 +1,13 @@
 package server;
 
+import java.util.Date;
+
+import models.data.ChatMessage;
 import models.data.DestinationCard;
 import models.data.Result;
 import models.data.User;
 import models.data.Route;
+
 
 public interface IServer {
     public Result register(User newUser);
@@ -12,8 +16,9 @@ public interface IServer {
     public Result joinGame(String userName, String gameName, Integer numPlayers);
     public Result createGame(String gameName, String username, Integer numPlayers);
 
-    public Result returnDestinationCards(DestinationCard[] returnedCards, String userName, String gameName);
-    public Result purchaseRoute(Route purchasedRoute, String userName, String gameName);
+    public Result returnDestinationCards(String userName, String gameName, DestinationCard[] returnedCards);
+    public Result purchaseRoute(String userName, String gameName, Route purchasedRoute);
     public Result requestDestinationCards(String userName, String gameName);
-    public Result requestTicketCards(boolean[] faceUpCardsDrawn, String userName, String gameName);
+    public Result requestTicketCard(String userName, String gameName, Integer selectedCard);
+    public Result postChatMessage(String gameName, ChatMessage chatMessage);
 }
