@@ -35,7 +35,7 @@ public class LobbyViewActivity extends AppCompatActivity /*implements IGameLobby
     static private Button startGameButton, createGameButton;
     private boolean createGameOpen = false;
     private String create_game_text = "";
-    private static RecyclerViewAdapter adapter;
+    private static RecyclerViewAdapterLobby adapter;
     private IGameLobbyPresenter presenter;
     private static LobbyViewActivity singleton;
     private Activity a = LobbyViewActivity.this;
@@ -141,7 +141,7 @@ public class LobbyViewActivity extends AppCompatActivity /*implements IGameLobby
     private void initRecyclerView() {
         RecyclerView recyclerView = findViewById(R.id.recycler_view);
         listOfGames = presenter.getGameList();
-        adapter = new RecyclerViewAdapter(listOfGames, this);
+        adapter = new RecyclerViewAdapterLobby(listOfGames, this);
         recyclerView.setHasFixedSize(true);
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
