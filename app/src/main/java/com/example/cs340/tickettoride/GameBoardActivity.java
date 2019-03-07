@@ -70,10 +70,6 @@ public class GameBoardActivity extends AppCompatActivity {
                 presenter.addMessage(newMessage);
             }
         });
-
-        //This is a test
-
-
     }
 
     private void initRecyclerView() {
