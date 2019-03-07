@@ -16,7 +16,7 @@ public class PlayerInfoPresenter implements IPlayerInfoPresenter, Observer {
 
     @Override
     public ArrayList<Player> getPlayers() {
-        return clientModel.getActiveGame().getPlayers();
+        return clientModel.getUser().getGame().getPlayers();
     }
     @Override
     public Integer getTrainsLeft() {
