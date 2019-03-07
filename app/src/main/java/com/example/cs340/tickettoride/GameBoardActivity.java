@@ -98,9 +98,7 @@ public class GameBoardActivity extends AppCompatActivity {
         public UpdateChatListAsyncTask() {}
 
         /**
-         * Override this method to perform a computation on a background thread. The
-         * specified parameters are the parameters passed to {@link #execute}
-         * by the caller of this task.
+
          * <p>
          * This method can call {@link #publishProgress} to publish updates
          * on the UI thread.
