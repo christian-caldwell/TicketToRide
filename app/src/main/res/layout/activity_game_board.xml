@@ -23,7 +23,7 @@
         tools:ignore="MissingConstraints" />
 
     <Button
-        android:id="@+id/imageView1"
+        android:id="@+id/wildCard"
         android:layout_width="99dp"
         android:layout_height="65dp"
         android:layout_marginEnd="4dp"
@@ -35,88 +35,88 @@
         tools:layout_editor_absoluteY="527dp" />
 
     <Button
-        android:id="@+id/imageView2"
+        android:id="@+id/whiteCard"
         android:layout_width="99dp"
         android:layout_height="65dp"
         android:layout_marginEnd="4dp"
         android:layout_marginRight="4dp"
         android:background="@drawable/train_card_white"
         android:src="@drawable/train_card_white"
-        app:layout_constraintBottom_toTopOf="@id/imageView1"
+        app:layout_constraintBottom_toTopOf="@id/wildCard"
         app:layout_constraintEnd_toEndOf="parent"
         tools:layout_editor_absoluteY="453dp" />
 
     <Button
-        android:id="@+id/imageView3"
+        android:id="@+id/blackCard"
         android:layout_width="99dp"
         android:layout_height="65dp"
         android:layout_marginEnd="4dp"
         android:layout_marginRight="4dp"
         android:background="@drawable/train_card_black"
         android:src="@drawable/train_card_black"
-        app:layout_constraintBottom_toTopOf="@id/imageView2"
+        app:layout_constraintBottom_toTopOf="@id/whiteCard"
         app:layout_constraintEnd_toEndOf="parent"
         tools:layout_editor_absoluteY="379dp" />
 
     <Button
-        android:id="@+id/imageView4"
+        android:id="@+id/pinkCard"
         android:layout_width="99dp"
         android:layout_height="65dp"
         android:layout_marginEnd="4dp"
         android:layout_marginRight="4dp"
         android:background="@drawable/train_card_purple"
         android:src="@drawable/train_card_purple"
-        app:layout_constraintBottom_toTopOf="@id/imageView3"
+        app:layout_constraintBottom_toTopOf="@id/blackCard"
         app:layout_constraintEnd_toEndOf="parent"
         tools:layout_editor_absoluteY="305dp" />
 
     <Button
-        android:id="@+id/imageView5"
+        android:id="@+id/blueCard"
         android:layout_width="99dp"
         android:layout_height="65dp"
         android:layout_marginEnd="4dp"
         android:layout_marginRight="4dp"
         android:background="@drawable/train_card_blue"
         android:src="@drawable/train_card_blue"
-        app:layout_constraintBottom_toTopOf="@id/imageView4"
+        app:layout_constraintBottom_toTopOf="@id/pinkCard"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintLeft_toRightOf="@id/game_board_pic"
         tools:layout_editor_absoluteY="231dp" />
 
     <Button
-        android:id="@+id/imageView6"
+        android:id="@+id/greenCard"
         android:layout_width="99dp"
         android:layout_height="65dp"
         android:layout_marginEnd="4dp"
         android:layout_marginRight="4dp"
         android:background="@drawable/train_card_green"
         android:src="@drawable/train_card_green"
-        app:layout_constraintBottom_toTopOf="@id/imageView5"
+        app:layout_constraintBottom_toTopOf="@id/blueCard"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintLeft_toRightOf="@id/game_board_pic"
         tools:layout_editor_absoluteY="157dp" />
 
     <Button
-        android:id="@+id/imageView7"
+        android:id="@+id/yellowCard"
         android:layout_width="99dp"
         android:layout_height="65dp"
         android:layout_marginEnd="4dp"
         android:layout_marginRight="4dp"
         android:background="@drawable/train_card_yellow"
         android:src="@drawable/train_card_yellow"
-        app:layout_constraintBottom_toTopOf="@id/imageView6"
+        app:layout_constraintBottom_toTopOf="@id/greenCard"
         app:layout_constraintEnd_toEndOf="parent"
         tools:layout_editor_absoluteY="83dp" />
 
     <Button
-        android:id="@+id/imageView8"
+        android:id="@+id/redCard"
         android:layout_width="99dp"
         android:layout_height="65dp"
         android:layout_marginEnd="4dp"
         android:layout_marginRight="4dp"
         android:background="@drawable/train_card_red"
         android:src="@drawable/train_card_red"
-        app:layout_constraintBottom_toTopOf="@id/imageView7"
+        app:layout_constraintBottom_toTopOf="@id/yellowCard"
         app:layout_constraintEnd_toEndOf="parent"
         tools:layout_editor_absoluteY="9dp" />
 

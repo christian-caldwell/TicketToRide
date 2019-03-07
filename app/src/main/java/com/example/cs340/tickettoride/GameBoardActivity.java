@@ -1,29 +1,20 @@
 package com.example.cs340.tickettoride;
 
 import android.content.Context;
-import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.StrictMode;
-import android.support.annotation.NonNull;
-import android.support.constraint.ConstraintLayout;
 import android.support.v7.app.AppCompatActivity;
-import android.view.View;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.view.LayoutInflater;
-import android.view.ViewGroup;
+import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
 
-import client.Poller;
 import models.data.ChatMessage;
-import models.data.Game;
-import models.data.User;
 import view.presenter.ChatPresenter;
 import view.presenterInterface.IChatPresenter;
 
@@ -34,6 +25,15 @@ public class GameBoardActivity extends AppCompatActivity {
     private static RecyclerViewAdapterChat adapter;
     private static EditText inputChatEditText;
     private static Button sendMessageButton;
+    private static Button mGreenTrainCard;
+    private static Button mRedTrainCard;
+    private static Button mPinkTrainCard;
+    private static Button mYellowTrainCard;
+    private static Button mWhiteTrainCard;
+    private static Button mBlackTrainCard;
+    private static Button mWildTrainCard;
+    private static Button mBlueTrainCard;
+
 
 
 
@@ -70,6 +70,15 @@ public class GameBoardActivity extends AppCompatActivity {
                 presenter.addMessage(newMessage);
             }
         });
+        mGreenTrainCard = findViewById(R.id.greenCard);
+        mRedTrainCard = findViewById(R.id.redCard);
+        mPinkTrainCard = findViewById(R.id.pinkCard);
+        mYellowTrainCard = findViewById(R.id.yellowCard);
+        mWhiteTrainCard = findViewById(R.id.whiteCard);
+        mBlackTrainCard = findViewById(R.id.blackCard);
+        mWildTrainCard = findViewById(R.id.wildCard);
+        mBlueTrainCard = findViewById(R.id.blueCard);
+
     }
 
     private void initRecyclerView() {
