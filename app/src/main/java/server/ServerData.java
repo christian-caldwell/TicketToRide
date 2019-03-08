@@ -10,7 +10,6 @@ import java.util.Queue;
 import java.util.Set;
 
 import models.data.DestinationCard;
-import models.data.Enums;
 import models.data.Game;
 import models.data.Player;
 import models.data.Result;
@@ -22,27 +21,27 @@ public class ServerData {
     private Map<String, Game> availableGames;
     private ArrayList<User> users;
 
-    private Map<Enums.Color, Integer> initialTicketDeck = new HashMap<>();
-    private Queue<DestinationCard> initialDestinationDeck = new ArrayDeque<>();
+    private Map<Integer, Integer> initialTicketDeck = new HashMap<>();
+    public Queue<DestinationCard> initialDestinationDeck = new ArrayDeque<>();
     private Set<Route> initialRouteSet = new HashSet<>();
 
 //    CARD COLORS
-    private static final Integer GREEN = 1;
-    private static final Integer RED = 2;
-    private static final Integer YELLOW = 3;
-    private static final Integer BLUE = 4;
-    private static final Integer ORANGE = 5;
-    private static final Integer PURPLE = 6;
-    private static final Integer WHITE = 7;
-    private static final Integer BLACK = 8;
-    private static final Integer WILD = 9;
+    public final Integer GREEN = 1;
+    public final Integer RED = 2;
+    public final Integer YELLOW = 3;
+    public final Integer BLUE = 4;
+    public final Integer ORANGE = 5;
+    public final Integer PURPLE = 6;
+    public final Integer WHITE = 7;
+    public final Integer BLACK = 8;
+    public final Integer WILD = 9;
 
 //    PLAYER COLORS
-    private static final Integer RED_PLAYER = 1;
-    private static final Integer GREEN_PLAYER = 2;
-    private static final Integer BLUE_PLAYER = 3;
-    private static final Integer YELLOW_PLAYER = 4;
-    private static final Integer BLACK_PLAYER = 5;
+    public final Integer RED_PLAYER = 1;
+    public final Integer GREEN_PLAYER = 2;
+    public final Integer BLUE_PLAYER = 3;
+    public final Integer YELLOW_PLAYER = 4;
+    public final Integer BLACK_PLAYER = 5;
 
 
     public ServerData() {
@@ -123,19 +122,19 @@ public class ServerData {
             Player userPlayer = null;
             switch (playerCount) {
                 case (1):
-                    userPlayer = new Player(username, Enums.PlayerColor.RED);
+                    userPlayer = new Player(username, RED_PLAYER);
                     break;
                 case (2):
-                    userPlayer = new Player(username, Enums.PlayerColor.GREEN);
+                    userPlayer = new Player(username, GREEN_PLAYER);
                     break;
                 case (3):
-                    userPlayer = new Player(username, Enums.PlayerColor.BLUE);
+                    userPlayer = new Player(username, BLUE_PLAYER);
                     break;
                 case (4):
-                    userPlayer = new Player(username, Enums.PlayerColor.YELLOW);
+                    userPlayer = new Player(username, YELLOW_PLAYER);
                     break;
                 case (5):
-                    userPlayer = new Player(username, Enums.PlayerColor.BLACK);
+                    userPlayer = new Player(username, BLACK_PLAYER);
                     break;
                 default:
                     System.out.println("Initializing more than 5 players!");

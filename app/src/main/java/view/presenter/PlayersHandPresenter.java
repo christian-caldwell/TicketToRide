@@ -12,9 +12,9 @@ public class PlayersHandPresenter implements IPlayersHandPresenter {
     ClientModel clientModel = ClientModel.create();
 
     @Override
-    public Integer getTrainCardAmount(Enums.Color color) {
+    public Integer getTrainCardAmount(Integer color) {
 
-        Map<Enums.Color, Integer> trainCards = clientModel.getPlayer().getTickets();
+        Map<Integer, Integer> trainCards = clientModel.getPlayer().getTickets();
         return trainCards.get(color);
     }
 

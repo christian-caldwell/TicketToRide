@@ -1,17 +1,17 @@
 package models.data;
 
 public class TrainCard {
-    private Enums.Color CardColor;
+    private Integer CardColor;
 
-    public TrainCard(Enums.Color cardColor) {
+    public TrainCard(Integer cardColor) {
         this.CardColor = cardColor;
     }
 
-    public Enums.Color getCardColor() {
+    public Integer getCardColor() {
         return CardColor;
     }
 
-    public void setCardColor(Enums.Color cardColor) {
+    public void setCardColor(Integer cardColor) {
         CardColor = cardColor;
     }
 

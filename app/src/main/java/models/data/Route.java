@@ -4,11 +4,11 @@ import android.util.Pair;
 
 public class Route {
     private Integer length;
-    private Enums.Color cardColor;
+    private Integer cardColor;
     private Pair<String, String> location;
 //    private Enums.PLAYERCOLOR ownerColor;
 
-    public Route(Integer length, Enums.Color cardColor, Pair<String, String> location/*, Enums.PLAYERCOLOR ownerColor*/) {
+    public Route(Integer length, Integer cardColor, Pair<String, String> location/*, Enums.PLAYERCOLOR ownerColor*/) {
         this.length = length;
         this.cardColor = cardColor;
         this.location = location;
@@ -23,11 +23,11 @@ public class Route {
         this.length = points;
     }
 
-    public Enums.Color getCardColor() {
+    public Integer getCardColor() {
         return cardColor;
     }
 
-    public void setCardColor(Enums.Color cardColor) {
+    public void setCardColor(Integer cardColor) {
         this.cardColor = cardColor;
     }
 
