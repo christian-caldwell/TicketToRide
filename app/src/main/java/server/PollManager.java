@@ -64,7 +64,7 @@ public class PollManager {
         return pollManagerData;
     }*/
 
-    public Result getAvailableGames() {
+    public Result getAvailableGames(String username) {
         ServerData dataContainer = ServerData.getInstance();
         Map<String, Game> availableGames =  dataContainer.getAvailableGames();
 
@@ -72,7 +72,7 @@ public class PollManager {
 
 
         for (Map.Entry<String, Game> entry : availableGames.entrySet()) {
-            if (!entry.getValue().isStarted()) {
+            if (!entry.getValue().isStarted() || entry.getValue().getPlayerUsernames().contains(username)) {
                 games.add(entry.getValue());
             }
         }

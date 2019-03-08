@@ -234,7 +234,7 @@ public class LobbyViewActivity extends AppCompatActivity /*implements IGameLobby
             else
                 disableStartGameButton();
 
-
+            System.out.println(user);
             // If user is a host and the amount of players in the game is greater than 1, then
             // enable the startGamebutton
             if (user.getGame() != null) {
@@ -244,6 +244,10 @@ public class LobbyViewActivity extends AppCompatActivity /*implements IGameLobby
                 // If not a host or if there aren't enough players, disable the 'Start game' button
                 else {
                     disableStartGameButton();
+                }
+                if (!listOfGames.contains(user.getGame())) {
+                    user.getGame().setStarted(true);
+                    // client.setActiveGame(user.getGame()) // Not sure, Aliasing should handle this...
                 }
                 if (user.getGame().isStarted()) {
                     Poller.instance().startPollingGame();
