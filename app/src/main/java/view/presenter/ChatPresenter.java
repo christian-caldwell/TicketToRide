@@ -45,9 +45,7 @@ public class ChatPresenter implements IChatPresenter, Observer {
 
     @Override
     public void update(Observable o, Object arg) {
-        ClientModel client = (ClientModel) o;
-
-       // new GameBoardActivity().UpdateGameListAsyncTask(client.getUser(), gameLobby).execute(this.gameList);
+       new GameBoardActivity.UpdateChatListAsyncTask().execute(getMessages());
 
     }
 }
