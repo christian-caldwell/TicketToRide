@@ -74,16 +74,15 @@ public class Game {
     }
 
     public TrainCard dealTicketCard(int position) {
-        TrainCard dealtCard = null;
+        TrainCard dealtCard = new TrainCard(0);
         if (position == 0) {
             Integer dealtCardColor = null;
             int remainingCardCount = 0;
 
             do {
                 Random generator = new Random();
-                int colorNumber = generator.nextInt(9);
-//                dealtCard = serverData.getTicket(colorNumber);
-                dealtCardColor = dealtCard.getCardColor();
+                dealtCardColor = generator.nextInt(9);
+                dealtCard.setCardColor(dealtCardColor);
                 remainingCardCount = this.ticketCardDeck.get(dealtCardColor);
             } while (remainingCardCount == 0);
 

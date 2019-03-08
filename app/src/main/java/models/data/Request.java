@@ -4,6 +4,9 @@ public class Request {
     private User user;
     private Game game;
 
+    public Request() {
+    }
+
     public User getUser() {
         return user;
     }

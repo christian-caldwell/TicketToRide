@@ -7,6 +7,9 @@ public class TrainCard {
         this.CardColor = cardColor;
     }
 
+    public TrainCard() {
+    }
+
     public Integer getCardColor() {
         return CardColor;
     }

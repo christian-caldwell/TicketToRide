@@ -4,6 +4,9 @@ public class DestinationCard {
     private String[] locations;
     private Integer points;
 
+    public DestinationCard() {
+    }
+
     public String[] getLocations() {
         return locations;
     }

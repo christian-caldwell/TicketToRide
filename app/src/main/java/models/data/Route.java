@@ -33,6 +33,9 @@ public class Route {
         return locations;
     }
 
+    public Route() {
+    }
+
     public void setLocation(String[] locations) {
         this.locations = locations;
     }
