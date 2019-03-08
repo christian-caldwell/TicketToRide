@@ -129,6 +129,10 @@ public class ServerCommands implements IServer {
             if (targetPlayer != null) {
                 targetPlayer.removeFromNewDestinationCards(returnedCards);
                 targetGame.returnDestinationCards(returnedCards);
+                for (DestinationCard card:targetPlayer.getNewDestinationCards() ) {
+                    targetPlayer.addToDestinationCardHand(card);
+                }
+                targetPlayer.resetNewDestinationCards();
                 targetGame.incrementNumPlayerActions();
                 result.setSuccessful(true);
                 return result;
@@ -145,12 +149,12 @@ public class ServerCommands implements IServer {
     }
 
     @Override
-    public Result purchaseRoute(String userName, String gameName, Route purchasedRoute) {
+    public Result purchaseRoute(String userName, String gameName, Route purchasedRoute, Integer numberOfWilds) {
         Result result = new Result();
         result.setSuccessful(false);
         Game targetGame = serverData.findGame(gameName);
         if (targetGame != null){
-            if (targetGame.purchaseRoute(userName, purchasedRoute)){
+            if (targetGame.purchaseRoute(userName, purchasedRoute, numberOfWilds)){
                 result.setSuccessful(true);
             }
         }
