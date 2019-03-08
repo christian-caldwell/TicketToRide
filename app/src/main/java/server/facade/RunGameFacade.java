@@ -43,6 +43,14 @@ public class RunGameFacade {
         return serverCommands.returnDestinationCards(userName, gameName, returnedCards);
     }
 
+    public Result requestDestinationCards(String userName, String gameName) {
+        return serverCommands.requestDestinationCards(userName, gameName);
+    }
+
+    public Result requestTicketCard(String userName, String gameName, Integer selectedCard) {
+        return serverCommands.requestTicketCard(userName, gameName, selectedCard);
+    }
+
     public Result purchaseRoute(String userName, String gameName, Integer points, String first_location, String second_location, Integer color) {
         Route purchasedRoute = new Route(points, color, new Pair<String, String>(first_location, second_location));
         return serverCommands.purchaseRoute(userName, gameName, purchasedRoute);
