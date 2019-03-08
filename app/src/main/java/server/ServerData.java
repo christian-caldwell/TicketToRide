@@ -28,6 +28,7 @@ public class ServerData {
     private Set<Route> initialRouteSet = new HashSet<>();
 
 //    CARD COLORS
+    public final Integer EMPTY = 0;
     public final Integer GREEN = 1;
     public final Integer RED = 2;
     public final Integer YELLOW = 3;
@@ -47,14 +48,34 @@ public class ServerData {
 
 
     public ServerData() {
-        this.availableGames = new HashMap<>();
-        this.users = new ArrayList<User>();
-        this.users.add(new User("t","t"));
-        this.users.add(new User("a", "a"));
-        this.users.add(new User("s", "s"));
-        this.users.add(new User("d", "d"));
-        this.users.add(new User("f", "f"));
-        this.users.add(new User("g", "g"));
+        boolean test = true;
+        if (test) {
+            this.availableGames = new HashMap<>();
+            this.users = new ArrayList<User>();
+            User hostUser = new User("p1", "p1");
+            hostUser.setHost(true);
+            this.users.add(hostUser);
+            User playerUser2 = new User("p2", "p2");
+            this.users.add(playerUser2);
+            User playerUser3 = new User("p3", "p3");
+            this.users.add(playerUser3);
+            this.users.add(new User("t","t"));
+            this.users.add(new User("a", "a"));
+            this.users.add(new User("s", "s"));
+            this.users.add(new User("d", "d"));
+            this.users.add(new User("f", "f"));
+            this.users.add(new User("g", "g"));
+
+            String testGameName = "test game";
+            Game testGame = new Game();
+            this.availableGames.put(testGameName, testGame);
+            hostUser.setGameJoined(testGame);
+            playerUser2.setGameJoined(testGame);
+            playerUser3.setGameJoined(testGame);
+            testGame.addPlayerUsername(hostUser.getUsername());
+            testGame.addPlayerUsername(playerUser2.getUsername());
+            testGame.addPlayerUsername(playerUser3.getUsername());
+        }
     }
 
     public Map<String, Game> getAvailableGames() {
