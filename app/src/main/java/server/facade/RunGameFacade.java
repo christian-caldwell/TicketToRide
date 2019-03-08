@@ -52,7 +52,7 @@ public class RunGameFacade {
     public Result purchaseRoute(String userName, String gameName, Integer points, String first_location, String second_location, Integer color, Integer wildCount) {
         //TODO replace the 'Enums.Color' with parameter Integer
         Route purchasedRoute = new Route(points, color, new String[]{first_location, second_location});
-        return serverCommands.purchaseRoute(userName, gameName, purchasedRoute);
+        return serverCommands.purchaseRoute(userName, gameName, purchasedRoute, wildCount);
     }
 
     public Result postChatMessage(String userName, String gameName, String contents, String timpStamp) {
