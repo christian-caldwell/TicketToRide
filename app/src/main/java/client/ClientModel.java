@@ -10,8 +10,11 @@ import models.data.DestinationCard;
 import models.data.Game;
 import models.data.Player;
 import models.data.User;
+import view.presenter.ChatPresenter;
 import view.presenter.GameLobbyPresenter;
 import view.presenter.GamePresenter;
+import view.presenter.PlayerInfoPresenter;
+import view.presenter.PlayersHandPresenter;
 
 public class ClientModel extends Observable {
     private User userPlayer;
@@ -20,6 +23,10 @@ public class ClientModel extends Observable {
     private ArrayList<Game> newGameList = new ArrayList<>();
     private GameLobbyPresenter mGameLobbyPresenter;
     private GamePresenter mGamePresenter;
+    private ChatPresenter mChatPresenter;
+    private PlayerInfoPresenter mPlayerInfoPresenter;
+    private PlayersHandPresenter mPlayersHandPresenter;
+
 
     //new stuff for phase 2
     private Map<Integer, Integer> ticketCardHand;
@@ -42,6 +49,9 @@ public class ClientModel extends Observable {
 
     public void setTicketCardHand(Map<Integer, Integer> ticketCardHand) {
         this.ticketCardHand = ticketCardHand;
+    }
+    public void incrementTicketCardHand(Integer color) {
+        ticketCardHand.put(color, ticketCardHand.get(color) + 1);
     }
 
     public ArrayList<DestinationCard> getDestinationCardHand() {
@@ -154,7 +164,7 @@ public class ClientModel extends Observable {
     public void update() {
         if (mGameLobbyPresenter != null) {
             addObserver(this.mGameLobbyPresenter);
-//        addObserver(new GamePresenter());
+       // addObserver(this.mChatPresenter);
 //        addObserver(new LoginPresenter());
 //        addObserver(new RegisterPresenter());
 

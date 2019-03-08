@@ -1,5 +1,8 @@
 package com.example.cs340.tickettoride;
 
+import android.content.Context;
+import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.StrictMode;
 import android.support.annotation.NonNull;
@@ -10,20 +13,29 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
 
+import client.Poller;
 import models.data.ChatMessage;
+import models.data.Game;
+import models.data.User;
 import view.presenter.ChatPresenter;
 import view.presenterInterface.IChatPresenter;
 
 public class GameBoardActivity extends AppCompatActivity {
 
-    ArrayList<ChatMessage> chatMessages;
+    private static ArrayList<ChatMessage> chatMessages;
     IChatPresenter presenter;
-    private static ChatRecyclerViewAdapter adapter;
+    private static RecyclerViewAdapterChat adapter;
+    private static EditText inputChatEditText;
+    private static Button sendMessageButton;
+
+
 
     @Override
     public void onBackPressed() {
@@ -37,10 +49,8 @@ public class GameBoardActivity extends AppCompatActivity {
         StrictMode.setThreadPolicy(policy);
         setContentView(R.layout.activity_game_board);
         View decorView = getWindow().getDecorView();
+
             // Hide both the navigation bar and the status bar.
-            // SYSTEM_UI_FLAG_FULLSCREEN is only available on Android 4.1 and higher, but as
-            // a general rule, you should design your app to hide the status bar whenever you
-            // hide the navigation bar.
         int uiOptions = View.SYSTEM_UI_FLAG_LAYOUT_STABLE
                 | View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
                 | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
@@ -49,73 +59,56 @@ public class GameBoardActivity extends AppCompatActivity {
                 | View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY;
         decorView.setSystemUiVisibility(uiOptions);
         presenter = new ChatPresenter();
-
-
         initRecyclerView();
-
+        inputChatEditText = findViewById(R.id.input_edit_text);
+        sendMessageButton = findViewById(R.id.send_message_button);
+        sendMessageButton.setOnClickListener(new View.OnClickListener() {
+            // When the sendMessage button is clicked, send the text to the presenter.addMessage function
+            @Override
+            public void onClick(View v) {
+                String newMessage = inputChatEditText.getText().toString();
+                presenter.addMessage(newMessage);
+            }
+        });
     }
 
     private void initRecyclerView() {
         RecyclerView recyclerView = findViewById(R.id.chat_recycler_view);
         chatMessages = presenter.getMessages();
-        adapter = new ChatRecyclerViewAdapter(chatMessages);
+        adapter = new RecyclerViewAdapterChat(chatMessages);
         recyclerView.setHasFixedSize(true);
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
     }
 
-
-
-    public class ChatRecyclerViewAdapter extends RecyclerView.Adapter<ChatRecyclerViewAdapter.ViewHolder> {
-
-        private ArrayList<ChatMessage> listOfMessages = new ArrayList<>();
-
-        public ChatRecyclerViewAdapter(ArrayList<ChatMessage> listOfMessages) {
-            this.listOfMessages = listOfMessages;
-        }
-
-        @NonNull
-        @Override
-        public ViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
-            View view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.layoutlist_item, viewGroup, false);
-            return new ViewHolder(view);
-        }
-
-        @Override
-        public void onBindViewHolder(@NonNull final ViewHolder holder, final int position) {
-            holder.currentMessage.setText(listOfMessages.get(position).getMessageContents());
-            holder.timestamp.setText(listOfMessages.get(position).getTimeStamp());
-            holder.user.setText(presenter.getSenderName());
-            holder.parentLayout.setOnClickListener(new View.OnClickListener() {
-
-
-                @Override
-                public void onClick(View v) {
-                    // do nothing
-                }
-            });
-        }
-
-        @Override
-        public int getItemCount() {
-            return listOfMessages.size();
-        }
-
-        public class ViewHolder extends RecyclerView.ViewHolder {
-
-            TextView user, currentMessage, timestamp;
-            ConstraintLayout parentLayout;
-
-            public ViewHolder(@NonNull View itemView) {
-                super(itemView);
-                user = itemView.findViewById(R.id.gameName);
-                currentMessage = itemView.findViewById(R.id.currentNumOfPlayers);
-                timestamp = itemView.findViewById(R.id.currentNumOfPlayers);
-                //TODO: add parent layout.
-                //parentLayout = itemView.findViewById(R.id.parent_layout_chat);
-            }
-        }
+    public static Void updateChatList(ArrayList<ChatMessage> newChatMessages) {
+        chatMessages = newChatMessages;
+        return null;
     }
 
 
+
+    public static class UpdateChatListAsyncTask extends AsyncTask<ArrayList<ChatMessage>, Void, Void> {
+
+        //Empty constructor
+        public UpdateChatListAsyncTask() {}
+
+        /**
+
+         * <p>
+         * This method can call {@link #publishProgress} to publish updates
+         * on the UI thread.
+         */
+
+        @Override
+        protected Void doInBackground(ArrayList<ChatMessage>... arrayLists) {
+            return updateChatList(arrayLists[0]);
+        }
+
+        @Override
+        protected void onPostExecute(Void result) {
+            adapter.setListOfMessages(chatMessages);
+            adapter.notifyDataSetChanged();
+        }
+    }
 }

@@ -42,6 +42,11 @@ public class RunGameFacade {
         return serverCommands.returnDestinationCards(userName, gameName, returnedCards);
     }
 
+    public Result purchaseRoute(String userName, String gameName, Integer points, String first_location, String second_location, Integer color) {
+        Route purchasedRoute = new Route(points, color, new Pair<String, String>(first_location, second_location));
+        return serverCommands.purchaseRoute(String userName, String gameName, );
+    }
+
     public Result postChatMessage(String userName, String gameName, String contents, String timpStamp) {
         ChatMessage message = new ChatMessage();
         message.setAuthorUserName(userName);
