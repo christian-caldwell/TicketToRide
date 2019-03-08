@@ -1,22 +1,23 @@
 package view.presenter;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
-
 import java.util.ArrayList;
 import java.util.Observable;
 import java.util.Observer;
 import java.util.Random;
 
 import client.ClientModel;
+import client.ServerProxy;
 import models.data.DestinationCard;
 import models.data.Enums;
 import models.data.TrainCard;
-import view.presenterInterface.ITrainCardDeckPresenter;
+import view.presenterInterface.ICardDeckPresenter;
 
-public class CardDeckPresenter implements ITrainCardDeckPresenter, Observer {
+public class CardDeckPresenter implements ICardDeckPresenter, Observer {
     ClientModel clientModel = ClientModel.create();
+    ServerProxy serverProxy = new ServerProxy();
     @Override
     public Enums.Color drawTrainCard() {
+        //serverProxy.
         ArrayList<Enums.Color> valuesList = new ArrayList<Enums.Color>(clientModel.getUser().getGame().getTicketCardDeck().keySet());
         int randomIndex = new Random().nextInt(valuesList.size());
         Enums.Color randomValue = valuesList.get(randomIndex);
