@@ -245,9 +245,11 @@ public class Game {
     }
 
     public void hideSecrets(String viewingUser) {
-        for (Player p: players) {
-            if (!p.getUsername().equals(viewingUser)) {
-                p.hideCards();
+        if (players != null) {
+            for (Player p : players) {
+                if (!p.getUsername().equals(viewingUser)) {
+                    p.hideCards();
+                }
             }
         }
     }

@@ -159,6 +159,10 @@ public class ClientModel extends Observable {
         mGamePresenter = gamePresenter;
     }
 
+    public ChatPresenter getmChatPresenter() { return mChatPresenter; }
+
+    public void setChatPresenter(ChatPresenter chatPresenter) { mChatPresenter = chatPresenter; }
+
     public void update() {
         if (mGameLobbyPresenter != null) {
             addObserver(this.mGameLobbyPresenter);
@@ -176,10 +180,13 @@ public class ClientModel extends Observable {
     public void updateGame() {
         if (mGamePresenter != null) {
             addObserver(this.mGamePresenter);
-            setChanged();
-            notifyObservers();
-            deleteObservers();
         }
+        if (mChatPresenter != null) {
+            addObserver(this.mChatPresenter);
+        }
+        setChanged();
+        notifyObservers();
+        deleteObservers();
     }
 
     @Override
