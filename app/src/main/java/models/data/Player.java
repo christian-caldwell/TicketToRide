@@ -1,14 +1,19 @@
 package models.data;
 
-import models.Constants;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 
+import models.Constants;
+
 public class Player {
     private Boolean hasLongestRoute;
+
+    public Player() {
+    }
+
     private Integer score;
     private Integer trainsRemaining;
     private Integer individualLongestRouteValue;

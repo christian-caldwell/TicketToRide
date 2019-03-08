@@ -80,6 +80,7 @@ public class GeneralCommand implements ICommandExecuter, Serializable {
         }
         catch (Exception e) {
             e.printStackTrace();
+            System.out.print(e.getCause().getMessage());
             result.setErrorMessage(e.toString());
             result.setSuccessful(false);
         }

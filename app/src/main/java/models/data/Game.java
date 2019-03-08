@@ -2,13 +2,11 @@ package models.data;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-import java.util.ArrayDeque;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
-import java.util.Queue;
 import java.util.Random;
 import java.util.Set;
 
@@ -23,7 +21,7 @@ public class Game {
 
     private ArrayList<String> playerUsernames = new ArrayList<>();
 
-    private ArrayList<Player> players;
+    private ArrayList<Player> players = new ArrayList<>();
     private ArrayList<ChatMessage> chatLog = new ArrayList<>();
     private Map<Enums.Color, Integer> ticketCardDeck = new HashMap<>();
     private Map<Enums.Color, Integer> ticketCardDiscard = new HashMap<>();
@@ -39,6 +37,10 @@ public class Game {
         numPlayerActions = 0;
         currentLongestRouteValue = 0;
         currentTurnPlayer = Enums.Color.RED;
+    }
+
+    public Game() {
+
     }
 
 

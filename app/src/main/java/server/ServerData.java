@@ -2,23 +2,20 @@ package server;
 
 import java.util.ArrayDeque;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
-import java.util.Collections;
 import java.util.Queue;
 import java.util.Set;
 
-import models.Constants;
 import models.data.DestinationCard;
 import models.data.Enums;
 import models.data.Game;
 import models.data.Player;
-import models.data.Route;
-import models.data.TrainCard;
-import models.data.User;
-
 import models.data.Result;
+import models.data.Route;
+import models.data.User;
 
 public class ServerData {
     private static ServerData sServerData;
@@ -29,8 +26,23 @@ public class ServerData {
     private Queue<DestinationCard> initialDestinationDeck = new ArrayDeque<>();
     private Set<Route> initialRouteSet = new HashSet<>();
 
+//    CARD COLORS
+    private static final Integer GREEN = 1;
+    private static final Integer RED = 2;
+    private static final Integer YELLOW = 3;
+    private static final Integer BLUE = 4;
+    private static final Integer ORANGE = 5;
+    private static final Integer PURPLE = 6;
+    private static final Integer WHITE = 7;
+    private static final Integer BLACK = 8;
+    private static final Integer WILD = 9;
 
-
+//    PLAYER COLORS
+    private static final Integer RED_PLAYER = 1;
+    private static final Integer GREEN_PLAYER = 2;
+    private static final Integer BLUE_PLAYER = 3;
+    private static final Integer YELLOW_PLAYER = 4;
+    private static final Integer BLACK_PLAYER = 5;
 
 
     public ServerData() {
@@ -135,19 +147,22 @@ public class ServerData {
     }
 
     public void initializeContainers(Game targetGame) {
-        targetGame.setTicketCardDeck(Constants.getStartingTicketDeck());
-        targetGame.setAvailableRoutes(Constants.getStartingRouteSet());
-        targetGame.setDestinationDeck(Constants.getStartingDestinationDeck());
-        targetGame.dealFaceUpTicketCards();
+//        targetGame.setTicketCardDeck(Constants.getStartingTicketDeck());
+//        targetGame.setAvailableRoutes(Constants.getStartingRouteSet());
+//        targetGame.setDestinationDeck(Constants.getStartingDestinationDeck());
+//        targetGame.dealFaceUpTicketCards();
     }
 
     public void dealHands (Game targetGame) {
-        for (Player targetPlayer: targetGame.getPlayers()) {
-            for (int i = 0; i < 3; i++) {
-                TrainCard card = targetGame.dealTicketCard(0);
-                targetPlayer.addTicketToHand(card.getCardColor());
-            }
-            targetPlayer.addToNewDestinationCardHand(targetGame.dealDestinationCard());
-        }
+//        for (Player targetPlayer: targetGame.getPlayers()) {
+//            for (int i = 0; i < 4; i++) {
+//                TrainCard card = targetGame.dealTicketCard(0);
+//                targetPlayer.addTicketToHand(card.getCardColor());
+//            }
+//            targetPlayer.addToNewDestinationCardHand(targetGame.dealDestinationCard());
+//            targetPlayer.addToNewDestinationCardHand(targetGame.dealDestinationCard());
+//            targetPlayer.addToNewDestinationCardHand(targetGame.dealDestinationCard());
+//
+//        }
     }
 }
