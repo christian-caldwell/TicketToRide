@@ -48,10 +48,11 @@ public class ServerData {
 
 
     public ServerData() {
+        this.availableGames = new HashMap<>();
+        this.users = new ArrayList<User>();
+
         boolean test = true;
         if (test) {
-            this.availableGames = new HashMap<>();
-            this.users = new ArrayList<User>();
             User hostUser = new User("p1", "p1");
             hostUser.setHost(true);
             this.users.add(hostUser);
