@@ -40,6 +40,11 @@ public class Game {
         numPlayerActions = 0;
         currentLongestRouteValue = 0;
         currentTurnPlayer = serverData.RED;
+        faceUpTrainCards = new TrainCard[]{new TrainCard(0),
+                                           new TrainCard(0),
+                                           new TrainCard(0),
+                                           new TrainCard(0),
+                                           new TrainCard(0)};
     }
 
     public Game() {

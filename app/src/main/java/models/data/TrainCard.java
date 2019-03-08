@@ -15,5 +15,4 @@ public class TrainCard {
         CardColor = cardColor;
     }
 
-
 }
