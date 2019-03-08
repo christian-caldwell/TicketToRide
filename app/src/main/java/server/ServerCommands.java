@@ -153,7 +153,7 @@ public class ServerCommands implements IServer {
         result.setSuccessful(false);
         Game targetGame = serverData.findGame(gameName);
         if (targetGame != null){
-            if (targetGame.purchaseRoute(userName, purchasedRoute)){
+            if (targetGame.purchaseRoute(userName, purchasedRoute, numberOfWilds)){
                 targetGame.incrementNumPlayerActions();
                 targetGame.incrementCurrentTurnPlayer();
                 result.setSuccessful(true);
