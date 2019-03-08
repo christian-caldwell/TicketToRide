@@ -49,6 +49,9 @@ public class Player {
     }
 /////////////////////////////////////////////////////////////////////////////////////////////////
 
+    public void resetNewDestinationCards() {
+        this.newDestinationCards = new ArrayList<>();
+    }
     public ArrayList<DestinationCard> getNewDestinationCards() {
         return newDestinationCards;
     }
@@ -123,6 +126,11 @@ public class Player {
 
     public void addTicketToHand(Integer color) {
         this.tickets.put(color,tickets.get(color)+1);
+    }
+
+    public void removeTicketFromHand(Integer color) {
+        this.tickets.put(color,this.tickets.get(color)-1);
+
     }
 
     private void initTickets() {

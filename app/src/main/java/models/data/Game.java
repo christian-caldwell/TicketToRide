@@ -39,6 +39,11 @@ public class Game {
         numPlayerActions = 0;
         currentLongestRouteValue = 0;
         currentTurnPlayer = serverData.RED;
+        faceUpTrainCards = new TrainCard[]{new TrainCard(0),
+                                           new TrainCard(0),
+                                           new TrainCard(0),
+                                           new TrainCard(0),
+                                           new TrainCard(0)};
     }
 
     public Game() {
@@ -167,13 +172,26 @@ public class Game {
     public void setAvailableRoutes(Set<Route> availableRoutes) {
         this.availableRoutes = availableRoutes;
     }
-    public boolean purchaseRoute(String playerName, Route purchasedRoute) {
+    public boolean purchaseRoute(String playerName, Route purchasedRoute, Integer numberOfWilds) {
         if (!this.availableRoutes.contains(purchasedRoute)) {
             return false;
         }
 
         for (Player player : this.players){
             if (player.getUsername().equals(playerName)) {
+                player.decrementTrainsRemaining(purchasedRoute.getLength());
+                Integer color = purchasedRoute.getCardColor();
+                for (int i = 0; i < purchasedRoute.getLength() - numberOfWilds; i++) {
+                    this.ticketCardDiscard.put(color,this.ticketCardDeck.get(color)+1);
+                    player.removeTicketFromHand(color);
+                }
+
+                for (int i = 0; i < numberOfWilds; i++) {
+                    this.ticketCardDiscard.put(serverData.WILD,this.ticketCardDeck.get(serverData.WILD)+1);
+                    player.removeTicketFromHand(serverData.WILD);
+                }
+
+                player.incrementScore(purchasedRoute.getPoints());
                 player.addRoute(purchasedRoute);
                 this.availableRoutes.remove(purchasedRoute);
                 return true;
