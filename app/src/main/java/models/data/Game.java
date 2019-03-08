@@ -10,7 +10,6 @@ import java.util.Map;
 import java.util.Random;
 import java.util.Set;
 
-import models.Constants;
 import server.ServerData;
 
 public class Game {
@@ -83,7 +82,7 @@ public class Game {
             do {
                 Random generator = new Random();
                 int colorNumber = generator.nextInt(9);
-                dealtCard = Constants.getTicket(colorNumber);
+//                dealtCard = serverData.getTicket(colorNumber);
                 dealtCardColor = dealtCard.getCardColor();
                 remainingCardCount = this.ticketCardDeck.get(dealtCardColor);
             } while (remainingCardCount == 0);

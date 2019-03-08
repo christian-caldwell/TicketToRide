@@ -9,7 +9,7 @@ import java.util.Map;
 import java.util.Queue;
 import java.util.Set;
 
-import models.Constants;
+import models.TTR_Constants;
 import models.data.DestinationCard;
 import models.data.Game;
 import models.data.Player;
@@ -53,13 +53,6 @@ public class ServerData {
 
         boolean test = true;
         if (test) {
-            User hostUser = new User("p1", "p1");
-            hostUser.setHost(true);
-            this.users.add(hostUser);
-            User playerUser2 = new User("p2", "p2");
-            this.users.add(playerUser2);
-            User playerUser3 = new User("p3", "p3");
-            this.users.add(playerUser3);
             this.users.add(new User("t","t"));
             this.users.add(new User("a", "a"));
             this.users.add(new User("s", "s"));
@@ -67,15 +60,6 @@ public class ServerData {
             this.users.add(new User("f", "f"));
             this.users.add(new User("g", "g"));
 
-            String testGameName = "test game";
-            Game testGame = new Game();
-            this.availableGames.put(testGameName, testGame);
-            hostUser.setGameJoined(testGame);
-            playerUser2.setGameJoined(testGame);
-            playerUser3.setGameJoined(testGame);
-            testGame.addPlayerUsername(hostUser.getUsername());
-            testGame.addPlayerUsername(playerUser2.getUsername());
-            testGame.addPlayerUsername(playerUser3.getUsername());
         }
     }
 
@@ -170,11 +154,16 @@ public class ServerData {
     }
 
     public void initializeContainers(Game targetGame) {
+        TTR_Constants constants = TTR_Constants.getInstance();
         HashMap<Integer, Integer> ticketCards = new HashMap<Integer, Integer>();
-        ticketCards.put(0,1);
+        for (Map.Entry<Integer, Integer> entry : constants.getStartingTicketDeck().entrySet()) {
+            Integer key = entry.getKey();
+            Integer value = entry.getValue();
+            ticketCards.put(key, value);
+        }
         targetGame.setTicketCardDeck(ticketCards);
-        targetGame.setAvailableRoutes(Constants.getStartingRouteSet());
-        targetGame.setDestinationDeck(Constants.getStartingDestinationDeck());
+        targetGame.setAvailableRoutes(constants.getStartingRouteSet());
+        targetGame.setDestinationDeck(constants.getStartingDestinationDeck());
         targetGame.dealFaceUpTicketCards();
     }
 

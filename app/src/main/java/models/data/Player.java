@@ -6,7 +6,8 @@ import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 
-import models.Constants;
+import models.TTR_Constants;
+import server.ServerData;
 
 public class Player {
     private Boolean hasLongestRoute;
@@ -14,6 +15,7 @@ public class Player {
     public Player() {
     }
 
+    private ServerData serverData = ServerData.getInstance();
     private Integer score;
     private Integer trainsRemaining;
     private Integer individualLongestRouteValue;
@@ -31,7 +33,8 @@ public class Player {
         this.username = username;
         this.playerColor = playerColor;
         this.score = 0;
-        this.trainsRemaining = Constants.TRAIN_STARTING_COUNT;//TODO: i cant remember if this is the right # of trains that a player starts with
+        TTR_Constants constants = TTR_Constants.getInstance();
+        this.trainsRemaining = constants.TRAIN_STARTING_COUNT;//TODO: i cant remember if this is the right # of trains that a player starts with
         this.individualLongestRouteValue = 0;
         this.hasLongestRoute = false;
         initTickets();
