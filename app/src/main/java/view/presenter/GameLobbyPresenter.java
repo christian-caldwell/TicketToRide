@@ -107,13 +107,6 @@ public class GameLobbyPresenter implements IGameLobbyPresenter, Observer {
 
         //IGameLobby gameLobby = new LobbyViewActivity();
         //gameLobby.updateGameList(this.gameList, client.getUser());
-        //TODO: i think we need new LobbyViewActivity() here as second param
         new LobbyViewActivity.UpdateGameListAsyncTask(client.getUser(), gameLobby).execute(this.gameList);
     }
-
-
-    // AsyncTask Class
-
-
-
 }
