@@ -4,6 +4,7 @@ import android.util.Pair;
 
 import models.data.DestinationCard;
 import models.data.Result;
+import models.data.Route;
 import server.ServerCommands;
 
 public class RunGameFacade {
@@ -39,5 +40,10 @@ public class RunGameFacade {
         returnedCards[0] = card_1;
         returnedCards[1] = card_2;
         return serverCommands.returnDestinationCards(userName, gameName, returnedCards);
+    }
+
+    public Result purchaseRoute(String userName, String gameName, Integer points, String first_location, String second_location, Integer color) {
+        Route purchasedRoute = new Route(points, color, new Pair<String, String>(first_location, second_location));
+        return serverCommands.purchaseRoute(String userName, String gameName, );
     }
 }
