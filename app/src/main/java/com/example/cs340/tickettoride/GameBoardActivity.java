@@ -122,25 +122,17 @@ public class GameBoardActivity extends AppCompatActivity {
 
 
     public static class UpdateChatListAsyncTask extends AsyncTask<ArrayList<ChatMessage>, Void, Void> {
-        //private IGameLobby gameLobby = new LobbyViewActivity();
-        private Context context;
 
-
-        //Constructor to make
-        public UpdateChatListAsyncTask(Context context) {
-            this.context = context.getApplicationContext();
-        }
+        //Empty constructor
+        public UpdateChatListAsyncTask() {}
 
         /**
-         * Override this method to perform a computation on a background thread. The
-         * specified parameters are the parameters passed to {@link #execute}
-         * by the caller of this task.
+
          * <p>
          * This method can call {@link #publishProgress} to publish updates
          * on the UI thread.
          */
 
-        // It's possible that having this return 'void' could cause a problem
         @Override
         protected Void doInBackground(ArrayList<ChatMessage>... arrayLists) {
             return updateChatList(arrayLists[0]);
@@ -148,40 +140,8 @@ public class GameBoardActivity extends AppCompatActivity {
 
         @Override
         protected void onPostExecute(Void result) {
-
             adapter.setListOfMessages(chatMessages);
             adapter.notifyDataSetChanged();
-
-            /*
-            // If user is part of a game, disable the createGameButton
-            if (user.getGame() != null)
-                disableCreateGameButton();
-
-                // If user isn't part of a game, disable the startGameButton
-            else
-                disableStartGameButton();
-
-
-            // If user is a host and the amount of players in the game is greater than 1, then
-            // enable the startGamebutton
-            if (user.getGame() != null) {
-                if (user.isHost() && user.getGame().getPlayerUsernames().size() > 1) {
-                    enableStartGameButton();
-                }
-                // If not a host or if there aren't enough players, disable the 'Start game' button
-                else {
-                    disableStartGameButton();
-                }
-                if (user.getGame().isStarted()) {
-                    Poller.instance().startPollingGame();
-                    Intent intent = new Intent(context, GameBoardActivity.class);
-                    intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                    context.startActivity(intent);
-                }
-            }
-            */
-
-
         }
     }
 }
