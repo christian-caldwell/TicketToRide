@@ -1,7 +1,5 @@
 package client;
 
-import android.util.Pair;
-
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import java.util.ArrayList;
@@ -175,9 +173,9 @@ public class ServerProxy implements IServer {
 
         int position = 0;
         for (DestinationCard currentCard : returnedCards) {
-            Pair<String, String> location = returnedCards[position].getLocations();
-            String first_location = location.first;
-            String second_location = location.second;
+            String[] location = returnedCards[position].getLocations();
+            String first_location = location[0];
+            String second_location = location[1];
             Integer points = returnedCards[position].getPoints();
 
             parameterClassArray[2 + position*3] = String.class;
@@ -201,9 +199,9 @@ public class ServerProxy implements IServer {
         String className = RunGameFacade.class.getName();
         String methodName = "purchaseRoute";
 
-        Pair<String, String> location = purchasedRoute.getLocation();
-        String first_location = location.first;
-        String second_location = location.second;
+        String[] location = purchasedRoute.getLocation();
+        String first_location = location[0];
+        String second_location = location[1];
 
         Object[] parameterDataArray = new Object[6];
         Class<?>[] parameterClassArray = new Class<?>[6];

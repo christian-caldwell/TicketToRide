@@ -149,7 +149,7 @@ public class Game {
     }
     public void returnDestinationCards (DestinationCard[] returnedCards) {
         if (returnedCards != null) {
-            for (DestinationCard card: returnedCards) {
+            for(DestinationCard card: returnedCards) {
                 destinationDeck.add(card);
             }
         }
