@@ -5,7 +5,6 @@ import java.util.UUID;
 
 import models.data.ChatMessage;
 import models.data.DestinationCard;
-import models.data.Enums;
 import models.data.Game;
 import models.data.Player;
 import models.data.Result;
@@ -151,6 +150,8 @@ public class ServerCommands implements IServer {
         Game targetGame = serverData.findGame(gameName);
         if (targetGame != null){
             if (targetGame.purchaseRoute(userName, purchasedRoute)){
+                targetGame.incrementNumPlayerActions();
+                targetGame.incrementCurrentTurnPlayer();
                 result.setSuccessful(true);
             }
         }
@@ -167,6 +168,8 @@ public class ServerCommands implements IServer {
             targetplayer.addToNewDestinationCardHand(targetGame.dealDestinationCard());
             targetplayer.addToNewDestinationCardHand(targetGame.dealDestinationCard());
             targetplayer.addToNewDestinationCardHand(targetGame.dealDestinationCard());
+            targetGame.incrementNumPlayerActions();
+            targetGame.incrementCurrentTurnPlayer();
             result.setSuccessful(true);
         }
         return result;
@@ -179,8 +182,16 @@ public class ServerCommands implements IServer {
         Game targetGame = serverData.findGame(gameName);
         if (targetGame != null){
             TrainCard card = targetGame.dealTicketCard(selectedCard);
+            targetGame.incrementNumPlayerActions();
+
             if (secondPick && (card.getCardColor().equals(serverData.WILD))) {
                 return result;
+            }
+            else if (!secondPick && (card.getCardColor().equals(serverData.WILD))) {
+                targetGame.incrementCurrentTurnPlayer();
+            }
+            else if (secondPick){
+                targetGame.incrementCurrentTurnPlayer();
             }
             Player targetplayer = targetGame.getPlayer(userName);
             targetplayer.addTicketToHand(card.getCardColor());

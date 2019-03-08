@@ -190,8 +190,6 @@ public class TTR_Constants {
     private final int WILD_TICKET_STARTING_COUNT = 14;
     public final int TRAIN_STARTING_COUNT = 48;
 
-    
-
     private static TTR_Constants singleton;
     
     private TTR_Constants () {
