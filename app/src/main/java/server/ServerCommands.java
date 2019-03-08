@@ -5,10 +5,12 @@ import java.util.UUID;
 
 import models.data.ChatMessage;
 import models.data.DestinationCard;
+import models.data.Enums;
 import models.data.Game;
 import models.data.Player;
 import models.data.Result;
 import models.data.Route;
+import models.data.TrainCard;
 import models.data.User;
 
 public class ServerCommands implements IServer {
@@ -144,17 +146,48 @@ public class ServerCommands implements IServer {
 
     @Override
     public Result purchaseRoute(String userName, String gameName, Route purchasedRoute) {
-        return null;
+        Result result = new Result();
+        result.setSuccessful(false);
+        Game targetGame = serverData.findGame(gameName);
+        if (targetGame != null){
+            if (targetGame.purchaseRoute(userName, purchasedRoute)){
+                result.setSuccessful(true);
+            }
+        }
+        return result;
     }
 
     @Override
     public Result requestDestinationCards(String userName, String gameName) {
-        return null;
+        Result result = new Result();
+        result.setSuccessful(false);
+        Game targetGame = serverData.findGame(gameName);
+        if (targetGame != null){
+            Player targetplayer = targetGame.getPlayer(userName);
+            targetplayer.addToNewDestinationCardHand(targetGame.dealDestinationCard());
+            targetplayer.addToNewDestinationCardHand(targetGame.dealDestinationCard());
+            targetplayer.addToNewDestinationCardHand(targetGame.dealDestinationCard());
+            result.setSuccessful(true);
+        }
+        return result;
     }
 
     @Override
-    public Result requestTicketCard(String userName, String gameName, Integer selectedCard) {
-        return null;
+    public Result requestTicketCard(String userName, String gameName, Integer selectedCard, Boolean secondPick) {
+        Result result = new Result();
+        result.setSuccessful(false);
+        Game targetGame = serverData.findGame(gameName);
+        if (targetGame != null){
+            TrainCard card = targetGame.dealTicketCard(selectedCard);
+            //TODO replace Enums.Color with logic that compares the integer values
+            if (secondPick && (card.getCardColor() == Enums.Color.WILD)) {
+                return result;
+            }
+            Player targetplayer = targetGame.getPlayer(userName);
+            targetplayer.addTicketToHand(card.getCardColor());
+            result.setSuccessful(true);
+        }
+        return result;
     }
 
     @Override

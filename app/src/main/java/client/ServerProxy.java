@@ -234,8 +234,8 @@ public class ServerProxy implements IServer {
         String className = RunGameFacade.class.getName();
         String methodName = "requestDestinationCards";
 
-        Object[] parameterDataArray = new Object[4];
-        Class<?>[] parameterClassArray = new Class<?>[4];
+        Object[] parameterDataArray = new Object[2];
+        Class<?>[] parameterClassArray = new Class<?>[2];
 
         parameterClassArray[0] = String.class;
         parameterClassArray[1] = String.class;
@@ -250,7 +250,7 @@ public class ServerProxy implements IServer {
     }
 
     @Override
-    public Result requestTicketCard(String userName, String gameName, Integer selectedCard) {
+    public Result requestTicketCard(String userName, String gameName, Integer selectedCard, Boolean secondPick) {
         String className = RunGameFacade.class.getName();
         String methodName = "requestTicketCard";
 
@@ -260,9 +260,12 @@ public class ServerProxy implements IServer {
         parameterClassArray[0] = String.class;
         parameterClassArray[1] = String.class;
         parameterClassArray[2] = Integer.class;
+        parameterClassArray[3] = Boolean.class;
         parameterDataArray[0] = userName;
         parameterDataArray[1] = gameName;
         parameterDataArray[2] = selectedCard;
+        parameterDataArray[3] = secondPick;
+
 
         GeneralCommand newCommand = new GeneralCommand(className, methodName, parameterClassArray, parameterDataArray);
 

@@ -162,6 +162,21 @@ public class Game {
     public void setAvailableRoutes(Set<Route> availableRoutes) {
         this.availableRoutes = availableRoutes;
     }
+    public boolean purchaseRoute(String playerName, Route purchasedRoute) {
+        if (!this.availableRoutes.contains(purchasedRoute)) {
+            return false;
+        }
+
+        for (Player player : this.players){
+            if (player.getUsername().equals(playerName)) {
+                player.addRoute(purchasedRoute);
+                this.availableRoutes.remove(purchasedRoute);
+                return true;
+            }
+        }
+        return false;
+    }
+
 //////////////////////////////////////////////////////////////////////////////
 
     public ArrayList<Player> getPlayers() {

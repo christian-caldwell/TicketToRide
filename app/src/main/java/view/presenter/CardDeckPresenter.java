@@ -26,7 +26,9 @@ public class CardDeckPresenter implements ITrainCardDeckPresenter, Observer {
 
     @Override
     public TrainCard drawTrainCard(int cardNum) {
-        return clientModel.getUser().getGame().getFaceUpTrainCards().get(cardNum);
+        //TODO make sure that this line is correct, currently not sure what this is doing and why
+        //return clientModel.getUser().getGame().getFaceUpTrainCards().get(cardNum);
+        return null;
     }
 
 
@@ -34,14 +36,15 @@ public class CardDeckPresenter implements ITrainCardDeckPresenter, Observer {
     public ArrayList<DestinationCard> drawDestinationCard() {
         ArrayList<DestinationCard> cardsToReturn = new ArrayList<>();
         for (int i = 0; i < 3; i++)  {
-            cardsToReturn.add(clientModel.getUser().getGame().getDestinationCards().remove());
+            //TODO make sure that this line is correct, currently not sure what this is doing and why
+            //cardsToReturn.add(clientModel.getUser().getGame().getDestinationCards().remove());
         }
         return cardsToReturn;
     }
 
     @Override
     public Integer getDestinationCardsLeft() {
-        return clientModel.getUser().getGame().getDestinationCards().size();
+        return clientModel.getUser().getGame().getDestinationDeck().size();
     }
 
     @Override

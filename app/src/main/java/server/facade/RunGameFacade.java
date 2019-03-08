@@ -4,6 +4,7 @@ import android.util.Pair;
 
 import models.data.ChatMessage;
 import models.data.DestinationCard;
+import models.data.Enums;
 import models.data.Result;
 import models.data.Route;
 import server.ServerCommands;
@@ -47,12 +48,13 @@ public class RunGameFacade {
         return serverCommands.requestDestinationCards(userName, gameName);
     }
 
-    public Result requestTicketCard(String userName, String gameName, Integer selectedCard) {
-        return serverCommands.requestTicketCard(userName, gameName, selectedCard);
+    public Result requestTicketCard(String userName, String gameName, Integer selectedCard, Boolean secondPick) {
+        return serverCommands.requestTicketCard(userName, gameName, selectedCard, secondPick);
     }
 
     public Result purchaseRoute(String userName, String gameName, Integer points, String first_location, String second_location, Integer color) {
-        Route purchasedRoute = new Route(points, color, new Pair<String, String>(first_location, second_location));
+        //TODO replace the 'Enums.Color' with parameter Integer
+        Route purchasedRoute = new Route(points, Enums.Color.BLACK, new Pair<String, String>(first_location, second_location));
         return serverCommands.purchaseRoute(userName, gameName, purchasedRoute);
     }
 
