@@ -97,7 +97,6 @@ public class ServerProxy implements IServer {
 
         Result result = communicator.send(newCommand,"10.0.2.2", "8080");
 
-        //return new Result("nothing", "token", null, true);
         return result;
     }
 
@@ -218,7 +217,7 @@ public class ServerProxy implements IServer {
         parameterClassArray[5] = Integer.class;
         parameterDataArray[0] = userName;
         parameterDataArray[1] = gameName;
-        parameterDataArray[2] = purchasedRoute.getPoints();
+        parameterDataArray[2] = purchasedRoute.getLength();
         parameterDataArray[3] = first_location;
         parameterDataArray[4] = second_location;
         parameterDataArray[5] = purchasedRoute.getCardColor();

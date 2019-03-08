@@ -3,24 +3,24 @@ package models.data;
 import android.util.Pair;
 
 public class Route {
-    private Integer points;
+    private Integer length;
     private Enums.Color cardColor;
     private Pair<String, String> location;
 //    private Enums.PLAYERCOLOR ownerColor;
 
-    public Route(Integer points, Enums.Color cardColor, Pair<String, String> location/*, Enums.PLAYERCOLOR ownerColor*/) {
-        this.points = points;
+    public Route(Integer length, Enums.Color cardColor, Pair<String, String> location/*, Enums.PLAYERCOLOR ownerColor*/) {
+        this.length = length;
         this.cardColor = cardColor;
         this.location = location;
 //        this.ownerColor = ownerColor;
     }
 
-    public Integer getPoints() {
-        return points;
+    public Integer getLength() {
+        return length;
     }
 
-    public void setPoints(Integer points) {
-        this.points = points;
+    public void setLength(Integer points) {
+        this.length = points;
     }
 
     public Enums.Color getCardColor() {
