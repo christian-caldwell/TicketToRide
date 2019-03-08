@@ -1,28 +1,33 @@
 package models.data;
 
-import models.Constants;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 
+import models.Constants;
+
 public class Player {
     private Boolean hasLongestRoute;
+
+    public Player() {
+    }
+
     private Integer score;
     private Integer trainsRemaining;
     private Integer individualLongestRouteValue;
     private Integer numTickets;
     private String username;
-    private Enum playerColor;
+    private Integer playerColor;
 
     private Set<Route> routesOwned = new HashSet<>(0);
-    private Map<Enums.Color, Integer> tickets = new HashMap<>();
+    private Map<Integer, Integer> tickets = new HashMap<>();
     private ArrayList<DestinationCard> destinationCardHand = new ArrayList<>(0);
     private ArrayList<DestinationCard> newDestinationCards = new ArrayList<>(0);
 
 
-    public Player(String username, Enum playerColor) {
+    public Player(String username, Integer playerColor) {
         this.username = username;
         this.playerColor = playerColor;
         this.score = 0;
@@ -64,7 +69,7 @@ public class Player {
     }
 /////////////////////////////////////////////////////////////////////////////////////////////////
 
-    public Enum getPlayerColor() {
+    public Integer getPlayerColor() {
         return playerColor;
     }
 /////////////////////////////////////////////////////////////////////////////////////////////////
@@ -109,15 +114,17 @@ public class Player {
     }
 /////////////////////////////////////////////////////////////////////////////////////////////////
 
-    public Map<Enums.Color, Integer> getTickets() {
+    public Map<Integer, Integer> getTickets() {
         return tickets;
     }
-    public void addTicketToHand(Enums.Color color) {
+
+    public void addTicketToHand(Integer color) {
         this.tickets.put(color,tickets.get(color)+1);
     }
+
     private void initTickets() {
-        for (Enums.Color c: Enums.Color.values()) {
-            tickets.put(c, 0);
+        for (int i = 1; i < 10; i++ ) {
+            tickets.put(i, 0);
         }
         numTickets = 0;
     }

@@ -7,7 +7,6 @@ import java.util.Observer;
 
 import models.data.ChatMessage;
 import models.data.DestinationCard;
-import models.data.Enums;
 import models.data.Game;
 import models.data.Player;
 import models.data.User;
@@ -30,7 +29,7 @@ public class ClientModel extends Observable {
 
 
     //new stuff for phase 2
-    private Map<Enums.Color, Integer> ticketCardHand;
+    private Map<Integer, Integer> ticketCardHand;
     private ArrayList<DestinationCard> destinationCardHand;
     private Player player;
     private ArrayList<Object> changedObjects;
@@ -44,11 +43,14 @@ public class ClientModel extends Observable {
         this.chatMessages.add(chatMessage);
     }
 
-    public Map<Enums.Color, Integer> getTicketCardHand() {
+    public Map<Integer, Integer> getTicketCardHand() {
         return ticketCardHand;
     }
 
-    public void incrementTicketCardHand(Enums.Color color) {
+    public void setTicketCardHand(Map<Integer, Integer> ticketCardHand) {
+        this.ticketCardHand = ticketCardHand;
+    }
+    public void incrementTicketCardHand(Integer color) {
         ticketCardHand.put(color, ticketCardHand.get(color) + 1);
     }
 

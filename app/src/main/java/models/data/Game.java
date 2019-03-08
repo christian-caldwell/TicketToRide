@@ -2,34 +2,35 @@ package models.data;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-import java.util.ArrayDeque;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
-import java.util.Queue;
 import java.util.Random;
 import java.util.Set;
 
 import models.Constants;
+import server.ServerData;
 
 public class Game {
     private boolean isStarted;
     private String gameName;
     private Integer numPlayerActions;
     private Integer currentLongestRouteValue;
-    private Enums.Color currentTurnPlayer;
+    private Integer currentTurnPlayer;
 
     private ArrayList<String> playerUsernames = new ArrayList<>();
 
-    private ArrayList<Player> players;
+    private ArrayList<Player> players = new ArrayList<>();
     private ArrayList<ChatMessage> chatLog = new ArrayList<>();
-    private Map<Enums.Color, Integer> ticketCardDeck = new HashMap<>();
-    private Map<Enums.Color, Integer> ticketCardDiscard = new HashMap<>();
+    private Map<Integer, Integer> ticketCardDeck = new HashMap<>();
+    private Map<Integer, Integer> ticketCardDiscard = new HashMap<>();
     private TrainCard[] faceUpTrainCards = new TrainCard[5];
     private ArrayList<DestinationCard> destinationDeck = new ArrayList<>();
     private Set<Route> availableRoutes = new HashSet<>();
+
+    private ServerData serverData = ServerData.getInstance();
 
     ////////////
 
@@ -38,7 +39,11 @@ public class Game {
         isStarted = false;
         numPlayerActions = 0;
         currentLongestRouteValue = 0;
-        currentTurnPlayer = Enums.Color.RED;
+        currentTurnPlayer = serverData.RED;
+    }
+
+    public Game() {
+
     }
 
 
@@ -61,16 +66,18 @@ public class Game {
     public void addPlayerUsername(String userName) { this.playerUsernames.add(userName); }
 //////////////////////////////////////////////////////////////////////////////
 
-    public Map<Enums.Color, Integer> getTicketCardDeck() {
+    public Map<Integer, Integer> getTicketCardDeck() {
         return ticketCardDeck;
     }
-    public void setTicketCardDeck(Map<Enums.Color, Integer> ticketCardDeck) {
+
+    public void setTicketCardDeck(Map<Integer, Integer> ticketCardDeck) {
         this.ticketCardDeck = ticketCardDeck;
     }
+
     public TrainCard dealTicketCard(int position) {
         TrainCard dealtCard = null;
         if (position == 0) {
-            Enums.Color dealtCardColor = null;
+            Integer dealtCardColor = null;
             int remainingCardCount = 0;
 
             do {
@@ -89,7 +96,7 @@ public class Game {
 
             int wildCardCount = 0;
             for (TrainCard card :this.faceUpTrainCards) {
-                if (card.getCardColor() == Enums.Color.WILD) {
+                if (card.getCardColor().equals(serverData.WILD)) {
                     wildCardCount++;
                 }
             }
@@ -103,17 +110,17 @@ public class Game {
     }
 //////////////////////////////////////////////////////////////////////////////
 
-    public Map<Enums.Color, Integer> getTicketCardDiscard() {
+    public Map<Integer, Integer> getTicketCardDiscard() {
         return ticketCardDiscard;
     }
-    public void setTicketCardDiscard(Map<Enums.Color, Integer> ticketCardDiscard) {
+    public void setTicketCardDiscard(Map<Integer, Integer> ticketCardDiscard) {
         this.ticketCardDiscard = ticketCardDiscard;
     }
     public void reshuffleTicketDecks() {
         for (TrainCard card:this.faceUpTrainCards) {
             this.ticketCardDiscard.put(card.getCardColor(), ticketCardDeck.get(card.getCardColor()) + 1);
         }
-        for (Enums.Color color: this.ticketCardDiscard.keySet()){
+        for (Integer color: this.ticketCardDiscard.keySet()){
             this.ticketCardDeck.put(color,this.ticketCardDeck.get(color) + this.ticketCardDiscard.get(color));
         }
 
@@ -219,39 +226,39 @@ public class Game {
     }
 //////////////////////////////////////////////////////////////////////////////
 
-    public Enums.Color getCurrentTurnPlayer() {
+    public Integer getCurrentTurnPlayer() {
         return currentTurnPlayer;
     }
     public void incrementCurrentTurnPlayer() {
-        if (this.currentTurnPlayer == Enums.Color.RED) {
-            this.currentTurnPlayer = Enums.Color.GREEN;
+        if (this.currentTurnPlayer.equals(serverData.RED)) {
+            this.currentTurnPlayer = serverData.GREEN;
         }
-        else if (this.currentTurnPlayer == Enums.Color.GREEN) {
+        else if (this.currentTurnPlayer.equals(serverData.GREEN)) {
             if (this.players.size() > 2) {
-                this.currentTurnPlayer = Enums.Color.BLUE;
+                this.currentTurnPlayer = serverData.BLUE;
             }
             else {
-                this.currentTurnPlayer = Enums.Color.RED;
+                this.currentTurnPlayer = serverData.RED;
             }
         }
-        else if (this.currentTurnPlayer == Enums.Color.BLUE) {
+        else if (this.currentTurnPlayer.equals(serverData.BLUE)) {
             if (this.players.size() > 3) {
-                this.currentTurnPlayer = Enums.Color.YELLOW;
+                this.currentTurnPlayer = serverData.YELLOW;
             }
             else {
-                this.currentTurnPlayer = Enums.Color.RED;
+                this.currentTurnPlayer = serverData.RED;
             }
         }
-        else if (this.currentTurnPlayer == Enums.Color.YELLOW) {
+        else if (this.currentTurnPlayer.equals(serverData.YELLOW)) {
             if (this.players.size() > 4) {
-                this.currentTurnPlayer = Enums.Color.BLACK;
+                this.currentTurnPlayer = serverData.BLACK;
             }
             else {
-                this.currentTurnPlayer = Enums.Color.RED;
+                this.currentTurnPlayer = serverData.RED;
             }
         }
-        else if (this.currentTurnPlayer == Enums.Color.BLACK) {
-            this.currentTurnPlayer = Enums.Color.RED;
+        else if (this.currentTurnPlayer.equals(serverData.BLACK)) {
+            this.currentTurnPlayer = serverData.RED;
         }
     }
 //////////////////////////////////////////////////////////////////////////////
