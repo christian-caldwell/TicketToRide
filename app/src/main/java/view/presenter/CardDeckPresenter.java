@@ -1,7 +1,5 @@
 package view.presenter;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
-
 import java.util.ArrayList;
 import java.util.Observable;
 import java.util.Observer;
@@ -11,9 +9,9 @@ import client.ClientModel;
 import models.data.DestinationCard;
 import models.data.Enums;
 import models.data.TrainCard;
-import view.presenterInterface.ITrainCardDeckPresenter;
+import view.presenterInterface.ICardDeckPresenter;
 
-public class CardDeckPresenter implements ITrainCardDeckPresenter, Observer {
+public class CardDeckPresenter implements ICardDeckPresenter, Observer {
     ClientModel clientModel = ClientModel.create();
     @Override
     public Enums.Color drawTrainCard() {

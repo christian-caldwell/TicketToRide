@@ -15,13 +15,23 @@ import android.widget.Toast;
 import java.util.ArrayList;
 
 import models.data.ChatMessage;
+import models.data.Enums;
+import view.presenter.CardDeckPresenter;
 import view.presenter.ChatPresenter;
+import view.presenter.PlayerInfoPresenter;
+import view.presenter.PlayersHandPresenter;
+import view.presenterInterface.ICardDeckPresenter;
 import view.presenterInterface.IChatPresenter;
+import view.presenterInterface.IPlayerInfoPresenter;
+import view.presenterInterface.IPlayersHandPresenter;
 
 public class GameBoardActivity extends AppCompatActivity {
 
     private static ArrayList<ChatMessage> chatMessages;
-    IChatPresenter presenter;
+    IChatPresenter chatPresenter;
+    IPlayersHandPresenter playersHandPresenter;
+    IPlayerInfoPresenter playerInfoPresenter;
+    ICardDeckPresenter cardDeckPresenter;
     private static RecyclerViewAdapterChat adapter;
     private static EditText inputChatEditText;
     private static Button sendMessageButton;
@@ -58,16 +68,19 @@ public class GameBoardActivity extends AppCompatActivity {
                 | View.SYSTEM_UI_FLAG_FULLSCREEN
                 | View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY;
         decorView.setSystemUiVisibility(uiOptions);
-        presenter = new ChatPresenter();
+        chatPresenter = new ChatPresenter();
+        cardDeckPresenter = new CardDeckPresenter();
+        playerInfoPresenter = new PlayerInfoPresenter();
+        playersHandPresenter = new PlayersHandPresenter();
         initRecyclerView();
         inputChatEditText = findViewById(R.id.input_edit_text);
         sendMessageButton = findViewById(R.id.send_message_button);
         sendMessageButton.setOnClickListener(new View.OnClickListener() {
-            // When the sendMessage button is clicked, send the text to the presenter.addMessage function
+            // When the sendMessage button is clicked, send the text to the chatPresenter.addMessage function
             @Override
             public void onClick(View v) {
                 String newMessage = inputChatEditText.getText().toString();
-                presenter.addMessage(newMessage);
+                chatPresenter.addMessage(newMessage);
             }
         });
         mGreenTrainCard = findViewById(R.id.greenCard);
@@ -79,11 +92,22 @@ public class GameBoardActivity extends AppCompatActivity {
         mWildTrainCard = findViewById(R.id.wildCard);
         mBlueTrainCard = findViewById(R.id.blueCard);
 
+
+
+//        mGreenTrainCard.setText(playersHandPresenter.getTrainCardAmount(Enums.Color.GREEN));
+//        mRedTrainCard.setText(playersHandPresenter.getTrainCardAmount(Enums.Color.RED));
+//        mPinkTrainCard.setText(playersHandPresenter.getTrainCardAmount(Enums.Color.PINK));
+//        mYellowTrainCard.setText(playersHandPresenter.getTrainCardAmount(Enums.Color.YELLOW));
+//        mWhiteTrainCard.setText(playersHandPresenter.getTrainCardAmount(Enums.Color.WHITE));
+//        mBlackTrainCard.setText(playersHandPresenter.getTrainCardAmount(Enums.Color.BLACK));
+//        mWildTrainCard.setText(playersHandPresenter.getTrainCardAmount(Enums.Color.WILD));
+//        mBlueTrainCard.setText(playersHandPresenter.getTrainCardAmount(Enums.Color.BLUE));
+
     }
 
     private void initRecyclerView() {
         RecyclerView recyclerView = findViewById(R.id.chat_recycler_view);
-        chatMessages = presenter.getMessages();
+        chatMessages = chatPresenter.getMessages();
         adapter = new RecyclerViewAdapterChat(chatMessages);
         recyclerView.setHasFixedSize(true);
         recyclerView.setAdapter(adapter);
