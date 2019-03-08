@@ -9,11 +9,13 @@ import java.util.Map;
 import java.util.Queue;
 import java.util.Set;
 
+import models.Constants;
 import models.data.DestinationCard;
 import models.data.Game;
 import models.data.Player;
 import models.data.Result;
 import models.data.Route;
+import models.data.TrainCard;
 import models.data.User;
 
 public class ServerData {
@@ -146,22 +148,22 @@ public class ServerData {
     }
 
     public void initializeContainers(Game targetGame) {
-//        targetGame.setTicketCardDeck(Constants.getStartingTicketDeck());
-//        targetGame.setAvailableRoutes(Constants.getStartingRouteSet());
-//        targetGame.setDestinationDeck(Constants.getStartingDestinationDeck());
-//        targetGame.dealFaceUpTicketCards();
+        targetGame.setTicketCardDeck(Constants.getStartingTicketDeck());
+        targetGame.setAvailableRoutes(Constants.getStartingRouteSet());
+        targetGame.setDestinationDeck(Constants.getStartingDestinationDeck());
+        targetGame.dealFaceUpTicketCards();
     }
 
     public void dealHands (Game targetGame) {
-//        for (Player targetPlayer: targetGame.getPlayers()) {
-//            for (int i = 0; i < 4; i++) {
-//                TrainCard card = targetGame.dealTicketCard(0);
-//                targetPlayer.addTicketToHand(card.getCardColor());
-//            }
-//            targetPlayer.addToNewDestinationCardHand(targetGame.dealDestinationCard());
-//            targetPlayer.addToNewDestinationCardHand(targetGame.dealDestinationCard());
-//            targetPlayer.addToNewDestinationCardHand(targetGame.dealDestinationCard());
-//
-//        }
+        for (Player targetPlayer: targetGame.getPlayers()) {
+            for (int i = 0; i < 4; i++) {
+                TrainCard card = targetGame.dealTicketCard(0);
+                targetPlayer.addTicketToHand(card.getCardColor());
+            }
+            targetPlayer.addToNewDestinationCardHand(targetGame.dealDestinationCard());
+            targetPlayer.addToNewDestinationCardHand(targetGame.dealDestinationCard());
+            targetPlayer.addToNewDestinationCardHand(targetGame.dealDestinationCard());
+
+        }
     }
 }

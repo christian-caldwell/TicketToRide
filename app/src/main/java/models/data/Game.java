@@ -69,9 +69,11 @@ public class Game {
     public Map<Integer, Integer> getTicketCardDeck() {
         return ticketCardDeck;
     }
+
     public void setTicketCardDeck(Map<Integer, Integer> ticketCardDeck) {
         this.ticketCardDeck = ticketCardDeck;
     }
+
     public TrainCard dealTicketCard(int position) {
         TrainCard dealtCard = null;
         if (position == 0) {
