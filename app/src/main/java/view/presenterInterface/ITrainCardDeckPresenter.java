@@ -7,7 +7,7 @@ import models.data.Enums;
 import models.data.TrainCard;
 
 public interface ITrainCardDeckPresenter {
-    Enums.Color drawTrainCard();
+    Integer drawTrainCard();
     TrainCard drawTrainCard(int cardNum);
     ArrayList<DestinationCard> drawDestinationCard();
     Integer getDestinationCardsLeft();

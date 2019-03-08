@@ -16,10 +16,10 @@ import view.presenterInterface.ITrainCardDeckPresenter;
 public class CardDeckPresenter implements ITrainCardDeckPresenter, Observer {
     ClientModel clientModel = ClientModel.create();
     @Override
-    public Enums.Color drawTrainCard() {
-        ArrayList<Enums.Color> valuesList = new ArrayList<Enums.Color>(clientModel.getUser().getGame().getTicketCardDeck().keySet());
+    public Integer drawTrainCard() {
+        ArrayList<Integer> valuesList = new ArrayList<Integer>(clientModel.getUser().getGame().getTicketCardDeck().keySet());
         int randomIndex = new Random().nextInt(valuesList.size());
-        Enums.Color randomValue = valuesList.get(randomIndex);
+        Integer randomValue = valuesList.get(randomIndex);
         clientModel.incrementTicketCardHand(randomValue);
         return randomValue;
     }

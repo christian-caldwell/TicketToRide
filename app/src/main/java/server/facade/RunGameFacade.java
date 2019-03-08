@@ -54,7 +54,7 @@ public class RunGameFacade {
 
     public Result purchaseRoute(String userName, String gameName, Integer points, String first_location, String second_location, Integer color) {
         //TODO replace the 'Enums.Color' with parameter Integer
-        Route purchasedRoute = new Route(points, Enums.Color.BLACK, new Pair<String, String>(first_location, second_location));
+        Route purchasedRoute = new Route(points, color, new Pair<String, String>(first_location, second_location));
         return serverCommands.purchaseRoute(userName, gameName, purchasedRoute);
     }
 

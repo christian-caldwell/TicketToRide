@@ -179,8 +179,7 @@ public class ServerCommands implements IServer {
         Game targetGame = serverData.findGame(gameName);
         if (targetGame != null){
             TrainCard card = targetGame.dealTicketCard(selectedCard);
-            //TODO replace Enums.Color with logic that compares the integer values
-            if (secondPick && (card.getCardColor() == Enums.Color.WILD)) {
+            if (secondPick && (card.getCardColor().equals(serverData.WILD))) {
                 return result;
             }
             Player targetplayer = targetGame.getPlayer(userName);
