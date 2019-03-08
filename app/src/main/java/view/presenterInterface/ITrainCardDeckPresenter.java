@@ -3,7 +3,6 @@ package view.presenterInterface;
 import java.util.ArrayList;
 
 import models.data.DestinationCard;
-import models.data.Enums;
 import models.data.TrainCard;
 
 public interface ITrainCardDeckPresenter {

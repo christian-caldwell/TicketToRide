@@ -1,7 +1,5 @@
 package view.presenter;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
-
 import java.util.ArrayList;
 import java.util.Observable;
 import java.util.Observer;
@@ -9,7 +7,6 @@ import java.util.Random;
 
 import client.ClientModel;
 import models.data.DestinationCard;
-import models.data.Enums;
 import models.data.TrainCard;
 import view.presenterInterface.ITrainCardDeckPresenter;
 
