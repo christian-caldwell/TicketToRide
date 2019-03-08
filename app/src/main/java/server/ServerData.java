@@ -148,7 +148,9 @@ public class ServerData {
     }
 
     public void initializeContainers(Game targetGame) {
-        targetGame.setTicketCardDeck(Constants.getStartingTicketDeck());
+        HashMap<Integer, Integer> ticketCards = new HashMap<Integer, Integer>();
+        ticketCards.put(0,1);
+        targetGame.setTicketCardDeck(ticketCards);
         targetGame.setAvailableRoutes(Constants.getStartingRouteSet());
         targetGame.setDestinationDeck(Constants.getStartingDestinationDeck());
         targetGame.dealFaceUpTicketCards();

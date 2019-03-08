@@ -4,7 +4,6 @@ import android.util.Pair;
 
 import models.data.ChatMessage;
 import models.data.DestinationCard;
-import models.data.Enums;
 import models.data.Result;
 import models.data.Route;
 import server.ServerCommands;

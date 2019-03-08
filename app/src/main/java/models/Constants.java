@@ -5,7 +5,6 @@ import android.util.Pair;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
-import java.util.Map;
 import java.util.Set;
 
 import models.data.DestinationCard;
@@ -190,7 +189,7 @@ public class Constants {
     public final static int WILD_TICKET_STARTING_COUNT = 14;
     public final static int TRAIN_STARTING_COUNT = 48;
 
-    public static Map<Integer, Integer> getStartingTicketDeck(){
+    public static HashMap<Integer, Integer> getStartingTicketDeck(){
         HashMap<Integer, Integer> newDeck = new HashMap<>();
         ServerData serverData = ServerData.getInstance();
 
@@ -210,36 +209,36 @@ public class Constants {
     public static ArrayList<DestinationCard> getStartingDestinationDeck(){
         ArrayList<DestinationCard> newDeck = new ArrayList<>();
 
-//        newDeck.add(DEN_TO_EL);
-//        newDeck.add(KAN_TO_HOU);
-//        newDeck.add(NYC_TO_ATL);
-//        newDeck.add(CHI_TO_ORL);
-//        newDeck.add(CAL_TO_SLC);
-//        newDeck.add(HEL_TO_LA);
-//        newDeck.add(DUL_TO_HOU);
-//        newDeck.add(SSM_TO_NAS);
-//        newDeck.add(MON_TO_ATL);
-//        newDeck.add(SSM_TO_OKL);
-//        newDeck.add(SEA_TO_LA);
-//        newDeck.add(CHI_TO_SAN);
-//        newDeck.add(DUL_TO_EL);
-//        newDeck.add(TOR_TO_MIA);
-//        newDeck.add(POR_TO_PHO);
-//        newDeck.add(DAL_TO_NYC);
-//        newDeck.add(DEN_TO_PIT);
-//        newDeck.add(WIN_TO_LIT);
-//        newDeck.add(WIN_TO_HOU);
-//        newDeck.add(VAN_TO_SAN);
-//        newDeck.add(CAL_TO_PHO);
-//        newDeck.add(MON_TO_ORL);
-//        newDeck.add(LA_TO_CHI);
-//        newDeck.add(SAN_TO_ATL);
-//        newDeck.add(POR_TO_NAS);
-//        newDeck.add(VAN_NO_MON);
-//        newDeck.add(LA_TO_MIA);
-//        newDeck.add(LA_TO_NYC);
-//        newDeck.add(SEA_TO_NYC);
-//        newDeck.add(BOS_TO_MIA);
+        newDeck.add(DEN_TO_EL);
+        newDeck.add(KAN_TO_HOU);
+        newDeck.add(NYC_TO_ATL);
+        newDeck.add(CHI_TO_ORL);
+        newDeck.add(CAL_TO_SLC);
+        newDeck.add(HEL_TO_LA);
+        newDeck.add(DUL_TO_HOU);
+        newDeck.add(SSM_TO_NAS);
+        newDeck.add(MON_TO_ATL);
+        newDeck.add(SSM_TO_OKL);
+        newDeck.add(SEA_TO_LA);
+        newDeck.add(CHI_TO_SAN);
+        newDeck.add(DUL_TO_EL);
+        newDeck.add(TOR_TO_MIA);
+        newDeck.add(POR_TO_PHO);
+        newDeck.add(DAL_TO_NYC);
+        newDeck.add(DEN_TO_PIT);
+        newDeck.add(WIN_TO_LIT);
+        newDeck.add(WIN_TO_HOU);
+        newDeck.add(VAN_TO_SAN);
+        newDeck.add(CAL_TO_PHO);
+        newDeck.add(MON_TO_ORL);
+        newDeck.add(LA_TO_CHI);
+        newDeck.add(SAN_TO_ATL);
+        newDeck.add(POR_TO_NAS);
+        newDeck.add(VAN_NO_MON);
+        newDeck.add(LA_TO_MIA);
+        newDeck.add(LA_TO_NYC);
+        newDeck.add(SEA_TO_NYC);
+        newDeck.add(BOS_TO_MIA);
 
         return newDeck;
     }
