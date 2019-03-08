@@ -5,6 +5,7 @@ import android.util.Pair;
 import models.data.ChatMessage;
 import models.data.DestinationCard;
 import models.data.Result;
+import models.data.Route;
 import server.ServerCommands;
 
 public class RunGameFacade {
@@ -44,7 +45,7 @@ public class RunGameFacade {
 
     public Result purchaseRoute(String userName, String gameName, Integer points, String first_location, String second_location, Integer color) {
         Route purchasedRoute = new Route(points, color, new Pair<String, String>(first_location, second_location));
-        return serverCommands.purchaseRoute(String userName, String gameName, );
+        return serverCommands.purchaseRoute(userName, gameName, purchasedRoute);
     }
 
     public Result postChatMessage(String userName, String gameName, String contents, String timpStamp) {
