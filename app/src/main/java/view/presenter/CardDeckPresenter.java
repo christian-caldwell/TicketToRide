@@ -6,6 +6,7 @@ import java.util.Observer;
 import java.util.Random;
 
 import client.ClientModel;
+import client.ServerProxy;
 import models.data.DestinationCard;
 import models.data.Enums;
 import models.data.TrainCard;
@@ -13,8 +14,10 @@ import view.presenterInterface.ICardDeckPresenter;
 
 public class CardDeckPresenter implements ICardDeckPresenter, Observer {
     ClientModel clientModel = ClientModel.create();
+    ServerProxy serverProxy = new ServerProxy();
     @Override
     public Enums.Color drawTrainCard() {
+        //serverProxy.
         ArrayList<Enums.Color> valuesList = new ArrayList<Enums.Color>(clientModel.getUser().getGame().getTicketCardDeck().keySet());
         int randomIndex = new Random().nextInt(valuesList.size());
         Enums.Color randomValue = valuesList.get(randomIndex);

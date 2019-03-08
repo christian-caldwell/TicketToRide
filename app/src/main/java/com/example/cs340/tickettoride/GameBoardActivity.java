@@ -28,10 +28,10 @@ import view.presenterInterface.IPlayersHandPresenter;
 public class GameBoardActivity extends AppCompatActivity {
 
     private static ArrayList<ChatMessage> chatMessages;
-    IChatPresenter chatPresenter;
-    IPlayersHandPresenter playersHandPresenter;
-    IPlayerInfoPresenter playerInfoPresenter;
-    ICardDeckPresenter cardDeckPresenter;
+    private static IChatPresenter chatPresenter;
+    private static IPlayersHandPresenter playersHandPresenter;
+    private static IPlayerInfoPresenter playerInfoPresenter;
+    private static ICardDeckPresenter cardDeckPresenter;
     private static RecyclerViewAdapterChat adapter;
     private static EditText inputChatEditText;
     private static Button sendMessageButton;
@@ -43,8 +43,6 @@ public class GameBoardActivity extends AppCompatActivity {
     private static Button mBlackTrainCard;
     private static Button mWildTrainCard;
     private static Button mBlueTrainCard;
-
-
 
 
     @Override
@@ -60,7 +58,7 @@ public class GameBoardActivity extends AppCompatActivity {
         setContentView(R.layout.activity_game_board);
         View decorView = getWindow().getDecorView();
 
-            // Hide both the navigation bar and the status bar.
+        // Hide both the navigation bar and the status bar.
         int uiOptions = View.SYSTEM_UI_FLAG_LAYOUT_STABLE
                 | View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
                 | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
@@ -92,17 +90,6 @@ public class GameBoardActivity extends AppCompatActivity {
         mWildTrainCard = findViewById(R.id.wildCard);
         mBlueTrainCard = findViewById(R.id.blueCard);
 
-
-
-//        mGreenTrainCard.setText(playersHandPresenter.getTrainCardAmount(Enums.Color.GREEN));
-//        mRedTrainCard.setText(playersHandPresenter.getTrainCardAmount(Enums.Color.RED));
-//        mPinkTrainCard.setText(playersHandPresenter.getTrainCardAmount(Enums.Color.PINK));
-//        mYellowTrainCard.setText(playersHandPresenter.getTrainCardAmount(Enums.Color.YELLOW));
-//        mWhiteTrainCard.setText(playersHandPresenter.getTrainCardAmount(Enums.Color.WHITE));
-//        mBlackTrainCard.setText(playersHandPresenter.getTrainCardAmount(Enums.Color.BLACK));
-//        mWildTrainCard.setText(playersHandPresenter.getTrainCardAmount(Enums.Color.WILD));
-//        mBlueTrainCard.setText(playersHandPresenter.getTrainCardAmount(Enums.Color.BLUE));
-
     }
 
     private void initRecyclerView() {
@@ -120,14 +107,13 @@ public class GameBoardActivity extends AppCompatActivity {
     }
 
 
-
     public static class UpdateChatListAsyncTask extends AsyncTask<ArrayList<ChatMessage>, Void, Void> {
 
         //Empty constructor
-        public UpdateChatListAsyncTask() {}
+        public UpdateChatListAsyncTask() {
+        }
 
         /**
-
          * <p>
          * This method can call {@link #publishProgress} to publish updates
          * on the UI thread.
@@ -142,6 +128,16 @@ public class GameBoardActivity extends AppCompatActivity {
         protected void onPostExecute(Void result) {
             adapter.setListOfMessages(chatMessages);
             adapter.notifyDataSetChanged();
+            chatMessages = chatPresenter.getMessages();
+            mGreenTrainCard.setText(playersHandPresenter.getTrainCardAmount(Enums.Color.GREEN));
+            mRedTrainCard.setText(playersHandPresenter.getTrainCardAmount(Enums.Color.RED));
+            mPinkTrainCard.setText(playersHandPresenter.getTrainCardAmount(Enums.Color.PINK));
+            mYellowTrainCard.setText(playersHandPresenter.getTrainCardAmount(Enums.Color.YELLOW));
+            mWhiteTrainCard.setText(playersHandPresenter.getTrainCardAmount(Enums.Color.WHITE));
+            mBlackTrainCard.setText(playersHandPresenter.getTrainCardAmount(Enums.Color.BLACK));
+            mWildTrainCard.setText(playersHandPresenter.getTrainCardAmount(Enums.Color.WILD));
+            mBlueTrainCard.setText(playersHandPresenter.getTrainCardAmount(Enums.Color.BLUE));
+
         }
     }
 }
