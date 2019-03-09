@@ -27,7 +27,7 @@ import view.presenter.CardDeckPresenter;
 import view.presenter.ChatPresenter;
 import view.presenter.PlayerInfoPresenter;
 import view.presenter.PlayersHandPresenter;
-import view.presenterInterface.ITrainCardDeckPresenter;
+import view.presenterInterface.ICardDeckPresenter;
 import view.presenterInterface.IChatPresenter;
 import view.presenterInterface.IPlayerInfoPresenter;
 import view.presenterInterface.IPlayersHandPresenter;
@@ -76,7 +76,7 @@ public class GameBoardActivity extends AppCompatActivity {
                 | View.SYSTEM_UI_FLAG_FULLSCREEN
                 | View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY;
         decorView.setSystemUiVisibility(uiOptions);
-        presenter = new ChatPresenter(this);
+        chatPresenter = new ChatPresenter(this);
         cardDeckPresenter = new CardDeckPresenter();
         playerInfoPresenter = new PlayerInfoPresenter();
         playersHandPresenter = new PlayersHandPresenter();
@@ -957,15 +957,15 @@ public class GameBoardActivity extends AppCompatActivity {
             adapter.setListOfMessages(chatMessages);
             adapter.notifyDataSetChanged();
             chatMessages = chatPresenter.getMessages();
-            mGreenTrainCard.setText(playersHandPresenter.getTrainCardAmount(Enums.Color.GREEN));
-            mRedTrainCard.setText(playersHandPresenter.getTrainCardAmount(Enums.Color.RED));
-            mPinkTrainCard.setText(playersHandPresenter.getTrainCardAmount(Enums.Color.PINK));
-            mYellowTrainCard.setText(playersHandPresenter.getTrainCardAmount(Enums.Color.YELLOW));
-            mWhiteTrainCard.setText(playersHandPresenter.getTrainCardAmount(Enums.Color.WHITE));
-            mBlackTrainCard.setText(playersHandPresenter.getTrainCardAmount(Enums.Color.BLACK));
-            mWildTrainCard.setText(playersHandPresenter.getTrainCardAmount(Enums.Color.WILD));
-            mBlueTrainCard.setText(playersHandPresenter.getTrainCardAmount(Enums.Color.BLUE));
-            //mOrangeTrainCard.setText(playersHandPresenter.getTrainCardAmount(Enums.Color.ORANGE));
+            mGreenTrainCard.setText("" + playersHandPresenter.getTrainCardAmount(1));
+            mRedTrainCard.setText(""+ playersHandPresenter.getTrainCardAmount(2));
+            mPinkTrainCard.setText("" + playersHandPresenter.getTrainCardAmount(6));
+            mYellowTrainCard.setText("" + playersHandPresenter.getTrainCardAmount(3));
+            mWhiteTrainCard.setText("" + playersHandPresenter.getTrainCardAmount(7));
+            mBlackTrainCard.setText("" + playersHandPresenter.getTrainCardAmount(8));
+            mWildTrainCard.setText("" + playersHandPresenter.getTrainCardAmount(9));
+            mBlueTrainCard.setText("" + playersHandPresenter.getTrainCardAmount(4));
+            mOrangeTrainCard.setText("" + playersHandPresenter.getTrainCardAmount(5));
 
         }
     }

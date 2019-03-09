@@ -26,9 +26,7 @@ public class PlayersHandPresenter implements IPlayersHandPresenter, Observer {
 
     @Override
     public Integer getTrainCardAmount(Integer color) {
-
-        Map<Integer, Integer> trainCards = clientModel.getPlayer().getTickets();
-        return trainCards.get(color);
+        return clientModel.getPlayer().getTickets().get(color);
     }
 
     @Override
