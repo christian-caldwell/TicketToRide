@@ -1,15 +1,21 @@
 package com.example.cs340.tickettoride;
 
 import android.content.Context;
+import android.graphics.Canvas;
+import android.graphics.ColorFilter;
+import android.graphics.drawable.Drawable;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.StrictMode;
+import android.support.constraint.Group;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
@@ -34,16 +40,11 @@ public class GameBoardActivity extends AppCompatActivity {
     private static ICardDeckPresenter cardDeckPresenter;
     private static RecyclerViewAdapterChat adapter;
     private static EditText inputChatEditText;
-    private static Button sendMessageButton;
-    private static Button mGreenTrainCard;
-    private static Button mRedTrainCard;
-    private static Button mPinkTrainCard;
-    private static Button mYellowTrainCard;
-    private static Button mWhiteTrainCard;
-    private static Button mBlackTrainCard;
-    private static Button mWildTrainCard;
-    private static Button mBlueTrainCard;
-
+    private static Button sendMessageButton, playerInfoButton;
+    private static Button mGreenTrainCard, mRedTrainCard, mPinkTrainCard, mYellowTrainCard,
+            mWhiteTrainCard, mBlackTrainCard, mWildTrainCard, mBlueTrainCard, mOrangeTrainCard;
+    private static Button destinationCardDeck, trainCardDeck, cardOne, cardTwo, cardThree, cardFour, cardFive;
+    private static ImageView gameBoard;
 
     @Override
     public void onBackPressed() {
@@ -81,6 +82,18 @@ public class GameBoardActivity extends AppCompatActivity {
                 chatPresenter.addMessage(newMessage);
             }
         });
+
+        //FIXME: FINISH THE LISTENER TO RETURN THE PLAYER'S ROUTE CARDS THAT HE HAS
+        playerInfoButton = findViewById(R.id.get_player_info_button);
+        playerInfoButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                playerInfoPresenter.getDestinationCardStrings();
+            }
+        });
+
+
+
         mGreenTrainCard = findViewById(R.id.greenCard);
         mRedTrainCard = findViewById(R.id.redCard);
         mPinkTrainCard = findViewById(R.id.pinkCard);
@@ -89,6 +102,65 @@ public class GameBoardActivity extends AppCompatActivity {
         mBlackTrainCard = findViewById(R.id.blackCard);
         mWildTrainCard = findViewById(R.id.wildCard);
         mBlueTrainCard = findViewById(R.id.blueCard);
+        mOrangeTrainCard = findViewById(R.id.orangeCard);
+
+        destinationCardDeck = findViewById(R.id.destination_card_deck);
+        destinationCardDeck.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                cardDeckPresenter.drawDestinationCard();
+            }
+        });
+
+        trainCardDeck = findViewById(R.id.train_card_deck);
+        trainCardDeck.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                cardDeckPresenter.drawTrainCard(0);
+            }
+        });
+
+        cardOne = findViewById(R.id.card_index_zero);
+        cardOne.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                cardDeckPresenter.drawTrainCard(1);
+            }
+        });
+
+        cardTwo = findViewById(R.id.card_index_one);
+        cardTwo.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                cardDeckPresenter.drawTrainCard(2);
+            }
+        });
+
+        cardThree = findViewById(R.id.card_index_two);
+        cardThree.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                cardDeckPresenter.drawTrainCard(3);
+            }
+        });
+
+        cardFour = findViewById(R.id.card_index_three);
+        cardFour.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                cardDeckPresenter.drawTrainCard(4);
+            }
+        });
+
+        cardFive = findViewById(R.id.card_index_four);
+        cardFive.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                cardDeckPresenter.drawTrainCard(5);
+            }
+        });
+
+        gameBoard = findViewById(R.id.game_board_pic);
 
     }
 
@@ -104,6 +176,468 @@ public class GameBoardActivity extends AppCompatActivity {
     public static Void updateChatList(ArrayList<ChatMessage> newChatMessages) {
         chatMessages = newChatMessages;
         return null;
+    }
+
+    public void change_color_portland_sanfransisco_g2(View v) {
+        findViewById(R.id.portland_sanfransisco_g2b1).setBackgroundResource((int)playerColorValues.get(playersHandPresenter.getCurrentPlayerColor()));
+        findViewById(R.id.portland_sanfransisco_g2b1).setAlpha(1);
+        findViewById(R.id.portland_sanfransisco_g2b2).setBackgroundResource((int)playerColorValues.get(playersHandPresenter.getCurrentPlayerColor()));
+        findViewById(R.id.portland_sanfransisco_g2b2).setAlpha(1);
+        findViewById(R.id.portland_sanfransisco_g2b3).setBackgroundResource((int)playerColorValues.get(playersHandPresenter.getCurrentPlayerColor()));
+        findViewById(R.id.portland_sanfransisco_g2b3).setAlpha(1);
+        findViewById(R.id.portland_sanfransisco_g2b4).setBackgroundResource((int)playerColorValues.get(playersHandPresenter.getCurrentPlayerColor()));
+        findViewById(R.id.portland_sanfransisco_g2b4).setAlpha(1);
+        findViewById(R.id.portland_sanfransisco_g2b5).setBackgroundResource((int)playerColorValues.get(playersHandPresenter.getCurrentPlayerColor()));
+        findViewById(R.id.portland_sanfransisco_g2b5).setAlpha(1);
+    }
+
+    public void change_color_vancouver_seattle_g1(View view) {
+        findViewById(R.id.vancouver_seattle_g1b1).setBackgroundResource((int)playerColorValues.get(playersHandPresenter.getCurrentPlayerColor()));
+        findViewById(R.id.vancouver_seattle_g1b1).setAlpha(1);
+    }
+
+    public void change_color_vancouver_seattle_g2(View view) {
+        findViewById(R.id.vancouver_seattle_g2b1).setBackgroundResource((int)playerColorValues.get(playersHandPresenter.getCurrentPlayerColor()));
+        findViewById(R.id.vancouver_seattle_g2b1).setAlpha(1);
+    }
+
+    public void change_color_seattle_portland_g1(View view) {
+        findViewById(R.id.seattle_portland_g1b1).setBackgroundResource((int)playerColorValues.get(playersHandPresenter.getCurrentPlayerColor()));
+        findViewById(R.id.seattle_portland_g1b1).setAlpha(1);
+    }
+
+    public void change_color_seattle_portland_g2(View view) {
+        findViewById(R.id.seattle_portland_g2b1).setBackgroundResource((int)playerColorValues.get(playersHandPresenter.getCurrentPlayerColor()));
+        findViewById(R.id.seattle_portland_g2b1).setAlpha(1);
+    }
+
+    public void change_color_portland_sanfransisco_g1(View view) {
+        findViewById(R.id.portland_sanfransisco_g1b1).setBackgroundResource((int)playerColorValues.get(playersHandPresenter.getCurrentPlayerColor()));
+        findViewById(R.id.portland_sanfransisco_g1b1).setAlpha(1);
+        findViewById(R.id.portland_sanfransisco_g1b2).setBackgroundResource((int)playerColorValues.get(playersHandPresenter.getCurrentPlayerColor()));
+        findViewById(R.id.portland_sanfransisco_g1b2).setAlpha(1);
+        findViewById(R.id.portland_sanfransisco_g1b3).setBackgroundResource((int)playerColorValues.get(playersHandPresenter.getCurrentPlayerColor()));
+        findViewById(R.id.portland_sanfransisco_g1b3).setAlpha(1);
+        findViewById(R.id.portland_sanfransisco_g1b4).setBackgroundResource((int)playerColorValues.get(playersHandPresenter.getCurrentPlayerColor()));
+        findViewById(R.id.portland_sanfransisco_g1b4).setAlpha(1);
+        findViewById(R.id.portland_sanfransisco_g1b5).setBackgroundResource((int)playerColorValues.get(playersHandPresenter.getCurrentPlayerColor()));
+        findViewById(R.id.portland_sanfransisco_g1b5).setAlpha(1);
+    }
+
+    public void change_color_sanfransisco_losangeles_g1(View view) {
+        findViewById(R.id.sanfransisco_losangeles_g1b1).setBackgroundResource((int)playerColorValues.get(playersHandPresenter.getCurrentPlayerColor()));
+        findViewById(R.id.sanfransisco_losangeles_g1b1).setAlpha(1);
+        findViewById(R.id.sanfransisco_losangeles_g1b2).setBackgroundResource((int)playerColorValues.get(playersHandPresenter.getCurrentPlayerColor()));
+        findViewById(R.id.sanfransisco_losangeles_g1b2).setAlpha(1);
+        findViewById(R.id.sanfransisco_losangeles_g1b3).setBackgroundResource((int)playerColorValues.get(playersHandPresenter.getCurrentPlayerColor()));
+        findViewById(R.id.sanfransisco_losangeles_g1b3).setAlpha(1);
+    }
+
+    public void change_color_sanfransisco_losangeles_g2(View view) {
+        findViewById(R.id.sanfransisco_losangeles_g2b1).setBackgroundResource((int)playerColorValues.get(playersHandPresenter.getCurrentPlayerColor()));
+        findViewById(R.id.sanfransisco_losangeles_g2b1).setAlpha(1);
+        findViewById(R.id.sanfransisco_losangeles_g2b2).setBackgroundResource((int)playerColorValues.get(playersHandPresenter.getCurrentPlayerColor()));
+        findViewById(R.id.sanfransisco_losangeles_g2b2).setAlpha(1);
+        findViewById(R.id.sanfransisco_losangeles_g2b3).setBackgroundResource((int)playerColorValues.get(playersHandPresenter.getCurrentPlayerColor()));
+        findViewById(R.id.sanfransisco_losangeles_g2b3).setAlpha(1);
+    }
+
+    public void change_color_losangeles_elpaso_g1(View view) {
+        findViewById(R.id.losangeles_elpaso_g1b1).setBackgroundResource((int)playerColorValues.get(playersHandPresenter.getCurrentPlayerColor()));
+        findViewById(R.id.losangeles_elpaso_g1b1).setAlpha(1);
+        findViewById(R.id.losangeles_elpaso_g1b2).setBackgroundResource((int)playerColorValues.get(playersHandPresenter.getCurrentPlayerColor()));
+        findViewById(R.id.losangeles_elpaso_g1b2).setAlpha(1);
+        findViewById(R.id.losangeles_elpaso_g1b3).setBackgroundResource((int)playerColorValues.get(playersHandPresenter.getCurrentPlayerColor()));
+        findViewById(R.id.losangeles_elpaso_g1b3).setAlpha(1);
+        findViewById(R.id.losangeles_elpaso_g1b4).setBackgroundResource((int)playerColorValues.get(playersHandPresenter.getCurrentPlayerColor()));
+        findViewById(R.id.losangeles_elpaso_g1b4).setAlpha(1);
+        findViewById(R.id.losangeles_elpaso_g1b5).setBackgroundResource((int)playerColorValues.get(playersHandPresenter.getCurrentPlayerColor()));
+        findViewById(R.id.losangeles_elpaso_g1b5).setAlpha(1);
+        findViewById(R.id.losangeles_elpaso_g1b6).setBackgroundResource((int)playerColorValues.get(playersHandPresenter.getCurrentPlayerColor()));
+        findViewById(R.id.losangeles_elpaso_g1b6).setAlpha(1);
+    }
+
+    public void change_color_vancouver_calgary_g1(View view) {
+        findViewById(R.id.vancouver_calgary_g1b1).setBackgroundResource((int)playerColorValues.get(playersHandPresenter.getCurrentPlayerColor()));
+        findViewById(R.id.vancouver_calgary_g1b1).setAlpha(1);
+        findViewById(R.id.vancouver_calgary_g1b2).setBackgroundResource((int)playerColorValues.get(playersHandPresenter.getCurrentPlayerColor()));
+        findViewById(R.id.vancouver_calgary_g1b2).setAlpha(1);
+        findViewById(R.id.vancouver_calgary_g1b3).setBackgroundResource((int)playerColorValues.get(playersHandPresenter.getCurrentPlayerColor()));
+        findViewById(R.id.vancouver_calgary_g1b3).setAlpha(1);
+    }
+
+    public void change_color_seattle_calgary_g1(View view) {
+        findViewById(R.id.seattle_calgary_g1b1).setBackgroundResource((int)playerColorValues.get(playersHandPresenter.getCurrentPlayerColor()));
+        findViewById(R.id.seattle_calgary_g1b1).setAlpha(1);
+        findViewById(R.id.seattle_calgary_g1b2).setBackgroundResource((int)playerColorValues.get(playersHandPresenter.getCurrentPlayerColor()));
+        findViewById(R.id.seattle_calgary_g1b2).setAlpha(1);
+        findViewById(R.id.seattle_calgary_g1b3).setBackgroundResource((int)playerColorValues.get(playersHandPresenter.getCurrentPlayerColor()));
+        findViewById(R.id.seattle_calgary_g1b3).setAlpha(1);
+        findViewById(R.id.seattle_calgary_g1b4).setBackgroundResource((int)playerColorValues.get(playersHandPresenter.getCurrentPlayerColor()));
+        findViewById(R.id.seattle_calgary_g1b4).setAlpha(1);
+    }
+
+    public void change_color_seattle_helena_g1(View view) {
+        findViewById(R.id.seattle_helena_g1b1).setBackgroundResource((int)playerColorValues.get(playersHandPresenter.getCurrentPlayerColor()));
+        findViewById(R.id.seattle_helena_g1b1).setAlpha(1);
+        findViewById(R.id.seattle_helena_g1b2).setBackgroundResource((int)playerColorValues.get(playersHandPresenter.getCurrentPlayerColor()));
+        findViewById(R.id.seattle_helena_g1b2).setAlpha(1);
+        findViewById(R.id.seattle_helena_g1b3).setBackgroundResource((int)playerColorValues.get(playersHandPresenter.getCurrentPlayerColor()));
+        findViewById(R.id.seattle_helena_g1b3).setAlpha(1);
+        findViewById(R.id.seattle_helena_g1b4).setBackgroundResource((int)playerColorValues.get(playersHandPresenter.getCurrentPlayerColor()));
+        findViewById(R.id.seattle_helena_g1b4).setAlpha(1);
+        findViewById(R.id.seattle_helena_g1b5).setBackgroundResource((int)playerColorValues.get(playersHandPresenter.getCurrentPlayerColor()));
+        findViewById(R.id.seattle_helena_g1b5).setAlpha(1);
+        findViewById(R.id.seattle_helena_g1b6).setBackgroundResource((int)playerColorValues.get(playersHandPresenter.getCurrentPlayerColor()));
+        findViewById(R.id.seattle_helena_g1b6).setAlpha(1);
+    }
+
+    public void change_color_calgary_winnipeg_g1(View view) {
+        findViewById(R.id.calgary_winnipeg_g1b1).setBackgroundResource((int)playerColorValues.get(playersHandPresenter.getCurrentPlayerColor()));
+        findViewById(R.id.calgary_winnipeg_g1b1).setAlpha(1);
+        findViewById(R.id.calgary_winnipeg_g1b2).setBackgroundResource((int)playerColorValues.get(playersHandPresenter.getCurrentPlayerColor()));
+        findViewById(R.id.calgary_winnipeg_g1b2).setAlpha(1);
+        findViewById(R.id.calgary_winnipeg_g1b3).setBackgroundResource((int)playerColorValues.get(playersHandPresenter.getCurrentPlayerColor()));
+        findViewById(R.id.calgary_winnipeg_g1b3).setAlpha(1);
+        findViewById(R.id.calgary_winnipeg_g1b4).setBackgroundResource((int)playerColorValues.get(playersHandPresenter.getCurrentPlayerColor()));
+        findViewById(R.id.calgary_winnipeg_g1b4).setAlpha(1);
+        findViewById(R.id.calgary_winnipeg_g1b5).setBackgroundResource((int)playerColorValues.get(playersHandPresenter.getCurrentPlayerColor()));
+        findViewById(R.id.calgary_winnipeg_g1b5).setAlpha(1);
+        findViewById(R.id.calgary_winnipeg_g1b6).setBackgroundResource((int)playerColorValues.get(playersHandPresenter.getCurrentPlayerColor()));
+        findViewById(R.id.calgary_winnipeg_g1b6).setAlpha(1);
+    }
+
+    public void change_color_calgary_helena_g1(View view) {
+        findViewById(R.id.calgary_helena_g1b1).setBackgroundResource((int)playerColorValues.get(playersHandPresenter.getCurrentPlayerColor()));
+        findViewById(R.id.calgary_helena_g1b1).setAlpha(1);
+        findViewById(R.id.calgary_helena_g1b2).setBackgroundResource((int)playerColorValues.get(playersHandPresenter.getCurrentPlayerColor()));
+        findViewById(R.id.calgary_helena_g1b2).setAlpha(1);
+        findViewById(R.id.calgary_helena_g1b3).setBackgroundResource((int)playerColorValues.get(playersHandPresenter.getCurrentPlayerColor()));
+        findViewById(R.id.calgary_helena_g1b3).setAlpha(1);
+        findViewById(R.id.calgary_helena_g1b4).setBackgroundResource((int)playerColorValues.get(playersHandPresenter.getCurrentPlayerColor()));
+        findViewById(R.id.calgary_helena_g1b4).setAlpha(1);
+    }
+
+    public void change_color_helena_winnipeg_g1(View view) {
+        findViewById(R.id.helena_winnipeg_g1b1).setBackgroundResource((int)playerColorValues.get(playersHandPresenter.getCurrentPlayerColor()));
+        findViewById(R.id.helena_winnipeg_g1b1).setAlpha(1);
+        findViewById(R.id.helena_winnipeg_g1b2).setBackgroundResource((int)playerColorValues.get(playersHandPresenter.getCurrentPlayerColor()));
+        findViewById(R.id.helena_winnipeg_g1b2).setAlpha(1);
+        findViewById(R.id.helena_winnipeg_g1b3).setBackgroundResource((int)playerColorValues.get(playersHandPresenter.getCurrentPlayerColor()));
+        findViewById(R.id.helena_winnipeg_g1b3).setAlpha(1);
+        findViewById(R.id.helena_winnipeg_g1b4).setBackgroundResource((int)playerColorValues.get(playersHandPresenter.getCurrentPlayerColor()));
+        findViewById(R.id.helena_winnipeg_g1b4).setAlpha(1);
+    }
+
+    public void change_color_portland_saltlakecity_g1(View view) {
+        findViewById(R.id.portland_saltlakecity_g1b1).setBackgroundResource((int)playerColorValues.get(playersHandPresenter.getCurrentPlayerColor()));
+        findViewById(R.id.portland_saltlakecity_g1b1).setAlpha(1);
+        findViewById(R.id.portland_saltlakecity_g1b2).setBackgroundResource((int)playerColorValues.get(playersHandPresenter.getCurrentPlayerColor()));
+        findViewById(R.id.portland_saltlakecity_g1b2).setAlpha(1);
+        findViewById(R.id.portland_saltlakecity_g1b3).setBackgroundResource((int)playerColorValues.get(playersHandPresenter.getCurrentPlayerColor()));
+        findViewById(R.id.portland_saltlakecity_g1b3).setAlpha(1);
+        findViewById(R.id.portland_saltlakecity_g1b4).setBackgroundResource((int)playerColorValues.get(playersHandPresenter.getCurrentPlayerColor()));
+        findViewById(R.id.portland_saltlakecity_g1b4).setAlpha(1);
+        findViewById(R.id.portland_saltlakecity_g1b5).setBackgroundResource((int)playerColorValues.get(playersHandPresenter.getCurrentPlayerColor()));
+        findViewById(R.id.portland_saltlakecity_g1b5).setAlpha(1);
+        findViewById(R.id.portland_saltlakecity_g1b6).setBackgroundResource((int)playerColorValues.get(playersHandPresenter.getCurrentPlayerColor()));
+        findViewById(R.id.portland_saltlakecity_g1b6).setAlpha(1);
+    }
+
+    public void change_color_sanfransisco_saltlakecity_g1(View view) {
+        findViewById(R.id.sanfransisco_saltlakecity_g1b1).setBackgroundResource((int)playerColorValues.get(playersHandPresenter.getCurrentPlayerColor()));
+        findViewById(R.id.sanfransisco_saltlakecity_g1b1).setAlpha(1);
+        findViewById(R.id.sanfransisco_saltlakecity_g1b2).setBackgroundResource((int)playerColorValues.get(playersHandPresenter.getCurrentPlayerColor()));
+        findViewById(R.id.sanfransisco_saltlakecity_g1b2).setAlpha(1);
+        findViewById(R.id.sanfransisco_saltlakecity_g1b3).setBackgroundResource((int)playerColorValues.get(playersHandPresenter.getCurrentPlayerColor()));
+        findViewById(R.id.sanfransisco_saltlakecity_g1b3).setAlpha(1);
+        findViewById(R.id.sanfransisco_saltlakecity_g1b4).setBackgroundResource((int)playerColorValues.get(playersHandPresenter.getCurrentPlayerColor()));
+        findViewById(R.id.sanfransisco_saltlakecity_g1b4).setAlpha(1);
+        findViewById(R.id.sanfransisco_saltlakecity_g1b5).setBackgroundResource((int)playerColorValues.get(playersHandPresenter.getCurrentPlayerColor()));
+        findViewById(R.id.sanfransisco_saltlakecity_g1b5).setAlpha(1);
+    }
+
+    public void change_color_sanfransisco_saltlakecity_g2(View view) {
+        findViewById(R.id.sanfransisco_saltlakecity_g2b1).setBackgroundResource((int)playerColorValues.get(playersHandPresenter.getCurrentPlayerColor()));
+        findViewById(R.id.sanfransisco_saltlakecity_g2b1).setAlpha(1);
+        findViewById(R.id.sanfransisco_saltlakecity_g2b2).setBackgroundResource((int)playerColorValues.get(playersHandPresenter.getCurrentPlayerColor()));
+        findViewById(R.id.sanfransisco_saltlakecity_g2b2).setAlpha(1);
+        findViewById(R.id.sanfransisco_saltlakecity_g2b3).setBackgroundResource((int)playerColorValues.get(playersHandPresenter.getCurrentPlayerColor()));
+        findViewById(R.id.sanfransisco_saltlakecity_g2b3).setAlpha(1);
+        findViewById(R.id.sanfransisco_saltlakecity_g2b4).setBackgroundResource((int)playerColorValues.get(playersHandPresenter.getCurrentPlayerColor()));
+        findViewById(R.id.sanfransisco_saltlakecity_g2b4).setAlpha(1);
+        findViewById(R.id.sanfransisco_saltlakecity_g2b5).setBackgroundResource((int)playerColorValues.get(playersHandPresenter.getCurrentPlayerColor()));
+        findViewById(R.id.sanfransisco_saltlakecity_g2b5).setAlpha(1);
+    }
+
+    public void change_color_losangeles_lasvegas_g1(View view) {
+        findViewById(R.id.losangeles_lasvegas_g1b1).setBackgroundResource((int)playerColorValues.get(playersHandPresenter.getCurrentPlayerColor()));
+        findViewById(R.id.losangeles_lasvegas_g1b1).setAlpha(1);
+        findViewById(R.id.losangeles_lasvegas_g1b2).setBackgroundResource((int)playerColorValues.get(playersHandPresenter.getCurrentPlayerColor()));
+        findViewById(R.id.losangeles_lasvegas_g1b2).setAlpha(1);
+    }
+
+    public void change_color_lasvegas_saltlakecity_g1(View view) {
+        findViewById(R.id.lasvegas_saltlakecity_g1b1).setBackgroundResource((int)playerColorValues.get(playersHandPresenter.getCurrentPlayerColor()));
+        findViewById(R.id.lasvegas_saltlakecity_g1b1).setAlpha(1);
+        findViewById(R.id.lasvegas_saltlakecity_g1b2).setBackgroundResource((int)playerColorValues.get(playersHandPresenter.getCurrentPlayerColor()));
+        findViewById(R.id.lasvegas_saltlakecity_g1b2).setAlpha(1);
+        findViewById(R.id.lasvegas_saltlakecity_g1b3).setBackgroundResource((int)playerColorValues.get(playersHandPresenter.getCurrentPlayerColor()));
+        findViewById(R.id.lasvegas_saltlakecity_g1b3).setAlpha(1);
+    }
+
+    public void change_color_losangeles_phoenix_g1(View view) {
+        findViewById(R.id.losangeles_phoenix_g1b1).setBackgroundResource((int)playerColorValues.get(playersHandPresenter.getCurrentPlayerColor()));
+        findViewById(R.id.losangeles_phoenix_g1b1).setAlpha(1);
+        findViewById(R.id.losangeles_phoenix_g1b2).setBackgroundResource((int)playerColorValues.get(playersHandPresenter.getCurrentPlayerColor()));
+        findViewById(R.id.losangeles_phoenix_g1b2).setAlpha(1);
+        findViewById(R.id.losangeles_phoenix_g1b3).setBackgroundResource((int)playerColorValues.get(playersHandPresenter.getCurrentPlayerColor()));
+        findViewById(R.id.losangeles_phoenix_g1b3).setAlpha(1);
+    }
+
+    public void change_color_phoenix_elpaso_g1(View view) {
+        findViewById(R.id.phoenix_elpaso_g1b1).setBackgroundResource((int)playerColorValues.get(playersHandPresenter.getCurrentPlayerColor()));
+        findViewById(R.id.phoenix_elpaso_g1b1).setAlpha(1);
+        findViewById(R.id.phoenix_elpaso_g1b2).setBackgroundResource((int)playerColorValues.get(playersHandPresenter.getCurrentPlayerColor()));
+        findViewById(R.id.phoenix_elpaso_g1b2).setAlpha(1);
+        findViewById(R.id.phoenix_elpaso_g1b3).setBackgroundResource((int)playerColorValues.get(playersHandPresenter.getCurrentPlayerColor()));
+        findViewById(R.id.phoenix_elpaso_g1b3).setAlpha(1);
+    }
+
+    public void change_color_phoenix_santafe_g1(View view) {
+        findViewById(R.id.phoenix_santafe_g1b1).setBackgroundResource((int)playerColorValues.get(playersHandPresenter.getCurrentPlayerColor()));
+        findViewById(R.id.phoenix_santafe_g1b1).setAlpha(1);
+        findViewById(R.id.phoenix_santafe_g1b2).setBackgroundResource((int)playerColorValues.get(playersHandPresenter.getCurrentPlayerColor()));
+        findViewById(R.id.phoenix_santafe_g1b2).setAlpha(1);
+        findViewById(R.id.phoenix_santafe_g1b3).setBackgroundResource((int)playerColorValues.get(playersHandPresenter.getCurrentPlayerColor()));
+        findViewById(R.id.phoenix_santafe_g1b3).setAlpha(1);
+    }
+
+    public void change_color_phoenix_denver_g1(View view) {
+        findViewById(R.id.phoenix_denver_g1b1).setBackgroundResource((int)playerColorValues.get(playersHandPresenter.getCurrentPlayerColor()));
+        findViewById(R.id.phoenix_denver_g1b1).setAlpha(1);
+        findViewById(R.id.phoenix_denver_g1b2).setBackgroundResource((int)playerColorValues.get(playersHandPresenter.getCurrentPlayerColor()));
+        findViewById(R.id.phoenix_denver_g1b2).setAlpha(1);
+        findViewById(R.id.phoenix_denver_g1b3).setBackgroundResource((int)playerColorValues.get(playersHandPresenter.getCurrentPlayerColor()));
+        findViewById(R.id.phoenix_denver_g1b3).setAlpha(1);
+        findViewById(R.id.phoenix_denver_g1b4).setBackgroundResource((int)playerColorValues.get(playersHandPresenter.getCurrentPlayerColor()));
+        findViewById(R.id.phoenix_denver_g1b4).setAlpha(1);
+        findViewById(R.id.phoenix_denver_g1b5).setBackgroundResource((int)playerColorValues.get(playersHandPresenter.getCurrentPlayerColor()));
+        findViewById(R.id.phoenix_denver_g1b5).setAlpha(1);
+    }
+
+    public void change_color_saltlakecity_denver_g1(View view) {
+        findViewById(R.id.saltlakecity_denver_g1b1).setBackgroundResource((int)playerColorValues.get(playersHandPresenter.getCurrentPlayerColor()));
+        findViewById(R.id.saltlakecity_denver_g1b1).setAlpha(1);
+        findViewById(R.id.saltlakecity_denver_g1b2).setBackgroundResource((int)playerColorValues.get(playersHandPresenter.getCurrentPlayerColor()));
+        findViewById(R.id.saltlakecity_denver_g1b2).setAlpha(1);
+        findViewById(R.id.saltlakecity_denver_g1b3).setBackgroundResource((int)playerColorValues.get(playersHandPresenter.getCurrentPlayerColor()));
+        findViewById(R.id.saltlakecity_denver_g1b3).setAlpha(1);
+    }
+
+    public void change_color_saltlakecity_denver_g2(View view) {
+        findViewById(R.id.saltlakecity_denver_g2b1).setBackgroundResource((int)playerColorValues.get(playersHandPresenter.getCurrentPlayerColor()));
+        findViewById(R.id.saltlakecity_denver_g2b1).setAlpha(1);
+        findViewById(R.id.saltlakecity_denver_g2b2).setBackgroundResource((int)playerColorValues.get(playersHandPresenter.getCurrentPlayerColor()));
+        findViewById(R.id.saltlakecity_denver_g2b2).setAlpha(1);
+        findViewById(R.id.saltlakecity_denver_g2b3).setBackgroundResource((int)playerColorValues.get(playersHandPresenter.getCurrentPlayerColor()));
+        findViewById(R.id.saltlakecity_denver_g2b3).setAlpha(1);
+    }
+
+    public void change_color_saltlakecity_helena_g1(View view) {
+        findViewById(R.id.saltlakecity_helena_g1b1).setBackgroundResource((int)playerColorValues.get(playersHandPresenter.getCurrentPlayerColor()));
+        findViewById(R.id.saltlakecity_helena_g1b1).setAlpha(1);
+        findViewById(R.id.saltlakecity_helena_g1b2).setBackgroundResource((int)playerColorValues.get(playersHandPresenter.getCurrentPlayerColor()));
+        findViewById(R.id.saltlakecity_helena_g1b2).setAlpha(1);
+        findViewById(R.id.saltlakecity_helena_g1b3).setBackgroundResource((int)playerColorValues.get(playersHandPresenter.getCurrentPlayerColor()));
+        findViewById(R.id.saltlakecity_helena_g1b3).setAlpha(1);
+    }
+
+    public void change_color_helena_denver_g1(View view) {
+        findViewById(R.id.helena_denver_g1b1).setBackgroundResource((int)playerColorValues.get(playersHandPresenter.getCurrentPlayerColor()));
+        findViewById(R.id.helena_denver_g1b1).setAlpha(1);
+        findViewById(R.id.helena_denver_g1b2).setBackgroundResource((int)playerColorValues.get(playersHandPresenter.getCurrentPlayerColor()));
+        findViewById(R.id.helena_denver_g1b2).setAlpha(1);
+        findViewById(R.id.helena_denver_g1b3).setBackgroundResource((int)playerColorValues.get(playersHandPresenter.getCurrentPlayerColor()));
+        findViewById(R.id.helena_denver_g1b3).setAlpha(1);
+        findViewById(R.id.helena_denver_g1b4).setBackgroundResource((int)playerColorValues.get(playersHandPresenter.getCurrentPlayerColor()));
+        findViewById(R.id.helena_denver_g1b4).setAlpha(1);
+    }
+
+    public void change_color_helena_duluth_g1(View view) {
+        findViewById(R.id.helena_duluth_g1b1).setBackgroundResource((int)playerColorValues.get(playersHandPresenter.getCurrentPlayerColor()));
+        findViewById(R.id.helena_duluth_g1b1).setAlpha(1);
+        findViewById(R.id.helena_duluth_g1b2).setBackgroundResource((int)playerColorValues.get(playersHandPresenter.getCurrentPlayerColor()));
+        findViewById(R.id.helena_duluth_g1b2).setAlpha(1);
+        findViewById(R.id.helena_duluth_g1b3).setBackgroundResource((int)playerColorValues.get(playersHandPresenter.getCurrentPlayerColor()));
+        findViewById(R.id.helena_duluth_g1b3).setAlpha(1);
+        findViewById(R.id.helena_duluth_g1b4).setBackgroundResource((int)playerColorValues.get(playersHandPresenter.getCurrentPlayerColor()));
+        findViewById(R.id.helena_duluth_g1b4).setAlpha(1);
+        findViewById(R.id.helena_duluth_g1b5).setBackgroundResource((int)playerColorValues.get(playersHandPresenter.getCurrentPlayerColor()));
+        findViewById(R.id.helena_duluth_g1b5).setAlpha(1);
+        findViewById(R.id.helena_duluth_g1b6).setBackgroundResource((int)playerColorValues.get(playersHandPresenter.getCurrentPlayerColor()));
+        findViewById(R.id.helena_duluth_g1b6).setAlpha(1);
+    }
+
+    public void change_color_helena_omaha_g1(View view) {
+        findViewById(R.id.helena_omaha_g1b1).setBackgroundResource((int)playerColorValues.get(playersHandPresenter.getCurrentPlayerColor()));
+        findViewById(R.id.helena_omaha_g1b1).setAlpha(1);
+        findViewById(R.id.helena_omaha_g1b2).setBackgroundResource((int)playerColorValues.get(playersHandPresenter.getCurrentPlayerColor()));
+        findViewById(R.id.helena_omaha_g1b2).setAlpha(1);
+        findViewById(R.id.helena_omaha_g1b3).setBackgroundResource((int)playerColorValues.get(playersHandPresenter.getCurrentPlayerColor()));
+        findViewById(R.id.helena_omaha_g1b3).setAlpha(1);
+        findViewById(R.id.helena_omaha_g1b4).setBackgroundResource((int)playerColorValues.get(playersHandPresenter.getCurrentPlayerColor()));
+        findViewById(R.id.helena_omaha_g1b4).setAlpha(1);
+        findViewById(R.id.helena_omaha_g1b5).setBackgroundResource((int)playerColorValues.get(playersHandPresenter.getCurrentPlayerColor()));
+        findViewById(R.id.helena_omaha_g1b5).setAlpha(1);
+    }
+
+    public void change_color_omaha_duluth_g1(View view) {
+        findViewById(R.id.omaha_duluth_g1b1).setBackgroundResource((int)playerColorValues.get(playersHandPresenter.getCurrentPlayerColor()));
+        findViewById(R.id.omaha_duluth_g1b1).setAlpha(1);
+        findViewById(R.id.omaha_duluth_g1b2).setBackgroundResource((int)playerColorValues.get(playersHandPresenter.getCurrentPlayerColor()));
+        findViewById(R.id.omaha_duluth_g1b2).setAlpha(1);
+    }
+
+    public void change_color_denver_omaha_g1(View view) {
+        findViewById(R.id.denver_omaha_g1b1).setBackgroundResource((int)playerColorValues.get(playersHandPresenter.getCurrentPlayerColor()));
+        findViewById(R.id.denver_omaha_g1b1).setAlpha(1);
+        findViewById(R.id.denver_omaha_g1b2).setBackgroundResource((int)playerColorValues.get(playersHandPresenter.getCurrentPlayerColor()));
+        findViewById(R.id.denver_omaha_g1b2).setAlpha(1);
+        findViewById(R.id.denver_omaha_g1b3).setBackgroundResource((int)playerColorValues.get(playersHandPresenter.getCurrentPlayerColor()));
+        findViewById(R.id.denver_omaha_g1b3).setAlpha(1);
+        findViewById(R.id.denver_omaha_g1b4).setBackgroundResource((int)playerColorValues.get(playersHandPresenter.getCurrentPlayerColor()));
+        findViewById(R.id.denver_omaha_g1b4).setAlpha(1);
+    }
+
+    public void change_color_denver_kansascity_g1(View view) {
+        findViewById(R.id.denver_kansascity_g1b1).setBackgroundResource((int)playerColorValues.get(playersHandPresenter.getCurrentPlayerColor()));
+        findViewById(R.id.denver_kansascity_g1b1).setAlpha(1);
+        findViewById(R.id.denver_kansascity_g1b2).setBackgroundResource((int)playerColorValues.get(playersHandPresenter.getCurrentPlayerColor()));
+        findViewById(R.id.denver_kansascity_g1b2).setAlpha(1);
+        findViewById(R.id.denver_kansascity_g1b3).setBackgroundResource((int)playerColorValues.get(playersHandPresenter.getCurrentPlayerColor()));
+        findViewById(R.id.denver_kansascity_g1b3).setAlpha(1);
+        findViewById(R.id.denver_kansascity_g1b4).setBackgroundResource((int)playerColorValues.get(playersHandPresenter.getCurrentPlayerColor()));
+        findViewById(R.id.denver_kansascity_g1b4).setAlpha(1);
+    }
+
+    public void change_color_denver_kansascity_g2(View view) {
+        findViewById(R.id.denver_kansascity_g2b1).setBackgroundResource((int)playerColorValues.get(playersHandPresenter.getCurrentPlayerColor()));
+        findViewById(R.id.denver_kansascity_g2b1).setAlpha(1);
+        findViewById(R.id.denver_kansascity_g2b2).setBackgroundResource((int)playerColorValues.get(playersHandPresenter.getCurrentPlayerColor()));
+        findViewById(R.id.denver_kansascity_g2b2).setAlpha(1);
+        findViewById(R.id.denver_kansascity_g2b3).setBackgroundResource((int)playerColorValues.get(playersHandPresenter.getCurrentPlayerColor()));
+        findViewById(R.id.denver_kansascity_g2b3).setAlpha(1);
+        findViewById(R.id.denver_kansascity_g2b4).setBackgroundResource((int)playerColorValues.get(playersHandPresenter.getCurrentPlayerColor()));
+        findViewById(R.id.denver_kansascity_g2b4).setAlpha(1);
+    }
+
+    public void change_color_denver_oklahomacity_g1(View view) {
+        findViewById(R.id.denver_oklahomacity_g1b1).setBackgroundResource((int)playerColorValues.get(playersHandPresenter.getCurrentPlayerColor()));
+        findViewById(R.id.denver_oklahomacity_g1b1).setAlpha(1);
+        findViewById(R.id.denver_oklahomacity_g1b2).setBackgroundResource((int)playerColorValues.get(playersHandPresenter.getCurrentPlayerColor()));
+        findViewById(R.id.denver_oklahomacity_g1b2).setAlpha(1);
+        findViewById(R.id.denver_oklahomacity_g1b3).setBackgroundResource((int)playerColorValues.get(playersHandPresenter.getCurrentPlayerColor()));
+        findViewById(R.id.denver_oklahomacity_g1b3).setAlpha(1);
+        findViewById(R.id.denver_oklahomacity_g1b4).setBackgroundResource((int)playerColorValues.get(playersHandPresenter.getCurrentPlayerColor()));
+        findViewById(R.id.denver_oklahomacity_g1b4).setAlpha(1);
+    }
+
+    public void change_color_denver_santafe_g1(View view) {
+        findViewById(R.id.denver_santafe_g1b1).setBackgroundResource((int)playerColorValues.get(playersHandPresenter.getCurrentPlayerColor()));
+        findViewById(R.id.denver_santafe_g1b1).setAlpha(1);
+        findViewById(R.id.denver_santafe_g1b2).setBackgroundResource((int)playerColorValues.get(playersHandPresenter.getCurrentPlayerColor()));
+        findViewById(R.id.denver_santafe_g1b2).setAlpha(1);
+    }
+
+    public void change_color_santafe_elpaso_g1(View view) {
+        findViewById(R.id.santafe_elpaso_g1b1).setBackgroundResource((int)playerColorValues.get(playersHandPresenter.getCurrentPlayerColor()));
+        findViewById(R.id.santafe_elpaso_g1b1).setAlpha(1);
+        findViewById(R.id.santafe_elpaso_g1b2).setBackgroundResource((int)playerColorValues.get(playersHandPresenter.getCurrentPlayerColor()));
+        findViewById(R.id.santafe_elpaso_g1b2).setAlpha(1);
+    }
+
+    public void change_color_santafe_oklahomacity_g1(View view) {
+        findViewById(R.id.santafe_oklahomacity_g1b1).setBackgroundResource((int)playerColorValues.get(playersHandPresenter.getCurrentPlayerColor()));
+        findViewById(R.id.santafe_oklahomacity_g1b1).setAlpha(1);
+        findViewById(R.id.santafe_oklahomacity_g1b2).setBackgroundResource((int)playerColorValues.get(playersHandPresenter.getCurrentPlayerColor()));
+        findViewById(R.id.santafe_oklahomacity_g1b2).setAlpha(1);
+        findViewById(R.id.santafe_oklahomacity_g1b3).setBackgroundResource((int)playerColorValues.get(playersHandPresenter.getCurrentPlayerColor()));
+        findViewById(R.id.santafe_oklahomacity_g1b3).setAlpha(1);
+    }
+
+    public void change_color_elpaso_oklahomacity_g1(View view) {
+        findViewById(R.id.elpaso_oklahomacity_g1b1).setBackgroundResource((int)playerColorValues.get(playersHandPresenter.getCurrentPlayerColor()));
+        findViewById(R.id.elpaso_oklahomacity_g1b1).setAlpha(1);
+        findViewById(R.id.elpaso_oklahomacity_g1b2).setBackgroundResource((int)playerColorValues.get(playersHandPresenter.getCurrentPlayerColor()));
+        findViewById(R.id.elpaso_oklahomacity_g1b2).setAlpha(1);
+        findViewById(R.id.elpaso_oklahomacity_g1b3).setBackgroundResource((int)playerColorValues.get(playersHandPresenter.getCurrentPlayerColor()));
+        findViewById(R.id.elpaso_oklahomacity_g1b3).setAlpha(1);
+        findViewById(R.id.elpaso_oklahomacity_g1b4).setBackgroundResource((int)playerColorValues.get(playersHandPresenter.getCurrentPlayerColor()));
+        findViewById(R.id.elpaso_oklahomacity_g1b4).setAlpha(1);
+        findViewById(R.id.elpaso_oklahomacity_g1b5).setBackgroundResource((int)playerColorValues.get(playersHandPresenter.getCurrentPlayerColor()));
+        findViewById(R.id.elpaso_oklahomacity_g1b5).setAlpha(1);
+    }
+
+    public void change_color_elpaso_dallas_g1(View view) {
+        findViewById(R.id.elpaso_dallas_g1b1).setBackgroundResource((int)playerColorValues.get(playersHandPresenter.getCurrentPlayerColor()));
+        findViewById(R.id.elpaso_dallas_g1b1).setAlpha(1);
+        findViewById(R.id.elpaso_dallas_g1b2).setBackgroundResource((int)playerColorValues.get(playersHandPresenter.getCurrentPlayerColor()));
+        findViewById(R.id.elpaso_dallas_g1b2).setAlpha(1);
+        findViewById(R.id.elpaso_dallas_g1b3).setBackgroundResource((int)playerColorValues.get(playersHandPresenter.getCurrentPlayerColor()));
+        findViewById(R.id.elpaso_dallas_g1b3).setAlpha(1);
+        findViewById(R.id.elpaso_dallas_g1b4).setBackgroundResource((int)playerColorValues.get(playersHandPresenter.getCurrentPlayerColor()));
+        findViewById(R.id.elpaso_dallas_g1b4).setAlpha(1);
+    }
+
+    public void change_color_elpaso_houston_g1(View view) {
+        findViewById(R.id.elpaso_houston_g1b1).setBackgroundResource((int)playerColorValues.get(playersHandPresenter.getCurrentPlayerColor()));
+        findViewById(R.id.elpaso_houston_g1b1).setAlpha(1);
+        findViewById(R.id.elpaso_houston_g1b2).setBackgroundResource((int)playerColorValues.get(playersHandPresenter.getCurrentPlayerColor()));
+        findViewById(R.id.elpaso_houston_g1b2).setAlpha(1);
+        findViewById(R.id.elpaso_houston_g1b3).setBackgroundResource((int)playerColorValues.get(playersHandPresenter.getCurrentPlayerColor()));
+        findViewById(R.id.elpaso_houston_g1b3).setAlpha(1);
+        findViewById(R.id.elpaso_houston_g1b4).setBackgroundResource((int)playerColorValues.get(playersHandPresenter.getCurrentPlayerColor()));
+        findViewById(R.id.elpaso_houston_g1b4).setAlpha(1);
+        findViewById(R.id.elpaso_houston_g1b5).setBackgroundResource((int)playerColorValues.get(playersHandPresenter.getCurrentPlayerColor()));
+        findViewById(R.id.elpaso_houston_g1b5).setAlpha(1);
+        findViewById(R.id.elpaso_houston_g1b6).setBackgroundResource((int)playerColorValues.get(playersHandPresenter.getCurrentPlayerColor()));
+        findViewById(R.id.elpaso_houston_g1b6).setAlpha(1);
+    }
+
+    public void change_color_winnipeg_duluth_g1(View view) {
+        findViewById(R.id.winnipeg_duluth_g1b1).setBackgroundResource((int)playerColorValues.get(playersHandPresenter.getCurrentPlayerColor()));
+        findViewById(R.id.winnipeg_duluth_g1b1).setAlpha(1);
+        findViewById(R.id.winnipeg_duluth_g1b2).setBackgroundResource((int)playerColorValues.get(playersHandPresenter.getCurrentPlayerColor()));
+        findViewById(R.id.winnipeg_duluth_g1b2).setAlpha(1);
+        findViewById(R.id.winnipeg_duluth_g1b3).setBackgroundResource((int)playerColorValues.get(playersHandPresenter.getCurrentPlayerColor()));
+        findViewById(R.id.winnipeg_duluth_g1b3).setAlpha(1);
+        findViewById(R.id.winnipeg_duluth_g1b4).setBackgroundResource((int)playerColorValues.get(playersHandPresenter.getCurrentPlayerColor()));
+        findViewById(R.id.winnipeg_duluth_g1b4).setAlpha(1);
+    }
+
+    public void change_color_omaha_kansascity_g1(View view) {
+        findViewById(R.id.omaha_kansascity_g1b1).setBackgroundResource((int)playerColorValues.get(playersHandPresenter.getCurrentPlayerColor()));
+        findViewById(R.id.omaha_kansascity_g1b1).setAlpha(1);
+    }
+
+    public void change_color_oklahomacity_kansascity_g1(View view) {
+        findViewById(R.id.oklahomacity_kansascity_g1b1).setBackgroundResource((int)playerColorValues.get(playersHandPresenter.getCurrentPlayerColor()));
+        findViewById(R.id.oklahomacity_kansascity_g1b1).setAlpha(1);
+        findViewById(R.id.oklahomacity_kansascity_g1b2).setBackgroundResource((int)playerColorValues.get(playersHandPresenter.getCurrentPlayerColor()));
+        findViewById(R.id.oklahomacity_kansascity_g1b2).setAlpha(1);
+    }
+
+    public void change_color_oklahomacity_dallas_g1(View view) {
+        findViewById(R.id.oklahomacity_dallas_g1b1).setBackgroundResource((int)playerColorValues.get(playersHandPresenter.getCurrentPlayerColor()));
+        findViewById(R.id.oklahomacity_dallas_g1b1).setAlpha(1);
+        findViewById(R.id.oklahomacity_dallas_g1b2).setBackgroundResource((int)playerColorValues.get(playersHandPresenter.getCurrentPlayerColor()));
+        findViewById(R.id.oklahomacity_dallas_g1b2).setAlpha(1);
+    }
+
+    public void change_color_dallas_houston_g1(View view) {
+        findViewById(R.id.dallas_houston_g1b1).setBackgroundResource((int)playerColorValues.get(playersHandPresenter.getCurrentPlayerColor()));
+        findViewById(R.id.dallas_houston_g1b1).setAlpha(1);
     }
 
 
@@ -129,6 +663,7 @@ public class GameBoardActivity extends AppCompatActivity {
             adapter.setListOfMessages(chatMessages);
             adapter.notifyDataSetChanged();
             chatMessages = chatPresenter.getMessages();
+            // FIXME: CHANGE THE ENUMS
             mGreenTrainCard.setText(playersHandPresenter.getTrainCardAmount(Enums.Color.GREEN));
             mRedTrainCard.setText(playersHandPresenter.getTrainCardAmount(Enums.Color.RED));
             mPinkTrainCard.setText(playersHandPresenter.getTrainCardAmount(Enums.Color.PINK));
@@ -137,6 +672,7 @@ public class GameBoardActivity extends AppCompatActivity {
             mBlackTrainCard.setText(playersHandPresenter.getTrainCardAmount(Enums.Color.BLACK));
             mWildTrainCard.setText(playersHandPresenter.getTrainCardAmount(Enums.Color.WILD));
             mBlueTrainCard.setText(playersHandPresenter.getTrainCardAmount(Enums.Color.BLUE));
+            //mOrangeTrainCard.setText(playersHandPresenter.getTrainCardAmount(Enums.Color.ORANGE));
 
         }
     }
