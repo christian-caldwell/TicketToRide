@@ -23,8 +23,8 @@ public class Player {
     public Player(String username, Enum playerColor) {
         this.username = username;
         this.playerColor = playerColor;
-        this.score =0;
-        this.trainsRemaining = 45;//TODO: i cant remember if this is the right # of trains that a player starts with
+        this.score = 0;
+        this.trainsRemaining = 48;
         this.routesOwned = new HashSet<>(0);
         this.individualLongestRouteValue = 0;
         this.hasLongestRoute = false;

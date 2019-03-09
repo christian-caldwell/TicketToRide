@@ -19,6 +19,8 @@ import android.widget.ImageView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 import models.data.ChatMessage;
 import models.data.Enums;
@@ -45,6 +47,8 @@ public class GameBoardActivity extends AppCompatActivity {
             mWhiteTrainCard, mBlackTrainCard, mWildTrainCard, mBlueTrainCard, mOrangeTrainCard;
     private static Button destinationCardDeck, trainCardDeck, cardOne, cardTwo, cardThree, cardFour, cardFive;
     private static ImageView gameBoard;
+    private static Map playerColorValues;
+
 
     @Override
     public void onBackPressed() {
@@ -58,6 +62,12 @@ public class GameBoardActivity extends AppCompatActivity {
         StrictMode.setThreadPolicy(policy);
         setContentView(R.layout.activity_game_board);
         View decorView = getWindow().getDecorView();
+        playerColorValues = new HashMap();
+        playerColorValues.put(Enums.playerColor.BLACK,R.drawable.black_background);
+        playerColorValues.put(Enums.playerColor.BLUE,R.drawable.blue_background);
+        playerColorValues.put(Enums.playerColor.GREEN,R.drawable.green_background);
+        playerColorValues.put(Enums.playerColor.RED,R.drawable.red_background);
+        playerColorValues.put(Enums.playerColor.YELLOW,R.drawable.yellow_background);
 
         // Hide both the navigation bar and the status bar.
         int uiOptions = View.SYSTEM_UI_FLAG_LAYOUT_STABLE
@@ -663,7 +673,6 @@ public class GameBoardActivity extends AppCompatActivity {
             adapter.setListOfMessages(chatMessages);
             adapter.notifyDataSetChanged();
             chatMessages = chatPresenter.getMessages();
-            // FIXME: CHANGE THE ENUMS
             mGreenTrainCard.setText(playersHandPresenter.getTrainCardAmount(Enums.Color.GREEN));
             mRedTrainCard.setText(playersHandPresenter.getTrainCardAmount(Enums.Color.RED));
             mPinkTrainCard.setText(playersHandPresenter.getTrainCardAmount(Enums.Color.PINK));
