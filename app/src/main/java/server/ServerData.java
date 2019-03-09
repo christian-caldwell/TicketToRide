@@ -59,6 +59,7 @@ public class ServerData {
             this.users.add(new User("d", "d"));
             this.users.add(new User("f", "f"));
             this.users.add(new User("g", "g"));
+            this.users.add(new User("o","o"));
 
         }
     }
