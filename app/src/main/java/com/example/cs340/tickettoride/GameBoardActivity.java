@@ -98,14 +98,14 @@ public class GameBoardActivity extends AppCompatActivity {
         });
         gameDemoButton = findViewById(R.id.gameDemoButon);
 
-        ClientModel.create().setGameBoardActivity(this);
-
         gameDemoButton.setOnClickListener(new View.OnClickListener() {
             // When the sendMessage button is clicked, send the text to the presenter.addMessage function
             @Override
             public void onClick(View v) {
                 Toast.makeText(GameBoardActivity.this, "Starting Game Demo", Toast.LENGTH_SHORT).show();
-
+                mDemoPresenter = ClientModel.create().getDemoPresenter();
+                mDemoPresenter.setGameActivity(GameBoardActivity.this);
+                mDemoPresenter.gameDemo();
             }
         });
 

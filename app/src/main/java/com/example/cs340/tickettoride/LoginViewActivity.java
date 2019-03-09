@@ -10,6 +10,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import client.ClientModel;
 import models.data.Result;
 import view.activityInterface.ILoginView;
 import view.activityInterface.IRegisterView;
@@ -49,7 +50,7 @@ public class LoginViewActivity extends AppCompatActivity implements ILoginView, 
 
                 Toast.makeText(LoginViewActivity.this, "Login Demo Done", Toast.LENGTH_SHORT).show();
                 Intent intent = new Intent(LoginViewActivity.this, GameBoardActivity.class);
-//                demoPresenter.setGameActivity();
+                ClientModel.create().setDemoPresenter(demoPresenter);
                 startActivity(intent);
             }
         });
