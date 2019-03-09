@@ -9,6 +9,7 @@ import models.data.Game;
 import models.data.Player;
 import models.data.Result;
 import models.data.Route;
+import models.data.TrainCard;
 import models.data.User;
 
 public class ServerCommands implements IServer {
@@ -40,7 +41,7 @@ public class ServerCommands implements IServer {
             }
             result.setGame(gameName);
             result.setSuccessful(true);
-            serverData.getGame(gameName).addPlayer(username);
+            serverData.getGame(gameName).addPlayerUsername(username);
         }
         clientProxy.updateJoinGame(serverData.getGame(gameName));
         return result;
@@ -64,10 +65,14 @@ public class ServerCommands implements IServer {
     @Override
     public Result startGame(String gameName) {
         clientProxy.updateStartGame(gameName);
-        serverData.getGame(gameName).setStarted(true);
+        Game targetGame = serverData.getGame(gameName);
+        serverData.initializeGamePlayers(targetGame);
+        serverData.initializeContainers(targetGame);
+        serverData.dealHands(targetGame);
+        targetGame.setStarted(true);
+        targetGame.incrementNumPlayerActions();
         Result result = new Result();
         result.setSuccessful(true);
-
         return result;
     }
 
@@ -123,6 +128,10 @@ public class ServerCommands implements IServer {
             if (targetPlayer != null) {
                 targetPlayer.removeFromNewDestinationCards(returnedCards);
                 targetGame.returnDestinationCards(returnedCards);
+                for (DestinationCard card:targetPlayer.getNewDestinationCards() ) {
+                    targetPlayer.addToDestinationCardHand(card);
+                }
+                targetPlayer.resetNewDestinationCards();
                 targetGame.incrementNumPlayerActions();
                 result.setSuccessful(true);
                 return result;
@@ -139,18 +148,60 @@ public class ServerCommands implements IServer {
     }
 
     @Override
-    public Result purchaseRoute(String userName, String gameName, Route purchasedRoute) {
-        return null;
+    public Result purchaseRoute(String userName, String gameName, Route purchasedRoute, Integer numberOfWilds) {
+        Result result = new Result();
+        result.setSuccessful(false);
+        Game targetGame = serverData.findGame(gameName);
+        if (targetGame != null){
+            if (targetGame.purchaseRoute(userName, purchasedRoute, numberOfWilds)){
+                targetGame.incrementNumPlayerActions();
+                targetGame.incrementCurrentTurnPlayer();
+                result.setSuccessful(true);
+            }
+        }
+        return result;
     }
 
     @Override
     public Result requestDestinationCards(String userName, String gameName) {
-        return null;
+        Result result = new Result();
+        result.setSuccessful(false);
+        Game targetGame = serverData.findGame(gameName);
+        if (targetGame != null){
+            Player targetplayer = targetGame.getPlayer(userName);
+            targetplayer.addToNewDestinationCardHand(targetGame.dealDestinationCard());
+            targetplayer.addToNewDestinationCardHand(targetGame.dealDestinationCard());
+            targetplayer.addToNewDestinationCardHand(targetGame.dealDestinationCard());
+            targetGame.incrementNumPlayerActions();
+            targetGame.incrementCurrentTurnPlayer();
+            result.setSuccessful(true);
+        }
+        return result;
     }
 
     @Override
-    public Result requestTicketCard(String userName, String gameName, Integer selectedCard) {
-        return null;
+    public Result requestTicketCard(String userName, String gameName, Integer selectedCard, Boolean secondPick) {
+        Result result = new Result();
+        result.setSuccessful(false);
+        Game targetGame = serverData.findGame(gameName);
+        if (targetGame != null){
+            TrainCard card = targetGame.dealTicketCard(selectedCard);
+            targetGame.incrementNumPlayerActions();
+
+            if (secondPick && (card.getCardColor().equals(serverData.WILD))) {
+                return result;
+            }
+            else if (!secondPick && (card.getCardColor().equals(serverData.WILD))) {
+                targetGame.incrementCurrentTurnPlayer();
+            }
+            else if (secondPick){
+                targetGame.incrementCurrentTurnPlayer();
+            }
+            Player targetplayer = targetGame.getPlayer(userName);
+            targetplayer.addTicketToHand(card.getCardColor());
+            result.setSuccessful(true);
+        }
+        return result;
     }
 
     @Override

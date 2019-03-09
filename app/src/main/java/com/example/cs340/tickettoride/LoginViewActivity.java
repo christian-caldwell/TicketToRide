@@ -18,7 +18,7 @@ import view.presenter.LoginPresenter;
 public class LoginViewActivity extends AppCompatActivity implements ILoginView, IRegisterView {
 
     private EditText username, password;
-    private Button registerButton, loginButton, startGame;
+    private Button registerButton, loginButton, startDemo;
     private TextView forgotPassword;
 
 
@@ -34,30 +34,18 @@ public class LoginViewActivity extends AppCompatActivity implements ILoginView, 
         registerButton = findViewById(R.id.register_button);
         loginButton = findViewById(R.id.create_game);
         forgotPassword = findViewById(R.id.forgot_password);
-        startGame = findViewById(R.id.startGame);
+        startDemo = findViewById(R.id.startDemo);
         final LoginPresenter loginPresenter = new LoginPresenter();
 
         loginPresenter.onCreate();
 
-
-        // this was a test
-//        new Timer().scheduleAtFixedRate(new TimerTask(){
-//            @Override
-//            public void run(){
-//                runOnUiThread(new Runnable() {
-//                    public void run() {
-//                        Toast.makeText(getApplicationContext(), "Interval Completed" , Toast.LENGTH_SHORT).show();
-//                    }
-//        });
-//
-//            }
-//        },0,3000);
-
-        startGame.setOnClickListener(new View.OnClickListener() {
+        startDemo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(LoginViewActivity.this, GameBoardActivity.class);
                 startActivity(intent);
+
+
             }
         });
 
@@ -90,7 +78,7 @@ public class LoginViewActivity extends AppCompatActivity implements ILoginView, 
             }
         });
 
-        // Initialize the 'Forgot Password?' onClickListener
+        //  Initialize the 'Forgot Password?' onClickListener
         forgotPassword.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

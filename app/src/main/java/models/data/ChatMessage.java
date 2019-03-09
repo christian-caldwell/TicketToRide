@@ -7,6 +7,9 @@ public class ChatMessage {
     private String messageContents;
     private String timeStamp;
 
+    public ChatMessage() {
+    }
+
     public String getAuthorUserName() {
         return authorUserName;
     }

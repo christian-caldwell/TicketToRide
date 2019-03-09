@@ -7,8 +7,6 @@ import java.util.Observer;
 
 import client.ClientModel;
 import models.data.DestinationCard;
-import models.data.Enums;
-import models.data.Player;
 import view.presenterInterface.IPlayersHandPresenter;
 
 public class PlayersHandPresenter implements IPlayersHandPresenter, Observer {
@@ -20,8 +18,9 @@ public class PlayersHandPresenter implements IPlayersHandPresenter, Observer {
     }
 
     @Override
-    public Integer getTrainCardAmount(Enums.Color color) {
-        Map<Enums.Color, Integer> trainCards = clientModel.getPlayer().getTickets();
+    public Integer getTrainCardAmount(Integer color) {
+
+        Map<Integer, Integer> trainCards = clientModel.getPlayer().getTickets();
         return trainCards.get(color);
     }
 

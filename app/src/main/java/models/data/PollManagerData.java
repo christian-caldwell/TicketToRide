@@ -3,6 +3,9 @@ package models.data;
 import java.util.ArrayList;
 
 public class PollManagerData {
+    public PollManagerData() {
+    }
+
     public ArrayList<Game> gamesChanged;
     public ArrayList<User> usersChanged;
 

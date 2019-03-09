@@ -13,6 +13,9 @@ public class User {
         this.host = false;
     }
 
+    public User() {
+    }
+
     public String getUsername() {
         return username;
     }

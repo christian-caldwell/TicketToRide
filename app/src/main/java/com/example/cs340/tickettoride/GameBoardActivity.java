@@ -77,7 +77,7 @@ public class GameBoardActivity extends AppCompatActivity {
                 | View.SYSTEM_UI_FLAG_FULLSCREEN
                 | View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY;
         decorView.setSystemUiVisibility(uiOptions);
-        chatPresenter = new ChatPresenter();
+        presenter = new ChatPresenter(this);
         cardDeckPresenter = new CardDeckPresenter();
         playerInfoPresenter = new PlayerInfoPresenter();
         playersHandPresenter = new PlayersHandPresenter();

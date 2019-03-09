@@ -1,11 +1,15 @@
 package view.presenter;
 
+import java.util.ArrayList;
 import java.util.Observable;
 import java.util.Observer;
 
 import client.ClientModel;
 import client.ServerProxy;
 import view.presenterInterface.ICardDeckPresenter;
+import models.data.DestinationCard;
+import models.data.TrainCard;
+import view.presenterInterface.ITrainCardDeckPresenter;
 
 public class CardDeckPresenter implements ICardDeckPresenter, Observer {
     ClientModel clientModel = ClientModel.create();
@@ -34,7 +38,7 @@ public class CardDeckPresenter implements ICardDeckPresenter, Observer {
 
     @Override
     public Integer getDestinationCardsLeft() {
-        return clientModel.getUser().getGame().getDestinationCards().size();
+        return clientModel.getUser().getGame().getDestinationDeck().size();
     }
 
     @Override
