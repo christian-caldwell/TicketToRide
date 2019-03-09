@@ -7,9 +7,8 @@ import models.data.Enums;
 import models.data.TrainCard;
 
 public interface ICardDeckPresenter {
-    Enums.Color drawTrainCard();
-    TrainCard drawTrainCard(int cardNum);
-    ArrayList<DestinationCard> drawDestinationCard();
+    void drawTrainCard(int num);
+    void drawDestinationCard();
     Integer getDestinationCardsLeft();
     Integer getTrainCardsLeft();
 }
