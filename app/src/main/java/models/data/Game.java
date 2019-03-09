@@ -2,7 +2,9 @@ package models.data;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+import java.util.ArrayDeque;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Map;
 import java.util.Queue;
 import java.util.Set;
@@ -77,13 +79,14 @@ public class Game {
         numPlayerActions = 0;
     }
     private void initTicketContainers() {
-
+        ticketCardDiscard = new HashMap<>();
+        ticketCardDeck = new HashMap<>();
     }
     private void initDestinationCards() {
-
+        destinationCards = new ArrayDeque<>();
     }
     private void initPlayers() {
-
+        players = new ArrayList<>();
     }
 
     public Map<Enums.Color, Integer> getTicketCardDeck() {
