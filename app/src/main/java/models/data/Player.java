@@ -83,6 +83,7 @@ public class Player {
     public Integer getScore() {
         return score;
     }
+
     public void incrementScore(Integer numToIncrementBy) {
         this.score += numToIncrementBy;
     }
@@ -94,6 +95,7 @@ public class Player {
     public Integer getTrainsRemaining() {
         return trainsRemaining;
     }
+
     public void decrementTrainsRemaining(Integer numToDecrementBy) {
         this.trainsRemaining -= numToDecrementBy;
     }
@@ -107,6 +109,7 @@ public class Player {
     public Integer getIndividualLongestRouteValue() {
         return individualLongestRouteValue;
     }
+
     public void incrementIndividualLongestRouteValue(Integer numToIncrementBy) {
         this.individualLongestRouteValue += numToIncrementBy;
     }
@@ -115,6 +118,7 @@ public class Player {
     public Boolean getHasLongestRoute() {
         return hasLongestRoute;
     }
+
     public void setHasLongestRoute(Boolean hasLongestRoute) {
         this.hasLongestRoute = hasLongestRoute;
     }

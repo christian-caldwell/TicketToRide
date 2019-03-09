@@ -7,16 +7,26 @@ import java.util.Observer;
 
 import client.ClientModel;
 import models.data.DestinationCard;
+import models.data.Player;
 import view.presenterInterface.IPlayersHandPresenter;
 
 public class PlayersHandPresenter implements IPlayersHandPresenter, Observer {
     ClientModel clientModel = ClientModel.create();
 
     @Override
-    public Integer getTrainCardAmount(Integer color) {
+    public Player getCurrentPlayer() {
+        return clientModel.getPlayer();
+    }
 
-        Map<Integer, Integer> trainCards = clientModel.getPlayer().getTickets();
-        return trainCards.get(color);
+    @Override
+    public int getCurrentPlayerColor() {
+        return 1;
+//        return clientModel.getPlayer().getPlayerColor();
+    }
+
+    @Override
+    public Integer getTrainCardAmount(Integer color) {
+        return clientModel.getPlayer().getTickets().get(color);
     }
 
     @Override
