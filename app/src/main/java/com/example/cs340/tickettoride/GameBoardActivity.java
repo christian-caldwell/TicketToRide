@@ -22,12 +22,14 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
+import client.ClientModel;
 import models.data.ChatMessage;
 import view.presenter.CardDeckPresenter;
 import view.presenter.ChatPresenter;
 import view.presenter.PlayerInfoPresenter;
 import view.presenter.PlayersHandPresenter;
 import view.presenterInterface.ICardDeckPresenter;
+import view.presenter.DemoPresenter;
 import view.presenterInterface.IChatPresenter;
 import view.presenterInterface.IPlayerInfoPresenter;
 import view.presenterInterface.IPlayersHandPresenter;
@@ -41,6 +43,8 @@ public class GameBoardActivity extends AppCompatActivity {
     private static ICardDeckPresenter cardDeckPresenter;
     private static RecyclerViewAdapterChat adapter;
     private static EditText inputChatEditText;
+    private static Button gameDemoButton;
+    private DemoPresenter mDemoPresenter;
     private static Button sendMessageButton, playerInfoButton;
     private static Button mGreenTrainCard, mRedTrainCard, mPinkTrainCard, mYellowTrainCard,
             mWhiteTrainCard, mBlackTrainCard, mWildTrainCard, mBlueTrainCard, mOrangeTrainCard;
@@ -62,6 +66,7 @@ public class GameBoardActivity extends AppCompatActivity {
         setContentView(R.layout.activity_game_board);
         View decorView = getWindow().getDecorView();
         playerColorValues = new HashMap();
+        //FIXME: the hard colored playerColor ints are incorrect. To get the correct colors, do Constants.Player_COLOR for each.
         playerColorValues.put(5,R.drawable.black_background);
         playerColorValues.put(3,R.drawable.blue_background);
         playerColorValues.put(2,R.drawable.green_background);
@@ -90,6 +95,18 @@ public class GameBoardActivity extends AppCompatActivity {
                 String newMessage = inputChatEditText.getText().toString();
                 chatPresenter.addMessage(newMessage);
                 inputChatEditText.setText("");
+            }
+        });
+        gameDemoButton = findViewById(R.id.gameDemoButon);
+
+        ClientModel.create().setGameBoardActivity(this);
+
+        gameDemoButton.setOnClickListener(new View.OnClickListener() {
+            // When the sendMessage button is clicked, send the text to the presenter.addMessage function
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(GameBoardActivity.this, "Starting Game Demo", Toast.LENGTH_SHORT).show();
+
             }
         });
 

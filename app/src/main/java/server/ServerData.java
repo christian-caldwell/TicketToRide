@@ -26,26 +26,7 @@ public class ServerData {
     private Map<Integer, Integer> initialTicketDeck = new HashMap<>();
     public Queue<DestinationCard> initialDestinationDeck = new ArrayDeque<>();
     private Set<Route> initialRouteSet = new HashSet<>();
-
-//    CARD COLORS
-    public final Integer EMPTY = 0;
-    public final Integer GREEN = 1;
-    public final Integer RED = 2;
-    public final Integer YELLOW = 3;
-    public final Integer BLUE = 4;
-    public final Integer ORANGE = 5;
-    public final Integer PURPLE = 6;
-    public final Integer WHITE = 7;
-    public final Integer BLACK = 8;
-    public final Integer WILD = 9;
-
-//    PLAYER COLORS
-    public final Integer RED_PLAYER = 1;
-    public final Integer GREEN_PLAYER = 2;
-    public final Integer BLUE_PLAYER = 3;
-    public final Integer YELLOW_PLAYER = 4;
-    public final Integer BLACK_PLAYER = 5;
-
+    private TTR_Constants constants = TTR_Constants.getInstance();
 
     public ServerData() {
         this.availableGames = new HashMap<>();
@@ -131,19 +112,19 @@ public class ServerData {
             Player userPlayer = null;
             switch (playerCount) {
                 case (1):
-                    userPlayer = new Player(username, RED_PLAYER);
+                    userPlayer = new Player(username, constants.BLACK_PLAYER);
                     break;
                 case (2):
-                    userPlayer = new Player(username, GREEN_PLAYER);
+                    userPlayer = new Player(username, constants.BLUE_PLAYER);
                     break;
                 case (3):
-                    userPlayer = new Player(username, BLUE_PLAYER);
+                    userPlayer = new Player(username, constants.RED_PLAYER);
                     break;
                 case (4):
-                    userPlayer = new Player(username, YELLOW_PLAYER);
+                    userPlayer = new Player(username, constants.GREEN_PLAYER);
                     break;
                 case (5):
-                    userPlayer = new Player(username, BLACK_PLAYER);
+                    userPlayer = new Player(username, constants.YELLOW_PLAYER);
                     break;
                 default:
                     System.out.println("Initializing more than 5 players!");

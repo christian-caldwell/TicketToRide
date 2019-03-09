@@ -1,5 +1,7 @@
 package client;
 
+import com.example.cs340.tickettoride.GameBoardActivity;
+
 import java.util.ArrayList;
 import java.util.Map;
 import java.util.Observable;
@@ -29,7 +31,15 @@ public class ClientModel extends Observable {
     private PlayerInfoPresenter mPlayerInfoPresenter;
     private PlayersHandPresenter mPlayersHandPresenter;
 
+    //    TEMPORARY DEMO THINGS
+    GameBoardActivity mGameBoardActivity;
+    public GameBoardActivity getGameBoardActivity() {
+        return mGameBoardActivity;
+    }
 
+    public void setGameBoardActivity(GameBoardActivity gameBoardActivity) {
+        mGameBoardActivity = gameBoardActivity;
+    }
     //new stuff for phase 2
     private Map<Integer, Integer> ticketCardHand;
     private ArrayList<DestinationCard> destinationCardHand;
