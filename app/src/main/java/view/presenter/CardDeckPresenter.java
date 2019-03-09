@@ -1,42 +1,35 @@
 package view.presenter;
 
-import java.util.ArrayList;
 import java.util.Observable;
 import java.util.Observer;
-import java.util.Random;
 
 import client.ClientModel;
-import models.data.DestinationCard;
-import models.data.TrainCard;
-import view.presenterInterface.ITrainCardDeckPresenter;
+import client.ServerProxy;
+import view.presenterInterface.ICardDeckPresenter;
 
-public class CardDeckPresenter implements ITrainCardDeckPresenter, Observer {
+public class CardDeckPresenter implements ICardDeckPresenter, Observer {
     ClientModel clientModel = ClientModel.create();
-    @Override
-    public Integer drawTrainCard() {
-        ArrayList<Integer> valuesList = new ArrayList<Integer>(clientModel.getUser().getGame().getTicketCardDeck().keySet());
-        int randomIndex = new Random().nextInt(valuesList.size());
-        Integer randomValue = valuesList.get(randomIndex);
-        clientModel.incrementTicketCardHand(randomValue);
-        return randomValue;
-    }
+    ServerProxy serverProxy = new ServerProxy();
+    Boolean secondTurn = false;
 
     @Override
-    public TrainCard drawTrainCard(int cardNum) {
-        //TODO make sure that this line is correct, currently not sure what this is doing and why
-        //return clientModel.getUser().getGame().getFaceUpTrainCards().get(cardNum);
-        return null;
-    }
+    public void drawTrainCard(int cardNum) {
 
-
-    @Override
-    public ArrayList<DestinationCard> drawDestinationCard() {
-        ArrayList<DestinationCard> cardsToReturn = new ArrayList<>();
-        for (int i = 0; i < 3; i++)  {
-            //TODO make sure that this line is correct, currently not sure what this is doing and why
-            //cardsToReturn.add(clientModel.getUser().getGame().getDestinationCards().remove());
+//        public Result purchaseRoute (String userName, String gameName, Route purchasedRoute)
+//        public Result returnDestinationCards (String userName, String gameName, DestinationCard[] returnedCards)
+        //FIXME: needs to be updated if they chose a rainbow card.
+        serverProxy.requestTicketCard(clientModel.getPlayer().getUsername(), clientModel.getUser().getGame().getGameName(), cardNum, secondTurn);
+        if (secondTurn) {
+            secondTurn = false;
         }
-        return cardsToReturn;
+        else {
+            secondTurn = true;
+        }
+    }
+
+    @Override
+    public void drawDestinationCard() {
+        serverProxy.requestDestinationCards(clientModel.getUser().getUsername(), clientModel.getUser().getGame().getGameName());
     }
 
     @Override

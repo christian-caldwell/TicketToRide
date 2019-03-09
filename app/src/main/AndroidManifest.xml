@@ -17,6 +17,7 @@
         android:usesCleartextTraffic="true">
         <activity
             android:name=".GameBoardActivity"
+            android:windowSoftInputMode="adjustResize|stateAlwaysHidden"
             android:screenOrientation="landscape">
         </activity>
         <activity

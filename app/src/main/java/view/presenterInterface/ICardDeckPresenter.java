@@ -5,10 +5,9 @@ import java.util.ArrayList;
 import models.data.DestinationCard;
 import models.data.TrainCard;
 
-public interface ITrainCardDeckPresenter {
-    Integer drawTrainCard();
-    TrainCard drawTrainCard(int cardNum);
-    ArrayList<DestinationCard> drawDestinationCard();
+public interface ICardDeckPresenter {
+    void drawTrainCard(int num);
+    void drawDestinationCard();
     Integer getDestinationCardsLeft();
     Integer getTrainCardsLeft();
 }
