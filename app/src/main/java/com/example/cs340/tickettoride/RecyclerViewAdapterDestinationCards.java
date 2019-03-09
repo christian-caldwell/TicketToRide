@@ -20,7 +20,7 @@ public class RecyclerViewAdapterDestinationCards extends RecyclerView.Adapter<Re
 
     private ArrayList<String> mDestinationRoutes = new ArrayList<>();
     private Context mContext;
-    private ICardDeckPresenter cardDeckPresenter = new CardDeckPresenter();
+    //private ICardDeckPresenter cardDeckPresenter = new CardDeckPresenter();
 
     public RecyclerViewAdapterDestinationCards(ArrayList<String> mDestinationRoutes, Context mContext) {
         this.mDestinationRoutes = mDestinationRoutes;
