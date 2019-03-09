@@ -2,9 +2,7 @@ package models.data;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-import java.util.ArrayDeque;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -66,9 +64,6 @@ public class Game {
     }
 
 
-    public String getStatus() {
-        return "";
-    }
 
     public void addPlayer(String userName) { this.playerUsernames.add(userName); }
 
@@ -188,9 +183,9 @@ public class Game {
 
         for (Player player : this.players){
             if (player.getUsername().equals(playerName)) {
-                player.decrementTrainsRemaining(purchasedRoute.getLength());
+                player.decrementTrainsRemaining(purchasedRoute.findLength());
                 Integer color = purchasedRoute.getCardColor();
-                for (int i = 0; i < purchasedRoute.getLength() - numberOfWilds; i++) {
+                for (int i = 0; i < purchasedRoute.findLength() - numberOfWilds; i++) {
                     this.ticketCardDiscard.put(color,this.ticketCardDeck.get(color)+1);
                     player.removeTicketFromHand(color);
                 }

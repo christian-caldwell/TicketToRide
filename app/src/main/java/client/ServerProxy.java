@@ -215,7 +215,7 @@ public class ServerProxy implements IServer {
         parameterClassArray[6] = Integer.class;
         parameterDataArray[0] = userName;
         parameterDataArray[1] = gameName;
-        parameterDataArray[2] = purchasedRoute.getLength();
+        parameterDataArray[2] = purchasedRoute.findLength();
         parameterDataArray[3] = first_location;
         parameterDataArray[4] = second_location;
         parameterDataArray[5] = purchasedRoute.getCardColor();

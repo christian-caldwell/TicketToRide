@@ -33,14 +33,14 @@ public class Poller {
         create();
         singleton.shutdown();
         singleton.startPollingLobby();
-        singleton.start(0, 3600, false);
+        singleton.start(0, 2000, false);
     }
 
     public static void startGamePoller() {
         create();
         singleton.shutdown();
         singleton.startPollingGame();
-        singleton.start(0, 3600, false);
+        singleton.start(0, 2000, false);
     }
 
     public ArrayList<Game> pollServerForGames() {

@@ -5,11 +5,13 @@ public class Route {
     private Integer cardColor;
     private String[] locations;
 
-    public Route(Integer length, Integer cardColor, String[] locations) {
-        this.points = length;
+    public Route(Integer points, Integer cardColor, String[] locations) {
+        this.points = points;
         this.cardColor = cardColor;
         this.locations = locations;
-//        this.ownerColor = ownerColor;
+    }
+
+    public Route() {
     }
 
     public Integer getPoints() {
@@ -20,7 +22,7 @@ public class Route {
         this.points = points;
     }
 
-    public int getLength() {
+    public int findLength() {
         switch (points.intValue()) {
             case (1): return 1;
             case (2): return 2;
@@ -43,9 +45,6 @@ public class Route {
 
     public String[] getLocation() {
         return locations;
-    }
-
-    public Route() {
     }
 
     public void setLocation(String[] locations) {
