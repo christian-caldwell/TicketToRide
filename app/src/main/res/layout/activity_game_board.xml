@@ -219,13 +219,6 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <android.support.constraint.Group
-            android:id="@+id/montreal_newyork_1"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            app:constraint_referenced_ids="montreal_newyork_g1b3,montreal_newyork_g1b2,montreal_newyork_g1b1"
-            />
-
         <Button
             android:id="@+id/montreal_newyork_g1b3"
             android:layout_width="16dp"
@@ -236,7 +229,9 @@
             android:layout_marginStart="782dp"
             android:layout_marginLeft="782dp"
             android:layout_marginTop="184dp"
-            android:rotation="-8" />
+            android:rotation="-8"
+            android:onClick="change_color_montreal_newyork_g1"
+            android:alpha="0"/>
 
         <Button
             android:id="@+id/montreal_newyork_g1b2"
@@ -248,7 +243,9 @@
             android:layout_marginStart="776dp"
             android:layout_marginLeft="776dp"
             android:layout_marginTop="151dp"
-            android:rotation="-8" />
+            android:rotation="-8"
+            android:onClick="change_color_montreal_newyork_g1"
+            android:alpha="0"/>
 
         <Button
             android:id="@+id/montreal_newyork_g1b1"
@@ -260,14 +257,9 @@
             android:layout_marginStart="770dp"
             android:layout_marginLeft="770dp"
             android:layout_marginTop="117dp"
-            android:rotation="-8" />
-
-        <android.support.constraint.Group
-            android:id="@+id/montreal_boston_1"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            app:constraint_referenced_ids="montreal_boston_g1b1,montreal_boston_g1b2"
-            />
+            android:rotation="-8"
+            android:onClick="change_color_montreal_newyork_g1"
+            android:alpha="0"/>
 
         <Button
             android:id="@+id/montreal_boston_g1b1"
@@ -279,7 +271,9 @@
             android:layout_marginStart="790dp"
             android:layout_marginLeft="790dp"
             android:layout_marginTop="108dp"
-            android:rotation="-50" />
+            android:rotation="-50"
+            android:onClick="change_color_montreal_boston_g1"
+            android:alpha="0"/>
 
         <Button
             android:id="@+id/montreal_boston_g1b2"
@@ -291,14 +285,9 @@
             android:layout_marginStart="816dp"
             android:layout_marginLeft="816dp"
             android:layout_marginTop="131dp"
-            android:rotation="-50" />
-
-        <android.support.constraint.Group
-            android:id="@+id/montreal_boston_2"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            app:constraint_referenced_ids="montreal_boston_g2b1,montreal_boston_g2b2"
-            />
+            android:rotation="-50"
+            android:onClick="change_color_montreal_boston_g1"
+            android:alpha="0"/>
 
         <Button
             android:id="@+id/montreal_boston_g2b1"
@@ -310,7 +299,9 @@
             android:layout_marginStart="797dp"
             android:layout_marginLeft="797dp"
             android:layout_marginTop="100dp"
-            android:rotation="-50" />
+            android:rotation="-50"
+            android:onClick="change_color_montreal_boston_g2"
+            android:alpha="0"/>
 
         <Button
             android:id="@+id/montreal_boston_g2b2"
@@ -322,15 +313,9 @@
             android:layout_marginStart="823dp"
             android:layout_marginLeft="823dp"
             android:layout_marginTop="120dp"
-            android:rotation="-50" />
-
-
-        <android.support.constraint.Group
-            android:id="@+id/boston_newyork_1"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            app:constraint_referenced_ids="montreal_boston_g2b1,montreal_boston_g2b2"
-            />
+            android:rotation="-50"
+            android:onClick="change_color_montreal_boston_g2"
+            android:alpha="0"/>
 
         <Button
             android:id="@+id/boston_newyork_g1b1"
@@ -342,7 +327,9 @@
             android:layout_marginStart="822dp"
             android:layout_marginLeft="822dp"
             android:layout_marginTop="163dp"
-            android:rotation="35" />
+            android:rotation="35"
+            android:onClick="change_color_boston_newyork_g1"
+            android:alpha="0"/>
 
         <Button
             android:id="@+id/boston_newyork_g1b2"
@@ -354,14 +341,9 @@
             android:layout_marginStart="805dp"
             android:layout_marginLeft="805dp"
             android:layout_marginTop="192dp"
-            android:rotation="35" />
-
-        <android.support.constraint.Group
-            android:id="@+id/boston_newyork_2"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            app:constraint_referenced_ids="montreal_boston_g2b1,montreal_boston_g2b2"
-            />
+            android:rotation="35"
+            android:onClick="change_color_boston_newyork_g1"
+            android:alpha="0"/>
 
         <Button
             android:id="@+id/boston_newyork_g2b1"
@@ -373,7 +355,9 @@
             android:layout_marginStart="830dp"
             android:layout_marginLeft="830dp"
             android:layout_marginTop="170dp"
-            android:rotation="32" />
+            android:rotation="32"
+            android:onClick="change_color_boston_newyork_g2"
+            android:alpha="0"/>
 
         <Button
             android:id="@+id/boston_newyork_g2b2"
@@ -385,14 +369,9 @@
             android:layout_marginStart="814dp"
             android:layout_marginLeft="814dp"
             android:layout_marginTop="198dp"
-            android:rotation="35" />
-
-        <android.support.constraint.Group
-            android:id="@+id/newyork_pittsburgh_1"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            app:constraint_referenced_ids="montreal_boston_g2b1,montreal_boston_g2b2"
-            />
+            android:rotation="35"
+            android:onClick="change_color_boston_newyork_g2"
+            android:alpha="0"/>
 
         <Button
             android:id="@+id/newyork_pittsburgh_g1b1"
@@ -404,7 +383,9 @@
             android:layout_marginStart="761dp"
             android:layout_marginLeft="761dp"
             android:layout_marginTop="214dp"
-            android:rotation="58" />
+            android:rotation="58"
+            android:onClick="change_color_newyork_pittsburgh_g1"
+            android:alpha="0"/>
 
         <Button
             android:id="@+id/newyork_pittsburgh_g1b2"
@@ -416,14 +397,9 @@
             android:layout_marginStart="734dp"
             android:layout_marginLeft="734dp"
             android:layout_marginTop="231dp"
-            android:rotation="58" />
-
-        <android.support.constraint.Group
-            android:id="@+id/newyork_pittsburgh_2"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            app:constraint_referenced_ids="montreal_boston_g2b1,montreal_boston_g2b2"
-            />
+            android:rotation="58"
+            android:onClick="change_color_newyork_pittsburgh_g1"
+            android:alpha="0"/>
 
         <Button
             android:id="@+id/newyork_pittsburgh_g2b1"
@@ -435,7 +411,9 @@
             android:layout_marginStart="766dp"
             android:layout_marginLeft="766dp"
             android:layout_marginTop="223dp"
-            android:rotation="58" />
+            android:rotation="58"
+            android:onClick="change_color_newyork_pittsburgh_g2"
+            android:alpha="0"/>
 
         <Button
             android:id="@+id/newyork_pittsburgh_g2b2"
@@ -447,15 +425,9 @@
             android:layout_marginStart="739dp"
             android:layout_marginLeft="739dp"
             android:layout_marginTop="242dp"
-            android:rotation="58" />
-
-
-        <android.support.constraint.Group
-            android:id="@+id/newyork_washington_1"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            app:constraint_referenced_ids="montreal_boston_g2b1,montreal_boston_g2b2"
-            />
+            android:rotation="58"
+            android:onClick="change_color_newyork_pittsburgh_g2"
+            android:alpha="0"/>
 
         <Button
             android:id="@+id/newyork_washington_g1b1"
@@ -467,7 +439,9 @@
             android:layout_marginStart="801dp"
             android:layout_marginLeft="801dp"
             android:layout_marginTop="236dp"
-            android:rotation="-3" />
+            android:rotation="-3"
+            android:onClick="change_color_newyork_washington_g1"
+            android:alpha="0"/>
 
         <Button
             android:id="@+id/newyork_washington_g1b2"
@@ -479,14 +453,9 @@
             android:layout_marginStart="803dp"
             android:layout_marginLeft="803dp"
             android:layout_marginTop="269dp"
-            android:rotation="-3" />
-
-        <android.support.constraint.Group
-            android:id="@+id/newyork_washington_2"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            app:constraint_referenced_ids="montreal_boston_g2b1,montreal_boston_g2b2"
-            />
+            android:rotation="-3"
+            android:onClick="change_color_newyork_washington_g1"
+            android:alpha="0"/>
 
         <Button
             android:id="@+id/newyork_washington_g2b1"
@@ -498,7 +467,9 @@
             android:layout_marginStart="790dp"
             android:layout_marginLeft="790dp"
             android:layout_marginTop="237dp"
-            android:rotation="-3" />
+            android:rotation="-3"
+            android:onClick="change_color_newyork_washington_g2"
+            android:alpha="0"/>
 
         <Button
             android:id="@+id/newyork_washington_g2b2"
@@ -510,14 +481,9 @@
             android:layout_marginStart="791dp"
             android:layout_marginLeft="791dp"
             android:layout_marginTop="269dp"
-            android:rotation="-3" />
-
-        <android.support.constraint.Group
-            android:id="@+id/pittsburgh_washington_1"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            app:constraint_referenced_ids="montreal_boston_g2b1,montreal_boston_g2b2"
-            />
+            android:rotation="-3"
+            android:onClick="change_color_newyork_washington_g2"
+            android:alpha="0"/>
 
         <Button
             android:id="@+id/pittsburgh_washington_g1b1"
@@ -529,7 +495,9 @@
             android:layout_marginStart="740dp"
             android:layout_marginLeft="740dp"
             android:layout_marginTop="267dp"
-            android:rotation="-65" />
+            android:rotation="-65"
+            android:onClick="change_color_pittsburgh_washington_g1"
+            android:alpha="0"/>
 
         <Button
             android:id="@+id/pittsburgh_washington_g1b2"
@@ -541,14 +509,9 @@
             android:layout_marginStart="771dp"
             android:layout_marginLeft="771dp"
             android:layout_marginTop="281dp"
-            android:rotation="-65" />
-
-        <android.support.constraint.Group
-            android:id="@+id/washington_raleigh_1"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            app:constraint_referenced_ids="montreal_boston_g2b1,montreal_boston_g2b2"
-            />
+            android:rotation="-65"
+            android:onClick="change_color_pittsburgh_washington_g1"
+            android:alpha="0"/>
 
         <Button
             android:id="@+id/washington_raleigh_g1b1"
@@ -560,7 +523,9 @@
             android:layout_marginStart="777dp"
             android:layout_marginLeft="777dp"
             android:layout_marginTop="309dp"
-            android:rotation="40" />
+            android:rotation="40"
+            android:onClick="change_color_washington_raleigh_g1"
+            android:alpha="0"/>
 
         <Button
             android:id="@+id/washington_raleigh_g1b2"
@@ -572,14 +537,9 @@
             android:layout_marginStart="756dp"
             android:layout_marginLeft="756dp"
             android:layout_marginTop="333dp"
-            android:rotation="40" />
-
-        <android.support.constraint.Group
-            android:id="@+id/washington_raleigh_2"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            app:constraint_referenced_ids="montreal_boston_g2b1,montreal_boston_g2b2"
-            />
+            android:rotation="40"
+            android:onClick="change_color_washington_raleigh_g1"
+            android:alpha="0"/>
 
         <Button
             android:id="@+id/washington_raleigh_g2b1"
@@ -591,7 +551,9 @@
             android:layout_marginStart="787dp"
             android:layout_marginLeft="787dp"
             android:layout_marginTop="314dp"
-            android:rotation="40" />
+            android:rotation="40"
+            android:onClick="change_color_washington_raleigh_g2"
+            android:alpha="0"/>
 
         <Button
             android:id="@+id/washington_raleigh_g2b2"
@@ -603,14 +565,9 @@
             android:layout_marginStart="765dp"
             android:layout_marginLeft="765dp"
             android:layout_marginTop="341dp"
-            android:rotation="40" />
-
-        <android.support.constraint.Group
-            android:id="@+id/raleigh_charleston_1"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            app:constraint_referenced_ids="montreal_boston_g2b1,montreal_boston_g2b2"
-            />
+            android:rotation="40"
+            android:onClick="change_color_washington_raleigh_g2"
+            android:alpha="0"/>
 
         <Button
             android:id="@+id/raleigh_charleston_g1b1"
@@ -622,7 +579,9 @@
             android:layout_marginStart="762dp"
             android:layout_marginLeft="762dp"
             android:layout_marginTop="369dp"
-            android:rotation="-55" />
+            android:rotation="-55"
+            android:onClick="change_color_raleigh_charleston_g1"
+            android:alpha="0"/>
 
         <Button
             android:id="@+id/raleigh_charleston_g1b2"
@@ -634,14 +593,9 @@
             android:layout_marginStart="780dp"
             android:layout_marginLeft="780dp"
             android:layout_marginTop="393dp"
-            android:rotation="25" />
-
-        <android.support.constraint.Group
-            android:id="@+id/raleigh_atlanta_1"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            app:constraint_referenced_ids="montreal_boston_g2b1,montreal_boston_g2b2"
-            />
+            android:rotation="25"
+            android:onClick="change_color_raleigh_charleston_g1"
+            android:alpha="0"/>
 
         <Button
             android:id="@+id/raleigh_atlanta_g1b1"
@@ -653,7 +607,9 @@
             android:layout_marginStart="724dp"
             android:layout_marginLeft="724dp"
             android:layout_marginTop="366dp"
-            android:rotation="48" />
+            android:rotation="48"
+            android:onClick="change_color_raleigh_atlanta_g1"
+            android:alpha="0"/>
 
         <Button
             android:id="@+id/raleigh_atlanta_g1b2"
@@ -665,14 +621,9 @@
             android:layout_marginStart="700dp"
             android:layout_marginLeft="700dp"
             android:layout_marginTop="388dp"
-            android:rotation="48" />
-
-        <android.support.constraint.Group
-            android:id="@+id/raleigh_atlanta_2"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            app:constraint_referenced_ids="montreal_boston_g2b1,montreal_boston_g2b2"
-            />
+            android:rotation="48"
+            android:onClick="change_color_raleigh_atlanta_g1"
+            android:alpha="0"/>
 
         <Button
             android:id="@+id/raleigh_atlanta_g2b1"
@@ -684,7 +635,9 @@
             android:layout_marginStart="732dp"
             android:layout_marginLeft="732dp"
             android:layout_marginTop="374dp"
-            android:rotation="48" />
+            android:rotation="48"
+            android:onClick="change_color_raleigh_atlanta_g2"
+            android:alpha="0"/>
 
         <Button
             android:id="@+id/raleigh_atlanta_g2b2"
@@ -696,14 +649,9 @@
             android:layout_marginStart="706dp"
             android:layout_marginLeft="706dp"
             android:layout_marginTop="397dp"
-            android:rotation="48" />
-
-        <android.support.constraint.Group
-            android:id="@+id/montreal_toronto_1"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            app:constraint_referenced_ids="montreal_boston_g2b1,montreal_boston_g2b2"
-            />
+            android:rotation="48"
+            android:onClick="change_color_raleigh_atlanta_g2"
+            android:alpha="0"/>
 
         <Button
             android:id="@+id/montreal_toronto_g1b1"
@@ -715,7 +663,9 @@
             android:layout_marginStart="750dp"
             android:layout_marginLeft="750dp"
             android:layout_marginTop="100dp"
-            android:rotation="68" />
+            android:rotation="68"
+            android:onClick="change_color_montreal_toronto_g1"
+            android:alpha="0"/>
 
         <Button
             android:id="@+id/montreal_toronto_g1b2"
@@ -727,7 +677,9 @@
             android:layout_marginStart="722dp"
             android:layout_marginLeft="722dp"
             android:layout_marginTop="119dp"
-            android:rotation="46" />
+            android:rotation="46"
+            android:onClick="change_color_montreal_toronto_g1"
+            android:alpha="0"/>
 
         <Button
             android:id="@+id/montreal_toronto_g1b3"
@@ -739,13 +691,9 @@
             android:layout_marginStart="701dp"
             android:layout_marginLeft="701dp"
             android:layout_marginTop="145dp"
-            android:rotation="35" />
-        <android.support.constraint.Group
-            android:id="@+id/montreal_saultstmarie_1"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            app:constraint_referenced_ids="montreal_boston_g2b1,montreal_boston_g2b2"
-            />
+            android:rotation="35"
+            android:onClick="change_color_montreal_toronto_g1"
+            android:alpha="0"/>
 
         <Button
             android:id="@+id/montreal_saulstmarie_g1b1"
@@ -757,7 +705,9 @@
             android:layout_marginStart="741dp"
             android:layout_marginLeft="741dp"
             android:layout_marginTop="85dp"
-            android:rotation="89" />
+            android:rotation="89"
+            android:onClick="change_color_montreal_saulstmarie_g1"
+            android:alpha="0"/>
 
         <Button
             android:id="@+id/montreal_saulstmarie_g1b2"
@@ -769,7 +719,9 @@
             android:layout_marginStart="707dp"
             android:layout_marginLeft="707dp"
             android:layout_marginTop="88dp"
-            android:rotation="75" />
+            android:rotation="75"
+            android:onClick="change_color_montreal_saulstmarie_g1"
+            android:alpha="0"/>
 
         <Button
             android:id="@+id/montreal_saulstmarie_g1b3"
@@ -781,7 +733,9 @@
             android:layout_marginStart="675dp"
             android:layout_marginLeft="675dp"
             android:layout_marginTop="99dp"
-            android:rotation="70" />
+            android:rotation="70"
+            android:onClick="change_color_montreal_saulstmarie_g1"
+            android:alpha="0"/>
 
         <Button
             android:id="@+id/montreal_saulstmarie_g1b4"
@@ -793,7 +747,9 @@
             android:layout_marginStart="645dp"
             android:layout_marginLeft="645dp"
             android:layout_marginTop="111dp"
-            android:rotation="60" />
+            android:rotation="60"
+            android:onClick="change_color_montreal_saulstmarie_g1"
+            android:alpha="0"/>
 
         <Button
             android:id="@+id/montreal_saulstmarie_g1b5"
@@ -805,14 +761,9 @@
             android:layout_marginStart="619dp"
             android:layout_marginLeft="619dp"
             android:layout_marginTop="129dp"
-            android:rotation="50" />
-
-        <android.support.constraint.Group
-            android:id="@+id/msaultstmarie_toronto_1"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            app:constraint_referenced_ids="montreal_boston_g2b1,montreal_boston_g2b2"
-            />
+            android:rotation="50"
+            android:onClick="change_color_montreal_saulstmarie_g1"
+            android:alpha="0"/>
 
         <Button
             android:id="@+id/saulstmarie_toronto_g1b1"
@@ -824,7 +775,9 @@
             android:layout_marginStart="629dp"
             android:layout_marginLeft="629dp"
             android:layout_marginTop="154dp"
-            android:rotation="100" />
+            android:rotation="100"
+            android:onClick="change_color_saulstmarie_toronto_g1"
+            android:alpha="0"/>
 
         <Button
             android:id="@+id/saulstmarie_toronto_g1b2"
@@ -836,14 +789,9 @@
             android:layout_marginStart="661dp"
             android:layout_marginLeft="661dp"
             android:layout_marginTop="160dp"
-            android:rotation="100" />
-
-        <android.support.constraint.Group
-            android:id="@+id/toronto_chicago_1"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            app:constraint_referenced_ids="montreal_boston_g2b1,montreal_boston_g2b2"
-            />
+            android:rotation="100"
+            android:onClick="change_color_saulstmarie_toronto_g1"
+            android:alpha="0"/>
 
         <Button
             android:id="@+id/toronto_chicago_g1b1"
@@ -855,7 +803,9 @@
             android:layout_marginStart="683dp"
             android:layout_marginLeft="683dp"
             android:layout_marginTop="188dp"
-            android:rotation="49" />
+            android:rotation="49"
+            android:onClick="change_color_toronto_chicago_g1"
+            android:alpha="0"/>
 
         <Button
             android:id="@+id/toronto_chicago_g1b2"
@@ -867,7 +817,9 @@
             android:layout_marginStart="655dp"
             android:layout_marginLeft="655dp"
             android:layout_marginTop="202dp"
-            android:rotation="75" />
+            android:rotation="75"
+            android:onClick="change_color_toronto_chicago_g1"
+            android:alpha="0"/>
 
         <Button
             android:id="@+id/toronto_chicago_g1b3"
@@ -879,7 +831,9 @@
             android:layout_marginStart="624dp"
             android:layout_marginLeft="624dp"
             android:layout_marginTop="217dp"
-            android:rotation="55" />
+            android:rotation="55"
+            android:onClick="change_color_toronto_chicago_g1"
+            android:alpha="0"/>
 
         <Button
             android:id="@+id/toronto_chicago_g1b4"
@@ -891,14 +845,9 @@
             android:layout_marginStart="598dp"
             android:layout_marginLeft="598dp"
             android:layout_marginTop="239dp"
-            android:rotation="45" />
-
-        <android.support.constraint.Group
-            android:id="@+id/toronto_pittsburgh_1"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            app:constraint_referenced_ids="montreal_boston_g2b1,montreal_boston_g2b2"
-            />
+            android:rotation="45"
+            android:onClick="change_color_toronto_chicago_g1"
+            android:alpha="0"/>
 
         <Button
             android:id="@+id/toronto_pittsburgh_g1b1"
@@ -910,7 +859,9 @@
             android:layout_marginStart="706dp"
             android:layout_marginLeft="706dp"
             android:layout_marginTop="192dp"
-            android:rotation="-4" />
+            android:rotation="-4"
+            android:onClick="change_color_toronto_pittsburgh_g1"
+            android:alpha="0"/>
 
         <Button
             android:id="@+id/toronto_pittsburgh_g1b2"
@@ -922,14 +873,9 @@
             android:layout_marginStart="707dp"
             android:layout_marginLeft="707dp"
             android:layout_marginTop="224dp"
-            android:rotation="-4" />
-
-        <android.support.constraint.Group
-            android:id="@+id/toronto_duluth_1"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            app:constraint_referenced_ids="montreal_boston_g2b1,montreal_boston_g2b2"
-            />
+            android:rotation="-4"
+            android:onClick="change_color_toronto_pittsburgh_g1"
+            android:alpha="0"/>
 
         <Button
             android:id="@+id/toronto_duluth_g1b1"
@@ -941,7 +887,9 @@
             android:layout_marginStart="669dp"
             android:layout_marginLeft="669dp"
             android:layout_marginTop="176dp"
-            android:rotation="80" />
+            android:rotation="80"
+            android:onClick="change_color_toronto_duluth_g1"
+            android:alpha="0"/>
 
         <Button
             android:id="@+id/toronto_duluth_g1b2"
@@ -953,7 +901,9 @@
             android:layout_marginStart="637dp"
             android:layout_marginLeft="637dp"
             android:layout_marginTop="182dp"
-            android:rotation="80" />
+            android:rotation="80"
+            android:onClick="change_color_toronto_duluth_g1"
+            android:alpha="0"/>
 
         <Button
             android:id="@+id/toronto_duluth_g1b3"
@@ -965,7 +915,9 @@
             android:layout_marginStart="604dp"
             android:layout_marginLeft="604dp"
             android:layout_marginTop="187dp"
-            android:rotation="80" />
+            android:rotation="80"
+            android:onClick="change_color_toronto_duluth_g1"
+            android:alpha="0"/>
 
         <Button
             android:id="@+id/toronto_duluth_g1b4"
@@ -977,7 +929,9 @@
             android:layout_marginStart="573dp"
             android:layout_marginLeft="573dp"
             android:layout_marginTop="193dp"
-            android:rotation="80" />
+            android:rotation="80"
+            android:onClick="change_color_toronto_duluth_g1"
+            android:alpha="0"/>
 
         <Button
             android:id="@+id/toronto_duluth_g1b5"
@@ -989,7 +943,9 @@
             android:layout_marginStart="540dp"
             android:layout_marginLeft="540dp"
             android:layout_marginTop="199dp"
-            android:rotation="80" />
+            android:rotation="80"
+            android:onClick="change_color_toronto_duluth_g1"
+            android:alpha="0"/>
 
         <Button
             android:id="@+id/toronto_duluth_g1b6"
@@ -1001,14 +957,9 @@
             android:layout_marginStart="508dp"
             android:layout_marginLeft="508dp"
             android:layout_marginTop="205dp"
-            android:rotation="80" />
-
-        <android.support.constraint.Group
-            android:id="@+id/winnipeg_saulstmarie_1"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            app:constraint_referenced_ids="montreal_boston_g2b1,montreal_boston_g2b2"
-            />
+            android:rotation="80"
+            android:onClick="change_color_toronto_duluth_g1"
+            android:alpha="0"/>
 
         <Button
             android:id="@+id/winnipeg_saulstmarie_g1b1"
@@ -1020,7 +971,9 @@
             android:layout_marginStart="413dp"
             android:layout_marginLeft="413dp"
             android:layout_marginTop="104dp"
-            android:rotation="102" />
+            android:rotation="102"
+            android:onClick="change_color_winnipeg_saulstmarie_g1"
+            android:alpha="0"/>
 
         <Button
             android:id="@+id/winnipeg_saulstmarie_g1b2"
@@ -1032,7 +985,9 @@
             android:layout_marginStart="444dp"
             android:layout_marginLeft="444dp"
             android:layout_marginTop="111dp"
-            android:rotation="102" />
+            android:rotation="102"
+            android:onClick="change_color_winnipeg_saulstmarie_g1"
+            android:alpha="0"/>
 
         <Button
             android:id="@+id/winnipeg_saulstmarie_g1b3"
@@ -1044,7 +999,9 @@
             android:layout_marginStart="476dp"
             android:layout_marginLeft="476dp"
             android:layout_marginTop="118dp"
-            android:rotation="102" />
+            android:rotation="102"
+            android:onClick="change_color_winnipeg_saulstmarie_g1"
+            android:alpha="0"/>
 
         <Button
             android:id="@+id/winnipeg_saulstmarie_g1b4"
@@ -1056,7 +1013,9 @@
             android:layout_marginStart="510dp"
             android:layout_marginLeft="510dp"
             android:layout_marginTop="125dp"
-            android:rotation="102" />
+            android:rotation="102"
+            android:onClick="change_color_winnipeg_saulstmarie_g1"
+            android:alpha="0"/>
 
         <Button
             android:id="@+id/winnipeg_saulstmarie_g1b5"
@@ -1068,7 +1027,9 @@
             android:layout_marginStart="540dp"
             android:layout_marginLeft="540dp"
             android:layout_marginTop="132dp"
-            android:rotation="102" />
+            android:rotation="102"
+            android:onClick="change_color_winnipeg_saulstmarie_g1"
+            android:alpha="0"/>
 
         <Button
             android:id="@+id/winnipeg_saulstmarie_g1b6"
@@ -1080,14 +1041,9 @@
             android:layout_marginStart="573dp"
             android:layout_marginLeft="573dp"
             android:layout_marginTop="139dp"
-            android:rotation="102" />
-
-        <android.support.constraint.Group
-            android:id="@+id/saulstmarie_duluth_1"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            app:constraint_referenced_ids="montreal_boston_g2b1,montreal_boston_g2b2"
-            />
+            android:rotation="102"
+            android:onClick="change_color_winnipeg_saulstmarie_g1"
+            android:alpha="0"/>
 
         <Button
             android:id="@+id/saulstmarie_duluth_g1b1"
@@ -1099,7 +1055,9 @@
             android:layout_marginStart="572dp"
             android:layout_marginLeft="572dp"
             android:layout_marginTop="163dp"
-            android:rotation="70" />
+            android:rotation="70"
+            android:onClick="change_color_saulstmarie_duluth_g1"
+            android:alpha="0"/>
 
         <Button
             android:id="@+id/saulstmarie_duluth_g1b2"
@@ -1111,7 +1069,9 @@
             android:layout_marginStart="544dp"
             android:layout_marginLeft="544dp"
             android:layout_marginTop="174dp"
-            android:rotation="70" />
+            android:rotation="70"
+            android:onClick="change_color_saulstmarie_duluth_g1"
+            android:alpha="0"/>
 
         <Button
             android:id="@+id/saulstmarie_duluth_g1b3"
@@ -1123,14 +1083,9 @@
             android:layout_marginStart="515dp"
             android:layout_marginLeft="515dp"
             android:layout_marginTop="188dp"
-            android:rotation="70" />
-
-        <android.support.constraint.Group
-        android:id="@+id/duluth_omaha_2"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        app:constraint_referenced_ids="montreal_boston_g2b1,montreal_boston_g2b2"
-        />
+            android:rotation="70"
+            android:onClick="change_color_saulstmarie_duluth_g1"
+            android:alpha="0"/>
 
         <Button
             android:id="@+id/duluth_omaha_g2b1"
@@ -1142,7 +1097,9 @@
             android:layout_marginStart="478dp"
             android:layout_marginLeft="478dp"
             android:layout_marginTop="240dp"
-            android:rotation="20" />
+            android:rotation="20"
+            android:onClick="change_color_duluth_omaha_g2"
+            android:alpha="0"/>
 
         <Button
             android:id="@+id/duluth_omaha_g2b2"
@@ -1154,14 +1111,9 @@
             android:layout_marginStart="466dp"
             android:layout_marginLeft="466dp"
             android:layout_marginTop="270dp"
-            android:rotation="20" />
-
-        <android.support.constraint.Group
-            android:id="@+id/duluth_chicago_1"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            app:constraint_referenced_ids="montreal_boston_g2b1,montreal_boston_g2b2"
-            />
+            android:rotation="20"
+            android:onClick="change_color_duluth_omaha_g2"
+            android:alpha="0"/>
 
         <Button
             android:id="@+id/duluth_chicago_g1b1"
@@ -1173,7 +1125,9 @@
             android:layout_marginStart="501dp"
             android:layout_marginLeft="501dp"
             android:layout_marginTop="226dp"
-            android:rotation="120" />
+            android:rotation="120"
+            android:onClick="change_color_duluth_chicago_g1"
+            android:alpha="0"/>
 
         <Button
             android:id="@+id/duluth_chicago_g1b2"
@@ -1185,7 +1139,9 @@
             android:layout_marginStart="531dp"
             android:layout_marginLeft="531dp"
             android:layout_marginTop="239dp"
-            android:rotation="110" />
+            android:rotation="110"
+            android:onClick="change_color_duluth_chicago_g1"
+            android:alpha="0"/>
 
         <Button
             android:id="@+id/duluth_chicago_g1b3"
@@ -1197,14 +1153,9 @@
             android:layout_marginStart="565dp"
             android:layout_marginLeft="565dp"
             android:layout_marginTop="247dp"
-            android:rotation="104" />
-
-        <android.support.constraint.Group
-            android:id="@+id/chicago_omaha_1"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            app:constraint_referenced_ids="montreal_boston_g2b1,montreal_boston_g2b2"
-            />
+            android:rotation="104"
+            android:onClick="change_color_duluth_chicago_g1"
+            android:alpha="0"/>
 
         <Button
             android:id="@+id/chicago_omaha_g1b1"
@@ -1216,7 +1167,9 @@
             android:layout_marginStart="567dp"
             android:layout_marginLeft="567dp"
             android:layout_marginTop="263dp"
-            android:rotation="97" />
+            android:rotation="97"
+            android:onClick="change_color_chicago_omaha_g1"
+            android:alpha="0"/>
 
         <Button
             android:id="@+id/chicago_omaha_g1b2"
@@ -1228,7 +1181,9 @@
             android:layout_marginStart="535dp"
             android:layout_marginLeft="535dp"
             android:layout_marginTop="257dp"
-            android:rotation="97" />
+            android:rotation="97"
+            android:onClick="change_color_chicago_omaha_g1"
+            android:alpha="0"/>
 
         <Button
             android:id="@+id/chicago_omaha_g1b3"
@@ -1240,7 +1195,9 @@
             android:layout_marginStart="504dp"
             android:layout_marginLeft="504dp"
             android:layout_marginTop="266dp"
-            android:rotation="57" />
+            android:rotation="57"
+            android:onClick="change_color_chicago_omaha_g1"
+            android:alpha="0"/>
 
         <Button
             android:id="@+id/chicago_omaha_g1b4"
@@ -1252,14 +1209,9 @@
             android:layout_marginStart="477dp"
             android:layout_marginLeft="477dp"
             android:layout_marginTop="283dp"
-            android:rotation="57" />
-
-        <android.support.constraint.Group
-            android:id="@+id/chicago_saintlouis_1"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            app:constraint_referenced_ids="montreal_boston_g2b1,montreal_boston_g2b2"
-            />
+            android:rotation="57"
+            android:onClick="change_color_chicago_omaha_g1"
+            android:alpha="0"/>
 
         <Button
             android:id="@+id/chicago_saintlouis_g1b1"
@@ -1271,7 +1223,9 @@
             android:layout_marginStart="573dp"
             android:layout_marginLeft="573dp"
             android:layout_marginTop="286dp"
-            android:rotation="35" />
+            android:rotation="35"
+            android:onClick="change_color_chicago_saintlouis_g1"
+            android:alpha="0"/>
 
         <Button
             android:id="@+id/chicago_saintlouis_g1b2"
@@ -1283,14 +1237,9 @@
             android:layout_marginStart="555dp"
             android:layout_marginLeft="555dp"
             android:layout_marginTop="313dp"
-            android:rotation="35" />
-
-        <android.support.constraint.Group
-            android:id="@+id/chicago_saintlouis_2"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            app:constraint_referenced_ids="montreal_boston_g2b1,montreal_boston_g2b2"
-            />
+            android:rotation="35"
+            android:onClick="change_color_chicago_saintlouis_g1"
+            android:alpha="0"/>
 
         <Button
             android:id="@+id/chicago_saintlouis_g2b1"
@@ -1302,7 +1251,9 @@
             android:layout_marginStart="583dp"
             android:layout_marginLeft="583dp"
             android:layout_marginTop="291dp"
-            android:rotation="35" />
+            android:rotation="35"
+            android:onClick="change_color_chicago_saintlouis_g2"
+            android:alpha="0"/>
 
         <Button
             android:id="@+id/chicago_saintlouis_g2b2"
@@ -1314,14 +1265,9 @@
             android:layout_marginStart="565dp"
             android:layout_marginLeft="565dp"
             android:layout_marginTop="320dp"
-            android:rotation="35" />
-
-        <android.support.constraint.Group
-            android:id="@+id/pittsburgh_chicago_1"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            app:constraint_referenced_ids="montreal_boston_g2b1,montreal_boston_g2b2"
-            />
+            android:rotation="35"
+            android:onClick="change_color_chicago_saintlouis_g2"
+            android:alpha="0"/>
 
         <Button
             android:id="@+id/pittsburgh_chicago_g1b1"
@@ -1333,7 +1279,9 @@
             android:layout_marginStart="683dp"
             android:layout_marginLeft="683dp"
             android:layout_marginTop="239dp"
-            android:rotation="95" />
+            android:rotation="95"
+            android:onClick="change_color_pittsburgh_chicago_g1"
+            android:alpha="0"/>
 
         <Button
             android:id="@+id/pittsburgh_chicago_g1b2"
@@ -1345,7 +1293,9 @@
             android:layout_marginStart="649dp"
             android:layout_marginLeft="649dp"
             android:layout_marginTop="239dp"
-            android:rotation="80" />
+            android:rotation="80"
+            android:onClick="change_color_pittsburgh_chicago_g1"
+            android:alpha="0"/>
 
         <Button
             android:id="@+id/pittsburgh_chicago_g1b3"
@@ -1357,14 +1307,9 @@
             android:layout_marginStart="616dp"
             android:layout_marginLeft="616dp"
             android:layout_marginTop="247dp"
-            android:rotation="75" />
-
-        <android.support.constraint.Group
-            android:id="@+id/pittsburgh_chicago_2"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            app:constraint_referenced_ids="montreal_boston_g2b1,montreal_boston_g2b2"
-            />
+            android:rotation="75"
+            android:onClick="change_color_pittsburgh_chicago_g1"
+            android:alpha="0"/>
 
         <Button
             android:id="@+id/pittsburgh_chicago_g2b1"
@@ -1376,7 +1321,9 @@
             android:layout_marginStart="684dp"
             android:layout_marginLeft="684dp"
             android:layout_marginTop="251dp"
-            android:rotation="95" />
+            android:rotation="95"
+            android:onClick="change_color_pittsburgh_chicago_g2"
+            android:alpha="0"/>
 
         <Button
             android:id="@+id/pittsburgh_chicago_g2b2"
@@ -1388,7 +1335,9 @@
             android:layout_marginStart="652dp"
             android:layout_marginLeft="652dp"
             android:layout_marginTop="254dp"
-            android:rotation="80" />
+            android:rotation="80"
+            android:onClick="change_color_pittsburgh_chicago_g2"
+            android:alpha="0"/>
 
         <Button
             android:id="@+id/pittsburgh_chicago_g2b3"
@@ -1400,13 +1349,9 @@
             android:layout_marginStart="620dp"
             android:layout_marginLeft="620dp"
             android:layout_marginTop="260dp"
-            android:rotation="75" />
-        <android.support.constraint.Group
-            android:id="@+id/pittsburgh_saintlouis_1"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            app:constraint_referenced_ids="montreal_boston_g2b1,montreal_boston_g2b2"
-            />
+            android:rotation="75"
+            android:onClick="change_color_pittsburgh_chicago_g2"
+            android:alpha="0"/>
 
         <Button
             android:id="@+id/pittsburgh_saintlouis_g1b1"
@@ -1418,7 +1363,9 @@
             android:layout_marginStart="691dp"
             android:layout_marginLeft="691dp"
             android:layout_marginTop="269dp"
-            android:rotation="60" />
+            android:rotation="60"
+            android:onClick="change_color_pittsburgh_saintlouis_g1"
+            android:alpha="0"/>
 
         <Button
             android:id="@+id/pittsburgh_saintlouis_g1b2"
@@ -1430,7 +1377,9 @@
             android:layout_marginStart="662dp"
             android:layout_marginLeft="662dp"
             android:layout_marginTop="286dp"
-            android:rotation="60" />
+            android:rotation="60"
+            android:onClick="change_color_pittsburgh_saintlouis_g1"
+            android:alpha="0"/>
 
         <Button
             android:id="@+id/pittsburgh_saintlouis_g1b3"
@@ -1442,7 +1391,9 @@
             android:layout_marginStart="633dp"
             android:layout_marginLeft="633dp"
             android:layout_marginTop="303dp"
-            android:rotation="60" />
+            android:rotation="60"
+            android:onClick="change_color_pittsburgh_saintlouis_g1"
+            android:alpha="0"/>
 
         <Button
             android:id="@+id/pittsburgh_saintlouis_g1b4"
@@ -1454,7 +1405,9 @@
             android:layout_marginStart="605dp"
             android:layout_marginLeft="605dp"
             android:layout_marginTop="319dp"
-            android:rotation="60" />
+            android:rotation="60"
+            android:onClick="change_color_pittsburgh_saintlouis_g1"
+            android:alpha="0"/>
 
         <Button
             android:id="@+id/pittsburgh_saintlouis_g1b5"
@@ -1466,14 +1419,9 @@
             android:layout_marginStart="576dp"
             android:layout_marginLeft="576dp"
             android:layout_marginTop="336dp"
-            android:rotation="60" />
-
-        <android.support.constraint.Group
-            android:id="@+id/pittsburgh_nashville_1"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            app:constraint_referenced_ids="montreal_boston_g2b1,montreal_boston_g2b2"
-            />
+            android:rotation="60"
+            android:onClick="change_color_pittsburgh_saintlouis_g1"
+            android:alpha="0"/>
 
         <Button
             android:id="@+id/pittsburgh_nashville_g1b1"
@@ -1485,7 +1433,9 @@
             android:layout_marginStart="702dp"
             android:layout_marginLeft="702dp"
             android:layout_marginTop="283dp"
-            android:rotation="40" />
+            android:rotation="40"
+            android:onClick="change_color_pittsburgh_nashville_g1"
+            android:alpha="0"/>
 
         <Button
             android:id="@+id/pittsburgh_nashville_g1b2"
@@ -1497,7 +1447,9 @@
             android:layout_marginStart="677dp"
             android:layout_marginLeft="677dp"
             android:layout_marginTop="304dp"
-            android:rotation="60" />
+            android:rotation="60"
+            android:onClick="change_color_pittsburgh_nashville_g1"
+            android:alpha="0"/>
 
         <Button
             android:id="@+id/pittsburgh_nashville_g1b3"
@@ -1509,7 +1461,9 @@
             android:layout_marginStart="654dp"
             android:layout_marginLeft="654dp"
             android:layout_marginTop="328dp"
-            android:rotation="40" />
+            android:rotation="40"
+            android:onClick="change_color_pittsburgh_nashville_g1"
+            android:alpha="0"/>
 
         <Button
             android:id="@+id/pittsburgh_nashville_g1b4"
@@ -1521,7 +1475,9 @@
             android:layout_marginStart="636dp"
             android:layout_marginLeft="636dp"
             android:layout_marginTop="355dp"
-            android:rotation="30" />
+            android:rotation="30"
+            android:onClick="change_color_pittsburgh_nashville_g1"
+            android:alpha="0"/>
 
 
         <Button
@@ -1534,7 +1490,9 @@
             android:layout_marginStart="724dp"
             android:layout_marginLeft="724dp"
             android:layout_marginTop="286dp"
-            android:rotation="-15" />
+            android:rotation="-15"
+            android:onClick="change_color_pittsburgh_raleigh_g1"
+            android:alpha="0"/>
 
         <Button
             android:id="@+id/pittsburgh_raleigh_g1b2"
@@ -1546,7 +1504,9 @@
             android:layout_marginStart="732dp"
             android:layout_marginLeft="732dp"
             android:layout_marginTop="320dp"
-            android:rotation="-15" />
+            android:rotation="-15"
+            android:onClick="change_color_pittsburgh_raleigh_g1"
+            android:alpha="0"/>
 
         <Button
             android:id="@+id/raleigh_nashville_g1b1"
@@ -1558,7 +1518,9 @@
             android:layout_marginStart="721dp"
             android:layout_marginLeft="721dp"
             android:layout_marginTop="344dp"
-            android:rotation="95" />
+            android:rotation="95"
+            android:onClick="change_color_raleigh_nashville_g1"
+            android:alpha="0"/>
 
         <Button
             android:id="@+id/raleigh_nashville_g1b2"
@@ -1570,7 +1532,9 @@
             android:layout_marginStart="689dp"
             android:layout_marginLeft="689dp"
             android:layout_marginTop="348dp"
-            android:rotation="80" />
+            android:rotation="80"
+            android:onClick="change_color_raleigh_nashville_g1"
+            android:alpha="0"/>
 
         <Button
             android:id="@+id/raleigh_nashville_g1b3"
@@ -1582,7 +1546,9 @@
             android:layout_marginStart="657dp"
             android:layout_marginLeft="657dp"
             android:layout_marginTop="361dp"
-            android:rotation="55" />
+            android:rotation="55"
+            android:onClick="change_color_raleigh_nashville_g1"
+            android:alpha="0"/>
 
         <Button
             android:id="@+id/nashville_atlanta_g1b1"
@@ -1594,7 +1560,9 @@
             android:layout_marginStart="660dp"
             android:layout_marginLeft="660dp"
             android:layout_marginTop="390dp"
-            android:rotation="-55" />
+            android:rotation="-55"
+            android:onClick="change_color_nashville_atlanta_g1"
+            android:alpha="0"/>
 
         <Button
             android:id="@+id/atlanta_neworleans_g1b1"
@@ -1606,7 +1574,9 @@
             android:layout_marginStart="662dp"
             android:layout_marginLeft="662dp"
             android:layout_marginTop="419dp"
-            android:rotation="50" />
+            android:rotation="50"
+            android:onClick="change_color_atlanta_neworleans_g1"
+            android:alpha="0"/>
 
         <Button
             android:id="@+id/atlanta_neworleans_g1b2"
@@ -1618,7 +1588,9 @@
             android:layout_marginStart="638dp"
             android:layout_marginLeft="638dp"
             android:layout_marginTop="442dp"
-            android:rotation="40" />
+            android:rotation="40"
+            android:onClick="change_color_atlanta_neworleans_g1"
+            android:alpha="0"/>
 
         <Button
             android:id="@+id/atlanta_neworleans_g1b3"
@@ -1630,7 +1602,9 @@
             android:layout_marginStart="621dp"
             android:layout_marginLeft="621dp"
             android:layout_marginTop="469dp"
-            android:rotation="35" />
+            android:rotation="35"
+            android:onClick="change_color_atlanta_neworleans_g1"
+            android:alpha="0"/>
 
         <Button
             android:id="@+id/atlanta_neworleans_g1b4"
@@ -1642,7 +1616,9 @@
             android:layout_marginStart="604dp"
             android:layout_marginLeft="604dp"
             android:layout_marginTop="499dp"
-            android:rotation="20" />
+            android:rotation="20"
+            android:onClick="change_color_atlanta_neworleans_g1"
+            android:alpha="0"/>
 
         <Button
             android:id="@+id/atlanta_neworleans_g2b1"
@@ -1654,7 +1630,9 @@
             android:layout_marginStart="671dp"
             android:layout_marginLeft="671dp"
             android:layout_marginTop="429dp"
-            android:rotation="50" />
+            android:rotation="50"
+            android:onClick="change_color_atlanta_neworleans_g2"
+            android:alpha="0" />
 
         <Button
             android:id="@+id/atlanta_neworleans_g2b2"
@@ -1666,7 +1644,9 @@
             android:layout_marginStart="648dp"
             android:layout_marginLeft="648dp"
             android:layout_marginTop="450dp"
-            android:rotation="40" />
+            android:rotation="40"
+            android:onClick="change_color_atlanta_neworleans_g2"
+            android:alpha="0"/>
 
         <Button
             android:id="@+id/atlanta_neworleans_g2b3"
@@ -1678,7 +1658,9 @@
             android:layout_marginStart="627dp"
             android:layout_marginLeft="627dp"
             android:layout_marginTop="478dp"
-            android:rotation="35" />
+            android:rotation="35"
+            android:onClick="change_color_atlanta_neworleans_g2"
+            android:alpha="0"/>
 
         <Button
             android:id="@+id/atlanta_neworleans_g2b4"
@@ -1690,7 +1672,9 @@
             android:layout_marginStart="613dp"
             android:layout_marginLeft="613dp"
             android:layout_marginTop="506dp"
-            android:rotation="20" />
+            android:rotation="20"
+            android:onClick="change_color_atlanta_neworleans_g2"
+            android:alpha="0"/>
 
         <Button
             android:id="@+id/atlanta_miami_g1b1"
@@ -1702,7 +1686,9 @@
             android:layout_marginStart="697dp"
             android:layout_marginLeft="697dp"
             android:layout_marginTop="435dp"
-            android:rotation="-40" />
+            android:rotation="-40"
+            android:onClick="change_color_atlanta_miami_g1"
+            android:alpha="0"/>
 
         <Button
             android:id="@+id/atlanta_miami_g1b2"
@@ -1714,7 +1700,9 @@
             android:layout_marginStart="718dp"
             android:layout_marginLeft="718dp"
             android:layout_marginTop="460dp"
-            android:rotation="-40" />
+            android:rotation="-40"
+            android:onClick="change_color_atlanta_miami_g1"
+            android:alpha="0"/>
 
         <Button
             android:id="@+id/atlanta_miami_g1b3"
@@ -1726,7 +1714,9 @@
             android:layout_marginStart="739dp"
             android:layout_marginLeft="739dp"
             android:layout_marginTop="487dp"
-            android:rotation="-40" />
+            android:rotation="-40"
+            android:onClick="change_color_atlanta_miami_g1"
+            android:alpha="0"/>
 
         <Button
             android:id="@+id/atlanta_miami_g1b4"
@@ -1738,7 +1728,9 @@
             android:layout_marginStart="759dp"
             android:layout_marginLeft="759dp"
             android:layout_marginTop="511dp"
-            android:rotation="-40" />
+            android:rotation="-40"
+            android:onClick="change_color_atlanta_miami_g1"
+            android:alpha="0"/>
 
         <Button
             android:id="@+id/atlanta_miami_g1b5"
@@ -1750,7 +1742,9 @@
             android:layout_marginStart="780dp"
             android:layout_marginLeft="780dp"
             android:layout_marginTop="537dp"
-            android:rotation="-40" />
+            android:rotation="-40"
+            android:onClick="change_color_atlanta_miami_g1"
+            android:alpha="0"/>
 
         <Button
             android:id="@+id/atlanta_charleston_g1b1"
@@ -1762,7 +1756,9 @@
             android:layout_marginStart="712dp"
             android:layout_marginLeft="712dp"
             android:layout_marginTop="418dp"
-            android:rotation="90" />
+            android:rotation="90"
+            android:onClick="change_color_atlanta_charleston_g1"
+            android:alpha="0"/>
 
         <Button
             android:id="@+id/atlanta_charleston_g1b2"
@@ -1774,7 +1770,9 @@
             android:layout_marginStart="747dp"
             android:layout_marginLeft="747dp"
             android:layout_marginTop="419dp"
-            android:rotation="90" />
+            android:rotation="90"
+            android:onClick="change_color_atlanta_charleston_g1"
+            android:alpha="0"/>
 
         <Button
             android:id="@+id/charleston_miami_g1b1"
@@ -1786,7 +1784,9 @@
             android:layout_marginStart="771dp"
             android:layout_marginLeft="771dp"
             android:layout_marginTop="438dp"
-            android:rotation="-5" />
+            android:rotation="-5"
+            android:onClick="change_color_charleston_miami_g1"
+            android:alpha="0"/>
 
         <Button
             android:id="@+id/charleston_miami_g1b2"
@@ -1798,7 +1798,9 @@
             android:layout_marginStart="774dp"
             android:layout_marginLeft="774dp"
             android:layout_marginTop="470dp"
-            android:rotation="-10" />
+            android:rotation="-10"
+            android:onClick="change_color_charleston_miami_g1"
+            android:alpha="0"/>
 
         <Button
             android:id="@+id/charleston_miami_g1b3"
@@ -1810,7 +1812,9 @@
             android:layout_marginStart="782dp"
             android:layout_marginLeft="782dp"
             android:layout_marginTop="503dp"
-            android:rotation="-15" />
+            android:rotation="-15"
+            android:onClick="change_color_charleston_miami_g1"
+            android:alpha="0"/>
 
         <Button
             android:id="@+id/charleston_miami_g1b4"
@@ -1822,7 +1826,9 @@
             android:layout_marginStart="795dp"
             android:layout_marginLeft="795dp"
             android:layout_marginTop="533dp"
-            android:rotation="-30" />
+            android:rotation="-30"
+            android:onClick="change_color_charleston_miami_g1"
+            android:alpha="0"/>
 
         <Button
             android:id="@+id/neworleans_miami_g1b1"
@@ -1834,7 +1840,9 @@
             android:layout_marginStart="630dp"
             android:layout_marginLeft="630dp"
             android:layout_marginTop="518dp"
-            android:rotation="60" />
+            android:rotation="60"
+            android:onClick="change_color_neworleans_miami_g1"
+            android:alpha="0"/>
 
         <Button
             android:id="@+id/neworleans_miami_g1b2"
@@ -1846,7 +1854,9 @@
             android:layout_marginStart="659dp"
             android:layout_marginLeft="659dp"
             android:layout_marginTop="506dp"
-            android:rotation="75" />
+            android:rotation="75"
+            android:onClick="change_color_neworleans_miami_g1"
+            android:alpha="0"/>
 
         <Button
             android:id="@+id/neworleans_miami_g1b3"
@@ -1858,7 +1868,9 @@
             android:layout_marginStart="692dp"
             android:layout_marginLeft="692dp"
             android:layout_marginTop="501dp"
-            android:rotation="90" />
+            android:rotation="90"
+            android:onClick="change_color_neworleans_miami_g1"
+            android:alpha="0"/>
 
         <Button
             android:id="@+id/neworleans_miami_g1b4"
@@ -1870,7 +1882,9 @@
             android:layout_marginStart="726dp"
             android:layout_marginLeft="726dp"
             android:layout_marginTop="509dp"
-            android:rotation="115" />
+            android:rotation="115"
+            android:onClick="change_color_neworleans_miami_g1"
+            android:alpha="0"/>
 
         <Button
             android:id="@+id/neworleans_miami_g1b5"
@@ -1882,7 +1896,9 @@
             android:layout_marginStart="752dp"
             android:layout_marginLeft="752dp"
             android:layout_marginTop="529dp"
-            android:rotation="130" />
+            android:rotation="130"
+            android:onClick="change_color_neworleans_miami_g1"
+            android:alpha="0"/>
 
         <Button
             android:id="@+id/neworleans_miami_g1b6"
@@ -1894,7 +1910,9 @@
             android:layout_marginStart="775dp"
             android:layout_marginLeft="775dp"
             android:layout_marginTop="551dp"
-            android:rotation="140" />
+            android:rotation="140"
+            android:onClick="change_color_neworleans_miami_g1"
+            android:alpha="0"/>
 
         <Button
             android:id="@+id/omaha_kansascity_g2b1"
@@ -1906,7 +1924,9 @@
             android:layout_marginStart="472dp"
             android:layout_marginLeft="472dp"
             android:layout_marginTop="313dp"
-            android:rotation="-25" />
+            android:rotation="-25"
+            android:onClick="change_color_omaha_kansascity_g2"
+            android:alpha="0"/>
 
         <Button
             android:id="@+id/kansascity_oklahomacity_g2b1"
@@ -1918,7 +1938,9 @@
             android:layout_marginStart="479dp"
             android:layout_marginLeft="479dp"
             android:layout_marginTop="365dp"
-            android:rotation="22" />
+            android:rotation="22"
+            android:onClick="change_color_kansascity_oklahomacity_g2"
+            android:alpha="0"/>
 
         <Button
             android:id="@+id/kansascity_oklahomacity_g2b2"
@@ -1930,7 +1952,9 @@
             android:layout_marginStart="469dp"
             android:layout_marginLeft="469dp"
             android:layout_marginTop="398dp"
-            android:rotation="22" />
+            android:rotation="22"
+            android:onClick="change_color_kansascity_oklahomacity_g2"
+            android:alpha="0"/>
 
         <Button
             android:id="@+id/kansascity_saintlouis_g1b1"
@@ -1942,7 +1966,9 @@
             android:layout_marginStart="498dp"
             android:layout_marginLeft="498dp"
             android:layout_marginTop="331dp"
-            android:rotation="90" />
+            android:rotation="90"
+            android:onClick="change_color_kansascity_saintlouis_g1"
+            android:alpha="0"/>
 
         <Button
             android:id="@+id/kansascity_saintlouis_g1b2"
@@ -1954,7 +1980,9 @@
             android:layout_marginStart="530dp"
             android:layout_marginLeft="530dp"
             android:layout_marginTop="331dp"
-            android:rotation="90" />
+            android:rotation="90"
+            android:onClick="change_color_kansascity_saintlouis_g1"
+            android:alpha="0"/>
 
         <Button
             android:id="@+id/kansascity_saintlouis_g2b1"
@@ -1966,7 +1994,9 @@
             android:layout_marginStart="498dp"
             android:layout_marginLeft="498dp"
             android:layout_marginTop="343dp"
-            android:rotation="90" />
+            android:rotation="90"
+            android:onClick="change_color_kansascity_saintlouis_g2"
+            android:alpha="0"/>
 
         <Button
             android:id="@+id/kansascity_saintlouis_g2b2"
@@ -1978,7 +2008,9 @@
             android:layout_marginStart="529dp"
             android:layout_marginLeft="529dp"
             android:layout_marginTop="343dp"
-            android:rotation="90" />
+            android:rotation="90"
+            android:onClick="change_color_kansascity_saintlouis_g2"
+            android:alpha="0"/>
 
         <Button
             android:id="@+id/saintlouis_littlerock_g1b1"
@@ -1990,7 +2022,9 @@
             android:layout_marginStart="542dp"
             android:layout_marginLeft="542dp"
             android:layout_marginTop="395dp"
-            android:rotation="20" />
+            android:rotation="20"
+            android:onClick="change_color_saintlouis_littlerock_g1"
+            android:alpha="0"/>
 
         <Button
             android:id="@+id/saintlouis_littlerock_g1b2"
@@ -2002,7 +2036,9 @@
             android:layout_marginStart="609dp"
             android:layout_marginLeft="609dp"
             android:layout_marginTop="369dp"
-            android:rotation="-70" />
+            android:rotation="-70"
+            android:onClick="change_color_saintlouis_littlerock_g1"
+            android:alpha="0"/>
 
         <Button
             android:id="@+id/saintlouis_nashville_g1b1"
@@ -2014,7 +2050,9 @@
             android:layout_marginStart="576dp"
             android:layout_marginLeft="576dp"
             android:layout_marginTop="359dp"
-            android:rotation="110" />
+            android:rotation="110"
+            android:onClick="change_color_saintlouis_nashville_g1"
+            android:alpha="0"/>
 
         <Button
             android:id="@+id/saintlouis_nashville_g1b2"
@@ -2026,7 +2064,9 @@
             android:layout_marginStart="550dp"
             android:layout_marginLeft="550dp"
             android:layout_marginTop="363dp"
-            android:rotation="20" />
+            android:rotation="20"
+            android:onClick="change_color_saintlouis_nashville_g1"
+            android:alpha="0"/>
 
         <Button
             android:id="@+id/oklahomacity_littlerock_g1b1"
@@ -2038,7 +2078,9 @@
             android:layout_marginStart="481dp"
             android:layout_marginLeft="481dp"
             android:layout_marginTop="419dp"
-            android:rotation="-90" />
+            android:rotation="-90"
+            android:onClick="change_color_oklahomacity_littlerock_g1"
+            android:alpha="0"/>
 
         <Button
             android:id="@+id/oklahomacity_littlerock_g1b2"
@@ -2050,7 +2092,9 @@
             android:layout_marginStart="513dp"
             android:layout_marginLeft="513dp"
             android:layout_marginTop="418dp"
-            android:rotation="90" />
+            android:rotation="90"
+            android:onClick="change_color_oklahomacity_littlerock_g1"
+            android:alpha="0"/>
 
         <Button
             android:id="@+id/oklahomacity_dallas_g2b1"
@@ -2062,7 +2106,9 @@
             android:layout_marginStart="471dp"
             android:layout_marginLeft="471dp"
             android:layout_marginTop="441dp"
-            android:rotation="-5" />
+            android:rotation="-5"
+            android:onClick="change_color_oklahomacity_dallas_g2"
+            android:alpha="0"/>
 
         <Button
             android:id="@+id/oklahomacity_dallas_g2b2"
@@ -2074,7 +2120,9 @@
             android:layout_marginStart="475dp"
             android:layout_marginLeft="475dp"
             android:layout_marginTop="473dp"
-            android:rotation="-5" />
+            android:rotation="-5"
+            android:onClick="change_color_oklahomacity_dallas_g2"
+            android:alpha="0"/>
 
         <Button
             android:id="@+id/littlerock_dallas_g1b1"
@@ -2086,7 +2134,9 @@
             android:layout_marginStart="520dp"
             android:layout_marginLeft="520dp"
             android:layout_marginTop="442dp"
-            android:rotation="40" />
+            android:rotation="40"
+            android:onClick="change_color_littlerock_dallas_g1"
+            android:alpha="0"/>
 
         <Button
             android:id="@+id/littlerock_dallas_g1b2"
@@ -2098,7 +2148,9 @@
             android:layout_marginStart="499dp"
             android:layout_marginLeft="499dp"
             android:layout_marginTop="468dp"
-            android:rotation="40" />
+            android:rotation="40"
+            android:onClick="change_color_littlerock_dallas_g1"
+            android:alpha="0"/>
 
         <Button
             android:id="@+id/dallas_houston_g2b1"
@@ -2110,7 +2162,9 @@
             android:layout_marginStart="496dp"
             android:layout_marginLeft="496dp"
             android:layout_marginTop="512dp"
-            android:rotation="-38" />
+            android:rotation="-38"
+            android:onClick="change_color_dallas_houston_g2"
+            android:alpha="0"/>
 
         <Button
             android:id="@+id/littlerock_neworleans_g1b1"
@@ -2122,7 +2176,9 @@
             android:layout_marginStart="551dp"
             android:layout_marginLeft="551dp"
             android:layout_marginTop="444dp"
-            android:rotation="-25" />
+            android:rotation="-25"
+            android:onClick="change_color_littlerock_neworleans_g1"
+            android:alpha="0"/>
 
         <Button
             android:id="@+id/littlerock_neworleans_g1b2"
@@ -2134,7 +2190,9 @@
             android:layout_marginStart="566dp"
             android:layout_marginLeft="566dp"
             android:layout_marginTop="473dp"
-            android:rotation="-25" />
+            android:rotation="-25"
+            android:onClick="change_color_littlerock_neworleans_g1"
+            android:alpha="0"/>
 
         <Button
             android:id="@+id/littlerock_neworleans_g1b3"
@@ -2146,7 +2204,9 @@
             android:layout_marginStart="581dp"
             android:layout_marginLeft="581dp"
             android:layout_marginTop="501dp"
-            android:rotation="-25" />
+            android:rotation="-25"
+            android:onClick="change_color_littlerock_neworleans_g1"
+            android:alpha="0"/>
 
         <Button
             android:id="@+id/neworleans_houston_g1b1"
@@ -2158,7 +2218,9 @@
             android:layout_marginStart="537dp"
             android:layout_marginLeft="537dp"
             android:layout_marginTop="530dp"
-            android:rotation="80" />
+            android:rotation="80"
+            android:onClick="change_color_neworleans_houston_g1"
+            android:alpha="0"/>
 
         <Button
             android:id="@+id/neworleans_houston_g1b2"
@@ -2170,7 +2232,9 @@
             android:layout_marginStart="569dp"
             android:layout_marginLeft="569dp"
             android:layout_marginTop="526dp"
-            android:rotation="80" />
+            android:rotation="80"
+            android:onClick="change_color_neworleans_houston_g1"
+            android:alpha="0"/>
 
         <Button
             android:id="@+id/nashville_littlerock_g1b1"
@@ -2182,7 +2246,9 @@
             android:layout_marginStart="623dp"
             android:layout_marginLeft="623dp"
             android:layout_marginTop="394dp"
-            android:rotation="50" />
+            android:rotation="50"
+            android:onClick="change_color_nashville_littlerock_g1"
+            android:alpha="0"/>
 
         <Button
             android:id="@+id/nashville_littlerock_g1b2"
@@ -2194,7 +2260,9 @@
             android:layout_marginStart="593dp"
             android:layout_marginLeft="593dp"
             android:layout_marginTop="411dp"
-            android:rotation="65" />
+            android:rotation="65"
+            android:onClick="change_color_nashville_littlerock_g1"
+            android:alpha="0"/>
 
         <Button
             android:id="@+id/nashville_littlerock_g1b3"
@@ -2206,7 +2274,9 @@
             android:layout_marginStart="562dp"
             android:layout_marginLeft="562dp"
             android:layout_marginTop="419dp"
-            android:rotation="85" />
+            android:rotation="85"
+            android:onClick="change_color_nashville_littlerock_g1"
+            android:alpha="0"/>
 
 
 

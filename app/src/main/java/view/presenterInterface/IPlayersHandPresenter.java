@@ -9,6 +9,7 @@ import models.data.Enums;
 import models.data.Player;
 
 public interface IPlayersHandPresenter {
+    int getCurrentPlayerColor();
     Player getCurrentPlayer();
     Integer getTrainCardAmount(Enums.Color color);
     ArrayList<DestinationCard> getDestinationCards();

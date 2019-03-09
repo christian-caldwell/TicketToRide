@@ -20,6 +20,12 @@ public class PlayersHandPresenter implements IPlayersHandPresenter, Observer {
     }
 
     @Override
+    public int getCurrentPlayerColor() {
+        return 1;
+//        return clientModel.getPlayer().getPlayerColor();
+    }
+
+    @Override
     public Integer getTrainCardAmount(Enums.Color color) {
         Map<Enums.Color, Integer> trainCards = clientModel.getPlayer().getTickets();
         return trainCards.get(color);
