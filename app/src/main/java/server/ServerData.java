@@ -176,9 +176,6 @@ public class ServerData {
             targetPlayer.addToNewDestinationCardHand(targetGame.dealDestinationCard());
             targetPlayer.addToNewDestinationCardHand(targetGame.dealDestinationCard());
             targetPlayer.addToNewDestinationCardHand(targetGame.dealDestinationCard());
-            targetPlayer.addToNewDestinationCardHand(targetGame.dealDestinationCard());
-            targetPlayer.addToNewDestinationCardHand(targetGame.dealDestinationCard());
-
         }
     }
 }

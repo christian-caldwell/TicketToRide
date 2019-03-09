@@ -51,8 +51,6 @@ public class TTR_Constants {
     private final String WASHINGTON_STRING = "Washington";
     private final String WINNIPEG_STRING = "Winnipeg";
 
-    String[] test = new String[2];
-//    private final Route R_VAN_TO_SEA_1 = new Route(1, serverData.WILD , [VANCOUVER_STRING, SEATTLE_STRING]);
     private final Route R_VAN_TO_SEA_1 = new Route(1, serverData.WILD , new String[] {VANCOUVER_STRING, SEATTLE_STRING});
     private final Route R_VAN_TO_SEA_2 = new Route(1, serverData.WILD , new String[] {VANCOUVER_STRING, SEATTLE_STRING});
     private final Route R_SEA_TO_POR_1 = new Route(1, serverData.WILD , new String[] {SEATTLE_STRING, PORTLAND_STRING});
