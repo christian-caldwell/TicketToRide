@@ -10,6 +10,7 @@ import java.util.Map;
 import java.util.Random;
 import java.util.Set;
 
+import models.TTR_Constants;
 import server.ServerData;
 
 public class Game {
@@ -29,7 +30,7 @@ public class Game {
     private ArrayList<DestinationCard> destinationDeck = new ArrayList<>();
     private Set<Route> availableRoutes = new HashSet<>();
 
-    private ServerData serverData = ServerData.getInstance();
+    private TTR_Constants constants = TTR_Constants.getInstance();
 
     ////////////
 
@@ -38,7 +39,7 @@ public class Game {
         isStarted = false;
         numPlayerActions = 0;
         currentLongestRouteValue = 0;
-        currentTurnPlayer = serverData.RED;
+        currentTurnPlayer = constants.BLACK;
         faceUpTrainCards = new TrainCard[]{new TrainCard(0),
                                            new TrainCard(0),
                                            new TrainCard(0),
@@ -102,7 +103,7 @@ public class Game {
 
             int wildCardCount = 0;
             for (TrainCard card :this.faceUpTrainCards) {
-                if (card.getCardColor().equals(serverData.WILD)) {
+                if (card.getCardColor().equals(constants.WILD)) {
                     wildCardCount++;
                 }
             }
@@ -191,8 +192,8 @@ public class Game {
                 }
 
                 for (int i = 0; i < numberOfWilds; i++) {
-                    this.ticketCardDiscard.put(serverData.WILD,this.ticketCardDeck.get(serverData.WILD)+1);
-                    player.removeTicketFromHand(serverData.WILD);
+                    this.ticketCardDiscard.put(constants.WILD,this.ticketCardDeck.get(constants.WILD)+1);
+                    player.removeTicketFromHand(constants.WILD);
                 }
 
                 player.incrementScore(purchasedRoute.getPoints());
@@ -253,35 +254,35 @@ public class Game {
         return currentTurnPlayer;
     }
     public void incrementCurrentTurnPlayer() {
-        if (this.currentTurnPlayer.equals(serverData.RED)) {
-            this.currentTurnPlayer = serverData.GREEN;
+        if (this.currentTurnPlayer.equals(constants.BLACK_PLAYER)) {
+            this.currentTurnPlayer = constants.BLUE_PLAYER;
         }
-        else if (this.currentTurnPlayer.equals(serverData.GREEN)) {
+        else if (this.currentTurnPlayer.equals(constants.BLUE_PLAYER)) {
             if (this.players.size() > 2) {
-                this.currentTurnPlayer = serverData.BLUE;
+                this.currentTurnPlayer = constants.RED_PLAYER;
             }
             else {
-                this.currentTurnPlayer = serverData.RED;
+                this.currentTurnPlayer = constants.BLACK_PLAYER;
             }
         }
-        else if (this.currentTurnPlayer.equals(serverData.BLUE)) {
+        else if (this.currentTurnPlayer.equals(constants.RED_PLAYER)) {
             if (this.players.size() > 3) {
-                this.currentTurnPlayer = serverData.YELLOW;
+                this.currentTurnPlayer = constants.GREEN_PLAYER;
             }
             else {
-                this.currentTurnPlayer = serverData.RED;
+                this.currentTurnPlayer = constants.BLACK_PLAYER;
             }
         }
-        else if (this.currentTurnPlayer.equals(serverData.YELLOW)) {
+        else if (this.currentTurnPlayer.equals(constants.GREEN_PLAYER)) {
             if (this.players.size() > 4) {
-                this.currentTurnPlayer = serverData.BLACK;
+                this.currentTurnPlayer = constants.YELLOW_PLAYER;
             }
             else {
-                this.currentTurnPlayer = serverData.RED;
+                this.currentTurnPlayer = constants.BLACK_PLAYER;
             }
         }
-        else if (this.currentTurnPlayer.equals(serverData.BLACK)) {
-            this.currentTurnPlayer = serverData.RED;
+        else if (this.currentTurnPlayer.equals(constants.YELLOW_PLAYER)) {
+            this.currentTurnPlayer = constants.BLACK_PLAYER;
         }
     }
 //////////////////////////////////////////////////////////////////////////////
