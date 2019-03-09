@@ -245,10 +245,10 @@ public class LobbyViewActivity extends AppCompatActivity /*implements IGameLobby
                 else {
                     disableStartGameButton();
                 }
-                if (!listOfGames.contains(user.getGame())) {
-                    user.getGame().setStarted(true);
-                    // client.setActiveGame(user.getGame()) // Not sure, Aliasing should handle this...
-                }
+//                if (!listOfGames.contains(user.getGame())) {
+//                    user.getGame().setStarted(true);
+//                    // client.setActiveGame(user.getGame()) // Not sure, Aliasing should handle this...
+//                }
                 if (user.getGame().isStarted()) {
                     Poller.instance().startPollingGame();
                     Intent intent = new Intent(context, GameBoardActivity.class);
