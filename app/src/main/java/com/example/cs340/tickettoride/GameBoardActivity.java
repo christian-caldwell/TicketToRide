@@ -82,9 +82,9 @@ public class GameBoardActivity extends AppCompatActivity {
                 | View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY;
         decorView.setSystemUiVisibility(uiOptions);
         chatPresenter = new ChatPresenter(this);
-        cardDeckPresenter = new CardDeckPresenter();
-        playerInfoPresenter = new PlayerInfoPresenter();
-        playersHandPresenter = new PlayersHandPresenter();
+        cardDeckPresenter = new CardDeckPresenter(this);
+        playerInfoPresenter = new PlayerInfoPresenter(this);
+        playersHandPresenter = new PlayersHandPresenter(this);
         initRecyclerView();
         inputChatEditText = findViewById(R.id.input_edit_text);
         sendMessageButton = findViewById(R.id.send_message_button);
@@ -94,6 +94,7 @@ public class GameBoardActivity extends AppCompatActivity {
             public void onClick(View v) {
                 String newMessage = inputChatEditText.getText().toString();
                 chatPresenter.addMessage(newMessage);
+                inputChatEditText.setText("");
             }
         });
         gameDemoButton = findViewById(R.id.gameDemoButon);
@@ -118,8 +119,6 @@ public class GameBoardActivity extends AppCompatActivity {
             }
         });
 
-
-
         mGreenTrainCard = findViewById(R.id.greenCard);
         mRedTrainCard = findViewById(R.id.redCard);
         mPinkTrainCard = findViewById(R.id.pinkCard);
@@ -129,6 +128,17 @@ public class GameBoardActivity extends AppCompatActivity {
         mWildTrainCard = findViewById(R.id.wildCard);
         mBlueTrainCard = findViewById(R.id.blueCard);
         mOrangeTrainCard = findViewById(R.id.orangeCard);
+
+        chatMessages = chatPresenter.getMessages();
+        mGreenTrainCard.setText("" + playersHandPresenter.getTrainCardAmount(1));
+        mRedTrainCard.setText(""+ playersHandPresenter.getTrainCardAmount(2));
+        mPinkTrainCard.setText("" + playersHandPresenter.getTrainCardAmount(6));
+        mYellowTrainCard.setText("" + playersHandPresenter.getTrainCardAmount(3));
+        mWhiteTrainCard.setText("" + playersHandPresenter.getTrainCardAmount(7));
+        mBlackTrainCard.setText("" + playersHandPresenter.getTrainCardAmount(8));
+        mWildTrainCard.setText("" + playersHandPresenter.getTrainCardAmount(9));
+        mBlueTrainCard.setText("" + playersHandPresenter.getTrainCardAmount(4));
+        mOrangeTrainCard.setText("" + playersHandPresenter.getTrainCardAmount(5));
 
         destinationCardDeck = findViewById(R.id.destination_card_deck);
         destinationCardDeck.setOnClickListener(new View.OnClickListener() {
@@ -367,8 +377,8 @@ public class GameBoardActivity extends AppCompatActivity {
     }
 
     public void change_color_nashville_atlanta_g1(View view) {//1
-        findViewById(R.id.nashville_littlerock_g1b1).setBackgroundResource((int)playerColorValues.get(playersHandPresenter.getCurrentPlayerColor()));
-        findViewById(R.id.nashville_littlerock_g1b1).setAlpha(1);
+        findViewById(R.id.nashville_atlanta_g1b1).setBackgroundResource((int)playerColorValues.get(playersHandPresenter.getCurrentPlayerColor()));
+        findViewById(R.id.nashville_atlanta_g1b1).setAlpha(1);
     }
 
     public void change_color_raleigh_nashville_g1(View view) {//3
@@ -561,15 +571,11 @@ public class GameBoardActivity extends AppCompatActivity {
     }
 
     public void change_color_raleigh_atlanta_g2(View view) {//2
-        findViewById(R.id.raleigh_atlanta_g1b1).setBackgroundResource((int)playerColorValues.get(playersHandPresenter.getCurrentPlayerColor()));
-        findViewById(R.id.raleigh_atlanta_g1b1).setAlpha(1);
-        findViewById(R.id.raleigh_atlanta_g1b2).setBackgroundResource((int)playerColorValues.get(playersHandPresenter.getCurrentPlayerColor()));
-        findViewById(R.id.raleigh_atlanta_g1b2).setAlpha(1);
+        findViewById(R.id.raleigh_atlanta_g2b1).setBackgroundResource((int)playerColorValues.get(playersHandPresenter.getCurrentPlayerColor()));
+        findViewById(R.id.raleigh_atlanta_g2b1).setAlpha(1);
+        findViewById(R.id.raleigh_atlanta_g2b2).setBackgroundResource((int)playerColorValues.get(playersHandPresenter.getCurrentPlayerColor()));
+        findViewById(R.id.raleigh_atlanta_g2b2).setAlpha(1);
     }
-
-
-
-
 
     public void change_color_raleigh_atlanta_g1(View view) {//2
         findViewById(R.id.raleigh_atlanta_g1b1).setBackgroundResource((int)playerColorValues.get(playersHandPresenter.getCurrentPlayerColor()));
@@ -1134,10 +1140,10 @@ public class GameBoardActivity extends AppCompatActivity {
     }
 
 
-    public static class UpdateChatListAsyncTask extends AsyncTask<ArrayList<ChatMessage>, Void, Void> {
+    public static class UpdateAsyncTask extends AsyncTask<Void, Void, Void> {
 
         //Empty constructor
-        public UpdateChatListAsyncTask() {
+        public UpdateAsyncTask() {
         }
 
         /**
@@ -1147,8 +1153,8 @@ public class GameBoardActivity extends AppCompatActivity {
          */
 
         @Override
-        protected Void doInBackground(ArrayList<ChatMessage>... arrayLists) {
-            return updateChatList(arrayLists[0]);
+        protected Void doInBackground(Void... result) {
+            return null;
         }
 
         @Override

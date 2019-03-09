@@ -1,17 +1,23 @@
 package view.presenter;
 
-import java.util.ArrayList;
-import java.util.Map;
+import com.example.cs340.tickettoride.GameBoardActivity;
+
 import java.util.Observable;
 import java.util.Observer;
 
 import client.ClientModel;
-import models.data.DestinationCard;
 import models.data.Player;
 import view.presenterInterface.IPlayersHandPresenter;
 
 public class PlayersHandPresenter implements IPlayersHandPresenter, Observer {
     ClientModel clientModel = ClientModel.create();
+
+    private GameBoardActivity boardActivity;
+
+    public PlayersHandPresenter(GameBoardActivity activity) {
+        boardActivity = activity;
+        clientModel.setmPlayersHandPresenter(this);
+    }
 
     @Override
     public Player getCurrentPlayer() {
@@ -20,22 +26,18 @@ public class PlayersHandPresenter implements IPlayersHandPresenter, Observer {
 
     @Override
     public int getCurrentPlayerColor() {
-        return 1;
-//        return clientModel.getPlayer().getPlayerColor();
+        return clientModel.getUser().getGame().getCurrentTurnPlayer();
     }
 
     @Override
     public Integer getTrainCardAmount(Integer color) {
-        return clientModel.getPlayer().getTickets().get(color);
-    }
-
-    @Override
-    public ArrayList<DestinationCard> getDestinationCards() {
-        return clientModel.getPlayer().getDestinationCardHand();
+        return clientModel.getUser().getGame().findPlayer(
+                clientModel.getUser().getUsername()).getTickets().get(color);
     }
 
     @Override
     public void update(Observable o, Object arg) {
+        new GameBoardActivity.UpdateAsyncTask().execute();
 
     }
 }
