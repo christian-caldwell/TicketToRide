@@ -2,7 +2,6 @@ package view.presenter;
 
 import com.example.cs340.tickettoride.GameBoardActivity;
 
-import java.sql.Time;
 import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -51,7 +50,7 @@ public class ChatPresenter implements IChatPresenter, Observer {
 
     @Override
     public void update(Observable o, Object arg) {
-        new GameBoardActivity.UpdateChatListAsyncTask().execute(getMessages());
+        new GameBoardActivity.UpdateAsyncTask().execute();
 
     }
 }
