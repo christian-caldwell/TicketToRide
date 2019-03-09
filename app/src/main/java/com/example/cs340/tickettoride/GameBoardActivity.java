@@ -43,7 +43,6 @@ public class GameBoardActivity extends AppCompatActivity {
     private static ICardDeckPresenter cardDeckPresenter;
     private static RecyclerViewAdapterChat adapter;
     private static EditText inputChatEditText;
-    private static Button sendMessageButton;
     private static Button gameDemoButton;
     private DemoPresenter mDemoPresenter;
     private static Button sendMessageButton, playerInfoButton;
@@ -67,6 +66,7 @@ public class GameBoardActivity extends AppCompatActivity {
         setContentView(R.layout.activity_game_board);
         View decorView = getWindow().getDecorView();
         playerColorValues = new HashMap();
+        //FIXME: the hard colored playerColor ints are incorrect. To get the correct colors, do Constants.Player_COLOR for each.
         playerColorValues.put(5,R.drawable.black_background);
         playerColorValues.put(3,R.drawable.blue_background);
         playerColorValues.put(2,R.drawable.green_background);
