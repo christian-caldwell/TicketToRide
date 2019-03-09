@@ -1,21 +1,25 @@
 package com.example.cs340.tickettoride;
 
+import android.app.ActionBar;
+import android.app.Activity;
 import android.content.Context;
-import android.graphics.Canvas;
-import android.graphics.ColorFilter;
-import android.graphics.drawable.Drawable;
 import android.os.AsyncTask;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.StrictMode;
-import android.support.constraint.Group;
-import android.support.v4.content.ContextCompat;
+import android.support.constraint.ConstraintLayout;
+import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.Gravity;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.PopupWindow;
 import android.widget.Toast;
 
 import java.util.ArrayList;
@@ -40,13 +44,18 @@ public class GameBoardActivity extends AppCompatActivity {
     private static IPlayerInfoPresenter playerInfoPresenter;
     private static ICardDeckPresenter cardDeckPresenter;
     private static RecyclerViewAdapterChat adapter;
+    private static RecyclerViewAdapterDestinationCards destinationCardAdapter;
     private static EditText inputChatEditText;
     private static Button sendMessageButton, playerInfoButton;
     private static Button mGreenTrainCard, mRedTrainCard, mPinkTrainCard, mYellowTrainCard,
             mWhiteTrainCard, mBlackTrainCard, mWildTrainCard, mBlueTrainCard, mOrangeTrainCard;
     private static Button destinationCardDeck, trainCardDeck, cardOne, cardTwo, cardThree, cardFour, cardFive;
-    private static ImageView gameBoard;
     private static Map playerColorValues;
+    private ConstraintLayout mConstraintLayout;
+    private static PopupWindow mPopupWindow;
+    ArrayList<String> mlistOfDestinationCards;
+
+
 
 
     @Override
@@ -81,6 +90,7 @@ public class GameBoardActivity extends AppCompatActivity {
         playerInfoPresenter = new PlayerInfoPresenter();
         playersHandPresenter = new PlayersHandPresenter();
         initRecyclerView();
+        initDestinationCardRecyclerView();
         inputChatEditText = findViewById(R.id.input_edit_text);
         sendMessageButton = findViewById(R.id.send_message_button);
         sendMessageButton.setOnClickListener(new View.OnClickListener() {
@@ -92,12 +102,28 @@ public class GameBoardActivity extends AppCompatActivity {
             }
         });
 
+
         //FIXME: FINISH THE LISTENER TO RETURN THE PLAYER'S ROUTE CARDS THAT HE HAS
         playerInfoButton = findViewById(R.id.get_player_info_button);
         playerInfoButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                playerInfoPresenter.getDestinationCardStrings();
+
+                // Initialize a new instance of LayoutInflater service
+                LayoutInflater inflater = (LayoutInflater) GameBoardActivity.this.getSystemService(LAYOUT_INFLATER_SERVICE);
+
+                // Inflate the custom layout/view
+                View customView = inflater.inflate(R.layout.player_info_popup_window,null);
+
+                // Initialize a new instance of popup window
+                mPopupWindow = new PopupWindow(customView, ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+
+                // Set an elevation value for popup window
+                if(Build.VERSION.SDK_INT>=21)
+                    mPopupWindow.setElevation(5.0f);
+
+                DrawerLayout activityLayout = findViewById(R.id.game_board_activity);
+                mPopupWindow.showAtLocation(activityLayout, Gravity.CENTER,0,0);
             }
         });
 
@@ -168,10 +194,16 @@ public class GameBoardActivity extends AppCompatActivity {
                 cardDeckPresenter.drawTrainCard(5);
             }
         });
-
-        gameBoard = findViewById(R.id.game_board_pic);
-
     }
+
+    private void initDestinationCardRecyclerView() {
+        RecyclerView destinationCardRecyclerView = findViewById(R.id.recycler_view_destination_cards);
+        mlistOfDestinationCards = playerInfoPresenter.getDestinationCardStrings();
+        destinationCardAdapter = new RecyclerViewAdapterDestinationCards(mlistOfDestinationCards, this);
+        destinationCardRecyclerView.setAdapter(destinationCardAdapter);
+        destinationCardRecyclerView.setLayoutManager(new LinearLayoutManager(this));
+    }
+
 
     private void initRecyclerView() {
         RecyclerView recyclerView = findViewById(R.id.chat_recycler_view);
