@@ -23,6 +23,8 @@ import java.util.HashMap;
 import java.util.Map;
 
 import client.ClientModel;
+import client.Poller;
+import models.TTR_Constants;
 import models.data.ChatMessage;
 import view.presenter.CardDeckPresenter;
 import view.presenter.ChatPresenter;
@@ -31,6 +33,7 @@ import view.presenter.PlayersHandPresenter;
 import view.presenterInterface.ICardDeckPresenter;
 import view.presenter.DemoPresenter;
 import view.presenterInterface.IChatPresenter;
+import view.presenterInterface.IGameLobbyPresenter;
 import view.presenterInterface.IPlayerInfoPresenter;
 import view.presenterInterface.IPlayersHandPresenter;
 
@@ -67,11 +70,11 @@ public class GameBoardActivity extends AppCompatActivity {
         View decorView = getWindow().getDecorView();
         playerColorValues = new HashMap();
         //FIXME: the hard colored playerColor ints are incorrect. To get the correct colors, do Constants.Player_COLOR for each.
-        playerColorValues.put(5,R.drawable.black_background);
-        playerColorValues.put(3,R.drawable.blue_background);
-        playerColorValues.put(2,R.drawable.green_background);
-        playerColorValues.put(1,R.drawable.red_background);
-        playerColorValues.put(4,R.drawable.yellow_background);
+        playerColorValues.put(TTR_Constants.getInstance().BLACK_PLAYER,R.drawable.black_background);
+        playerColorValues.put(TTR_Constants.getInstance().BLUE_PLAYER,R.drawable.blue_background);
+        playerColorValues.put(TTR_Constants.getInstance().GREEN_PLAYER,R.drawable.green_background);
+        playerColorValues.put(TTR_Constants.getInstance().RED_PLAYER,R.drawable.red_background);
+        playerColorValues.put(TTR_Constants.getInstance().YELLOW_PLAYER,R.drawable.yellow_background);
 
         // Hide both the navigation bar and the status bar.
         int uiOptions = View.SYSTEM_UI_FLAG_LAYOUT_STABLE
