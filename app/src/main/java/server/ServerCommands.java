@@ -221,4 +221,16 @@ public class ServerCommands implements IServer {
             return result;
         }
     }
+
+    @Override
+    public Result requestGame(String gameName) {
+        Result result = new Result();
+        result.setSuccessful(false);
+        Game targetGame = serverData.findGame(gameName);
+        if (targetGame != null) {
+            result.setSuccessful(true);
+            result.setRunningGame(targetGame);
+        }
+        return result;
+    }
 }

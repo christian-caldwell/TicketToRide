@@ -163,8 +163,8 @@ public class ServerProxy implements IServer {
         String methodName = "requestDestinationCards";
 
 
-        Object[] parameterDataArray = new Object[2 + returnedCards.length];
-        Class<?>[] parameterClassArray = new Class<?>[2 + returnedCards.length];
+        Object[] parameterDataArray = new Object[2 + (returnedCards.length * 3)];
+        Class<?>[] parameterClassArray = new Class<?>[2 + (returnedCards.length * 3)];
 
         parameterClassArray[0] = String.class;
         parameterClassArray[1] = String.class;
@@ -325,4 +325,23 @@ public class ServerProxy implements IServer {
             return null;
         }
     }
+
+    @Override
+    public Result requestGame(String gameName) {
+        String className = GameStartFacade.class.getName();
+        String methodName = "requestGame";
+
+        Class<?>[] parameterClassArray = new Class<?>[1];
+        parameterClassArray[0] = String.class;
+        Object[] parameterDataArray = new Object[1];
+        parameterDataArray[0] = gameName;
+
+        GeneralCommand newCommand = new GeneralCommand(className, methodName, parameterClassArray, parameterDataArray);
+
+        ClientCommunicator communicator = new ClientCommunicator();
+
+        Result result = communicator.send(newCommand, "10.0.2.2", "8080");
+        return result;
+    }
+
 }
