@@ -210,6 +210,15 @@
             android:alpha="0.95"
             />
 
+        <Button
+            android:id="@+id/gameDemoButon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="24dp"
+            android:layout_marginRight="24dp"
+            android:text="Game Demo"
+            app:layout_constraintEnd_toStartOf="@+id/get_player_info_button"
+            tools:layout_editor_absoluteY="12dp"/>
 
 
     </android.support.constraint.ConstraintLayout>
