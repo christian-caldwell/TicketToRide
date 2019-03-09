@@ -1,9 +1,5 @@
 package client;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
-
-import java.util.ArrayList;
-
 import models.data.ChatMessage;
 import models.data.DestinationCard;
 import models.data.Game;
@@ -12,7 +8,6 @@ import models.data.Route;
 import models.data.User;
 import server.GeneralCommand;
 import server.IServer;
-import server.PollManager;
 import server.facade.GameStartFacade;
 import server.facade.LobbyFacade;
 import server.facade.LoginFacade;
@@ -163,8 +158,8 @@ public class ServerProxy implements IServer {
         String methodName = "requestDestinationCards";
 
 
-        Object[] parameterDataArray = new Object[2 + returnedCards.length];
-        Class<?>[] parameterClassArray = new Class<?>[2 + returnedCards.length];
+        Object[] parameterDataArray = new Object[2 + (returnedCards.length * 3)];
+        Class<?>[] parameterClassArray = new Class<?>[2 + (returnedCards.length * 3)];
 
         parameterClassArray[0] = String.class;
         parameterClassArray[1] = String.class;
@@ -253,8 +248,8 @@ public class ServerProxy implements IServer {
         String className = RunGameFacade.class.getName();
         String methodName = "requestTicketCard";
 
-        Object[] parameterDataArray = new Object[4];
-        Class<?>[] parameterClassArray = new Class<?>[4];
+        Object[] parameterDataArray = new Object[3];
+        Class<?>[] parameterClassArray = new Class<?>[3];
 
         parameterClassArray[0] = String.class;
         parameterClassArray[1] = String.class;
@@ -297,32 +292,51 @@ public class ServerProxy implements IServer {
         return communicator.send(newCommand, "10.0.2.2", "8080");
     }
 
-    public ArrayList<Game> getGames() {
-        String className = PollManager.class.getName();
-        String methodName = "getAvailableGames";
+//    public ArrayList<Game> getGames() {
+//        String className = PollManager.class.getName();
+//        String methodName = "getAvailableGames";
+//
+//        Object[] parameterDataArray = new Object[0];
+//        Class<?>[] parameterClassArray = new Class<?>[0];
+//
+//
+//        GeneralCommand newCommand = new GeneralCommand(className, methodName, parameterClassArray, parameterDataArray);
+//
+//
+//        try {
+//            ObjectMapper mapper = new ObjectMapper();
+//            String json = mapper.writeValueAsString(newCommand);
+//
+//            ClientCommunicator communicator = new ClientCommunicator();
+//
+//            json = communicator.send(json);
+//
+//            Result result = mapper.readValue(json, Result.class);
+//
+//            return result.getPollResult().getGamesChanged();
+//        }
+//        catch (Exception e) {
+//            e.printStackTrace();
+//            return null;
+//        }
+//    }
 
-        Object[] parameterDataArray = new Object[0];
-        Class<?>[] parameterClassArray = new Class<?>[0];
+    @Override
+    public Result requestGame(String gameName) {
+        String className = GameStartFacade.class.getName();
+        String methodName = "requestGame";
 
+        Class<?>[] parameterClassArray = new Class<?>[1];
+        parameterClassArray[0] = String.class;
+        Object[] parameterDataArray = new Object[1];
+        parameterDataArray[0] = gameName;
 
         GeneralCommand newCommand = new GeneralCommand(className, methodName, parameterClassArray, parameterDataArray);
 
+        ClientCommunicator communicator = new ClientCommunicator();
 
-        try {
-            ObjectMapper mapper = new ObjectMapper();
-            String json = mapper.writeValueAsString(newCommand);
-
-            ClientCommunicator communicator = new ClientCommunicator();
-
-            json = communicator.send(json);
-
-            Result result = mapper.readValue(json, Result.class);
-
-            return result.getPollResult().getGamesChanged();
-        }
-        catch (Exception e) {
-            e.printStackTrace();
-            return null;
-        }
+        Result result = communicator.send(newCommand, "10.0.2.2", "8080");
+        return result;
     }
+
 }
