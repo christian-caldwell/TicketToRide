@@ -3,6 +3,7 @@ package view.presenter;
 import com.example.cs340.tickettoride.GameBoardActivity;
 import com.example.cs340.tickettoride.LoginViewActivity;
 
+import client.ServerProxy;
 import models.data.Game;
 import models.data.User;
 import view.facade.client.ClientFacade;
@@ -21,6 +22,7 @@ public class DemoPresenter {
     private final LobbyFacadeOut mLobbyFacadeOut = new LobbyFacadeOut();
     private final GameStartFacadeOut mGameStartFacadeOut = new GameStartFacadeOut();
     private ClientFacade mClientFacade = new ClientFacade();
+    private ServerProxy mServerProxy = new ServerProxy();
 
     public DemoPresenter (LoginViewActivity loginActivity) {
         this.loginActivity = loginActivity;
@@ -42,12 +44,17 @@ public class DemoPresenter {
 
         Game game1 = new Game("game 1");
         mLobbyFacadeOut.createGame(game1, zack.getUsername());
+        mServerProxy.requestGame(game1.getGameName());
         zack.setHost(true);
+        game1 = mServerProxy.requestGame(game1.getGameName()).getRunningGame();
         zack.setGameJoined(game1);
+        game1 = mServerProxy.requestGame(game1.getGameName()).getRunningGame();
         mLobbyFacadeOut.joinGame(game1, christian);
+        game1 = mServerProxy.requestGame(game1.getGameName()).getRunningGame();
         mLobbyFacadeOut.joinGame(game1, ben);
-
+        game1 = mServerProxy.requestGame(game1.getGameName()).getRunningGame();
         mGameStartFacadeOut.startGame(game1.getGameName());
+        game1 = mServerProxy.requestGame(game1.getGameName()).getRunningGame();
 //
 //        try{
 //            Thread.sleep(3000);

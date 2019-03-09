@@ -70,8 +70,8 @@ public class GameBoardActivity extends AppCompatActivity {
             // When the sendMessage button is clicked, send the text to the presenter.addMessage function
             @Override
             public void onClick(View v) {
-                String newMessage = inputChatEditText.getText().toString();
-                presenter.addMessage(newMessage);
+                Toast.makeText(GameBoardActivity.this, "Starting Game Demo", Toast.LENGTH_SHORT).show();
+
             }
         });
     }
