@@ -24,6 +24,7 @@ public class GamePresenter implements IGamePresenter, Observer {
 
     @Override
     public void update(Observable o, Object arg) {
-        //do nothing
+        //get updates (Do we just want to store a copy of the active game?  That might be simplest...
+        //call on the gameBoard to re-draw according to the new information
     }
 }
