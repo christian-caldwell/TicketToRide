@@ -6,122 +6,138 @@ import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 
+import models.TTR_Constants;
+import server.ServerData;
+
 public class Player {
-    private String username;
-    private Enum playerColor;
+    private Boolean hasLongestRoute;
+
+    public Player() {
+    }
+
+    private ServerData serverData = ServerData.getInstance();
     private Integer score;
     private Integer trainsRemaining;
-    private Set<Route> routesOwned;
     private Integer individualLongestRouteValue;
-    private Boolean hasLongestRoute;
-    private Map<Enums.Color, Integer> tickets;
     private Integer numTickets;
-    private ArrayList<DestinationCard> destinationCardHand;
-    private ArrayList<DestinationCard> newDestinationCards;
+    private String username;
+    private Integer playerColor;
+
+    private Set<Route> routesOwned = new HashSet<>(0);
+    private Map<Integer, Integer> tickets = new HashMap<>();
+    private ArrayList<DestinationCard> destinationCardHand = new ArrayList<>(0);
+    private ArrayList<DestinationCard> newDestinationCards = new ArrayList<>(0);
 
 
-    public Player(String username, Enum playerColor) {
+    public Player(String username, Integer playerColor) {
         this.username = username;
         this.playerColor = playerColor;
-        this.score =0;
-        this.trainsRemaining = 45;//TODO: i cant remember if this is the right # of trains that a player starts with
-        this.routesOwned = new HashSet<>(0);
+        this.score = 0;
+        TTR_Constants constants = TTR_Constants.getInstance();
+        this.trainsRemaining = constants.TRAIN_STARTING_COUNT;//TODO: i cant remember if this is the right # of trains that a player starts with
         this.individualLongestRouteValue = 0;
         this.hasLongestRoute = false;
-        this.destinationCardHand = new ArrayList<>(0);
-        this.newDestinationCards = new ArrayList<>(0);;
         initTickets();
     }
+/////////////////////////////////////////////////////////////////////////////////////////////////
 
     public ArrayList<DestinationCard> getDestinationCardHand() {
         return destinationCardHand;
     }
-
     public void addToDestinationCardHand(DestinationCard destinationCard) {
         this.destinationCardHand.add(destinationCard);
     }
+/////////////////////////////////////////////////////////////////////////////////////////////////
 
+    public void resetNewDestinationCards() {
+        this.newDestinationCards = new ArrayList<>();
+    }
     public ArrayList<DestinationCard> getNewDestinationCards() {
         return newDestinationCards;
     }
-
+    public void addToNewDestinationCardHand(DestinationCard destinationCard) {
+        this.newDestinationCards.add(destinationCard);
+    }
     public void removeFromNewDestinationCards(DestinationCard[] returnedCards) {
         for (DestinationCard card: returnedCards) {
-            this.destinationCardHand.add(card);
+            this.newDestinationCards.add(card);
         }
     }
+    public void hideCards() {
+        tickets = null;
+        this.destinationCardHand = null;
+        this.newDestinationCards = null;
+    }
+/////////////////////////////////////////////////////////////////////////////////////////////////
 
     public String getUsername() {
         return username;
     }
+/////////////////////////////////////////////////////////////////////////////////////////////////
 
-    public Enum getPlayerColor() {
+    public Integer getPlayerColor() {
         return playerColor;
     }
+/////////////////////////////////////////////////////////////////////////////////////////////////
 
     public Integer getScore() {
         return score;
     }
-
     public void incrementScore(Integer numToIncrementBy) {
         this.score += numToIncrementBy;
     }
     public void decrementScore(Integer numToDecrementBy) {
         this.score -= numToDecrementBy;
     }
+/////////////////////////////////////////////////////////////////////////////////////////////////
 
     public Integer getTrainsRemaining() {
         return trainsRemaining;
     }
-
     public void decrementTrainsRemaining(Integer numToDecrementBy) {
         this.trainsRemaining -= numToDecrementBy;
     }
+/////////////////////////////////////////////////////////////////////////////////////////////////
 
     public void addRoute(Route route) {
         this.routesOwned.add(route);
     }
+/////////////////////////////////////////////////////////////////////////////////////////////////
 
     public Integer getIndividualLongestRouteValue() {
         return individualLongestRouteValue;
     }
-
     public void incrementIndividualLongestRouteValue(Integer numToIncrementBy) {
         this.individualLongestRouteValue += numToIncrementBy;
     }
+/////////////////////////////////////////////////////////////////////////////////////////////////
 
     public Boolean getHasLongestRoute() {
         return hasLongestRoute;
     }
-
     public void setHasLongestRoute(Boolean hasLongestRoute) {
         this.hasLongestRoute = hasLongestRoute;
     }
+/////////////////////////////////////////////////////////////////////////////////////////////////
 
-    private void initTickets() {
-        tickets = new HashMap<>();
-        for (Enums.Color c: Enums.Color.values()) {
-            tickets.put(c, 0);
-        }
-        numTickets = 0;
-    }
-
-    public void hideCards() {
-        tickets = null;
-        this.destinationCardHand = null;
-        this.newDestinationCards = null;
-    }
-
-    public Map<Enums.Color, Integer> getTickets() {
+    public Map<Integer, Integer> getTickets() {
         return tickets;
     }
 
-    public Integer getNumTickets() {
-        return numTickets;
+    public void addTicketToHand(Integer color) {
+        this.tickets.put(color,tickets.get(color)+1);
     }
 
-    public ArrayList<DestinationCard> getDestinationCards() {
-        return destinationCardHand;
+    public void removeTicketFromHand(Integer color) {
+        this.tickets.put(color,this.tickets.get(color)-1);
+
+    }
+
+    private void initTickets() {
+        for (int i = 1; i < 10; i++ ) {
+            tickets.put(i, 0);
+        }
+        numTickets = 0;
     }
 
 //    public Player copy() {

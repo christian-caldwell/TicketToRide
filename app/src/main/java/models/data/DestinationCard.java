@@ -1,12 +1,13 @@
 package models.data;
 
-import android.util.Pair;
-
 public class DestinationCard {
-    private Pair<String,String> locations;
+    private String[] locations;
     private Integer points;
 
-    public Pair<String, String> getLocations() {
+    public DestinationCard() {
+    }
+
+    public String[] getLocations() {
         return locations;
     }
 
@@ -14,7 +15,7 @@ public class DestinationCard {
         return points;
     }
 
-    public DestinationCard(Pair<String, String> locations, Integer points) {
+    public DestinationCard(String[] locations, Integer points) {
         this.locations = locations;
         this.points = points;
     }

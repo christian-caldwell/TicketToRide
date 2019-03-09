@@ -58,7 +58,7 @@ public class GameBoardActivity extends AppCompatActivity {
                 | View.SYSTEM_UI_FLAG_FULLSCREEN
                 | View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY;
         decorView.setSystemUiVisibility(uiOptions);
-        presenter = new ChatPresenter();
+        presenter = new ChatPresenter(this);
         initRecyclerView();
         inputChatEditText = findViewById(R.id.input_edit_text);
         sendMessageButton = findViewById(R.id.send_message_button);

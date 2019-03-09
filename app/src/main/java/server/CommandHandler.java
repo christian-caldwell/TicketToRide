@@ -1,7 +1,6 @@
 package server;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.google.gson.Gson;
 import com.sun.net.httpserver.HttpExchange;
 import com.sun.net.httpserver.HttpHandler;
 
@@ -31,8 +30,6 @@ public class CommandHandler implements HttpHandler {
 
             //Display/log the request JSON data
             System.out.println("JSON sent to server: " + reqData);
-
-            Gson gson = new Gson();
 
             ICommandExecuter facadeCommand;
             ICommandExecuter clientProxyCommand;
