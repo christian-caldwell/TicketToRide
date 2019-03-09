@@ -214,7 +214,7 @@ public class GameBoardActivity extends AppCompatActivity {
         return null;
     }
 
-    public void change_color_nashville_littlerock_g1(View view) {//3
+    public void change_color_nashville_littlerock_g1(View view) {
         findViewById(R.id.nashville_littlerock_g1b1).setBackgroundResource((int)playerColorValues.get(playersHandPresenter.getCurrentPlayerColor()));
         findViewById(R.id.nashville_littlerock_g1b1).setAlpha(1);
         findViewById(R.id.nashville_littlerock_g1b2).setBackgroundResource((int)playerColorValues.get(playersHandPresenter.getCurrentPlayerColor()));
@@ -223,14 +223,14 @@ public class GameBoardActivity extends AppCompatActivity {
         findViewById(R.id.nashville_littlerock_g1b3).setAlpha(1);
     }
 
-    public void change_color_neworleans_houston_g1(View view) {//2
+    public void change_color_neworleans_houston_g1(View view) {
         findViewById(R.id.neworleans_houston_g1b1).setBackgroundResource((int)playerColorValues.get(playersHandPresenter.getCurrentPlayerColor()));
         findViewById(R.id.neworleans_houston_g1b1).setAlpha(1);
         findViewById(R.id.neworleans_houston_g1b2).setBackgroundResource((int)playerColorValues.get(playersHandPresenter.getCurrentPlayerColor()));
         findViewById(R.id.neworleans_houston_g1b2).setAlpha(1);
     }
 
-    public void change_color_littlerock_neworleans_g1(View view) {//3
+    public void change_color_littlerock_neworleans_g1(View view) {
         findViewById(R.id.littlerock_neworleans_g1b1).setBackgroundResource((int)playerColorValues.get(playersHandPresenter.getCurrentPlayerColor()));
         findViewById(R.id.littlerock_neworleans_g1b1).setAlpha(1);
         findViewById(R.id.littlerock_neworleans_g1b2).setBackgroundResource((int)playerColorValues.get(playersHandPresenter.getCurrentPlayerColor()));
@@ -239,41 +239,41 @@ public class GameBoardActivity extends AppCompatActivity {
         findViewById(R.id.littlerock_neworleans_g1b3).setAlpha(1);
     }
 
-    public void change_color_dallas_houston_g2(View view) {//1
+    public void change_color_dallas_houston_g2(View view) {
         findViewById(R.id.dallas_houston_g2b1).setBackgroundResource((int)playerColorValues.get(playersHandPresenter.getCurrentPlayerColor()));
         findViewById(R.id.dallas_houston_g2b1).setAlpha(1);
 
     }
 
-    public void change_color_littlerock_dallas_g1(View view) {//2
+    public void change_color_littlerock_dallas_g1(View view) {
         findViewById(R.id.littlerock_dallas_g1b1).setBackgroundResource((int)playerColorValues.get(playersHandPresenter.getCurrentPlayerColor()));
         findViewById(R.id.littlerock_dallas_g1b1).setAlpha(1);
         findViewById(R.id.littlerock_dallas_g1b2).setBackgroundResource((int)playerColorValues.get(playersHandPresenter.getCurrentPlayerColor()));
         findViewById(R.id.littlerock_dallas_g1b2).setAlpha(1);
     }
 
-    public void change_color_oklahomacity_dallas_g2(View view) {//2
+    public void change_color_oklahomacity_dallas_g2(View view) {
         findViewById(R.id.oklahomacity_dallas_g2b1).setBackgroundResource((int)playerColorValues.get(playersHandPresenter.getCurrentPlayerColor()));
         findViewById(R.id.oklahomacity_dallas_g2b1).setAlpha(1);
         findViewById(R.id.oklahomacity_dallas_g2b2).setBackgroundResource((int)playerColorValues.get(playersHandPresenter.getCurrentPlayerColor()));
         findViewById(R.id.oklahomacity_dallas_g2b2).setAlpha(1);
     }
 
-    public void change_color_oklahomacity_littlerock_g1(View view) {//2
+    public void change_color_oklahomacity_littlerock_g1(View view) {
         findViewById(R.id.oklahomacity_littlerock_g1b1).setBackgroundResource((int)playerColorValues.get(playersHandPresenter.getCurrentPlayerColor()));
         findViewById(R.id.oklahomacity_littlerock_g1b1).setAlpha(1);
         findViewById(R.id.oklahomacity_littlerock_g1b2).setBackgroundResource((int)playerColorValues.get(playersHandPresenter.getCurrentPlayerColor()));
         findViewById(R.id.oklahomacity_littlerock_g1b2).setAlpha(1);
     }
 
-    public void change_color_saintlouis_nashville_g1(View view) {//2
+    public void change_color_saintlouis_nashville_g1(View view) {
         findViewById(R.id.saintlouis_nashville_g1b1).setBackgroundResource((int)playerColorValues.get(playersHandPresenter.getCurrentPlayerColor()));
         findViewById(R.id.saintlouis_nashville_g1b1).setAlpha(1);
         findViewById(R.id.saintlouis_nashville_g1b2).setBackgroundResource((int)playerColorValues.get(playersHandPresenter.getCurrentPlayerColor()));
         findViewById(R.id.saintlouis_nashville_g1b2).setAlpha(1);
     }
 
-    public void change_color_saintlouis_littlerock_g1(View view) {//2
+    public void change_color_saintlouis_littlerock_g1(View view) {
         findViewById(R.id.saintlouis_littlerock_g1b1).setBackgroundResource((int)playerColorValues.get(playersHandPresenter.getCurrentPlayerColor()));
         findViewById(R.id.saintlouis_littlerock_g1b1).setAlpha(1);
         findViewById(R.id.saintlouis_littlerock_g1b2).setBackgroundResource((int)playerColorValues.get(playersHandPresenter.getCurrentPlayerColor()));
