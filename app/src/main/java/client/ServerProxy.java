@@ -1,14 +1,11 @@
 package client;
 
-import android.util.Pair;
-
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import java.util.ArrayList;
 
 import models.data.ChatMessage;
 import models.data.DestinationCard;
-import models.data.Enums;
 import models.data.Game;
 import models.data.Result;
 import models.data.Route;
@@ -97,7 +94,6 @@ public class ServerProxy implements IServer {
 
         Result result = communicator.send(newCommand,"10.0.2.2", "8080");
 
-        //return new Result("nothing", "token", null, true);
         return result;
     }
 
@@ -177,9 +173,9 @@ public class ServerProxy implements IServer {
 
         int position = 0;
         for (DestinationCard currentCard : returnedCards) {
-            Pair<String, String> location = returnedCards[position].getLocations();
-            String first_location = location.first;
-            String second_location = location.second;
+            String[] location = returnedCards[position].getLocations();
+            String first_location = location[0];
+            String second_location = location[1];
             Integer points = returnedCards[position].getPoints();
 
             parameterClassArray[2 + position*3] = String.class;
@@ -199,29 +195,31 @@ public class ServerProxy implements IServer {
     }
 
     @Override
-    public Result purchaseRoute(String userName, String gameName, Route purchasedRoute) {
+    public Result purchaseRoute(String userName, String gameName, Route purchasedRoute, Integer numberOfWilds) {
         String className = RunGameFacade.class.getName();
         String methodName = "purchaseRoute";
 
-        Pair<String, String> location = purchasedRoute.getLocation();
-        String first_location = location.first;
-        String second_location = location.second;
+        String[] location = purchasedRoute.getLocation();
+        String first_location = location[0];
+        String second_location = location[1];
 
-        Object[] parameterDataArray = new Object[6];
-        Class<?>[] parameterClassArray = new Class<?>[6];
+        Object[] parameterDataArray = new Object[7];
+        Class<?>[] parameterClassArray = new Class<?>[7];
 
         parameterClassArray[0] = String.class;
         parameterClassArray[1] = String.class;
         parameterClassArray[2] = Integer.class;
         parameterClassArray[3] = String.class;
         parameterClassArray[4] = String.class;
-        parameterClassArray[5] = Enums.Color.class;
+        parameterClassArray[5] = Integer.class;
+        parameterClassArray[6] = Integer.class;
         parameterDataArray[0] = userName;
         parameterDataArray[1] = gameName;
-        parameterDataArray[2] = purchasedRoute.getPoints();
+        parameterDataArray[2] = purchasedRoute.findLength();
         parameterDataArray[3] = first_location;
         parameterDataArray[4] = second_location;
         parameterDataArray[5] = purchasedRoute.getCardColor();
+        parameterDataArray[6] = numberOfWilds;
 
         GeneralCommand newCommand = new GeneralCommand(className, methodName, parameterClassArray, parameterDataArray);
 
@@ -235,8 +233,8 @@ public class ServerProxy implements IServer {
         String className = RunGameFacade.class.getName();
         String methodName = "requestDestinationCards";
 
-        Object[] parameterDataArray = new Object[4];
-        Class<?>[] parameterClassArray = new Class<?>[4];
+        Object[] parameterDataArray = new Object[2];
+        Class<?>[] parameterClassArray = new Class<?>[2];
 
         parameterClassArray[0] = String.class;
         parameterClassArray[1] = String.class;
@@ -251,7 +249,7 @@ public class ServerProxy implements IServer {
     }
 
     @Override
-    public Result requestTicketCard(String userName, String gameName, Integer selectedCard) {
+    public Result requestTicketCard(String userName, String gameName, Integer selectedCard, Boolean secondPick) {
         String className = RunGameFacade.class.getName();
         String methodName = "requestTicketCard";
 
@@ -261,9 +259,12 @@ public class ServerProxy implements IServer {
         parameterClassArray[0] = String.class;
         parameterClassArray[1] = String.class;
         parameterClassArray[2] = Integer.class;
+        parameterClassArray[3] = Boolean.class;
         parameterDataArray[0] = userName;
         parameterDataArray[1] = gameName;
         parameterDataArray[2] = selectedCard;
+        parameterDataArray[3] = secondPick;
+
 
         GeneralCommand newCommand = new GeneralCommand(className, methodName, parameterClassArray, parameterDataArray);
 

@@ -18,7 +18,7 @@ public class CardDeckPresenter implements ICardDeckPresenter, Observer {
 //        public Result purchaseRoute (String userName, String gameName, Route purchasedRoute)
 //        public Result returnDestinationCards (String userName, String gameName, DestinationCard[] returnedCards)
         //FIXME: needs to be updated if they chose a rainbow card.
-       // serverProxy.requestTicketCard(clientModel.getPlayer().getUsername(), clientModel.getUser().getGame(), cardNum, secondTurn);
+        serverProxy.requestTicketCard(clientModel.getPlayer().getUsername(), clientModel.getUser().getGame().getGameName(), cardNum, secondTurn);
         if (secondTurn) {
             secondTurn = false;
         }
@@ -34,7 +34,7 @@ public class CardDeckPresenter implements ICardDeckPresenter, Observer {
 
     @Override
     public Integer getDestinationCardsLeft() {
-        return clientModel.getUser().getGame().getDestinationCards().size();
+        return clientModel.getUser().getGame().getDestinationDeck().size();
     }
 
     @Override

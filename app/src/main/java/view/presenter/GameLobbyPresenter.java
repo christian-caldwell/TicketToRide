@@ -61,7 +61,7 @@ public class GameLobbyPresenter implements IGameLobbyPresenter, Observer {
     @Override
     public Result createGame(Game game) {
         Result result = new Result();
-        if(game.getGameName().equals("")) {
+        if (game.getGameName().equals("")) {
             result.setErrorMessage("name invalid...");
             result.setSuccessful(false);
             return result;
@@ -70,11 +70,11 @@ public class GameLobbyPresenter implements IGameLobbyPresenter, Observer {
         ClientFacade client = new ClientFacade();
         User player = client.getPlayer();
         LobbyFacadeOut lobbyFacadeOut = new LobbyFacadeOut();
-        player.setGameJoined(game);
         game.addPlayer(player.getUsername());
         result = lobbyFacadeOut.createGame(game, player.getUsername());
-        if(result.isSuccessful()) {
+        if (result.isSuccessful()) {
             player.setHost(true);
+            player.setGameJoined(game);
         }
 
         return result;
@@ -86,21 +86,15 @@ public class GameLobbyPresenter implements IGameLobbyPresenter, Observer {
         try {
             Poller.startLobbyPoller();
             return true;
-        }
-
-
-        catch (Exception e) {
+        } catch (Exception e) {
             return false;
         }
     }
 
-
-
-
     @Override
     public void update(Observable o, Object arg) {
         ClientModel client = (ClientModel) o;
-        System.out.println("Server Polled by User: " + client.getUser().getUsername() );
+        System.out.println("Server Polled by User: " + client.getUser().getUsername());
 
 
         this.gameList = client.getChangedGameList();

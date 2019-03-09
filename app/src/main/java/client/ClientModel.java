@@ -7,7 +7,6 @@ import java.util.Observer;
 
 import models.data.ChatMessage;
 import models.data.DestinationCard;
-import models.data.Enums;
 import models.data.Game;
 import models.data.Player;
 import models.data.User;
@@ -30,7 +29,7 @@ public class ClientModel extends Observable {
 
 
     //new stuff for phase 2
-    private Map<Enums.Color, Integer> ticketCardHand;
+    private Map<Integer, Integer> ticketCardHand;
     private ArrayList<DestinationCard> destinationCardHand;
     private Player player;
     private ArrayList<Object> changedObjects;
@@ -44,11 +43,14 @@ public class ClientModel extends Observable {
         this.chatMessages.add(chatMessage);
     }
 
-    public Map<Enums.Color, Integer> getTicketCardHand() {
+    public Map<Integer, Integer> getTicketCardHand() {
         return ticketCardHand;
     }
 
-    public void incrementTicketCardHand(Enums.Color color) {
+    public void setTicketCardHand(Map<Integer, Integer> ticketCardHand) {
+        this.ticketCardHand = ticketCardHand;
+    }
+    public void incrementTicketCardHand(Integer color) {
         ticketCardHand.put(color, ticketCardHand.get(color) + 1);
     }
 
@@ -102,12 +104,12 @@ public class ClientModel extends Observable {
     }
 
     public void setActiveGame(Game gamePlaying) {
-        if (gamePlaying.getPlayer(player.getUsername()) != null) {
+        if (gamePlaying.getPlayerUsernames().contains(userPlayer.getUsername())) { // change this back to checking player?
             this.gameActive = gamePlaying;
             this.userPlayer.setGameJoined(gamePlaying);
-            this.player = gamePlaying.getPlayer(player.getUsername());
+            this.player = gamePlaying.getPlayer(userPlayer.getUsername());
             this.ticketCardHand = player.getTickets();
-            this.destinationCardHand = player.getDestinationCards();
+            this.destinationCardHand = player.getDestinationCardHand();
         }
     }
 
@@ -159,6 +161,10 @@ public class ClientModel extends Observable {
         mGamePresenter = gamePresenter;
     }
 
+    public ChatPresenter getmChatPresenter() { return mChatPresenter; }
+
+    public void setChatPresenter(ChatPresenter chatPresenter) { mChatPresenter = chatPresenter; }
+
     public void update() {
         if (mGameLobbyPresenter != null) {
             addObserver(this.mGameLobbyPresenter);
@@ -176,10 +182,13 @@ public class ClientModel extends Observable {
     public void updateGame() {
         if (mGamePresenter != null) {
             addObserver(this.mGamePresenter);
-            setChanged();
-            notifyObservers();
-            deleteObservers();
         }
+        if (mChatPresenter != null) {
+            addObserver(this.mChatPresenter);
+        }
+        setChanged();
+        notifyObservers();
+        deleteObservers();
     }
 
     @Override

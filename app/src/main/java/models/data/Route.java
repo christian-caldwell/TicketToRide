@@ -1,41 +1,53 @@
 package models.data;
 
-import android.util.Pair;
-
 public class Route {
     private Integer points;
-    private Enums.Color cardColor;
-    private Pair<String, String> location;
-//    private Enums.PLAYERCOLOR ownerColor;
+    private Integer cardColor;
+    private String[] locations;
 
-    public Route(Integer points, Enums.Color cardColor, Pair<String, String> location/*, Enums.PLAYERCOLOR ownerColor*/) {
+    public Route(Integer points, Integer cardColor, String[] locations) {
         this.points = points;
         this.cardColor = cardColor;
-        this.location = location;
-//        this.ownerColor = ownerColor;
+        this.locations = locations;
+    }
+
+    public Route() {
     }
 
     public Integer getPoints() {
         return points;
     }
 
-    public void setPoints(Integer points) {
+    public void setPoint(Integer points) {
         this.points = points;
     }
 
-    public Enums.Color getCardColor() {
+    public int findLength() {
+        switch (points.intValue()) {
+            case (1): return 1;
+            case (2): return 2;
+            case (4): return 3;
+            case (7): return 4;
+            case (10): return 5;
+            case (15): return 6;
+            default:
+                return 0;
+        }
+    }
+
+    public Integer getCardColor() {
         return cardColor;
     }
 
-    public void setCardColor(Enums.Color cardColor) {
+    public void setCardColor(Integer cardColor) {
         this.cardColor = cardColor;
     }
 
-    public Pair<String, String> getLocation() {
-        return location;
+    public String[] getLocation() {
+        return locations;
     }
 
-    public void setLocation(Pair<String, String> location) {
-        this.location = location;
+    public void setLocation(String[] locations) {
+        this.locations = locations;
     }
 }

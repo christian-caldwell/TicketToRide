@@ -28,7 +28,8 @@ public class PlayerInfoPresenter implements IPlayerInfoPresenter, Observer {
         ArrayList<String> destinationStrings = new ArrayList<>();
         for (int i = 0; i < clientModel.getPlayer().getDestinationCardHand().size(); i++) {
             DestinationCard destinationCard = clientModel.getPlayer().getDestinationCardHand().get(i);
-            Pair locations = destinationCard.getLocations();
+            String[] location_strings = destinationCard.getLocations();
+            Pair<String, String> locations = new Pair<>(location_strings[0], location_strings[1]);
             String stringToAdd = locations.first + " to " + locations.second + "\npoints: " + destinationCard.getPoints();
             destinationStrings.add(stringToAdd);
         }

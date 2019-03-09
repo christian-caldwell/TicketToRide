@@ -33,23 +33,25 @@ public class Poller {
         create();
         singleton.shutdown();
         singleton.startPollingLobby();
-        singleton.start(0, 3600, false);
+        singleton.start(0, 2000, false);
     }
 
     public static void startGamePoller() {
         create();
         singleton.shutdown();
         singleton.startPollingGame();
-        singleton.start(0, 3600, false);
+        singleton.start(0, 2000, false);
     }
 
     public ArrayList<Game> pollServerForGames() {
         String className = PollManager.class.getName();
         String methodName = "getAvailableGames";
 
-        Object[] parameterDataArray = new Object[0];
-        Class<?>[] parameterClassArray = new Class<?>[0];
+        Object[] parameterDataArray = new Object[1];
+        parameterDataArray[0] = ClientModel.create().getUser().getUsername();
 
+        Class<?>[] parameterClassArray = new Class<?>[1];
+        parameterClassArray[0] = String.class;
 
         GeneralCommand newCommand = new GeneralCommand(className, methodName, parameterClassArray, parameterDataArray);
 

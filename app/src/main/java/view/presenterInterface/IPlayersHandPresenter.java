@@ -11,6 +11,6 @@ import models.data.Player;
 public interface IPlayersHandPresenter {
     int getCurrentPlayerColor();
     Player getCurrentPlayer();
-    Integer getTrainCardAmount(Enums.Color color);
+    Integer getTrainCardAmount(Integer color);
     ArrayList<DestinationCard> getDestinationCards();
 }

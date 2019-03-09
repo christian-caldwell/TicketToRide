@@ -20,6 +20,12 @@ public class ChatPresenter implements IChatPresenter, Observer {
     private static final SimpleDateFormat sdf = new SimpleDateFormat("yyyy.MM.dd.HH.mm.ss");
     private final ServerProxy serverProxy = new ServerProxy();
     ClientModel clientModel = ClientModel.create();
+    private GameBoardActivity boardActivity;
+
+    public ChatPresenter(GameBoardActivity activity) {
+        boardActivity = activity;
+        clientModel.setChatPresenter(this);
+    }
 
     @Override
     public ArrayList<ChatMessage> getMessages() {
@@ -34,7 +40,7 @@ public class ChatPresenter implements IChatPresenter, Observer {
         Date date = new Date();
         Timestamp timestamp = new Timestamp(date.getTime());
         chatMessage.setTimeStamp(sdf.format(timestamp));
-        clientModel.getUser().getGame().addChat(chatMessage);
+        //clientModel.getUser().getGame().addChat(chatMessage);
         serverProxy.postChatMessage(clientModel.getUser().getGame().getGameName(), chatMessage);
     }
 
@@ -45,7 +51,7 @@ public class ChatPresenter implements IChatPresenter, Observer {
 
     @Override
     public void update(Observable o, Object arg) {
-       new GameBoardActivity.UpdateChatListAsyncTask().execute(getMessages());
+        new GameBoardActivity.UpdateChatListAsyncTask().execute(getMessages());
 
     }
 }

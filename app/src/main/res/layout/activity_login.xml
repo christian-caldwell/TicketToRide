@@ -15,8 +15,8 @@
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="View game board"
-            android:id="@+id/startGame"
+            android:text="Initiate Demo"
+            android:id="@+id/startDemo"
             />
 
         <RelativeLayout
