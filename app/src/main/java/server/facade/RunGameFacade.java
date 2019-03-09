@@ -41,6 +41,14 @@ public class RunGameFacade {
         return serverCommands.returnDestinationCards(userName, gameName, returnedCards);
     }
 
+    public Result postChatMessage(String userName, String gameName, String contents, String timpStamp) {
+        ChatMessage message = new ChatMessage();
+        message.setAuthorUserName(userName);
+        message.setMessageContents(contents);
+        message.setTimeStamp(timpStamp);
+        return serverCommands.postChatMessage(gameName, message);
+    }
+
     public Result requestDestinationCards(String userName, String gameName) {
         return serverCommands.requestDestinationCards(userName, gameName);
     }
@@ -53,13 +61,5 @@ public class RunGameFacade {
         //TODO replace the 'Enums.Color' with parameter Integer
         Route purchasedRoute = new Route(points, color, new String[]{first_location, second_location});
         return serverCommands.purchaseRoute(userName, gameName, purchasedRoute, wildCount);
-    }
-
-    public Result postChatMessage(String userName, String gameName, String contents, String timpStamp) {
-        ChatMessage message = new ChatMessage();
-        message.setAuthorUserName(userName);
-        message.setMessageContents(contents);
-        message.setTimeStamp(timpStamp);
-        return serverCommands.postChatMessage(gameName, message);
     }
 }

@@ -2,7 +2,9 @@ package models.data;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+import java.util.ArrayDeque;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -54,15 +56,21 @@ public class Game {
     public boolean isStarted() {
         return isStarted;
     }
+
     public void setStarted(boolean started) {
         isStarted = started;
     }
-    //////////////////////////////////////////////////////////////////////////////
-
+    
     public String getGameName() {
         return gameName;
     }
-//////////////////////////////////////////////////////////////////////////////
+
+
+    public String getStatus() {
+        return "";
+    }
+
+    public void addPlayer(String userName) { this.playerUsernames.add(userName); }
 
     public ArrayList<String> getPlayerUsernames() {
         return playerUsernames;
@@ -169,6 +177,7 @@ public class Game {
     public Set<Route> getAvailableRoutes() {
         return availableRoutes;
     }
+
     public void setAvailableRoutes(Set<Route> availableRoutes) {
         this.availableRoutes = availableRoutes;
     }
@@ -205,6 +214,7 @@ public class Game {
     public ArrayList<Player> getPlayers() {
         return players;
     }
+
     public Player getPlayer(String username) {
         for (Player p: players) {
             if (p.getUsername().equals(username)) {
@@ -229,6 +239,7 @@ public class Game {
     public ArrayList<ChatMessage> getChatLog() {
         return chatLog;
     }
+
     public void addChat(ChatMessage chat) {
         this.chatLog.add(chat);
     }
@@ -237,6 +248,7 @@ public class Game {
     public Integer getNumPlayerActions() {
         return numPlayerActions;
     }
+
     public void incrementNumPlayerActions() {
         ++numPlayerActions;
     }
@@ -282,16 +294,10 @@ public class Game {
     public Integer getCurrentLongestRouteValue() {
         return currentLongestRouteValue;
     }
+
     public void setCurrentLongestRouteValue(Integer currentLongestRouteValue) {
         this.currentLongestRouteValue = currentLongestRouteValue;
     }
-
-
-
-
-
-
-
 
     public Game copy() {
 //        Game clone = new Game();
@@ -342,9 +348,11 @@ public class Game {
     }
 
     public void hideSecrets(String viewingUser) {
-        for (Player p: players) {
-            if (!p.getUsername().equals(viewingUser)) {
-                p.hideCards();
+        if (players != null) {
+            for (Player p : players) {
+                if (!p.getUsername().equals(viewingUser)) {
+                    p.hideCards();
+                }
             }
         }
     }

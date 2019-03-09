@@ -104,10 +104,10 @@ public class ClientModel extends Observable {
     }
 
     public void setActiveGame(Game gamePlaying) {
-        if (gamePlaying.getPlayer(player.getUsername()) != null) {
+        if (gamePlaying.getPlayerUsernames().contains(userPlayer.getUsername())) { // change this back to checking player?
             this.gameActive = gamePlaying;
             this.userPlayer.setGameJoined(gamePlaying);
-            this.player = gamePlaying.getPlayer(player.getUsername());
+            this.player = gamePlaying.getPlayer(userPlayer.getUsername());
             this.ticketCardHand = player.getTickets();
             this.destinationCardHand = player.getDestinationCardHand();
         }
@@ -161,6 +161,10 @@ public class ClientModel extends Observable {
         mGamePresenter = gamePresenter;
     }
 
+    public ChatPresenter getmChatPresenter() { return mChatPresenter; }
+
+    public void setChatPresenter(ChatPresenter chatPresenter) { mChatPresenter = chatPresenter; }
+
     public void update() {
         if (mGameLobbyPresenter != null) {
             addObserver(this.mGameLobbyPresenter);
@@ -178,10 +182,13 @@ public class ClientModel extends Observable {
     public void updateGame() {
         if (mGamePresenter != null) {
             addObserver(this.mGamePresenter);
-            setChanged();
-            notifyObservers();
-            deleteObservers();
         }
+        if (mChatPresenter != null) {
+            addObserver(this.mChatPresenter);
+        }
+        setChanged();
+        notifyObservers();
+        deleteObservers();
     }
 
     @Override
