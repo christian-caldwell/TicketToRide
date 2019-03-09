@@ -86,7 +86,7 @@ public class Game {
 
             do {
                 Random generator = new Random();
-                dealtCardColor = generator.nextInt(9);
+                dealtCardColor = generator.nextInt(9) + 1;
                 dealtCard.setCardColor(dealtCardColor);
                 remainingCardCount = this.ticketCardDeck.get(dealtCardColor);
             } while (remainingCardCount == 0);
