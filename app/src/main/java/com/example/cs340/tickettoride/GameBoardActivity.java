@@ -33,6 +33,7 @@ import view.presenter.DemoPresenter;
 import view.presenterInterface.IChatPresenter;
 import view.presenterInterface.IPlayerInfoPresenter;
 import view.presenterInterface.IPlayersHandPresenter;
+import models.TTR_Constants;
 
 public class GameBoardActivity extends AppCompatActivity {
 
@@ -51,6 +52,7 @@ public class GameBoardActivity extends AppCompatActivity {
     private static Button destinationCardDeck, trainCardDeck, cardOne, cardTwo, cardThree, cardFour, cardFive;
     private static ImageView gameBoard;
     private static Map playerColorValues;
+    private static Map trainCardImages;
 
 
     @Override
@@ -66,12 +68,23 @@ public class GameBoardActivity extends AppCompatActivity {
         setContentView(R.layout.activity_game_board);
         View decorView = getWindow().getDecorView();
         playerColorValues = new HashMap();
+        trainCardImages = new HashMap<>();
         //FIXME: the hard colored playerColor ints are incorrect. To get the correct colors, do Constants.Player_COLOR for each.
         playerColorValues.put(5,R.drawable.black_background);
         playerColorValues.put(3,R.drawable.blue_background);
         playerColorValues.put(2,R.drawable.green_background);
         playerColorValues.put(1,R.drawable.red_background);
         playerColorValues.put(4,R.drawable.yellow_background);
+
+        trainCardImages.put(TTR_Constants.getInstance().BLACK,R.drawable.train_card_black);
+        trainCardImages.put(TTR_Constants.getInstance().BLUE,R.drawable.train_card_blue);
+        trainCardImages.put(TTR_Constants.getInstance().GREEN,R.drawable.train_card_green);
+        trainCardImages.put(TTR_Constants.getInstance().PURPLE,R.drawable.train_card_purple);
+        trainCardImages.put(TTR_Constants.getInstance().ORANGE,R.drawable.train_card_orange);
+        trainCardImages.put(TTR_Constants.getInstance().RED,R.drawable.train_card_red);
+        trainCardImages.put(TTR_Constants.getInstance().WHITE,R.drawable.train_card_white);
+        trainCardImages.put(TTR_Constants.getInstance().WILD,R.drawable.train_card_wild);
+        trainCardImages.put(TTR_Constants.getInstance().YELLOW,R.drawable.train_card_yellow);
 
         // Hide both the navigation bar and the status bar.
         int uiOptions = View.SYSTEM_UI_FLAG_LAYOUT_STABLE
@@ -1171,6 +1184,11 @@ public class GameBoardActivity extends AppCompatActivity {
             mWildTrainCard.setText("" + playersHandPresenter.getTrainCardAmount(9));
             mBlueTrainCard.setText("" + playersHandPresenter.getTrainCardAmount(4));
             mOrangeTrainCard.setText("" + playersHandPresenter.getTrainCardAmount(5));
+            cardFive.setBackgroundResource((int)trainCardImages.get(cardDeckPresenter.getTrainCardAtPosition(5)));
+            cardFour.setBackgroundResource((int)trainCardImages.get(cardDeckPresenter.getTrainCardAtPosition(4)));
+            cardThree.setBackgroundResource((int)trainCardImages.get(cardDeckPresenter.getTrainCardAtPosition(3)));
+            cardTwo.setBackgroundResource((int)trainCardImages.get(cardDeckPresenter.getTrainCardAtPosition(2)));
+            cardOne.setBackgroundResource((int)trainCardImages.get(cardDeckPresenter.getTrainCardAtPosition(1)));
 
         }
     }

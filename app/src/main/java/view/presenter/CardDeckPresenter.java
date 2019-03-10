@@ -23,6 +23,11 @@ public class CardDeckPresenter implements ICardDeckPresenter, Observer {
 
 
     @Override
+    public Integer getTrainCardAtPosition(int num) {
+        return clientModel.getUser().getGame().getFaceUpTrainCards()[num-1].getCardColor();
+    }
+
+    @Override
     public void drawTrainCard(int cardNum) {
 
 //        public Result purchaseRoute (String userName, String gameName, Route purchasedRoute)
@@ -37,6 +42,8 @@ public class CardDeckPresenter implements ICardDeckPresenter, Observer {
             secondTurn = true;
         }
     }
+
+
 
     @Override
     public void drawDestinationCard() {
