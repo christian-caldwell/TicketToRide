@@ -136,8 +136,8 @@ public class DemoPresenter {
         DestinationCard[] cards3 = new DestinationCard[1];
         cards2[0] = player2.getNewDestinationCards().get(0);
         cards3[0] = player3.getNewDestinationCards().get(0);
-        mServerProxy.returnDestinationCards(zack.getUsername(), game1.getGameName(), cards2);
-        mServerProxy.returnDestinationCards(zack.getUsername(), game1.getGameName(), cards3);
+        mServerProxy.returnDestinationCards(christian.getUsername(), game1.getGameName(), cards2);
+        mServerProxy.returnDestinationCards(ben.getUsername(), game1.getGameName(), cards3);
 
         try{
             Thread.sleep(3000);
@@ -325,6 +325,7 @@ public class DemoPresenter {
         cards1[1] = player1.getDestinationCardHand().get(1);
         mServerProxy.returnDestinationCards(zack.getUsername(), game1.getGameName(), cards1);
 
+
         try{
             Thread.sleep(3000);
         }catch(InterruptedException e){
@@ -355,7 +356,7 @@ public class DemoPresenter {
         cards3 = new DestinationCard[2];
         cards3[0] = player3.getNewDestinationCards().get(0);
         cards3[1] = player3.getNewDestinationCards().get(1);
-        mServerProxy.returnDestinationCards(ben.getUsername(), game1.getGameName(), cards1);
+        mServerProxy.returnDestinationCards(ben.getUsername(), game1.getGameName(), cards3);
 
         try{
             Thread.sleep(3000);
