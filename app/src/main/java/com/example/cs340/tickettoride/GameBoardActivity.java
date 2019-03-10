@@ -15,12 +15,14 @@ import android.widget.Toast;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Set;
 
 import client.ClientModel;
 import models.TTR_Constants;
 import client.Poller;
 import models.TTR_Constants;
 import models.data.ChatMessage;
+import models.data.Route;
 import view.presenter.CardDeckPresenter;
 import view.presenter.ChatPresenter;
 import view.presenter.DemoPresenter;
@@ -1197,6 +1199,11 @@ public class GameBoardActivity extends AppCompatActivity {
             cardThree.setBackgroundResource((int)trainCardImages.get(cardDeckPresenter.getTrainCardAtPosition(3)));
             cardTwo.setBackgroundResource((int)trainCardImages.get(cardDeckPresenter.getTrainCardAtPosition(2)));
             cardOne.setBackgroundResource((int)trainCardImages.get(cardDeckPresenter.getTrainCardAtPosition(1)));
+
+            Set<Route> fullSet = TTR_Constants.getInstance().getStartingRouteSet();
+            for (Route route:fullSet) {
+
+            }
 
         }
     }
