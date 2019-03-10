@@ -39,7 +39,7 @@ public class ClientModel extends Observable {
     }
 
     public void setDemoPresenter(DemoPresenter demoPresenter) {
-        demoPresenter = demoPresenter;
+        this.demoPresenter = demoPresenter;
     }
     //new stuff for phase 2
     private Map<Integer, Integer> ticketCardHand;

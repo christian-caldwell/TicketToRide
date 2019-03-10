@@ -2,6 +2,8 @@ package view.presenter;
 
 import com.example.cs340.tickettoride.GameBoardActivity;
 import com.example.cs340.tickettoride.LoginViewActivity;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
@@ -95,11 +97,16 @@ public class DemoPresenter {
     public void gameDemo() {
         //Show init game board stuff, wait
         //show received dest cards, wait
+        try{
+            Thread.sleep(3000);
+        }catch(InterruptedException e){
+            e.printStackTrace();
+        }
 
-        game1 = mServerProxy.requestGame(game1.getGameName()).getRunningGame();
-        Player player1 = game1.findPlayer(zack.getUsername());
-        Player player2 = game1.findPlayer(christian.getUsername());
-        Player player3 = game1.findPlayer(ben.getUsername());
+        this.game1 = mServerProxy.requestGame(this.game1.getGameName()).getRunningGame();
+        Player player1 = this.game1.findPlayer(zack.getUsername());
+        Player player2 = this.game1.findPlayer(christian.getUsername());
+        Player player3 = this.game1.findPlayer(ben.getUsername());
 
 
         try{
@@ -110,10 +117,11 @@ public class DemoPresenter {
 
         //show return dest card, wait
 
-        game1 = mServerProxy.requestGame(game1.getGameName()).getRunningGame();
+
+        this.game1 = mServerProxy.requestGame(this.game1.getGameName()).getRunningGame();
         DestinationCard[] cards1 = new DestinationCard[1];
-        cards1[0] = player1.getDestinationCardHand().get(0);
-        mServerProxy.returnDestinationCards(zack.getUsername(), game1.getGameName(), cards1);
+        cards1[0] = player1.getNewDestinationCards().get(0);
+        mServerProxy.returnDestinationCards(zack.getUsername(), this.game1.getGameName(), cards1);
 
         try{
             Thread.sleep(3000);
@@ -123,11 +131,11 @@ public class DemoPresenter {
 
         //show return dest cards of all other players, fast
 
-        game1 = mServerProxy.requestGame(game1.getGameName()).getRunningGame();
+        this.game1 = mServerProxy.requestGame(game1.getGameName()).getRunningGame();
         DestinationCard[] cards2 = new DestinationCard[1];
         DestinationCard[] cards3 = new DestinationCard[1];
-        cards2[0] = player2.getDestinationCardHand().get(0);
-        cards3[0] = player3.getDestinationCardHand().get(0);
+        cards2[0] = player2.getNewDestinationCards().get(0);
+        cards3[0] = player3.getNewDestinationCards().get(0);
         mServerProxy.returnDestinationCards(zack.getUsername(), game1.getGameName(), cards2);
         mServerProxy.returnDestinationCards(zack.getUsername(), game1.getGameName(), cards3);
 

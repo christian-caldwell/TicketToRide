@@ -229,7 +229,7 @@ public class ServerCommands implements IServer {
     public Result requestGame(String gameName) {
         Result result = new Result();
         result.setSuccessful(false);
-        Game targetGame = serverData.findGame(gameName);
+        Game targetGame = serverData.getGame(gameName);
         if (targetGame != null) {
             result.setSuccessful(true);
             result.setRunningGame(targetGame);

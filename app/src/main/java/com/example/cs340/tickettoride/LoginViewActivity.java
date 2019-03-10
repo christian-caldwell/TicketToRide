@@ -45,6 +45,7 @@ public class LoginViewActivity extends AppCompatActivity implements ILoginView, 
         startDemo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                demoPresenter.startDemo();
                 demoPresenter.onCreate();
 
                 try{
@@ -53,7 +54,6 @@ public class LoginViewActivity extends AppCompatActivity implements ILoginView, 
                     e.printStackTrace();
                 }
 
-                demoPresenter.startDemo();
 
                 Toast.makeText(LoginViewActivity.this, "Login Demo Done", Toast.LENGTH_SHORT).show();
                 Intent intent = new Intent(LoginViewActivity.this, GameBoardActivity.class);
