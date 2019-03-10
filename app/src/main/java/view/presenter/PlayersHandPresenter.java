@@ -11,7 +11,6 @@ import view.presenterInterface.IPlayersHandPresenter;
 
 public class PlayersHandPresenter implements IPlayersHandPresenter, Observer {
     ClientModel clientModel = ClientModel.create();
-
     private GameBoardActivity boardActivity;
 
     public PlayersHandPresenter(GameBoardActivity activity) {

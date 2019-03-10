@@ -10,6 +10,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
@@ -19,6 +20,8 @@ import java.util.Map;
 import client.ClientModel;
 import models.TTR_Constants;
 import models.data.ChatMessage;
+import models.data.Player;
+import models.data.Route;
 import view.presenter.CardDeckPresenter;
 import view.presenter.ChatPresenter;
 import view.presenter.DemoPresenter;
@@ -47,11 +50,11 @@ public class GameBoardActivity extends AppCompatActivity {
     private static ImageView gameBoard;
     private static Map playerColorValues;
     private static Map trainCardImages;
-    private static EditText one_destinationCards, one_trainCards, one_score, one_trainsLeft;
-    private static EditText two_destinationCards, two_trainCards, two_score, two_trainsLeft;
-    private static EditText three_destinationCards, three_trainCards, three_score, three_trainsLeft;
-    private static EditText four_destinationCards, four_trainCards, four_score, four_trainsLeft;
-    private static EditText five_destinationCards, five_trainCards, five_score, five_trainsLeft;
+    private static TextView one_destinationCards, one_trainCards, one_score, one_trainsLeft;
+    private static TextView two_destinationCards, two_trainCards, two_score, two_trainsLeft;
+    private static TextView three_destinationCards, three_trainCards, three_score, three_trainsLeft;
+    private static TextView four_destinationCards, four_trainCards, four_score, four_trainsLeft;
+    private static TextView five_destinationCards, five_trainCards, five_score, five_trainsLeft;
 
     @Override
     public void onBackPressed() {
@@ -138,6 +141,26 @@ public class GameBoardActivity extends AppCompatActivity {
         mWildTrainCard = findViewById(R.id.wildCard);
         mBlueTrainCard = findViewById(R.id.blueCard);
         mOrangeTrainCard = findViewById(R.id.orangeCard);
+        one_destinationCards = findViewById(R.id.player1_destination_cards_text_view);
+        one_score = findViewById(R.id.player1_score_text_view);
+        one_trainCards = findViewById(R.id.player1_train_cards_text_view);
+        one_trainsLeft = findViewById(R.id.player1_trains_left_text_view);
+        two_destinationCards = findViewById(R.id.player2_destination_cards_text_view);
+        two_score = findViewById(R.id.player2_score_text_view);
+        two_trainCards = findViewById(R.id.player2_train_cards_text_view);
+        two_trainsLeft = findViewById(R.id.player2_trains_left_text_view);
+        three_destinationCards = findViewById(R.id.player3_destination_cards_text_view);
+        three_score = findViewById(R.id.player3_score_text_view);
+        three_trainCards = findViewById(R.id.player3_train_cards_text_view);
+        three_trainsLeft = findViewById(R.id.player3_trains_left_text_view);
+        four_destinationCards = findViewById(R.id.player4_destination_cards_text_view);
+        four_score = findViewById(R.id.player4_score_text_view);
+        four_trainCards = findViewById(R.id.player4_train_cards_text_view);
+        four_trainsLeft = findViewById(R.id.player4_trains_left_text_view);
+        five_destinationCards = findViewById(R.id.player5_destination_cards_text_view);
+        five_score = findViewById(R.id.player5_score_text_view);
+        five_trainCards = findViewById(R.id.player5_train_cards_text_view);
+        five_trainsLeft = findViewById(R.id.player5_trains_left_text_view);
 
         chatMessages = chatPresenter.getMessages();
         mGreenTrainCard.setText("" + playersHandPresenter.getTrainCardAmount(1));
@@ -211,6 +234,8 @@ public class GameBoardActivity extends AppCompatActivity {
         cardThree.setBackgroundResource((int)trainCardImages.get(cardDeckPresenter.getTrainCardAtPosition(3)));
         cardTwo.setBackgroundResource((int)trainCardImages.get(cardDeckPresenter.getTrainCardAtPosition(2)));
         cardOne.setBackgroundResource((int)trainCardImages.get(cardDeckPresenter.getTrainCardAtPosition(1)));
+        destinationCardDeck.setText("" + cardDeckPresenter.getDestinationCardsLeft());
+        trainCardDeck.setText("" + cardDeckPresenter.getTrainCardsLeft());
         gameBoard = findViewById(R.id.game_board_pic);
 
     }
@@ -1193,7 +1218,52 @@ public class GameBoardActivity extends AppCompatActivity {
             cardThree.setBackgroundResource((int)trainCardImages.get(cardDeckPresenter.getTrainCardAtPosition(3)));
             cardTwo.setBackgroundResource((int)trainCardImages.get(cardDeckPresenter.getTrainCardAtPosition(2)));
             cardOne.setBackgroundResource((int)trainCardImages.get(cardDeckPresenter.getTrainCardAtPosition(1)));
+//            String location[2];
+//            Route route = new Route(2,2,location);
+//            TTR_Constants constants = TTR_Constants.getInstance();
+//            for (Route path: ClientModel.create().getUser().getGame().getAvailableRoutes()) {
+//                switch (route.getLocation()[1]) {
+//                    case constants.getRoute(path.getLocation()[0], path.getLocation()[1]):
+//
+//                }
+//            }
 
+            for (int i = 0; i < playerInfoPresenter.getNumOfPlayers(); i++) {
+                Player player = playerInfoPresenter.getPlayerByOrder(i);
+                if (player == null) {
+                    break;
+                }
+                if (i == 0) {
+                    one_destinationCards.setText("Destination Cards: " + player.getDestinationCardHand().size());
+                    one_score.setText("Score: " + player.getScore());
+                    one_trainCards.setText("Train Cards: " + player.getTickets().values().size());
+                    one_trainsLeft.setText("Trains Left: " + player.getTrainsRemaining());
+                }
+                else if (i == 1) {
+                    two_destinationCards.setText("Destination Cards: " + player.getDestinationCardHand().size());
+                    two_score.setText("Score: " + player.getScore());
+                    two_trainCards.setText("Train Cards: " + player.getTickets().values().size());
+                    two_trainsLeft.setText("Trains Left: " + player.getTrainsRemaining());
+                }
+                else if (i == 2) {
+                    three_destinationCards.setText("Destination Cards: " + player.getDestinationCardHand().size());
+                    three_score.setText("Score: " + player.getScore());
+                    three_trainCards.setText("Train Cards: " + player.getTickets().values().size());
+                    three_trainsLeft.setText("Trains Left: " + player.getTrainsRemaining());
+                }
+                else if (i == 3) {
+                    four_destinationCards.setText("Destination Cards: " + player.getDestinationCardHand().size());
+                    four_score.setText("Score: " + player.getScore());
+                    four_trainCards.setText("Train Cards: " + player.getTickets().values().size());
+                    four_trainsLeft.setText("Trains Left: " + player.getTrainsRemaining());
+                }
+                else if (i == 4) {
+                    five_destinationCards.setText("Destination Cards: " + player.getDestinationCardHand().size());
+                    five_score.setText("Score: " + player.getScore());
+                    five_trainCards.setText("Train Cards: " + player.getTickets().values().size());
+                    five_trainsLeft.setText("Trains Left: " + player.getTrainsRemaining());
+                }
+            }
         }
     }
 }

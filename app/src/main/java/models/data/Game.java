@@ -65,7 +65,14 @@ public class Game {
         return gameName;
     }
 
-
+    public Player findPlayerByColor(Integer color) {
+        for (Player player: players) {
+            if (player.getPlayerColor().equals(color)) {
+                return player;
+            }
+        }
+        return null;
+    }
 
     public void addPlayer(String userName) { this.playerUsernames.add(userName); }
 
@@ -77,6 +84,14 @@ public class Game {
 
     public Map<Integer, Integer> getTicketCardDeck() {
         return ticketCardDeck;
+    }
+
+    public Integer countTickets() {
+        int num = 0;
+        for (Map.Entry<Integer,Integer> entry : ticketCardDeck.entrySet()) {
+            num+=1;
+        }
+        return num;
     }
 
     public void setTicketCardDeck(Map<Integer, Integer> ticketCardDeck) {

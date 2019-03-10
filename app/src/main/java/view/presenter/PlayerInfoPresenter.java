@@ -7,6 +7,7 @@ import java.util.Observable;
 import java.util.Observer;
 
 import client.ClientModel;
+import models.TTR_Constants;
 import models.data.DestinationCard;
 import models.data.Player;
 import view.presenterInterface.IPlayerInfoPresenter;
@@ -14,6 +15,7 @@ import view.presenterInterface.IPlayerInfoPresenter;
 public class PlayerInfoPresenter implements IPlayerInfoPresenter, Observer {
     ClientModel clientModel = ClientModel.create();
     private GameBoardActivity boardActivity;
+    TTR_Constants constants = TTR_Constants.getInstance();
 
     public PlayerInfoPresenter(GameBoardActivity activity) {
         boardActivity = activity;
@@ -21,8 +23,38 @@ public class PlayerInfoPresenter implements IPlayerInfoPresenter, Observer {
     }
 
     @Override
-    public ArrayList<Player> getPlayers() {
-        return clientModel.getUser().getGame().getPlayers();
+    public Player getPlayerByOrder(int num) {
+        Integer searchColor;
+        switch (num) {
+            case 0:
+              searchColor = constants.BLACK_PLAYER;
+              break;
+            case 1:
+                searchColor = constants.BLUE_PLAYER;
+                break;
+            case 2:
+                searchColor = constants.RED_PLAYER;
+                break;
+            case 3:
+                searchColor = constants.GREEN_PLAYER;
+                break;
+            case 4:
+                searchColor = constants.YELLOW_PLAYER;
+                break;
+            default:
+                return null;
+        }
+        return clientModel.getUser().getGame().findPlayerByColor(searchColor);
+    }
+
+    @Override
+    public Integer getNumOfPlayers() {
+        return clientModel.getUser().getGame().getPlayers().size();
+    }
+
+    @Override
+    public Player getPlayer(String username) {
+        return clientModel.getUser().getGame().findPlayer(username);
     }
     @Override
     public Integer getTrainsLeft() {
