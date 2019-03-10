@@ -26,6 +26,11 @@ public class Player {
     private Set<Route> routesOwned = new HashSet<>(0);
     private Map<Integer, Integer> tickets = new HashMap<>();
     private ArrayList<DestinationCard> destinationCardHand = new ArrayList<>(0);
+
+    public Set<Route> getRoutesOwned() {
+        return routesOwned;
+    }
+
     private ArrayList<DestinationCard> newDestinationCards = new ArrayList<>(0);
 
 

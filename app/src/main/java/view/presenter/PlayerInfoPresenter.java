@@ -26,8 +26,7 @@ public class PlayerInfoPresenter implements IPlayerInfoPresenter, Observer {
 
     @Override
     public Set<Route> getPurchasedRoutesFromPlayer(Integer playerColor) {
-        //clientModel.getUser().getGame()
-        return null;
+        return clientModel.getUser().getGame().findPlayerByColor(playerColor).getRoutesOwned();
     }
 
     @Override
@@ -81,6 +80,11 @@ public class PlayerInfoPresenter implements IPlayerInfoPresenter, Observer {
             destinationStrings.add(stringToAdd);
         }
         return destinationStrings;
+    }
+
+    @Override
+    public ArrayList<Player> getPlayers() {
+        return clientModel.getUser().getGame().getPlayers();
     }
 
     @Override

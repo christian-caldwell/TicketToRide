@@ -1,5 +1,6 @@
 package view.presenterInterface;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Set;
 
@@ -7,6 +8,7 @@ import models.data.Player;
 import models.data.Route;
 
 public interface IPlayerInfoPresenter {
+    ArrayList<Player> getPlayers();
     ArrayList<String> getNewDestinationCardStrings();
     Player getPlayerByOrder(int num);
     Integer getNumOfPlayers();

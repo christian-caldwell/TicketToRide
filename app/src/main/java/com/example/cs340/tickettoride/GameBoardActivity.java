@@ -14,6 +14,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
@@ -55,11 +56,11 @@ public class GameBoardActivity extends AppCompatActivity {
     private static ImageView gameBoard;
     private static Map playerColorValues;
     private static Map trainCardImages;
-    private static EditText one_destinationCards, one_trainCards, one_score, one_trainsLeft;
-    private static EditText two_destinationCards, two_trainCards, two_score, two_trainsLeft;
-    private static EditText three_destinationCards, three_trainCards, three_score, three_trainsLeft;
-    private static EditText four_destinationCards, four_trainCards, four_score, four_trainsLeft;
-    private static EditText five_destinationCards, five_trainCards, five_score, five_trainsLeft;
+    private static TextView one_destinationCards, one_trainCards, one_score, one_trainsLeft;
+    private static TextView two_destinationCards, two_trainCards, two_score, two_trainsLeft;
+    private static TextView three_destinationCards, three_trainCards, three_score, three_trainsLeft;
+    private static TextView four_destinationCards, four_trainCards, four_score, four_trainsLeft;
+    private static TextView five_destinationCards, five_trainCards, five_score, five_trainsLeft;
 
     @Override
     public void onBackPressed() {
@@ -126,6 +127,7 @@ public class GameBoardActivity extends AppCompatActivity {
                 mDemoPresenter = ClientModel.create().getDemoPresenter();
                 mDemoPresenter.setGameActivity(GameBoardActivity.this);
                 mDemoPresenter.gameDemo();
+//                mDemoPresenter.runNextDemo();
             }
         });
 
@@ -1174,10 +1176,7 @@ public class GameBoardActivity extends AppCompatActivity {
     }
 
     public void change_color_oklahomacity_dallas_g1(View view) {
-        findViewById(R.id.oklahomacity_dallas_g1b1).setBackgroundResource((int)playerColorValues.get(playersHandPresenter.getCurrentPlayerColor()));
-        findViewById(R.id.oklahomacity_dallas_g1b1).setAlpha(1);
-        findViewById(R.id.oklahomacity_dallas_g1b2).setBackgroundResource((int)playerColorValues.get(playersHandPresenter.getCurrentPlayerColor()));
-        findViewById(R.id.oklahomacity_dallas_g1b2).setAlpha(1);
+
     }
 
     public void change_color_dallas_houston_g1(View view) {
@@ -1224,15 +1223,23 @@ public class GameBoardActivity extends AppCompatActivity {
             cardThree.setBackgroundResource((int)trainCardImages.get(cardDeckPresenter.getTrainCardAtPosition(3)));
             cardTwo.setBackgroundResource((int)trainCardImages.get(cardDeckPresenter.getTrainCardAtPosition(2)));
             cardOne.setBackgroundResource((int)trainCardImages.get(cardDeckPresenter.getTrainCardAtPosition(1)));
-//            String location[2];
-//            Route route = new Route(2,2,location);
-//            TTR_Constants constants = TTR_Constants.getInstance();
-//            for (Route path: ClientModel.create().getUser().getGame().getAvailableRoutes()) {
-//                switch (route.getLocation()[1]) {
-//                    case constants.getRoute(path.getLocation()[0], path.getLocation()[1]):
-//
-//                }
-//            }
+
+            TTR_Constants constants = TTR_Constants.getInstance();
+            for (Player player: playerInfoPresenter.getPlayers()) {
+                Set<Route> routes = playerInfoPresenter.getPurchasedRoutesFromPlayer(player.getPlayerColor());
+                for (Route route: routes) {
+                    if (constants.R_DAL_TO_OKL_1 == route) {
+
+//                        findViewById(R.id.oklahomacity_dallas_g1b1).setBackgroundResource((int)playerColorValues.get(playersHandPresenter.getCurrentPlayerColor()));
+//                        findViewById(R.id.oklahomacity_dallas_g1b1).setAlpha(1);
+//                        findViewById(R.id.oklahomacity_dallas_g1b2).setBackgroundResource((int)playerColorValues.get(playersHandPresenter.getCurrentPlayerColor()));
+//                        findViewById(R.id.oklahomacity_dallas_g1b2).setAlpha(1);
+
+                    }
+                }
+            }
+
+
 
             for (int i = 0; i < playerInfoPresenter.getNumOfPlayers(); i++) {
                 Player player = playerInfoPresenter.getPlayerByOrder(i);
