@@ -3,6 +3,7 @@ package view.presenter;
 import com.example.cs340.tickettoride.GameBoardActivity;
 import com.example.cs340.tickettoride.LoginViewActivity;
 
+import client.Poller;
 import client.ServerProxy;
 import models.data.Game;
 import models.data.User;
@@ -30,6 +31,15 @@ public class DemoPresenter {
 
     public void setGameActivity(GameBoardActivity gameActivity) {
         this.gameActivity = gameActivity;
+    }
+
+    public boolean onCreate() {
+        try {
+            Poller.startGamePoller();
+            return true;
+        } catch (Exception e) {
+            return false;
+        }
     }
 
     public void startDemo() {
