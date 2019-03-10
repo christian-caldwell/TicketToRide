@@ -1,15 +1,25 @@
 package com.example.cs340.tickettoride;
 
+import android.content.Context;
 import android.os.AsyncTask;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.StrictMode;
+import android.support.constraint.ConstraintLayout;
+import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.Gravity;
+import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.PopupWindow;
+import android.widget.RelativeLayout;
 import android.widget.Toast;
 
 import java.util.ArrayList;
@@ -32,11 +42,13 @@ import view.presenterInterface.IPlayersHandPresenter;
 public class GameBoardActivity extends AppCompatActivity {
 
     private static ArrayList<ChatMessage> chatMessages;
+    private static ArrayList<String> destinationCardList;
     private static IChatPresenter chatPresenter;
     private static IPlayersHandPresenter playersHandPresenter;
     private static IPlayerInfoPresenter playerInfoPresenter;
     private static ICardDeckPresenter cardDeckPresenter;
     private static RecyclerViewAdapterChat adapter;
+    private static RecyclerViewAdapterDestinationCards destinationCardsAdapter;
     private static EditText inputChatEditText;
     private static Button gameDemoButton;
     private DemoPresenter mDemoPresenter;
@@ -47,6 +59,7 @@ public class GameBoardActivity extends AppCompatActivity {
     private static ImageView gameBoard;
     private static Map playerColorValues;
     private static Map trainCardImages;
+    private static PopupWindow mPopupWindow;
     private static EditText one_destinationCards, one_trainCards, one_score, one_trainsLeft;
     private static EditText two_destinationCards, two_trainCards, two_score, two_trainsLeft;
     private static EditText three_destinationCards, three_trainCards, three_score, three_trainsLeft;
@@ -97,6 +110,7 @@ public class GameBoardActivity extends AppCompatActivity {
         playerInfoPresenter = new PlayerInfoPresenter(this);
         playersHandPresenter = new PlayersHandPresenter(this);
         initRecyclerView();
+        initDestinationCardsRecyclerView();
         inputChatEditText = findViewById(R.id.input_edit_text);
         sendMessageButton = findViewById(R.id.send_message_button);
         sendMessageButton.setOnClickListener(new View.OnClickListener() {
@@ -125,7 +139,33 @@ public class GameBoardActivity extends AppCompatActivity {
         playerInfoButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                playerInfoPresenter.getDestinationCardStrings();
+                destinationCardList = playerInfoPresenter.getDestinationCardStrings();
+
+                // Initialize a new instance of LayoutInflater service
+                LayoutInflater inflater = (LayoutInflater) getApplicationContext().getSystemService(LAYOUT_INFLATER_SERVICE);
+
+                // Inflate the custom layout/view
+                View customView = inflater.inflate(R.layout.player_info_popup_window,null);
+
+                // Initialize a new instance of popup window
+                mPopupWindow = new PopupWindow(customView, 900, 600, true);
+                mPopupWindow.setBackgroundDrawable(getResources().getDrawable(R.drawable.notepad));
+
+
+                // Set an elevation value for popup window
+                if(Build.VERSION.SDK_INT>=21)
+                   mPopupWindow.setElevation(10);
+
+                DrawerLayout activityLayout = findViewById(R.id.game_board_activity);
+                mPopupWindow.showAtLocation(activityLayout, Gravity.CENTER,0,0);
+
+                /*customView.setOnTouchListener(new View.OnTouchListener() {
+                    @Override
+                    public boolean onTouch(View v, MotionEvent event) {
+                        mPopupWindow.dismiss();
+                        return true;
+                    }
+                });*/
             }
         });
 
@@ -140,6 +180,7 @@ public class GameBoardActivity extends AppCompatActivity {
         mOrangeTrainCard = findViewById(R.id.orangeCard);
 
         chatMessages = chatPresenter.getMessages();
+        destinationCardList = playerInfoPresenter.getDestinationCardStrings();
         mGreenTrainCard.setText("" + playersHandPresenter.getTrainCardAmount(1));
         mRedTrainCard.setText(""+ playersHandPresenter.getTrainCardAmount(2));
         mPinkTrainCard.setText("" + playersHandPresenter.getTrainCardAmount(6));
@@ -213,6 +254,19 @@ public class GameBoardActivity extends AppCompatActivity {
         cardOne.setBackgroundResource((int)trainCardImages.get(cardDeckPresenter.getTrainCardAtPosition(1)));
         gameBoard = findViewById(R.id.game_board_pic);
 
+    }
+
+    private void initDestinationCardsRecyclerView() {
+        // Inflate the 'player_info_popup_window.xml' to be able to work with it's recyclerView
+        View view;
+        LayoutInflater inflater = (LayoutInflater)   getApplicationContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        view = inflater.inflate(R.layout.player_info_popup_window, null);
+        RecyclerView destinationCardsRecyclerView = view.findViewById(R.id.recycler_view_destination_cards);
+
+        destinationCardList = playerInfoPresenter.getDestinationCardStrings();
+        destinationCardsAdapter = new RecyclerViewAdapterDestinationCards(destinationCardList, this, playerInfoPresenter);
+        destinationCardsRecyclerView.setAdapter(destinationCardsAdapter);
+        destinationCardsRecyclerView.setLayoutManager(new LinearLayoutManager(this));
     }
 
     private void initRecyclerView() {
@@ -1177,6 +1231,11 @@ public class GameBoardActivity extends AppCompatActivity {
             adapter.setListOfMessages(chatMessages);
             adapter.notifyDataSetChanged();
             chatMessages = chatPresenter.getMessages();
+
+            //FIXME: GET THE ARRAYLIST OF NEW DESTINATION CARDS TO SHOW IN THE RECYCLERVIEW
+            destinationCardsAdapter.setListOfDestinationCards(destinationCardList);
+            destinationCardsAdapter.notifyDataSetChanged();
+            destinationCardList = playerInfoPresenter.getDestinationCardStrings();
             mGreenTrainCard.setText("" + playersHandPresenter.getTrainCardAmount(1));
             mRedTrainCard.setText(""+ playersHandPresenter.getTrainCardAmount(2));
             mPinkTrainCard.setText("" + playersHandPresenter.getTrainCardAmount(6));

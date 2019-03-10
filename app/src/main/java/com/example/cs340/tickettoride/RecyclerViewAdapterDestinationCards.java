@@ -15,16 +15,18 @@ import java.util.ArrayList;
 
 import view.presenter.CardDeckPresenter;
 import view.presenterInterface.ICardDeckPresenter;
+import view.presenterInterface.IPlayerInfoPresenter;
 
 public class RecyclerViewAdapterDestinationCards extends RecyclerView.Adapter<RecyclerViewAdapterDestinationCards.ViewHolder> {
 
-    private ArrayList<String> mDestinationRoutes = new ArrayList<>();
+    private ArrayList<String> mDestinationRoutes;
     private Context mContext;
-    private ICardDeckPresenter cardDeckPresenter = new CardDeckPresenter();
+    private IPlayerInfoPresenter playerInfoPresenter;
 
-    public RecyclerViewAdapterDestinationCards(ArrayList<String> mDestinationRoutes, Context mContext) {
+    public RecyclerViewAdapterDestinationCards(ArrayList<String> mDestinationRoutes, Context mContext, IPlayerInfoPresenter playerInfoPresenter) {
         this.mDestinationRoutes = mDestinationRoutes;
         this.mContext = mContext;
+        this.playerInfoPresenter = playerInfoPresenter;
     }
 
     @NonNull
@@ -42,11 +44,9 @@ public class RecyclerViewAdapterDestinationCards extends RecyclerView.Adapter<Re
         holder.discardButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //FIXME: CALL METHOD IN PRESENTER TO DISCARD CARDS
+                //TODO: CALL METHOD IN PRESENTER TO DISCARD CARDS
                 //if result is successful, make toast saying it will be discarded
                 //if not, display toast saying user cannot discard it
-
-
                 Toast.makeText(mContext, mDestinationRoutes.get(position) +
                         " will be discarded", Toast.LENGTH_SHORT).show();
             }
@@ -57,6 +57,10 @@ public class RecyclerViewAdapterDestinationCards extends RecyclerView.Adapter<Re
     @Override
     public int getItemCount() {
         return mDestinationRoutes.size();
+    }
+
+    public void setListOfDestinationCards(ArrayList<String> destinationCardList) {
+        mDestinationRoutes = destinationCardList;
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder{
