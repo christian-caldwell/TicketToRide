@@ -2,12 +2,14 @@ package view.presenter;
 
 import com.example.cs340.tickettoride.GameBoardActivity;
 
+import java.util.ArrayList;
 import java.util.Observable;
 import java.util.Observer;
 
 import client.ClientModel;
 import client.ServerProxy;
 import models.data.Player;
+import models.data.Route;
 import view.presenterInterface.ICardDeckPresenter;
 
 public class CardDeckPresenter implements ICardDeckPresenter, Observer {
@@ -43,8 +45,6 @@ public class CardDeckPresenter implements ICardDeckPresenter, Observer {
         }
     }
 
-
-
     @Override
     public void drawDestinationCard() {
         serverProxy.requestDestinationCards(clientModel.getUser().getUsername(), clientModel.getUser().getGame().getGameName());
@@ -57,7 +57,7 @@ public class CardDeckPresenter implements ICardDeckPresenter, Observer {
 
     @Override
     public Integer getTrainCardsLeft() {
-        return clientModel.getUser().getGame().getTicketCardDeck().values().size();
+        return clientModel.getUser().getGame().countTickets();
     }
 
     @Override
