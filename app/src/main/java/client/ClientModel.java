@@ -1,5 +1,7 @@
 package client;
 
+import com.example.cs340.tickettoride.GameBoardActivity;
+
 import java.util.ArrayList;
 import java.util.Map;
 import java.util.Observable;
@@ -10,6 +12,7 @@ import models.data.DestinationCard;
 import models.data.Game;
 import models.data.Player;
 import models.data.User;
+import view.presenter.CardDeckPresenter;
 import view.presenter.ChatPresenter;
 import view.presenter.GameLobbyPresenter;
 import view.presenter.GamePresenter;
@@ -24,10 +27,19 @@ public class ClientModel extends Observable {
     private GameLobbyPresenter mGameLobbyPresenter;
     private GamePresenter mGamePresenter;
     private ChatPresenter mChatPresenter;
+    private CardDeckPresenter mCardDeckPresenter;
     private PlayerInfoPresenter mPlayerInfoPresenter;
     private PlayersHandPresenter mPlayersHandPresenter;
 
+    //    TEMPORARY DEMO THINGS
+    GameBoardActivity mGameBoardActivity;
+    public GameBoardActivity getGameBoardActivity() {
+        return mGameBoardActivity;
+    }
 
+    public void setGameBoardActivity(GameBoardActivity gameBoardActivity) {
+        mGameBoardActivity = gameBoardActivity;
+    }
     //new stuff for phase 2
     private Map<Integer, Integer> ticketCardHand;
     private ArrayList<DestinationCard> destinationCardHand;
@@ -161,6 +173,18 @@ public class ClientModel extends Observable {
         mGamePresenter = gamePresenter;
     }
 
+    public void setmCardDeckPresenter(CardDeckPresenter mCardDeckPresenter) {
+        this.mCardDeckPresenter = mCardDeckPresenter;
+    }
+
+    public void setmPlayerInfoPresenter(PlayerInfoPresenter mPlayerInfoPresenter) {
+        this.mPlayerInfoPresenter = mPlayerInfoPresenter;
+    }
+
+    public void setmPlayersHandPresenter(PlayersHandPresenter mPlayersHandPresenter) {
+        this.mPlayersHandPresenter = mPlayersHandPresenter;
+    }
+
     public ChatPresenter getmChatPresenter() { return mChatPresenter; }
 
     public void setChatPresenter(ChatPresenter chatPresenter) { mChatPresenter = chatPresenter; }
@@ -168,9 +192,6 @@ public class ClientModel extends Observable {
     public void update() {
         if (mGameLobbyPresenter != null) {
             addObserver(this.mGameLobbyPresenter);
-       // addObserver(this.mChatPresenter);
-//        addObserver(new LoginPresenter());
-//        addObserver(new RegisterPresenter());
 
             setChanged();
             notifyObservers();
@@ -185,6 +206,15 @@ public class ClientModel extends Observable {
         }
         if (mChatPresenter != null) {
             addObserver(this.mChatPresenter);
+        }
+        if (mCardDeckPresenter != null) {
+            addObserver(this.mCardDeckPresenter);
+        }
+        if (mPlayerInfoPresenter != null) {
+            addObserver(this.mPlayerInfoPresenter);
+        }
+        if (mPlayersHandPresenter != null) {
+            addObserver(this.mPlayersHandPresenter);
         }
         setChanged();
         notifyObservers();

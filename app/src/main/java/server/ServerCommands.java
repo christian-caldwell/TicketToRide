@@ -3,6 +3,7 @@ package server;
 
 import java.util.UUID;
 
+import models.TTR_Constants;
 import models.data.ChatMessage;
 import models.data.DestinationCard;
 import models.data.Game;
@@ -15,6 +16,8 @@ import models.data.User;
 public class ServerCommands implements IServer {
     private final int MAX_PLAYERS = 5;
     private ServerData serverData = ServerData.getInstance();
+    private TTR_Constants constants = TTR_Constants.getInstance();
+
     private ClientProxy clientProxy = new ClientProxy();
 
     public ServerData getServerData() {
@@ -121,11 +124,13 @@ public class ServerCommands implements IServer {
     @Override
     public Result returnDestinationCards(String userName, String gameName, DestinationCard[] returnedCards) {
         Result result = new Result();
+        result.setSuccessful(false);
         Game targetGame = serverData.findGame(gameName);
 
         if (targetGame != null) {
             Player targetPlayer = targetGame.findPlayer(userName);
             if (targetPlayer != null) {
+                //Confirm that the cards are in newDestinationCards in the first place?
                 targetPlayer.removeFromNewDestinationCards(returnedCards);
                 targetGame.returnDestinationCards(returnedCards);
                 for (DestinationCard card:targetPlayer.getNewDestinationCards() ) {
@@ -134,17 +139,9 @@ public class ServerCommands implements IServer {
                 targetPlayer.resetNewDestinationCards();
                 targetGame.incrementNumPlayerActions();
                 result.setSuccessful(true);
-                return result;
-            }
-            else {
-                result.setSuccessful(false);
-                return result;
             }
         }
-        else {
-            result.setSuccessful(false);
-            return result;
-        }
+        return result;
     }
 
     @Override
@@ -188,10 +185,10 @@ public class ServerCommands implements IServer {
             TrainCard card = targetGame.dealTicketCard(selectedCard);
             targetGame.incrementNumPlayerActions();
 
-            if (secondPick && (card.getCardColor().equals(serverData.WILD))) {
+            if (secondPick && (card.getCardColor().equals(constants.WILD))) {
                 return result;
             }
-            else if (!secondPick && (card.getCardColor().equals(serverData.WILD))) {
+            else if (!secondPick && (card.getCardColor().equals(constants.WILD))) {
                 targetGame.incrementCurrentTurnPlayer();
             }
             else if (secondPick){
@@ -220,5 +217,17 @@ public class ServerCommands implements IServer {
             result.setSuccessful(false);
             return result;
         }
+    }
+
+    @Override
+    public Result requestGame(String gameName) {
+        Result result = new Result();
+        result.setSuccessful(false);
+        Game targetGame = serverData.findGame(gameName);
+        if (targetGame != null) {
+            result.setSuccessful(true);
+            result.setRunningGame(targetGame);
+        }
+        return result;
     }
 }

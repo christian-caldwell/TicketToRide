@@ -13,4 +13,8 @@ public class GameStartFacade {
     public Result startGame(String gameName) {
         return serverCommands.startGame(gameName);
     }
+
+    public Result requestGame(String gameName) {
+        return serverCommands.requestGame(gameName);
+    }
 }

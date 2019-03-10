@@ -3,6 +3,7 @@ package models.data;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -10,6 +11,7 @@ import java.util.Map;
 import java.util.Random;
 import java.util.Set;
 
+import models.TTR_Constants;
 import server.ServerData;
 
 public class Game {
@@ -29,7 +31,7 @@ public class Game {
     private ArrayList<DestinationCard> destinationDeck = new ArrayList<>();
     private Set<Route> availableRoutes = new HashSet<>();
 
-    private ServerData serverData = ServerData.getInstance();
+    private TTR_Constants constants = TTR_Constants.getInstance();
 
     ////////////
 
@@ -38,7 +40,7 @@ public class Game {
         isStarted = false;
         numPlayerActions = 0;
         currentLongestRouteValue = 0;
-        currentTurnPlayer = serverData.RED;
+        currentTurnPlayer = constants.BLACK_PLAYER;
         faceUpTrainCards = new TrainCard[]{new TrainCard(0),
                                            new TrainCard(0),
                                            new TrainCard(0),
@@ -102,7 +104,7 @@ public class Game {
 
             int wildCardCount = 0;
             for (TrainCard card :this.faceUpTrainCards) {
-                if (card.getCardColor().equals(serverData.WILD)) {
+                if (card.getCardColor().equals(constants.WILD)) {
                     wildCardCount++;
                 }
             }
@@ -156,9 +158,7 @@ public class Game {
     }
     public void returnDestinationCards (DestinationCard[] returnedCards) {
         if (returnedCards != null) {
-            for(DestinationCard card: returnedCards) {
-                destinationDeck.add(card);
-            }
+            destinationDeck.addAll(Arrays.asList(returnedCards));
         }
     }
     public DestinationCard dealDestinationCard() {
@@ -183,17 +183,23 @@ public class Game {
 
         for (Player player : this.players){
             if (player.getUsername().equals(playerName)) {
+                //check if the player has the cards and the train markers to make this purchase
                 player.decrementTrainsRemaining(purchasedRoute.findLength());
                 Integer color = purchasedRoute.getCardColor();
-                for (int i = 0; i < purchasedRoute.findLength() - numberOfWilds; i++) {
-                    this.ticketCardDiscard.put(color,this.ticketCardDeck.get(color)+1);
-                    player.removeTicketFromHand(color);
-                }
+                Integer numberOfNonWilds = purchasedRoute.findLength() - numberOfWilds;
+                this.ticketCardDiscard.put(color, this.ticketCardDiscard.get(color) + numberOfNonWilds);
+                player.removeTicketsFromHand(color, numberOfNonWilds);
+//                for (int i = 0; i < purchasedRoute.findLength() - numberOfWilds; i++) {
+//                    this.ticketCardDiscard.put(color,this.ticketCardDiscard.get(color)+1);
+//                    player.removeTicketFromHand(color);
+//                }
 
-                for (int i = 0; i < numberOfWilds; i++) {
-                    this.ticketCardDiscard.put(serverData.WILD,this.ticketCardDeck.get(serverData.WILD)+1);
-                    player.removeTicketFromHand(serverData.WILD);
-                }
+                this.ticketCardDiscard.put(constants.WILD, this.ticketCardDiscard.get(constants.WILD) + numberOfWilds);
+                player.removeTicketsFromHand(constants.WILD, numberOfWilds);
+//                for (int i = 0; i < numberOfWilds; i++) {
+//                    this.ticketCardDiscard.put(constants.WILD,this.ticketCardDiscard.get(constants.WILD)+1);
+//                    player.removeTicketFromHand(constants.WILD);
+//                }
 
                 player.incrementScore(purchasedRoute.getPoints());
                 player.addRoute(purchasedRoute);
@@ -253,35 +259,35 @@ public class Game {
         return currentTurnPlayer;
     }
     public void incrementCurrentTurnPlayer() {
-        if (this.currentTurnPlayer.equals(serverData.RED)) {
-            this.currentTurnPlayer = serverData.GREEN;
+        if (this.currentTurnPlayer.equals(constants.BLACK_PLAYER)) {
+            this.currentTurnPlayer = constants.BLUE_PLAYER;
         }
-        else if (this.currentTurnPlayer.equals(serverData.GREEN)) {
+        else if (this.currentTurnPlayer.equals(constants.BLUE_PLAYER)) {
             if (this.players.size() > 2) {
-                this.currentTurnPlayer = serverData.BLUE;
+                this.currentTurnPlayer = constants.RED_PLAYER;
             }
             else {
-                this.currentTurnPlayer = serverData.RED;
+                this.currentTurnPlayer = constants.BLACK_PLAYER;
             }
         }
-        else if (this.currentTurnPlayer.equals(serverData.BLUE)) {
+        else if (this.currentTurnPlayer.equals(constants.RED_PLAYER)) {
             if (this.players.size() > 3) {
-                this.currentTurnPlayer = serverData.YELLOW;
+                this.currentTurnPlayer = constants.GREEN_PLAYER;
             }
             else {
-                this.currentTurnPlayer = serverData.RED;
+                this.currentTurnPlayer = constants.BLACK_PLAYER;
             }
         }
-        else if (this.currentTurnPlayer.equals(serverData.YELLOW)) {
+        else if (this.currentTurnPlayer.equals(constants.GREEN_PLAYER)) {
             if (this.players.size() > 4) {
-                this.currentTurnPlayer = serverData.BLACK;
+                this.currentTurnPlayer = constants.YELLOW_PLAYER;
             }
             else {
-                this.currentTurnPlayer = serverData.RED;
+                this.currentTurnPlayer = constants.BLACK_PLAYER;
             }
         }
-        else if (this.currentTurnPlayer.equals(serverData.BLACK)) {
-            this.currentTurnPlayer = serverData.RED;
+        else if (this.currentTurnPlayer.equals(constants.YELLOW_PLAYER)) {
+            this.currentTurnPlayer = constants.BLACK_PLAYER;
         }
     }
 //////////////////////////////////////////////////////////////////////////////

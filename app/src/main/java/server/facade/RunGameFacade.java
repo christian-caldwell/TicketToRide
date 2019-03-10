@@ -1,5 +1,6 @@
 package server.facade;
 
+import models.TTR_Constants;
 import models.data.ChatMessage;
 import models.data.DestinationCard;
 import models.data.Result;
@@ -59,7 +60,7 @@ public class RunGameFacade {
 
     public Result purchaseRoute(String userName, String gameName, Integer points, String first_location, String second_location, Integer color, Integer wildCount) {
         //TODO replace the 'Enums.Color' with parameter Integer
-        Route purchasedRoute = new Route(points, color, new String[]{first_location, second_location});
+        Route purchasedRoute = TTR_Constants.getInstance().getRoute(first_location, second_location);
         return serverCommands.purchaseRoute(userName, gameName, purchasedRoute, wildCount);
     }
 }

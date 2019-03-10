@@ -11,8 +11,24 @@ import models.data.TrainCard;
 import server.ServerData;
 
 public class TTR_Constants {
-    private ServerData serverData = ServerData.getInstance();
+    //    CARD COLORS
+    public final Integer EMPTY = 0;
+    public final Integer GREEN = 1;
+    public final Integer RED = 2;
+    public final Integer YELLOW = 3;
+    public final Integer BLUE = 4;
+    public final Integer ORANGE = 5;
+    public final Integer PURPLE = 6;
+    public final Integer WHITE = 7;
+    public final Integer BLACK = 8;
+    public final Integer WILD = 9;
 
+    //    PLAYER COLORS
+    public final Integer RED_PLAYER = 1;
+    public final Integer GREEN_PLAYER = 2;
+    public final Integer BLUE_PLAYER = 3;
+    public final Integer YELLOW_PLAYER = 4;
+    public final Integer BLACK_PLAYER = 5;
     
     private final String ATLANTA_STRING = "Atlanta";
     private final String BOSTON_STRING = "Boston";
@@ -51,106 +67,106 @@ public class TTR_Constants {
     private final String WASHINGTON_STRING = "Washington";
     private final String WINNIPEG_STRING = "Winnipeg";
 
-    private final Route R_VAN_TO_SEA_1 = new Route(1, serverData.WILD , new String[] {VANCOUVER_STRING, SEATTLE_STRING});
-    private final Route R_VAN_TO_SEA_2 = new Route(1, serverData.WILD , new String[] {VANCOUVER_STRING, SEATTLE_STRING});
-    private final Route R_SEA_TO_POR_1 = new Route(1, serverData.WILD , new String[] {SEATTLE_STRING, PORTLAND_STRING});
-    private final Route R_SEA_TO_POR_2 = new Route(1, serverData.WILD , new String[] {SEATTLE_STRING, PORTLAND_STRING});
-    private final Route R_POR_TO_SAN_1 = new Route(5, serverData.GREEN , new String[] {PORTLAND_STRING, SANFRANCISCO_STRING});
-    private final Route R_POR_TO_SAN_2 = new Route(5, serverData.PURPLE , new String[] {PORTLAND_STRING, SANFRANCISCO_STRING});
-    private final Route R_SAN_TO_SLC_1 = new Route(5, serverData.ORANGE , new String[] {SANFRANCISCO_STRING, SALTLAKECITY_STRING});
-    private final Route R_SAN_TO_SLC_2 = new Route(5, serverData.WHITE , new String[] {SANFRANCISCO_STRING, SALTLAKECITY_STRING});
-    private final Route R_SAN_TO_LA_1 = new Route(3, serverData.YELLOW , new String[] {SANFRANCISCO_STRING, LOSANGELES_STRING});
-    private final Route R_SAN_TO_LA_2 = new Route(3, serverData.PURPLE , new String[] {SANFRANCISCO_STRING, LOSANGELES_STRING});
-    private final Route R_VAN_TO_CAL = new Route(3, serverData.WILD , new String[] {VANCOUVER_STRING, CALGARY_STRING});
-    private final Route R_SEA_TO_CAL = new Route(4, serverData.WILD , new String[] {SEATTLE_STRING, CALGARY_STRING});
-    private final Route R_SEA_TO_HEL = new Route(6, serverData.YELLOW , new String[] {SEATTLE_STRING, HELENA_STRING});
-    private final Route R_POR_TO_SLC = new Route(6, serverData.BLUE , new String[] {PORTLAND_STRING, SALTLAKECITY_STRING});
-    private final Route R_LA_TO_LAS = new Route(2, serverData.WILD , new String[] {LOSANGELES_STRING, LASVEGAS_STRING});
-    private final Route R_LA_TO_PHO = new Route(3, serverData.WILD , new String[] {LOSANGELES_STRING, PHOENIX_STRING});
-    private final Route R_LA_TO_EL = new Route(6, serverData.BLACK , new String[] {LOSANGELES_STRING, ELPASO_STRING});
-    private final Route R_CAL_TO_WIN = new Route(6, serverData.WHITE , new String[] {CALGARY_STRING, WINNIPEG_STRING});
-    private final Route R_CAL_TO_HEL = new Route(4, serverData.WILD , new String[] {CALGARY_STRING, HELENA_STRING});
-    private final Route R_SLC_TO_HEL = new Route(3, serverData.PURPLE , new String[] {SALTLAKECITY_STRING, HELENA_STRING});
-    private final Route R_SLC_TO_DEN_1 = new Route(3, serverData.RED , new String[] {SALTLAKECITY_STRING, DENVER_STRING});
-    private final Route R_SLC_TO_DEN_2 = new Route(3, serverData.YELLOW , new String[] {SALTLAKECITY_STRING, DENVER_STRING});
-    private final Route R_LAS_TO_SLC = new Route(3, serverData.ORANGE , new String[] {LASVEGAS_STRING, SALTLAKECITY_STRING});
-    private final Route R_PHO_TO_EL = new Route(3, serverData.WILD , new String[] {PHOENIX_STRING, ELPASO_STRING});
-    private final Route R_PHO_TO_FE = new Route(3, serverData.WILD , new String[] {PHOENIX_STRING, SANTAFE_STRING});
-    private final Route R_PHO_TO_DEN = new Route(5, serverData.WHITE , new String[] {PHOENIX_STRING, DENVER_STRING});
-    private final Route R_EL_TO_FE = new Route(2, serverData.WILD , new String[] {ELPASO_STRING, SANTAFE_STRING});
-    private final Route R_FE_TO_DEN = new Route(2, serverData.WILD , new String[] {SANTAFE_STRING, DENVER_STRING});
-    private final Route R_DEN_TO_HEL = new Route(4, serverData.GREEN , new String[] {DENVER_STRING, HELENA_STRING});
-    private final Route R_HEL_TO_WIN = new Route(4, serverData.BLUE , new String[] {HELENA_STRING, WINNIPEG_STRING});
-    private final Route R_EL_TO_HOU = new Route(6, serverData.GREEN , new String[] {ELPASO_STRING, HOUSTON_STRING});
-    private final Route R_EL_TO_DAL = new Route(4, serverData.RED , new String[] {ELPASO_STRING, DALLAS_STRING});
-    private final Route R_EL_TO_OKL = new Route(5, serverData.YELLOW , new String[] {ELPASO_STRING, OKLAHOMACITY_STRING});
-    private final Route R_FE_TO_OKL = new Route(3, serverData.BLUE , new String[] {SANTAFE_STRING, OKLAHOMACITY_STRING});
-    private final Route R_DEN_TO_OKL = new Route(4, serverData.RED , new String[] {DENVER_STRING, OKLAHOMACITY_STRING});
-    private final Route R_DEN_TO_KAN_1 = new Route(4, serverData.BLACK , new String[] {DENVER_STRING, KANSASCITY_STRING});
-    private final Route R_DEN_TO_KAN_2 = new Route(4, serverData.ORANGE , new String[] {DENVER_STRING, KANSASCITY_STRING});
-    private final Route R_DEN_TO_OMA = new Route(4, serverData.PURPLE , new String[] {DENVER_STRING, OMAHA_STRING});
-    private final Route R_HEL_TO_OMA = new Route(5, serverData.RED , new String[] {HELENA_STRING, OMAHA_STRING});
-    private final Route R_HEL_TO_DUL = new Route(6, serverData.ORANGE , new String[] {HELENA_STRING, DULUTH_STRING});
-    private final Route R_WIN_TO_SSM = new Route(6, serverData.WILD , new String[] {WINNIPEG_STRING, SAULTSTMARIE_STRING});
-    private final Route R_WIN_TO_DUL = new Route(4, serverData.BLACK , new String[] {WINNIPEG_STRING, DULUTH_STRING});
-    private final Route R_HOU_TO_DAL_1 = new Route(1, serverData.WILD , new String[] {HOUSTON_STRING, DALLAS_STRING});
-    private final Route R_HOU_TO_DAL_2 = new Route(1, serverData.WILD , new String[] {HOUSTON_STRING, DALLAS_STRING});
-    private final Route R_DAL_TO_OKL_1 = new Route(2, serverData.WILD , new String[] {DALLAS_STRING, OKLAHOMACITY_STRING});
-    private final Route R_DAL_TO_OKL_2 = new Route(2, serverData.WILD , new String[] {DALLAS_STRING, OKLAHOMACITY_STRING});
-    private final Route R_OKL_TO_KAN_1 = new Route(2, serverData.WILD , new String[] {OKLAHOMACITY_STRING, KANSASCITY_STRING});
-    private final Route R_OKL_TO_KAN_2 = new Route(2, serverData.WILD , new String[] {OKLAHOMACITY_STRING, KANSASCITY_STRING});
-    private final Route R_KAN_TO_OMA_1 = new Route(1, serverData.WILD , new String[] {KANSASCITY_STRING, OMAHA_STRING});
-    private final Route R_KAN_TO_OMA_2 = new Route(1, serverData.WILD , new String[] {KANSASCITY_STRING, OMAHA_STRING});
-    private final Route R_OMA_TO_DUL_1 = new Route(2, serverData.WILD , new String[] {OMAHA_STRING, DULUTH_STRING});
-    private final Route R_OMA_TO_DUL_2 = new Route(2, serverData.WILD , new String[] {OMAHA_STRING, DULUTH_STRING});
-    private final Route R_DUL_TO_SSM = new Route(3, serverData.WILD , new String[] {DULUTH_STRING, SAULTSTMARIE_STRING});
-    private final Route R_HOU_TO_ORI = new Route(2, serverData.WILD , new String[] {HOUSTON_STRING, NEWORLEANS_STRING});
-    private final Route R_DAL_TO_LIT = new Route(2, serverData.WILD , new String[] {DALLAS_STRING, LITTLEROCK_STRING});
-    private final Route R_OKL_TO_LIT = new Route(2, serverData.WILD , new String[] {OKLAHOMACITY_STRING, LITTLEROCK_STRING});
-    private final Route R_KAN_TO_SAI_1 = new Route(2, serverData.BLUE , new String[] {KANSASCITY_STRING, SAINTLOUIS_STRING});
-    private final Route R_KAN_TO_SAI_2 = new Route(2, serverData.PURPLE , new String[] {KANSASCITY_STRING, SAINTLOUIS_STRING});
-    private final Route R_OMA_TO_CHI = new Route(4, serverData.BLUE , new String[] {OMAHA_STRING, CHICAGO_STRING});
-    private final Route R_DUL_TO_CHI = new Route(3, serverData.RED , new String[] {DULUTH_STRING, CHICAGO_STRING});
-    private final Route R_DUL_TO_TOR = new Route(6, serverData.PURPLE , new String[] {DULUTH_STRING, TORONTO_STRING});
-    private final Route R_SSM_TO_TOR = new Route(2, serverData.WILD , new String[] {SAULTSTMARIE_STRING, TORONTO_STRING});
-    private final Route R_SSM_TO_MON = new Route(5, serverData.BLACK , new String[] {SAULTSTMARIE_STRING, MONTREAL_STRING});
-    private final Route R_ORI_TO_LIT = new Route(3, serverData.GREEN , new String[] {NEWORLEANS_STRING, LITTLEROCK_STRING});
-    private final Route R_LIT_TO_SAI = new Route(2, serverData.WILD , new String[] {LITTLEROCK_STRING, SAINTLOUIS_STRING});
-    private final Route R_SAI_TO_CHI_1 = new Route(2, serverData.WHITE , new String[] {SAINTLOUIS_STRING, CHICAGO_STRING});
-    private final Route R_SAI_TO_CHI_2 = new Route(2, serverData.GREEN , new String[] {SAINTLOUIS_STRING, CHICAGO_STRING});
-    private final Route R_CHI_TO_TOR = new Route(4, serverData.WHITE , new String[] {CHICAGO_STRING, TORONTO_STRING});
-    private final Route R_TOR_TO_MON = new Route(3, serverData.WILD , new String[] {TORONTO_STRING, MONTREAL_STRING});
-    private final Route R_ORI_TO_MIA = new Route(6, serverData.RED , new String[] {NEWORLEANS_STRING, MIAMI_STRING});
-    private final Route R_ORI_TO_ATL_1 = new Route(4, serverData.YELLOW , new String[] {NEWORLEANS_STRING, ATLANTA_STRING});
-    private final Route R_ORI_TO_ATL_2 = new Route(4, serverData.ORANGE , new String[] {NEWORLEANS_STRING, ATLANTA_STRING});
-    private final Route R_LIT_TO_NAS = new Route(3, serverData.WHITE , new String[] {LITTLEROCK_STRING, NASHVILLE_STRING});
-    private final Route R_SAI_TO_NAS = new Route(2, serverData.WILD , new String[] {SAINTLOUIS_STRING, NASHVILLE_STRING});
-    private final Route R_SAI_TO_PIT = new Route(5, serverData.GREEN , new String[] {SAINTLOUIS_STRING, PITTSBURGH_STRING});
-    private final Route R_CHI_TO_PIT_1 = new Route(3, serverData.BLACK , new String[] {CHICAGO_STRING, PITTSBURGH_STRING});
-    private final Route R_CHI_TO_PIT_2 = new Route(3, serverData.ORANGE , new String[] {CHICAGO_STRING, PITTSBURGH_STRING});
-    private final Route R_MIA_TO_ATL = new Route(5, serverData.BLUE , new String[] {MIAMI_STRING, ATLANTA_STRING});
-    private final Route R_MIA_TO_CHA = new Route(4, serverData.PURPLE , new String[] {MIAMI_STRING, CHARLESTON_STRING});
-    private final Route R_ATL_TO_CHA = new Route(2, serverData.WILD , new String[] {ATLANTA_STRING, CHARLESTON_STRING});
-    private final Route R_ATL_TO_NAS = new Route(1, serverData.WILD , new String[] {ATLANTA_STRING, NASHVILLE_STRING});
-    private final Route R_ATL_TO_RAL_1 = new Route(2, serverData.WILD , new String[] {ATLANTA_STRING, RALEIGH_STRING});
-    private final Route R_ATL_TO_RAL_2 = new Route(2, serverData.WILD , new String[] {ATLANTA_STRING, RALEIGH_STRING});
-    private final Route R_NAS_TO_RAL = new Route(3, serverData.BLACK , new String[] {NASHVILLE_STRING, RALEIGH_STRING});
-    private final Route R_NAS_TO_PIT = new Route(4, serverData.YELLOW , new String[] {NASHVILLE_STRING, PITTSBURGH_STRING});
-    private final Route R_CHA_TO_RAL = new Route(2, serverData.WILD , new String[] {CHARLESTON_STRING, RALEIGH_STRING});
-    private final Route R_RAL_TO_WAS_1 = new Route(2, serverData.WILD , new String[] {RALEIGH_STRING, WASHINGTON_STRING});
-    private final Route R_RAL_TO_WAS_2 = new Route(2, serverData.WILD , new String[] {RALEIGH_STRING, WASHINGTON_STRING});
-    private final Route R_RAL_TO_PIT = new Route(2, serverData.WILD , new String[] {RALEIGH_STRING, PITTSBURGH_STRING});
-    private final Route R_WAS_TO_PIT = new Route(2, serverData.WILD , new String[] {WASHINGTON_STRING, PITTSBURGH_STRING});
-    private final Route R_WAS_TO_NYC_1 = new Route(2, serverData.BLACK , new String[] {WASHINGTON_STRING, NEWYORK_STRING});
-    private final Route R_WAS_TO_NYC_2 = new Route(2, serverData.ORANGE , new String[] {WASHINGTON_STRING, NEWYORK_STRING});
-    private final Route R_PIT_TO_NYC_1 = new Route(2, serverData.WHITE , new String[] {PITTSBURGH_STRING, NEWYORK_STRING});
-    private final Route R_PIT_TO_NYC_2 = new Route(2, serverData.GREEN , new String[] {PITTSBURGH_STRING, NEWYORK_STRING});
-    private final Route R_PIT_TO_TOR = new Route(2, serverData.WILD , new String[] {PITTSBURGH_STRING, TORONTO_STRING});
-    private final Route R_NYC_TO_MON = new Route(3, serverData.BLUE , new String[] {NEWYORK_STRING, MONTREAL_STRING});
-    private final Route R_NYC_TO_BOS_1 = new Route(2, serverData.RED , new String[] {NEWYORK_STRING, BOSTON_STRING});
-    private final Route R_NYC_TO_BOS_2 = new Route(2, serverData.YELLOW , new String[] {NEWYORK_STRING, BOSTON_STRING});
-    private final Route R_MON_TO_BOS_1 = new Route(2, serverData.WILD , new String[] {MONTREAL_STRING, BOSTON_STRING});
-    private final Route R_MON_TO_BOS_2 = new Route(2, serverData.WILD , new String[] {MONTREAL_STRING, BOSTON_STRING});
+    private final Route R_VAN_TO_SEA_1 = new Route(1, WILD , new String[] {VANCOUVER_STRING, SEATTLE_STRING});
+    private final Route R_VAN_TO_SEA_2 = new Route(1, WILD , new String[] {VANCOUVER_STRING, SEATTLE_STRING});
+    private final Route R_SEA_TO_POR_1 = new Route(1, WILD , new String[] {SEATTLE_STRING, PORTLAND_STRING});
+    private final Route R_SEA_TO_POR_2 = new Route(1, WILD , new String[] {SEATTLE_STRING, PORTLAND_STRING});
+    private final Route R_POR_TO_SAN_1 = new Route(5, GREEN , new String[] {PORTLAND_STRING, SANFRANCISCO_STRING});
+    private final Route R_POR_TO_SAN_2 = new Route(5, PURPLE , new String[] {PORTLAND_STRING, SANFRANCISCO_STRING});
+    private final Route R_SAN_TO_SLC_1 = new Route(5, ORANGE , new String[] {SANFRANCISCO_STRING, SALTLAKECITY_STRING});
+    private final Route R_SAN_TO_SLC_2 = new Route(5, WHITE , new String[] {SANFRANCISCO_STRING, SALTLAKECITY_STRING});
+    private final Route R_SAN_TO_LA_1 = new Route(3, YELLOW , new String[] {SANFRANCISCO_STRING, LOSANGELES_STRING});
+    private final Route R_SAN_TO_LA_2 = new Route(3, PURPLE , new String[] {SANFRANCISCO_STRING, LOSANGELES_STRING});
+    private final Route R_VAN_TO_CAL = new Route(3, WILD , new String[] {VANCOUVER_STRING, CALGARY_STRING});
+    private final Route R_SEA_TO_CAL = new Route(4, WILD , new String[] {SEATTLE_STRING, CALGARY_STRING});
+    private final Route R_SEA_TO_HEL = new Route(6, YELLOW , new String[] {SEATTLE_STRING, HELENA_STRING});
+    private final Route R_POR_TO_SLC = new Route(6, BLUE , new String[] {PORTLAND_STRING, SALTLAKECITY_STRING});
+    private final Route R_LA_TO_LAS = new Route(2, WILD , new String[] {LOSANGELES_STRING, LASVEGAS_STRING});
+    private final Route R_LA_TO_PHO = new Route(3, WILD , new String[] {LOSANGELES_STRING, PHOENIX_STRING});
+    private final Route R_LA_TO_EL = new Route(6, BLACK , new String[] {LOSANGELES_STRING, ELPASO_STRING});
+    private final Route R_CAL_TO_WIN = new Route(6, WHITE , new String[] {CALGARY_STRING, WINNIPEG_STRING});
+    private final Route R_CAL_TO_HEL = new Route(4, WILD , new String[] {CALGARY_STRING, HELENA_STRING});
+    private final Route R_SLC_TO_HEL = new Route(3, PURPLE , new String[] {SALTLAKECITY_STRING, HELENA_STRING});
+    private final Route R_SLC_TO_DEN_1 = new Route(3, RED , new String[] {SALTLAKECITY_STRING, DENVER_STRING});
+    private final Route R_SLC_TO_DEN_2 = new Route(3, YELLOW , new String[] {SALTLAKECITY_STRING, DENVER_STRING});
+    private final Route R_LAS_TO_SLC = new Route(3, ORANGE , new String[] {LASVEGAS_STRING, SALTLAKECITY_STRING});
+    private final Route R_PHO_TO_EL = new Route(3, WILD , new String[] {PHOENIX_STRING, ELPASO_STRING});
+    private final Route R_PHO_TO_FE = new Route(3, WILD , new String[] {PHOENIX_STRING, SANTAFE_STRING});
+    private final Route R_PHO_TO_DEN = new Route(5, WHITE , new String[] {PHOENIX_STRING, DENVER_STRING});
+    private final Route R_EL_TO_FE = new Route(2, WILD , new String[] {ELPASO_STRING, SANTAFE_STRING});
+    private final Route R_FE_TO_DEN = new Route(2, WILD , new String[] {SANTAFE_STRING, DENVER_STRING});
+    private final Route R_DEN_TO_HEL = new Route(4, GREEN , new String[] {DENVER_STRING, HELENA_STRING});
+    private final Route R_HEL_TO_WIN = new Route(4, BLUE , new String[] {HELENA_STRING, WINNIPEG_STRING});
+    private final Route R_EL_TO_HOU = new Route(6, GREEN , new String[] {ELPASO_STRING, HOUSTON_STRING});
+    private final Route R_EL_TO_DAL = new Route(4, RED , new String[] {ELPASO_STRING, DALLAS_STRING});
+    private final Route R_EL_TO_OKL = new Route(5, YELLOW , new String[] {ELPASO_STRING, OKLAHOMACITY_STRING});
+    private final Route R_FE_TO_OKL = new Route(3, BLUE , new String[] {SANTAFE_STRING, OKLAHOMACITY_STRING});
+    private final Route R_DEN_TO_OKL = new Route(4, RED , new String[] {DENVER_STRING, OKLAHOMACITY_STRING});
+    private final Route R_DEN_TO_KAN_1 = new Route(4, BLACK , new String[] {DENVER_STRING, KANSASCITY_STRING});
+    private final Route R_DEN_TO_KAN_2 = new Route(4, ORANGE , new String[] {DENVER_STRING, KANSASCITY_STRING});
+    private final Route R_DEN_TO_OMA = new Route(4, PURPLE , new String[] {DENVER_STRING, OMAHA_STRING});
+    private final Route R_HEL_TO_OMA = new Route(5, RED , new String[] {HELENA_STRING, OMAHA_STRING});
+    private final Route R_HEL_TO_DUL = new Route(6, ORANGE , new String[] {HELENA_STRING, DULUTH_STRING});
+    private final Route R_WIN_TO_SSM = new Route(6, WILD , new String[] {WINNIPEG_STRING, SAULTSTMARIE_STRING});
+    private final Route R_WIN_TO_DUL = new Route(4, BLACK , new String[] {WINNIPEG_STRING, DULUTH_STRING});
+    private final Route R_HOU_TO_DAL_1 = new Route(1, WILD , new String[] {HOUSTON_STRING, DALLAS_STRING});
+    private final Route R_HOU_TO_DAL_2 = new Route(1, WILD , new String[] {HOUSTON_STRING, DALLAS_STRING});
+    private final Route R_DAL_TO_OKL_1 = new Route(2, WILD , new String[] {DALLAS_STRING, OKLAHOMACITY_STRING});
+    private final Route R_DAL_TO_OKL_2 = new Route(2, WILD , new String[] {DALLAS_STRING, OKLAHOMACITY_STRING});
+    private final Route R_OKL_TO_KAN_1 = new Route(2, WILD , new String[] {OKLAHOMACITY_STRING, KANSASCITY_STRING});
+    private final Route R_OKL_TO_KAN_2 = new Route(2, WILD , new String[] {OKLAHOMACITY_STRING, KANSASCITY_STRING});
+    private final Route R_KAN_TO_OMA_1 = new Route(1, WILD , new String[] {KANSASCITY_STRING, OMAHA_STRING});
+    private final Route R_KAN_TO_OMA_2 = new Route(1, WILD , new String[] {KANSASCITY_STRING, OMAHA_STRING});
+    private final Route R_OMA_TO_DUL_1 = new Route(2, WILD , new String[] {OMAHA_STRING, DULUTH_STRING});
+    private final Route R_OMA_TO_DUL_2 = new Route(2, WILD , new String[] {OMAHA_STRING, DULUTH_STRING});
+    private final Route R_DUL_TO_SSM = new Route(3, WILD , new String[] {DULUTH_STRING, SAULTSTMARIE_STRING});
+    private final Route R_HOU_TO_ORI = new Route(2, WILD , new String[] {HOUSTON_STRING, NEWORLEANS_STRING});
+    private final Route R_DAL_TO_LIT = new Route(2, WILD , new String[] {DALLAS_STRING, LITTLEROCK_STRING});
+    private final Route R_OKL_TO_LIT = new Route(2, WILD , new String[] {OKLAHOMACITY_STRING, LITTLEROCK_STRING});
+    private final Route R_KAN_TO_SAI_1 = new Route(2, BLUE , new String[] {KANSASCITY_STRING, SAINTLOUIS_STRING});
+    private final Route R_KAN_TO_SAI_2 = new Route(2, PURPLE , new String[] {KANSASCITY_STRING, SAINTLOUIS_STRING});
+    private final Route R_OMA_TO_CHI = new Route(4, BLUE , new String[] {OMAHA_STRING, CHICAGO_STRING});
+    private final Route R_DUL_TO_CHI = new Route(3, RED , new String[] {DULUTH_STRING, CHICAGO_STRING});
+    private final Route R_DUL_TO_TOR = new Route(6, PURPLE , new String[] {DULUTH_STRING, TORONTO_STRING});
+    private final Route R_SSM_TO_TOR = new Route(2, WILD , new String[] {SAULTSTMARIE_STRING, TORONTO_STRING});
+    private final Route R_SSM_TO_MON = new Route(5, BLACK , new String[] {SAULTSTMARIE_STRING, MONTREAL_STRING});
+    private final Route R_ORI_TO_LIT = new Route(3, GREEN , new String[] {NEWORLEANS_STRING, LITTLEROCK_STRING});
+    private final Route R_LIT_TO_SAI = new Route(2, WILD , new String[] {LITTLEROCK_STRING, SAINTLOUIS_STRING});
+    private final Route R_SAI_TO_CHI_1 = new Route(2, WHITE , new String[] {SAINTLOUIS_STRING, CHICAGO_STRING});
+    private final Route R_SAI_TO_CHI_2 = new Route(2, GREEN , new String[] {SAINTLOUIS_STRING, CHICAGO_STRING});
+    private final Route R_CHI_TO_TOR = new Route(4, WHITE , new String[] {CHICAGO_STRING, TORONTO_STRING});
+    private final Route R_TOR_TO_MON = new Route(3, WILD , new String[] {TORONTO_STRING, MONTREAL_STRING});
+    private final Route R_ORI_TO_MIA = new Route(6, RED , new String[] {NEWORLEANS_STRING, MIAMI_STRING});
+    private final Route R_ORI_TO_ATL_1 = new Route(4, YELLOW , new String[] {NEWORLEANS_STRING, ATLANTA_STRING});
+    private final Route R_ORI_TO_ATL_2 = new Route(4, ORANGE , new String[] {NEWORLEANS_STRING, ATLANTA_STRING});
+    private final Route R_LIT_TO_NAS = new Route(3, WHITE , new String[] {LITTLEROCK_STRING, NASHVILLE_STRING});
+    private final Route R_SAI_TO_NAS = new Route(2, WILD , new String[] {SAINTLOUIS_STRING, NASHVILLE_STRING});
+    private final Route R_SAI_TO_PIT = new Route(5, GREEN , new String[] {SAINTLOUIS_STRING, PITTSBURGH_STRING});
+    private final Route R_CHI_TO_PIT_1 = new Route(3, BLACK , new String[] {CHICAGO_STRING, PITTSBURGH_STRING});
+    private final Route R_CHI_TO_PIT_2 = new Route(3, ORANGE , new String[] {CHICAGO_STRING, PITTSBURGH_STRING});
+    private final Route R_MIA_TO_ATL = new Route(5, BLUE , new String[] {MIAMI_STRING, ATLANTA_STRING});
+    private final Route R_MIA_TO_CHA = new Route(4, PURPLE , new String[] {MIAMI_STRING, CHARLESTON_STRING});
+    private final Route R_ATL_TO_CHA = new Route(2, WILD , new String[] {ATLANTA_STRING, CHARLESTON_STRING});
+    private final Route R_ATL_TO_NAS = new Route(1, WILD , new String[] {ATLANTA_STRING, NASHVILLE_STRING});
+    private final Route R_ATL_TO_RAL_1 = new Route(2, WILD , new String[] {ATLANTA_STRING, RALEIGH_STRING});
+    private final Route R_ATL_TO_RAL_2 = new Route(2, WILD , new String[] {ATLANTA_STRING, RALEIGH_STRING});
+    private final Route R_NAS_TO_RAL = new Route(3, BLACK , new String[] {NASHVILLE_STRING, RALEIGH_STRING});
+    private final Route R_NAS_TO_PIT = new Route(4, YELLOW , new String[] {NASHVILLE_STRING, PITTSBURGH_STRING});
+    private final Route R_CHA_TO_RAL = new Route(2, WILD , new String[] {CHARLESTON_STRING, RALEIGH_STRING});
+    private final Route R_RAL_TO_WAS_1 = new Route(2, WILD , new String[] {RALEIGH_STRING, WASHINGTON_STRING});
+    private final Route R_RAL_TO_WAS_2 = new Route(2, WILD , new String[] {RALEIGH_STRING, WASHINGTON_STRING});
+    private final Route R_RAL_TO_PIT = new Route(2, WILD , new String[] {RALEIGH_STRING, PITTSBURGH_STRING});
+    private final Route R_WAS_TO_PIT = new Route(2, WILD , new String[] {WASHINGTON_STRING, PITTSBURGH_STRING});
+    private final Route R_WAS_TO_NYC_1 = new Route(2, BLACK , new String[] {WASHINGTON_STRING, NEWYORK_STRING});
+    private final Route R_WAS_TO_NYC_2 = new Route(2, ORANGE , new String[] {WASHINGTON_STRING, NEWYORK_STRING});
+    private final Route R_PIT_TO_NYC_1 = new Route(2, WHITE , new String[] {PITTSBURGH_STRING, NEWYORK_STRING});
+    private final Route R_PIT_TO_NYC_2 = new Route(2, GREEN , new String[] {PITTSBURGH_STRING, NEWYORK_STRING});
+    private final Route R_PIT_TO_TOR = new Route(2, WILD , new String[] {PITTSBURGH_STRING, TORONTO_STRING});
+    private final Route R_NYC_TO_MON = new Route(3, BLUE , new String[] {NEWYORK_STRING, MONTREAL_STRING});
+    private final Route R_NYC_TO_BOS_1 = new Route(2, RED , new String[] {NEWYORK_STRING, BOSTON_STRING});
+    private final Route R_NYC_TO_BOS_2 = new Route(2, YELLOW , new String[] {NEWYORK_STRING, BOSTON_STRING});
+    private final Route R_MON_TO_BOS_1 = new Route(2, WILD , new String[] {MONTREAL_STRING, BOSTON_STRING});
+    private final Route R_MON_TO_BOS_2 = new Route(2, WILD , new String[] {MONTREAL_STRING, BOSTON_STRING});
 
 
     private final DestinationCard DEN_TO_EL = new DestinationCard(new String[] {DENVER_STRING, ELPASO_STRING}, 4);
@@ -203,18 +219,16 @@ public class TTR_Constants {
     }
     public HashMap<Integer, Integer> getStartingTicketDeck(){
         HashMap<Integer, Integer> newDeck = new HashMap<>();
-        ServerData serverData = ServerData.getInstance();
 
-
-        newDeck.put(serverData.GREEN, COLORED_TICKET_STARTING_COUNT);
-        newDeck.put(serverData.RED, COLORED_TICKET_STARTING_COUNT);
-        newDeck.put(serverData.YELLOW, COLORED_TICKET_STARTING_COUNT);
-        newDeck.put(serverData.BLACK, COLORED_TICKET_STARTING_COUNT);
-        newDeck.put(serverData.BLUE, COLORED_TICKET_STARTING_COUNT);
-        newDeck.put(serverData.ORANGE, COLORED_TICKET_STARTING_COUNT);
-        newDeck.put(serverData.PURPLE, COLORED_TICKET_STARTING_COUNT);
-        newDeck.put(serverData.WHITE, COLORED_TICKET_STARTING_COUNT);
-        newDeck.put(serverData.WILD, WILD_TICKET_STARTING_COUNT);
+        newDeck.put(GREEN, COLORED_TICKET_STARTING_COUNT);
+        newDeck.put(RED, COLORED_TICKET_STARTING_COUNT);
+        newDeck.put(YELLOW, COLORED_TICKET_STARTING_COUNT);
+        newDeck.put(BLACK, COLORED_TICKET_STARTING_COUNT);
+        newDeck.put(BLUE, COLORED_TICKET_STARTING_COUNT);
+        newDeck.put(ORANGE, COLORED_TICKET_STARTING_COUNT);
+        newDeck.put(PURPLE, COLORED_TICKET_STARTING_COUNT);
+        newDeck.put(WHITE, COLORED_TICKET_STARTING_COUNT);
+        newDeck.put(WILD, WILD_TICKET_STARTING_COUNT);
 
         return newDeck;
     }
@@ -362,6 +376,16 @@ public class TTR_Constants {
             newDeck.add(R_MON_TO_BOS_2);
 
         return newDeck;
+    }
+
+    public Route getRoute(String firstLocation, String secondLocation) {
+        Set<Route> routes = getStartingRouteSet();
+        for (Route r: routes) {
+            if (r.getLocation()[0].equals(firstLocation) && r.getLocation()[1].equals(secondLocation)) {
+                return r;
+            }
+        }
+        return null;
     }
 
     public TrainCard getTicket(int colorNumber) {

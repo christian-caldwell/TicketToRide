@@ -13,6 +13,7 @@ import android.widget.Toast;
 import models.data.Result;
 import view.activityInterface.ILoginView;
 import view.activityInterface.IRegisterView;
+import view.presenter.DemoPresenter;
 import view.presenter.LoginPresenter;
 
 public class LoginViewActivity extends AppCompatActivity implements ILoginView, IRegisterView {
@@ -20,7 +21,6 @@ public class LoginViewActivity extends AppCompatActivity implements ILoginView, 
     private EditText username, password;
     private Button registerButton, loginButton, startDemo;
     private TextView forgotPassword;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,16 +36,28 @@ public class LoginViewActivity extends AppCompatActivity implements ILoginView, 
         forgotPassword = findViewById(R.id.forgot_password);
         startDemo = findViewById(R.id.startDemo);
         final LoginPresenter loginPresenter = new LoginPresenter();
+        final DemoPresenter demoPresenter = new DemoPresenter(this);
+
 
         loginPresenter.onCreate();
 
         startDemo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                demoPresenter.onCreate();
+
+                try{
+                    Thread.sleep(2000);
+                }catch(InterruptedException e){
+                    e.printStackTrace();
+                }
+
+                demoPresenter.startDemo();
+
+                Toast.makeText(LoginViewActivity.this, "Login Demo Done", Toast.LENGTH_SHORT).show();
                 Intent intent = new Intent(LoginViewActivity.this, GameBoardActivity.class);
+//                demoPresenter.setGameActivity();
                 startActivity(intent);
-
-
             }
         });
 
