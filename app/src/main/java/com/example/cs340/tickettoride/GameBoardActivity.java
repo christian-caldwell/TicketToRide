@@ -1,14 +1,8 @@
 package com.example.cs340.tickettoride;
 
-import android.content.Context;
-import android.graphics.Canvas;
-import android.graphics.ColorFilter;
-import android.graphics.drawable.Drawable;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.StrictMode;
-import android.support.constraint.Group;
-import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -23,20 +17,20 @@ import java.util.HashMap;
 import java.util.Map;
 
 import client.ClientModel;
+import models.TTR_Constants;
 import client.Poller;
 import models.TTR_Constants;
 import models.data.ChatMessage;
 import view.presenter.CardDeckPresenter;
 import view.presenter.ChatPresenter;
+import view.presenter.DemoPresenter;
 import view.presenter.PlayerInfoPresenter;
 import view.presenter.PlayersHandPresenter;
 import view.presenterInterface.ICardDeckPresenter;
-import view.presenter.DemoPresenter;
 import view.presenterInterface.IChatPresenter;
 import view.presenterInterface.IGameLobbyPresenter;
 import view.presenterInterface.IPlayerInfoPresenter;
 import view.presenterInterface.IPlayersHandPresenter;
-import models.TTR_Constants;
 
 public class GameBoardActivity extends AppCompatActivity {
 

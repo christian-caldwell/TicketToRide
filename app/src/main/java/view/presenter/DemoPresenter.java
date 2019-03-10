@@ -8,6 +8,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Map;
 
+import client.Poller;
 import client.ServerProxy;
 import models.TTR_Constants;
 import models.data.ChatMessage;
@@ -48,6 +49,15 @@ public class DemoPresenter {
 
     public void setGameActivity(GameBoardActivity gameActivity) {
         this.gameActivity = gameActivity;
+    }
+
+    public boolean onCreate() {
+        try {
+            Poller.startGamePoller();
+            return true;
+        } catch (Exception e) {
+            return false;
+        }
     }
 
     public void startDemo() {
