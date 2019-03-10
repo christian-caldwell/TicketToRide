@@ -58,7 +58,7 @@ public class GameBoardActivity extends AppCompatActivity {
     private static EditText three_destinationCards, three_trainCards, three_score, three_trainsLeft;
     private static EditText four_destinationCards, four_trainCards, four_score, four_trainsLeft;
     private static EditText five_destinationCards, five_trainCards, five_score, five_trainsLeft;
-    
+
     @Override
     public void onBackPressed() {
         Toast.makeText(this, "You committed to this game. No turning back.", Toast.LENGTH_LONG).show();
