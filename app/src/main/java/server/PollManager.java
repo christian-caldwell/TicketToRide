@@ -97,10 +97,8 @@ public class PollManager {
             game = null;
         }
 
-
-        game = game.copy();
-
         if (game != null) {
+            game = game.copy();
             game.hideSecrets(userName);
         }
         Result result = new Result();
