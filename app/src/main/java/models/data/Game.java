@@ -46,6 +46,7 @@ public class Game {
                                            new TrainCard(0),
                                            new TrainCard(0),
                                            new TrainCard(0)};
+        initDiscard();
     }
 
     public Game() {
@@ -94,6 +95,10 @@ public class Game {
                 dealtCardColor = generator.nextInt(9) + 1;
                 dealtCard.setCardColor(dealtCardColor);
                 remainingCardCount = this.ticketCardDeck.get(dealtCardColor);
+                //FIXME: code altered to always deal a ticket card, even if there should be no cards of that color left
+                if (remainingCardCount == 0) {
+                    remainingCardCount++;
+                }
             } while (remainingCardCount == 0);
 
             this.ticketCardDeck.put(dealtCardColor,remainingCardCount - 1);
@@ -355,6 +360,12 @@ public class Game {
                     p.hideCards();
                 }
             }
+        }
+    }
+
+    private void initDiscard() {
+        for (int i = 1; i < 10; i++ ) {
+            this.ticketCardDiscard.put(i, 0);
         }
     }
 }
