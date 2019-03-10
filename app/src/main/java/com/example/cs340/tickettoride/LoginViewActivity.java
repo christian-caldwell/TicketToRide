@@ -22,7 +22,6 @@ public class LoginViewActivity extends AppCompatActivity implements ILoginView, 
     private Button registerButton, loginButton, startDemo;
     private TextView forgotPassword;
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
@@ -45,6 +44,14 @@ public class LoginViewActivity extends AppCompatActivity implements ILoginView, 
         startDemo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                demoPresenter.onCreate();
+
+                try{
+                    Thread.sleep(2000);
+                }catch(InterruptedException e){
+                    e.printStackTrace();
+                }
+
                 demoPresenter.startDemo();
 
                 Toast.makeText(LoginViewActivity.this, "Login Demo Done", Toast.LENGTH_SHORT).show();
