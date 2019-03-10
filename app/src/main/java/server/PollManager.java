@@ -98,7 +98,7 @@ public class PollManager {
         }
 
 
-        //game = deep copy of game, serialize and deserialize? make everything cloneable?
+        game = game.copy();
 
         if (game != null) {
             game.hideSecrets(userName);
