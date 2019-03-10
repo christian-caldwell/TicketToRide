@@ -50,7 +50,11 @@ public class GameBoardActivity extends AppCompatActivity {
     private static ImageView gameBoard;
     private static Map playerColorValues;
     private static Map trainCardImages;
-
+    private static EditText one_destinationCards, one_trainCards, one_score, one_trainsLeft;
+    private static EditText two_destinationCards, two_trainCards, two_score, two_trainsLeft;
+    private static EditText three_destinationCards, three_trainCards, three_score, three_trainsLeft;
+    private static EditText four_destinationCards, four_trainCards, four_score, four_trainsLeft;
+    private static EditText five_destinationCards, five_trainCards, five_score, five_trainsLeft;
 
     @Override
     public void onBackPressed() {
@@ -206,6 +210,11 @@ public class GameBoardActivity extends AppCompatActivity {
             }
         });
 
+        cardFive.setBackgroundResource((int)trainCardImages.get(cardDeckPresenter.getTrainCardAtPosition(5)));
+        cardFour.setBackgroundResource((int)trainCardImages.get(cardDeckPresenter.getTrainCardAtPosition(4)));
+        cardThree.setBackgroundResource((int)trainCardImages.get(cardDeckPresenter.getTrainCardAtPosition(3)));
+        cardTwo.setBackgroundResource((int)trainCardImages.get(cardDeckPresenter.getTrainCardAtPosition(2)));
+        cardOne.setBackgroundResource((int)trainCardImages.get(cardDeckPresenter.getTrainCardAtPosition(1)));
         gameBoard = findViewById(R.id.game_board_pic);
 
     }
@@ -1181,6 +1190,8 @@ public class GameBoardActivity extends AppCompatActivity {
             mWildTrainCard.setText("" + playersHandPresenter.getTrainCardAmount(9));
             mBlueTrainCard.setText("" + playersHandPresenter.getTrainCardAmount(4));
             mOrangeTrainCard.setText("" + playersHandPresenter.getTrainCardAmount(5));
+            destinationCardDeck.setText("" + cardDeckPresenter.getDestinationCardsLeft());
+            trainCardDeck.setText("" + cardDeckPresenter.getTrainCardsLeft());
             cardFive.setBackgroundResource((int)trainCardImages.get(cardDeckPresenter.getTrainCardAtPosition(5)));
             cardFour.setBackgroundResource((int)trainCardImages.get(cardDeckPresenter.getTrainCardAtPosition(4)));
             cardThree.setBackgroundResource((int)trainCardImages.get(cardDeckPresenter.getTrainCardAtPosition(3)));

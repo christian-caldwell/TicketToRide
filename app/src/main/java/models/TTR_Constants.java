@@ -378,6 +378,16 @@ public class TTR_Constants {
         return newDeck;
     }
 
+    public Route getRoute(String firstLocation, String secondLocation) {
+        Set<Route> routes = getStartingRouteSet();
+        for (Route r: routes) {
+            if (r.getLocation()[0].equals(firstLocation) && r.getLocation()[1].equals(secondLocation)) {
+                return r;
+            }
+        }
+        return null;
+    }
+
     public TrainCard getTicket(int colorNumber) {
         switch (colorNumber) {
             case (0): return new TrainCard(1);

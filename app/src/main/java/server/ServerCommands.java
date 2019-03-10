@@ -124,11 +124,13 @@ public class ServerCommands implements IServer {
     @Override
     public Result returnDestinationCards(String userName, String gameName, DestinationCard[] returnedCards) {
         Result result = new Result();
+        result.setSuccessful(false);
         Game targetGame = serverData.findGame(gameName);
 
         if (targetGame != null) {
             Player targetPlayer = targetGame.findPlayer(userName);
             if (targetPlayer != null) {
+                //Confirm that the cards are in newDestinationCards in the first place?
                 targetPlayer.removeFromNewDestinationCards(returnedCards);
                 targetGame.returnDestinationCards(returnedCards);
                 for (DestinationCard card:targetPlayer.getNewDestinationCards() ) {
@@ -137,17 +139,9 @@ public class ServerCommands implements IServer {
                 targetPlayer.resetNewDestinationCards();
                 targetGame.incrementNumPlayerActions();
                 result.setSuccessful(true);
-                return result;
-            }
-            else {
-                result.setSuccessful(false);
-                return result;
             }
         }
-        else {
-            result.setSuccessful(false);
-            return result;
-        }
+        return result;
     }
 
     @Override

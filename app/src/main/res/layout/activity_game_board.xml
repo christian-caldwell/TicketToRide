@@ -4520,7 +4520,7 @@
 
     <android.support.design.widget.NavigationView
         android:id="@+id/nav_view"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_gravity="start"
         android:background="#fff"
@@ -4539,11 +4539,12 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
-                android:id="@+id/layout_for_players_info">
+                android:id="@+id/layout_for_players_info"
+                android:weightSum="1">
 
                 <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="70dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
                     android:orientation="vertical"
                     android:layout_weight="0.2">
 
@@ -4563,6 +4564,21 @@
                         android:layout_height="20dp"
                         android:text="Score: 0"
                         android:id="@+id/player1_score_text_view"/>
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="20dp"
+                        android:text="Train Cards: 0"
+                        android:id="@+id/player1_train_cards_text_view"/>
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="20dp"
+                        android:text="Destination Cards: 0"
+                        android:id="@+id/player1_destination_cards_text_view"/>
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="20dp"
+                        android:text="Trains Left: 0"
+                        android:id="@+id/player1_trains_left_text_view"/>
 
                     <ImageView
                         android:layout_width="match_parent"
@@ -4573,8 +4589,8 @@
 
 
                 <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="70dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
                     android:orientation="vertical"
                     android:layout_weight="0.2">
 
@@ -4594,6 +4610,21 @@
                         android:layout_height="20dp"
                         android:text="Score: 0"
                         android:id="@+id/player2_score_text_view"/>
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="20dp"
+                        android:text="Train Cards: 0"
+                        android:id="@+id/player2_train_cards_text_view"/>
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="20dp"
+                        android:text="Destination Cards: 0"
+                        android:id="@+id/player2_destination_cards_text_view"/>
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="20dp"
+                        android:text="Trains Left: 0"
+                        android:id="@+id/player2_trains_left_text_view"/>
 
                     <ImageView
                         android:layout_width="match_parent"
@@ -4603,8 +4634,8 @@
                 </LinearLayout>
 
                 <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="70dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
                     android:orientation="vertical"
                     android:layout_weight="0.2">
 
@@ -4624,6 +4655,21 @@
                         android:layout_height="20dp"
                         android:text="Score: 0"
                         android:id="@+id/player3_score_text_view"/>
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="20dp"
+                        android:text="Train Cards: 0"
+                        android:id="@+id/player3_train_cards_text_view"/>
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="20dp"
+                        android:text="Destination Cards: 0"
+                        android:id="@+id/player3_destination_cards_text_view"/>
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="20dp"
+                        android:text="Trains Left: 0"
+                        android:id="@+id/player3_trains_left_text_view"/>
 
                     <ImageView
                         android:layout_width="match_parent"
@@ -4633,8 +4679,8 @@
                 </LinearLayout>
 
                 <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="70dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
                     android:orientation="vertical"
                     android:layout_weight="0.2">
 
@@ -4654,6 +4700,21 @@
                         android:layout_height="20dp"
                         android:text="Score: 0"
                         android:id="@+id/player4_score_text_view"/>
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="20dp"
+                        android:text="Train Cards: 0"
+                        android:id="@+id/player4_train_cards_text_view"/>
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="20dp"
+                        android:text="Destination Cards: 0"
+                        android:id="@+id/player4_destination_cards_text_view"/>
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="20dp"
+                        android:text="Trains Left: 0"
+                        android:id="@+id/player4_trains_left_text_view"/>
 
                     <ImageView
                         android:layout_width="match_parent"
@@ -4663,8 +4724,8 @@
                 </LinearLayout>
 
                 <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="70dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
                     android:orientation="vertical"
                     android:layout_weight="0.2">
 
@@ -4684,6 +4745,21 @@
                         android:layout_height="20dp"
                         android:text="Score: 0"
                         android:id="@+id/player5_score_text_view"/>
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="20dp"
+                        android:text="Train Cards: 0"
+                        android:id="@+id/player5_train_cards_text_view"/>
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="20dp"
+                        android:text="Destination Cards: 0"
+                        android:id="@+id/player5_destination_cards_text_view"/>
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="20dp"
+                        android:text="Trains Left: 0"
+                        android:id="@+id/player5_trains_left_text_view"/>
 
                     <ImageView
                         android:layout_width="match_parent"
