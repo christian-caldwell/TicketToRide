@@ -60,7 +60,7 @@ public class Player {
     }
     public void removeFromNewDestinationCards(DestinationCard[] returnedCards) {
         for (DestinationCard card: returnedCards) {
-            this.newDestinationCards.add(card);
+            this.newDestinationCards.remove(card);
         }
     }
     public void hideCards() {
@@ -135,6 +135,10 @@ public class Player {
     public void removeTicketFromHand(Integer color) {
         this.tickets.put(color,this.tickets.get(color)-1);
 
+    }
+
+    public void removeTicketsFromHand(Integer color, Integer numTickets) {
+        this.tickets.put(color, this.tickets.get(color) - numTickets);
     }
 
     private void initTickets() {
