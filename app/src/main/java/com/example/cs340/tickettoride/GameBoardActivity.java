@@ -151,16 +151,10 @@ public class GameBoardActivity extends AppCompatActivity {
                 View customView = inflater.inflate(R.layout.player_info_popup_window,null);
 
                 // Initialize a new instance of popup window
-                mPopupWindow = new PopupWindow(customView, 900, 600, true);
-                mPopupWindow.setBackgroundDrawable(getResources().getDrawable(R.drawable.notepad));
+                mPopupWindow = new PopupWindow(customView, 900,
+                        800, true);
 
-
-                //View view;
-                //LayoutInflater inflater1 = (LayoutInflater)   getApplicationContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-                //view = inflater1.inflate(R.layout.player_info_popup_window, null);
                 RecyclerView destinationCardsRecyclerView = mPopupWindow.getContentView().findViewById(R.id.recycler_view_destination_cards);
-                        //view.findViewById(R.id.recycler_view_destination_cards);
-
                 destinationCardList = playerInfoPresenter.getNewDestinationCardStrings();
                 destinationCardsAdapter = new RecyclerViewAdapterDestinationCards(destinationCardList, mPopupWindow.getContentView().getContext(), playerInfoPresenter);
                 destinationCardsRecyclerView.setHasFixedSize(true);
@@ -1272,7 +1266,7 @@ public class GameBoardActivity extends AppCompatActivity {
             adapter.notifyDataSetChanged();
             chatMessages = chatPresenter.getMessages();
 
-            //FIXME: GET THE ARRAYLIST OF NEW DESTINATION CARDS TO SHOW IN THE RECYCLERVIEW
+            //FIXME: GET THE ARRAYLIST OF OLD DESTINATION CARDS TO ALSO SHOW IN THE RECYCLERVIEW
             destinationCardList = playerInfoPresenter.getNewDestinationCardStrings();
             destinationCardsAdapter.setListOfDestinationCards(destinationCardList);
             destinationCardsAdapter.notifyDataSetChanged();
