@@ -75,6 +75,7 @@ public class PlayerInfoPresenter implements IPlayerInfoPresenter, Observer {
         return destinationStrings;
     }
 
+    @Override
     public ArrayList<String> getNewDestinationCardStrings() {
         ArrayList<String> destinationStrings = new ArrayList<>();
         String username = clientModel.getUser().getUsername();
