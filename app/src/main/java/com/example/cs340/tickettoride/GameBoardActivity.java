@@ -1260,7 +1260,8 @@ public class GameBoardActivity extends AppCompatActivity {
             //FIXME: GET THE ARRAYLIST OF NEW DESTINATION CARDS TO SHOW IN THE RECYCLERVIEW
             destinationCardsAdapter.setListOfDestinationCards(destinationCardList);
             destinationCardsAdapter.notifyDataSetChanged();
-            destinationCardList = playerInfoPresenter.getDestinationCardStrings();
+
+            //destinationCardList = playerInfoPresenter.get
             mGreenTrainCard.setText("" + playersHandPresenter.getTrainCardAmount(1));
             mRedTrainCard.setText(""+ playersHandPresenter.getTrainCardAmount(2));
             mPinkTrainCard.setText("" + playersHandPresenter.getTrainCardAmount(6));
