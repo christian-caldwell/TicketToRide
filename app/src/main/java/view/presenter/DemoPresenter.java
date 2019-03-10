@@ -271,7 +271,7 @@ public class DemoPresenter {
         }
         game1 = mServerProxy.requestGame(game1.getGameName()).getRunningGame();
         player3 = game1.findPlayer(ben.getUsername());
-        mServerProxy.purchaseRoute(player3.getUsername(),game1.getGameName(),TTR_Constants.getInstance().getRoute("El Paso", "Dallas"),0);
+        mServerProxy.purchaseRoute(player3.getUsername(),game1.getGameName(),TTR_Constants.getInstance().getRoute("El Paso", "Houston"),0);
 
         try{
             Thread.sleep(3000);
