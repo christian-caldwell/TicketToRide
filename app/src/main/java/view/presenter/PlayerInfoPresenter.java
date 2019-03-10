@@ -75,6 +75,20 @@ public class PlayerInfoPresenter implements IPlayerInfoPresenter, Observer {
         return destinationStrings;
     }
 
+    public ArrayList<String> getNewDestinationCardStrings() {
+        ArrayList<String> destinationStrings = new ArrayList<>();
+        String username = clientModel.getUser().getUsername();
+        Player player = clientModel.getUser().getGame().findPlayer(username);
+        for (int i = 0; i < player.getNewDestinationCards().size(); i++) {
+            DestinationCard destinationCard = player.getNewDestinationCards().get(i);
+            String[] location_strings = destinationCard.getLocations();
+            String stringToAdd = location_strings[0] + " to " + location_strings[1] + "\npoints: " + destinationCard.getPoints();
+            destinationStrings.add(stringToAdd);
+        }
+        return destinationStrings;
+    }
+
+
     @Override
     public void update(Observable o, Object arg) {
         new GameBoardActivity.UpdateAsyncTask().execute();
