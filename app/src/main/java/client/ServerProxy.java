@@ -248,8 +248,8 @@ public class ServerProxy implements IServer {
         String className = RunGameFacade.class.getName();
         String methodName = "requestTicketCard";
 
-        Object[] parameterDataArray = new Object[3];
-        Class<?>[] parameterClassArray = new Class<?>[3];
+        Object[] parameterDataArray = new Object[4];
+        Class<?>[] parameterClassArray = new Class<?>[4];
 
         parameterClassArray[0] = String.class;
         parameterClassArray[1] = String.class;
