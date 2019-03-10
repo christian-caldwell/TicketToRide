@@ -365,6 +365,52 @@ public class DemoPresenter {
         mServerProxy.postChatMessage(game1.getGameName(), message);
         message = createMessage("Hello", player1.getUsername());
         mServerProxy.postChatMessage(game1.getGameName(), message);
+        message = createMessage("I don't think this conversation is long enough", player3.getUsername());
+        mServerProxy.postChatMessage(game1.getGameName(), message);
+        message = createMessage("We need to get all the way to the bottom of the screen", player3.getUsername());
+        mServerProxy.postChatMessage(game1.getGameName(), message);
+        message = createMessage("I am going to wait a long time before posting another comment", player2.getUsername());
+        try{
+            Thread.sleep(5000);
+        }catch(InterruptedException e){
+            e.printStackTrace();
+        }
+        mServerProxy.postChatMessage(game1.getGameName(), message);
+        message = createMessage("Like that", player2.getUsername());
+        try{
+            Thread.sleep(1000);
+        }catch(InterruptedException e){
+            e.printStackTrace();
+        }
+        message = createMessage("Nice", player1.getUsername());
+        mServerProxy.postChatMessage(game1.getGameName(), message);
+        try{
+            Thread.sleep(2000);
+        }catch(InterruptedException e){
+            e.printStackTrace();
+        }
+        message = createMessage("Very Cool", player3.getUsername());
+        mServerProxy.postChatMessage(game1.getGameName(), message);
+        try{
+            Thread.sleep(3000);
+        }catch(InterruptedException e){
+            e.printStackTrace();
+        }
+        message = createMessage("Really well done", player3.getUsername());
+        mServerProxy.postChatMessage(game1.getGameName(), message);
+        try{
+            Thread.sleep(2000);
+        }catch(InterruptedException e){
+            e.printStackTrace();
+        }
+        message = createMessage("Yeah, you did a great job waiting to comment", player3.getUsername());
+        mServerProxy.postChatMessage(game1.getGameName(), message);
+        try{
+            Thread.sleep(1000);
+        }catch(InterruptedException e){
+            e.printStackTrace();
+        }
+        mServerProxy.postChatMessage(game1.getGameName(), message);
         message = createMessage("I'm so cool", player2.getUsername());
         mServerProxy.postChatMessage(game1.getGameName(), message);
         message = createMessage("Absolutely", player3.getUsername());
