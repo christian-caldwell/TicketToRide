@@ -1175,7 +1175,7 @@ public class GameBoardActivity extends AppCompatActivity {
     }
 
     public void change_color_dallas_houston_g1(View view) {
-        findViewById(R.id.dallas_houston_g1b1).setBackgroundResource((int)playerColorValues.get(playersHandPresenter.getCurrentPlayerColor()));
+        findViewById(R.id.dallas_houston_g1b1).setBackgroundResource((int) playerColorValues.get(playersHandPresenter.getCurrentPlayerColor()));
         findViewById(R.id.dallas_houston_g1b1).setAlpha(1);
     }
 
@@ -1234,40 +1234,47 @@ public class GameBoardActivity extends AppCompatActivity {
                     break;
                 }
                 int destCardSize;
+                int ticketSize;
                 if (player.getDestinationCardHand() == null) {
                     destCardSize = 0;
                 }
                 else {
                     destCardSize = player.getDestinationCardHand().size();
                 }
+                if (player.getTickets() == null) {
+                    ticketSize = 0;
+                }
+                else {
+                    ticketSize = player.countTickets();
+                }
                 if (i == 0) {
                     one_destinationCards.setText("Destination Cards: " + destCardSize);
                     one_score.setText("Score: " + player.getScore());
-                    one_trainCards.setText("Train Cards: " + player.getTickets().values().size());
+                    one_trainCards.setText("Train Cards: " + ticketSize);
                     one_trainsLeft.setText("Trains Left: " + player.getTrainsRemaining());
                 }
                 else if (i == 1) {
                     two_destinationCards.setText("Destination Cards: " + destCardSize);
                     two_score.setText("Score: " + player.getScore());
-                    two_trainCards.setText("Train Cards: " + player.getTickets().values().size());
+                    two_trainCards.setText("Train Cards: " + ticketSize);
                     two_trainsLeft.setText("Trains Left: " + player.getTrainsRemaining());
                 }
                 else if (i == 2) {
                     three_destinationCards.setText("Destination Cards: " + destCardSize);
                     three_score.setText("Score: " + player.getScore());
-                    three_trainCards.setText("Train Cards: " + player.getTickets().values().size());
+                    three_trainCards.setText("Train Cards: " + ticketSize);
                     three_trainsLeft.setText("Trains Left: " + player.getTrainsRemaining());
                 }
                 else if (i == 3) {
                     four_destinationCards.setText("Destination Cards: " + destCardSize);
                     four_score.setText("Score: " + player.getScore());
-                    four_trainCards.setText("Train Cards: " + player.getTickets().values().size());
+                    four_trainCards.setText("Train Cards: " + ticketSize);
                     four_trainsLeft.setText("Trains Left: " + player.getTrainsRemaining());
                 }
                 else if (i == 4) {
                     five_destinationCards.setText("Destination Cards: " + destCardSize);
                     five_score.setText("Score: " + player.getScore());
-                    five_trainCards.setText("Train Cards: " + player.getTickets().values().size());
+                    five_trainCards.setText("Train Cards: " + ticketSize);
                     five_trainsLeft.setText("Trains Left: " + player.getTrainsRemaining());
                 }
             }

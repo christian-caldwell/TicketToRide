@@ -136,6 +136,14 @@ public class Player {
         this.tickets.put(color,this.tickets.get(color)-1);
 
     }
+    public Integer countTickets() {
+        int total = 0;
+        for (Integer color : tickets.keySet()) {
+            total += tickets.get(color);
+        }
+        return total;
+    }
+
 
     public void removeTicketsFromHand(Integer color, Integer numTickets) {
         this.tickets.put(color, this.tickets.get(color) - numTickets);
