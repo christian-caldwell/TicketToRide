@@ -234,7 +234,6 @@ public class DemoPresenter {
         }
         game1 = mServerProxy.requestGame(game1.getGameName()).getRunningGame();
         player1 = game1.findPlayer(zack.getUsername());
-        //FIXME: needs to use getRoute() once that function has been retrieved from github
         mServerProxy.purchaseRoute(player1.getUsername(),game1.getGameName(),TTR_Constants.getInstance().getRoute("New Orleans", "Miami"),0);
 
         try{
@@ -258,7 +257,6 @@ public class DemoPresenter {
         }
         game1 = mServerProxy.requestGame(game1.getGameName()).getRunningGame();
         player2 = game1.findPlayer(christian.getUsername());
-        //FIXME: needs to use getRoute() once that function has been retrieved from github
         mServerProxy.purchaseRoute(player2.getUsername(),game1.getGameName(),TTR_Constants.getInstance().getRoute("Duluth", "Toronto"),0);
 
         boolean enoughTickets3 = false;
@@ -273,7 +271,6 @@ public class DemoPresenter {
         }
         game1 = mServerProxy.requestGame(game1.getGameName()).getRunningGame();
         player3 = game1.findPlayer(ben.getUsername());
-        //FIXME: needs to use getRoute() once that function has been retrieved from github
         mServerProxy.purchaseRoute(player3.getUsername(),game1.getGameName(),TTR_Constants.getInstance().getRoute("El Paso", "Dallas"),0);
 
         try{

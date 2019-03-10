@@ -76,7 +76,6 @@ public class GameBoardActivity extends AppCompatActivity {
         View decorView = getWindow().getDecorView();
         playerColorValues = new HashMap();
         trainCardImages = new HashMap<>();
-        //FIXME: the hard colored playerColor ints are incorrect. To get the correct colors, do Constants.Player_COLOR for each.
         playerColorValues.put(TTR_Constants.getInstance().BLACK_PLAYER,R.drawable.black_background);
         playerColorValues.put(TTR_Constants.getInstance().BLUE_PLAYER,R.drawable.blue_background);
         playerColorValues.put(TTR_Constants.getInstance().GREEN_PLAYER,R.drawable.green_background);
@@ -127,6 +126,7 @@ public class GameBoardActivity extends AppCompatActivity {
                 mDemoPresenter = ClientModel.create().getDemoPresenter();
                 mDemoPresenter.setGameActivity(GameBoardActivity.this);
                 mDemoPresenter.gameDemo();
+                //FIXME: Break up game demo into multiple button presses. Remove waits?
 //                mDemoPresenter.runNextDemo();
             }
         });
@@ -1229,7 +1229,7 @@ public class GameBoardActivity extends AppCompatActivity {
                 Set<Route> routes = playerInfoPresenter.getPurchasedRoutesFromPlayer(player.getPlayerColor());
                 for (Route route: routes) {
                     if (constants.R_DAL_TO_OKL_1 == route) {
-
+                            ////FIXME: findView can't be called in a static class, need to find a way to draw routes from async!
 //                        findViewById(R.id.oklahomacity_dallas_g1b1).setBackgroundResource((int)playerColorValues.get(playersHandPresenter.getCurrentPlayerColor()));
 //                        findViewById(R.id.oklahomacity_dallas_g1b1).setAlpha(1);
 //                        findViewById(R.id.oklahomacity_dallas_g1b2).setBackgroundResource((int)playerColorValues.get(playersHandPresenter.getCurrentPlayerColor()));
