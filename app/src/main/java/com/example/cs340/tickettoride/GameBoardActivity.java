@@ -137,7 +137,7 @@ public class GameBoardActivity extends AppCompatActivity {
             }
         });
 
-        //FIXME: FINISH THE LISTENER TO RETURN THE PLAYER'S ROUTE CARDS THAT HE HAS
+        // Open up a popup window when 'Player info' button is pressed
         playerInfoButton = findViewById(R.id.get_player_info_button);
         playerInfoButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -152,7 +152,7 @@ public class GameBoardActivity extends AppCompatActivity {
 
                 // Initialize a new instance of popup window
                 mPopupWindow = new PopupWindow(customView, 900,
-                        800, true);
+                        600, true);
 
                 RecyclerView destinationCardsRecyclerView = mPopupWindow.getContentView().findViewById(R.id.recycler_view_destination_cards);
                 destinationCardList = playerInfoPresenter.getNewDestinationCardStrings();
