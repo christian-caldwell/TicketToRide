@@ -1,6 +1,8 @@
 package com.example.cs340.tickettoride;
 
 import android.content.Context;
+import android.graphics.Color;
+import android.graphics.PorterDuff;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.text.Layout;
@@ -40,15 +42,18 @@ public class RecyclerViewAdapterDestinationCards extends RecyclerView.Adapter<Re
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, final int position) {
         holder.destinationRoute.setText(mDestinationRoutes.get(position));
-
         holder.discardButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                v.getBackground().setColorFilter(Color.DKGRAY, PorterDuff.Mode.MULTIPLY);
+                v.setAlpha(.5f);
+                v.setEnabled(false);
                 //TODO: CALL METHOD IN PRESENTER TO DISCARD CARDS
                 //if result is successful, make toast saying it will be discarded
                 //if not, display toast saying user cannot discard it
                 Toast.makeText(mContext, mDestinationRoutes.get(position) +
-                        " will be discarded", Toast.LENGTH_SHORT).show();
+                        "\nThis card will be discarded", Toast.LENGTH_SHORT).show();
+
             }
         });
 
