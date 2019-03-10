@@ -113,7 +113,7 @@ public class GameBoardActivity extends AppCompatActivity {
         playerInfoPresenter = new PlayerInfoPresenter(this);
         playersHandPresenter = new PlayersHandPresenter(this);
         initRecyclerView();
-        initDestinationCardsRecyclerView();
+        //initDestinationCardsRecyclerView();
         inputChatEditText = findViewById(R.id.input_edit_text);
         sendMessageButton = findViewById(R.id.send_message_button);
         sendMessageButton.setOnClickListener(new View.OnClickListener() {
@@ -153,6 +153,20 @@ public class GameBoardActivity extends AppCompatActivity {
                 // Initialize a new instance of popup window
                 mPopupWindow = new PopupWindow(customView, 900, 600, true);
                 mPopupWindow.setBackgroundDrawable(getResources().getDrawable(R.drawable.notepad));
+
+
+                //View view;
+                //LayoutInflater inflater1 = (LayoutInflater)   getApplicationContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+                //view = inflater1.inflate(R.layout.player_info_popup_window, null);
+                RecyclerView destinationCardsRecyclerView = mPopupWindow.getContentView().findViewById(R.id.recycler_view_destination_cards);
+                        //view.findViewById(R.id.recycler_view_destination_cards);
+
+                destinationCardList = playerInfoPresenter.getNewDestinationCardStrings();
+                destinationCardsAdapter = new RecyclerViewAdapterDestinationCards(destinationCardList, mPopupWindow.getContentView().getContext(), playerInfoPresenter);
+                destinationCardsRecyclerView.setHasFixedSize(true);
+                destinationCardsRecyclerView.setAdapter(destinationCardsAdapter);
+                destinationCardsRecyclerView.setLayoutManager(new LinearLayoutManager(mPopupWindow.getContentView().getContext()));
+
 
 
                 // Set an elevation value for popup window
@@ -288,8 +302,9 @@ public class GameBoardActivity extends AppCompatActivity {
         view = inflater.inflate(R.layout.player_info_popup_window, null);
         RecyclerView destinationCardsRecyclerView = view.findViewById(R.id.recycler_view_destination_cards);
 
-        destinationCardList = playerInfoPresenter.getDestinationCardStrings();
+        destinationCardList = playerInfoPresenter.getNewDestinationCardStrings();
         destinationCardsAdapter = new RecyclerViewAdapterDestinationCards(destinationCardList, this, playerInfoPresenter);
+        destinationCardsRecyclerView.setHasFixedSize(true);
         destinationCardsRecyclerView.setAdapter(destinationCardsAdapter);
         destinationCardsRecyclerView.setLayoutManager(new LinearLayoutManager(this));
     }
@@ -1258,10 +1273,11 @@ public class GameBoardActivity extends AppCompatActivity {
             chatMessages = chatPresenter.getMessages();
 
             //FIXME: GET THE ARRAYLIST OF NEW DESTINATION CARDS TO SHOW IN THE RECYCLERVIEW
+            destinationCardList = playerInfoPresenter.getNewDestinationCardStrings();
             destinationCardsAdapter.setListOfDestinationCards(destinationCardList);
             destinationCardsAdapter.notifyDataSetChanged();
 
-            //destinationCardList = playerInfoPresenter.get
+
             mGreenTrainCard.setText("" + playersHandPresenter.getTrainCardAmount(1));
             mRedTrainCard.setText(""+ playersHandPresenter.getTrainCardAmount(2));
             mPinkTrainCard.setText("" + playersHandPresenter.getTrainCardAmount(6));
@@ -1278,7 +1294,7 @@ public class GameBoardActivity extends AppCompatActivity {
             cardThree.setBackgroundResource((int)trainCardImages.get(cardDeckPresenter.getTrainCardAtPosition(3)));
             cardTwo.setBackgroundResource((int)trainCardImages.get(cardDeckPresenter.getTrainCardAtPosition(2)));
             cardOne.setBackgroundResource((int)trainCardImages.get(cardDeckPresenter.getTrainCardAtPosition(1)));
-
+/*
             for (int i = 0; i < playerInfoPresenter.getNumOfPlayers(); i++) {
                 Player player = playerInfoPresenter.getPlayerByOrder(i);
                 if (player == null) {
@@ -1322,6 +1338,7 @@ public class GameBoardActivity extends AppCompatActivity {
                     five_trainsLeft.setText("Trains Left: " + player.getTrainsRemaining());
                 }
             }
+            */
         }
     }
 }
