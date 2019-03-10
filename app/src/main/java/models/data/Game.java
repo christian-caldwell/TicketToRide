@@ -3,6 +3,7 @@ package models.data;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -157,9 +158,7 @@ public class Game {
     }
     public void returnDestinationCards (DestinationCard[] returnedCards) {
         if (returnedCards != null) {
-            for(DestinationCard card: returnedCards) {
-                destinationDeck.add(card);
-            }
+            destinationDeck.addAll(Arrays.asList(returnedCards));
         }
     }
     public DestinationCard dealDestinationCard() {
@@ -184,17 +183,23 @@ public class Game {
 
         for (Player player : this.players){
             if (player.getUsername().equals(playerName)) {
+                //check if the player has the cards and the train markers to make this purchase
                 player.decrementTrainsRemaining(purchasedRoute.findLength());
                 Integer color = purchasedRoute.getCardColor();
-                for (int i = 0; i < purchasedRoute.findLength() - numberOfWilds; i++) {
-                    this.ticketCardDiscard.put(color,this.ticketCardDeck.get(color)+1);
-                    player.removeTicketFromHand(color);
-                }
+                Integer numberOfNonWilds = purchasedRoute.findLength() - numberOfWilds;
+                this.ticketCardDiscard.put(color, this.ticketCardDiscard.get(color) + numberOfNonWilds);
+                player.removeTicketsFromHand(color, numberOfNonWilds);
+//                for (int i = 0; i < purchasedRoute.findLength() - numberOfWilds; i++) {
+//                    this.ticketCardDiscard.put(color,this.ticketCardDiscard.get(color)+1);
+//                    player.removeTicketFromHand(color);
+//                }
 
-                for (int i = 0; i < numberOfWilds; i++) {
-                    this.ticketCardDiscard.put(constants.WILD,this.ticketCardDeck.get(constants.WILD)+1);
-                    player.removeTicketFromHand(constants.WILD);
-                }
+                this.ticketCardDiscard.put(constants.WILD, this.ticketCardDiscard.get(constants.WILD) + numberOfWilds);
+                player.removeTicketsFromHand(constants.WILD, numberOfWilds);
+//                for (int i = 0; i < numberOfWilds; i++) {
+//                    this.ticketCardDiscard.put(constants.WILD,this.ticketCardDiscard.get(constants.WILD)+1);
+//                    player.removeTicketFromHand(constants.WILD);
+//                }
 
                 player.incrementScore(purchasedRoute.getPoints());
                 player.addRoute(purchasedRoute);
