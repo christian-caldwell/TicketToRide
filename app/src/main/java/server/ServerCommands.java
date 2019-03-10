@@ -131,9 +131,11 @@ public class ServerCommands implements IServer {
             Player targetPlayer = targetGame.findPlayer(userName);
             if (targetPlayer != null) {
                 //Confirm that the cards are in newDestinationCards in the first place?
-                targetPlayer.removeFromNewDestinationCards(returnedCards);
-                targetGame.returnDestinationCards(returnedCards);
-                for (DestinationCard card:targetPlayer.getNewDestinationCards() ) {
+                if (returnedCards != null) {
+                    targetPlayer.removeFromNewDestinationCards(returnedCards);
+                    targetGame.returnDestinationCards(returnedCards);
+                }
+                for (DestinationCard card : targetPlayer.getNewDestinationCards()) {
                     targetPlayer.addToDestinationCardHand(card);
                 }
                 targetPlayer.resetNewDestinationCards();

@@ -74,6 +74,8 @@ public class GameBoardActivity extends AppCompatActivity {
     private static TextView three_destinationCards, three_trainCards, three_score, three_trainsLeft;
     private static TextView four_destinationCards, four_trainCards, four_score, four_trainsLeft;
     private static TextView five_destinationCards, five_trainCards, five_score, five_trainsLeft;
+    private String demoToast = "Players initialized at Zero Foints, 48 trains, Color Set\n Game Initialized: Starting Player Set, Game Decks Filled\n Initial Actions: Players Handed 3 Dest Cards and 4 Tickets";
+    private int demoInterationNumber = 0;
 
     @Override
     public void onBackPressed() {
@@ -86,7 +88,7 @@ public class GameBoardActivity extends AppCompatActivity {
         StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
         StrictMode.setThreadPolicy(policy);
         setContentView(R.layout.activity_game_board);
-        View decorView = getWindow().getDecorView();
+        final View decorView = getWindow().getDecorView();
         playerColorValues = new HashMap();
         trainCardImages = new HashMap<>();
         playerColorValues.put(TTR_Constants.getInstance().BLACK_PLAYER,R.drawable.black_background);
@@ -136,10 +138,18 @@ public class GameBoardActivity extends AppCompatActivity {
             // When the sendMessage button is clicked, send the text to the presenter.addMessage function
             @Override
             public void onClick(View v) {
-                Toast.makeText(GameBoardActivity.this, "Starting Game Demo", Toast.LENGTH_SHORT).show();
-                mDemoPresenter = ClientModel.create().getDemoPresenter();
-                mDemoPresenter.setGameActivity(GameBoardActivity.this);
-                mDemoPresenter.gameDemo();
+                /*if (demoToast.equals("")){*/
+                    demoInterationNumber++;
+                    mDemoPresenter = ClientModel.create().getDemoPresenter();
+                    mDemoPresenter.setGameActivity(GameBoardActivity.this);
+                    demoToast = mDemoPresenter.gameDemo();
+                    Toast.makeText(GameBoardActivity.this, demoToast, Toast.LENGTH_LONG).show();
+              /*  }
+                else {
+                    Toast.makeText(GameBoardActivity.this, "Run Demo Iteration " + demoInterationNumber, Toast.LENGTH_SHORT).show();
+                    demoToast = "";
+                }*/
+
                 //FIXME: Break up game demo into multiple button presses. Remove waits?
 //                mDemoPresenter.runNextDemo();
             }
