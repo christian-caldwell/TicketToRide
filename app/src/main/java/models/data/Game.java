@@ -87,11 +87,11 @@ public class Game {
     }
 
     public Integer countTickets() {
-        int num = 0;
-        for (Map.Entry<Integer,Integer> entry : ticketCardDeck.entrySet()) {
-            num+=1;
+        int total = 0;
+        for (Integer color : ticketCardDeck.keySet()) {
+            total += ticketCardDeck.get(color);
         }
-        return num;
+        return total;
     }
 
     public void setTicketCardDeck(Map<Integer, Integer> ticketCardDeck) {

@@ -1284,32 +1284,39 @@ public class GameBoardActivity extends AppCompatActivity {
                 if (player == null) {
                     break;
                 }
+                int destCardSize;
+                if (player.getDestinationCardHand() == null) {
+                    destCardSize = 0;
+                }
+                else {
+                    destCardSize = player.getDestinationCardHand().size();
+                }
                 if (i == 0) {
-                    one_destinationCards.setText("Destination Cards: " + player.getDestinationCardHand().size());
+                    one_destinationCards.setText("Destination Cards: " + destCardSize);
                     one_score.setText("Score: " + player.getScore());
                     one_trainCards.setText("Train Cards: " + player.getTickets().values().size());
                     one_trainsLeft.setText("Trains Left: " + player.getTrainsRemaining());
                 }
                 else if (i == 1) {
-                    two_destinationCards.setText("Destination Cards: " + player.getDestinationCardHand().size());
+                    two_destinationCards.setText("Destination Cards: " + destCardSize);
                     two_score.setText("Score: " + player.getScore());
                     two_trainCards.setText("Train Cards: " + player.getTickets().values().size());
                     two_trainsLeft.setText("Trains Left: " + player.getTrainsRemaining());
                 }
                 else if (i == 2) {
-                    three_destinationCards.setText("Destination Cards: " + player.getDestinationCardHand().size());
+                    three_destinationCards.setText("Destination Cards: " + destCardSize);
                     three_score.setText("Score: " + player.getScore());
                     three_trainCards.setText("Train Cards: " + player.getTickets().values().size());
                     three_trainsLeft.setText("Trains Left: " + player.getTrainsRemaining());
                 }
                 else if (i == 3) {
-                    four_destinationCards.setText("Destination Cards: " + player.getDestinationCardHand().size());
+                    four_destinationCards.setText("Destination Cards: " + destCardSize);
                     four_score.setText("Score: " + player.getScore());
                     four_trainCards.setText("Train Cards: " + player.getTickets().values().size());
                     four_trainsLeft.setText("Trains Left: " + player.getTrainsRemaining());
                 }
                 else if (i == 4) {
-                    five_destinationCards.setText("Destination Cards: " + player.getDestinationCardHand().size());
+                    five_destinationCards.setText("Destination Cards: " + destCardSize);
                     five_score.setText("Score: " + player.getScore());
                     five_trainCards.setText("Train Cards: " + player.getTickets().values().size());
                     five_trainsLeft.setText("Trains Left: " + player.getTrainsRemaining());
