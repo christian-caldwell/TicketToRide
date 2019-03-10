@@ -9,5 +9,4 @@ public interface IPlayersHandPresenter {
     int getCurrentPlayerColor();
     Player getCurrentPlayer();
     Integer getTrainCardAmount(Integer color);
-    ArrayList<DestinationCard> getDestinationCards();
 }

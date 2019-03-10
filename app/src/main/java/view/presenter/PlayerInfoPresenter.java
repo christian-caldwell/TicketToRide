@@ -1,6 +1,6 @@
 package view.presenter;
 
-import android.util.Pair;
+import com.example.cs340.tickettoride.GameBoardActivity;
 
 import java.util.ArrayList;
 import java.util.Observable;
@@ -13,6 +13,12 @@ import view.presenterInterface.IPlayerInfoPresenter;
 
 public class PlayerInfoPresenter implements IPlayerInfoPresenter, Observer {
     ClientModel clientModel = ClientModel.create();
+    private GameBoardActivity boardActivity;
+
+    public PlayerInfoPresenter(GameBoardActivity activity) {
+        boardActivity = activity;
+        clientModel.setmPlayerInfoPresenter(this);
+    }
 
     @Override
     public ArrayList<Player> getPlayers() {
@@ -26,11 +32,12 @@ public class PlayerInfoPresenter implements IPlayerInfoPresenter, Observer {
     @Override
     public ArrayList<String> getDestinationCardStrings() {
         ArrayList<String> destinationStrings = new ArrayList<>();
-        for (int i = 0; i < clientModel.getPlayer().getDestinationCardHand().size(); i++) {
-            DestinationCard destinationCard = clientModel.getPlayer().getDestinationCardHand().get(i);
+        String username = clientModel.getUser().getUsername();
+        Player player = clientModel.getUser().getGame().findPlayer(username);
+        for (int i = 0; i < player.getDestinationCardHand().size(); i++) {
+            DestinationCard destinationCard = player.getDestinationCardHand().get(i);
             String[] location_strings = destinationCard.getLocations();
-            Pair<String, String> locations = new Pair<>(location_strings[0], location_strings[1]);
-            String stringToAdd = locations.first + " to " + locations.second + "\npoints: " + destinationCard.getPoints();
+            String stringToAdd = location_strings[0] + " to " + location_strings[1] + "\npoints: " + destinationCard.getPoints();
             destinationStrings.add(stringToAdd);
         }
         return destinationStrings;
@@ -38,6 +45,7 @@ public class PlayerInfoPresenter implements IPlayerInfoPresenter, Observer {
 
     @Override
     public void update(Observable o, Object arg) {
+        new GameBoardActivity.UpdateAsyncTask().execute();
 
     }
 }

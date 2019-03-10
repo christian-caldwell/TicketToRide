@@ -39,7 +39,7 @@ public class Game {
         isStarted = false;
         numPlayerActions = 0;
         currentLongestRouteValue = 0;
-        currentTurnPlayer = constants.BLACK;
+        currentTurnPlayer = constants.BLACK_PLAYER;
         faceUpTrainCards = new TrainCard[]{new TrainCard(0),
                                            new TrainCard(0),
                                            new TrainCard(0),
