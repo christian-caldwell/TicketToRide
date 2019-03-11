@@ -46,15 +46,12 @@ public class RecyclerViewAdapterDestinationCards extends RecyclerView.Adapter<Re
                 v.getBackground().setColorFilter(Color.DKGRAY, PorterDuff.Mode.MULTIPLY);
                 v.setAlpha(.5f);
                 v.setEnabled(false);
-                //TODO: CALL METHOD IN PRESENTER TO DISCARD CARDS
-                //if result is successful, make toast saying it will be discarded
-                //if not, display toast saying user cannot discard it
-                Result result = playerInfoPresenter.returnDestinationCards(mDestinationRoutes.get(position));
-                if(result.isSuccessful()) {
+                //TODO: ADD THIS ROUTE TO THE ARRAYLIST OF CARDS TO DISCARD
+                if (playerInfoPresenter.addToListOfDestinationCardsToDiscard(mDestinationRoutes.get(position)))
                     Toast.makeText(mContext, mDestinationRoutes.get(position) +
                             "\nThis card will be discarded", Toast.LENGTH_SHORT).show();
-                }
-
+                else
+                    Toast.makeText(mContext, "You cannot discard more cards", Toast.LENGTH_SHORT).show();
 
             }
         });

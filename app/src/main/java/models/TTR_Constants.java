@@ -386,13 +386,11 @@ public class TTR_Constants {
         }
         return null;
     }
-    public DestinationCard[] findDestinationCard(String firstLocation, String secondLocation) {
+    public DestinationCard findDestinationCard(String firstLocation, String secondLocation) {
         ArrayList<DestinationCard> destinationCards = getStartingDestinationDeck();
-        DestinationCard[] card = new DestinationCard[1];
         for (DestinationCard dc: destinationCards) {
             if (dc.getLocations()[0].equals(firstLocation) && dc.getLocations()[1].equals(secondLocation)) {
-                card[0] = dc;
-                return card;
+                return dc;
             }
         }
         return null;

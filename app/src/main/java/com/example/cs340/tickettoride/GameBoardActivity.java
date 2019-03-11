@@ -1,25 +1,22 @@
 package com.example.cs340.tickettoride;
 
-import android.content.Context;
+import android.graphics.Color;
+import android.graphics.PorterDuff;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.StrictMode;
-import android.support.constraint.ConstraintLayout;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.Gravity;
 import android.view.LayoutInflater;
-import android.view.MotionEvent;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.PopupWindow;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -30,8 +27,7 @@ import java.util.Map;
 import client.ClientModel;
 import models.TTR_Constants;
 import models.data.ChatMessage;
-import models.data.Player;
-import models.data.Route;
+import models.data.Result;
 import view.presenter.CardDeckPresenter;
 import view.presenter.ChatPresenter;
 import view.presenter.DemoPresenter;
@@ -45,7 +41,8 @@ import view.presenterInterface.IPlayersHandPresenter;
 public class GameBoardActivity extends AppCompatActivity {
 
     private static ArrayList<ChatMessage> chatMessages;
-    private static ArrayList<String> destinationCardList;
+    private static ArrayList<String> newDestinationCardList;
+    private static ArrayList<String> currentDestinationCardList;
     private static IChatPresenter chatPresenter;
     private static IPlayersHandPresenter playersHandPresenter;
     private static IPlayerInfoPresenter playerInfoPresenter;
@@ -55,7 +52,7 @@ public class GameBoardActivity extends AppCompatActivity {
     private static EditText inputChatEditText;
     private static Button gameDemoButton;
     private DemoPresenter mDemoPresenter;
-    private static Button sendMessageButton, playerInfoButton;
+    private static Button sendMessageButton, playerInfoButton, doneButton;
     private static Button mGreenTrainCard, mRedTrainCard, mPinkTrainCard, mYellowTrainCard,
             mWhiteTrainCard, mBlackTrainCard, mWildTrainCard, mBlueTrainCard, mOrangeTrainCard;
     private static Button destinationCardDeck, trainCardDeck, cardOne, cardTwo, cardThree, cardFour, cardFive;
@@ -143,6 +140,18 @@ public class GameBoardActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 mPopupWindow.showAtLocation(activityLayout, Gravity.CENTER,0,0);
+                doneButton = mPopupWindow.getContentView().findViewById(R.id.done_button);
+                doneButton.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        // TODO: WE WILL HAVE TO RE-ENABLE THIS DONE BUTTON AT SOME POINT AFTER THE PLAYER DRAWS
+                        // MORE DESTINATION CARDS AGAIN
+                        v.getBackground().setColorFilter(Color.DKGRAY, PorterDuff.Mode.MULTIPLY);
+                        v.setAlpha(.5f);
+                        v.setEnabled(false);
+                        playerInfoPresenter.returnDestinationCards();
+                    }
+                });
             }
         });
 
@@ -177,7 +186,8 @@ public class GameBoardActivity extends AppCompatActivity {
         five_trainsLeft = findViewById(R.id.player5_trains_left_text_view);
 
         chatMessages = chatPresenter.getMessages();
-        destinationCardList = playerInfoPresenter.getDestinationCardStrings();
+        newDestinationCardList = playerInfoPresenter.getNewDestinationCardStrings();
+        currentDestinationCardList = playerInfoPresenter.getDestinationCardStrings();
         mGreenTrainCard.setText("" + playersHandPresenter.getTrainCardAmount(1));
         mRedTrainCard.setText(""+ playersHandPresenter.getTrainCardAmount(2));
         mPinkTrainCard.setText("" + playersHandPresenter.getTrainCardAmount(6));
@@ -256,7 +266,8 @@ public class GameBoardActivity extends AppCompatActivity {
     }
 
     private void initDestinationCardsRecyclerView() {
-        destinationCardList = playerInfoPresenter.getDestinationCardStrings();
+        newDestinationCardList = playerInfoPresenter.getNewDestinationCardStrings();
+        currentDestinationCardList = playerInfoPresenter.getDestinationCardStrings();
 
         // Initialize a new instance of LayoutInflater service
         LayoutInflater inflater = (LayoutInflater) getApplicationContext().getSystemService(LAYOUT_INFLATER_SERVICE);
@@ -269,8 +280,10 @@ public class GameBoardActivity extends AppCompatActivity {
                 800, true);
 
         RecyclerView destinationCardsRecyclerView = mPopupWindow.getContentView().findViewById(R.id.recycler_view_destination_cards);
-        destinationCardList = playerInfoPresenter.getNewDestinationCardStrings();
-        destinationCardsAdapter = new RecyclerViewAdapterDestinationCards(destinationCardList, mPopupWindow.getContentView().getContext(), playerInfoPresenter);
+        newDestinationCardList = playerInfoPresenter.getNewDestinationCardStrings();
+        currentDestinationCardList = playerInfoPresenter.getDestinationCardStrings();
+        currentDestinationCardList.addAll(newDestinationCardList);
+        destinationCardsAdapter = new RecyclerViewAdapterDestinationCards(currentDestinationCardList, mPopupWindow.getContentView().getContext(), playerInfoPresenter);
         destinationCardsRecyclerView.setHasFixedSize(true);
         destinationCardsRecyclerView.setAdapter(destinationCardsAdapter);
         destinationCardsRecyclerView.setLayoutManager(new LinearLayoutManager(mPopupWindow.getContentView().getContext()));
@@ -1247,8 +1260,10 @@ public class GameBoardActivity extends AppCompatActivity {
             chatMessages = chatPresenter.getMessages();
 
             //FIXME: GET THE ARRAYLIST OF OLD DESTINATION CARDS TO ALSO SHOW IN THE RECYCLERVIEW
-            destinationCardList = playerInfoPresenter.getNewDestinationCardStrings();
-            destinationCardsAdapter.setListOfDestinationCards(destinationCardList);
+            newDestinationCardList = playerInfoPresenter.getNewDestinationCardStrings();
+            currentDestinationCardList = playerInfoPresenter.getDestinationCardStrings();
+            currentDestinationCardList.addAll(newDestinationCardList);
+            destinationCardsAdapter.setListOfDestinationCards(currentDestinationCardList);
             destinationCardsAdapter.notifyDataSetChanged();
 
 

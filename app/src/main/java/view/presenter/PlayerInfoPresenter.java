@@ -19,6 +19,7 @@ public class PlayerInfoPresenter implements IPlayerInfoPresenter, Observer {
     ServerProxy serverProxy = new ServerProxy();
     private GameBoardActivity boardActivity;
     TTR_Constants constants = TTR_Constants.getInstance();
+    private ArrayList<String> listOfDestinationCardsToDiscard = new ArrayList<>();
 
     public PlayerInfoPresenter(GameBoardActivity activity) {
         boardActivity = activity;
@@ -93,14 +94,57 @@ public class PlayerInfoPresenter implements IPlayerInfoPresenter, Observer {
     }
 
     @Override
-    public Result returnDestinationCards(String destinationCard) {
-        String first = destinationCard.split(" to" )[0];
-        String second = destinationCard.split("\n" )[0].split("to ")[1];
-        return serverProxy.returnDestinationCards(clientModel.getUser().getUsername(), clientModel.getUser().getGame().getGameName(), constants.findDestinationCard(first, second));
+    public Result returnDestinationCards() {
+        switch (listOfDestinationCardsToDiscard.size()) {
+            case 0:
+                listOfDestinationCardsToDiscard.clear();
+                return serverProxy.returnDestinationCards(clientModel.getUser().getUsername(), clientModel.getUser().getGame().getGameName(), null);
+            case 1:
+                DestinationCard[] destinationCards1 = new DestinationCard[1];
+                for (int i = 0; i < listOfDestinationCardsToDiscard.size(); i++) {
+                    String first = listOfDestinationCardsToDiscard.get(i).split(" to")[0];
+                    String second = listOfDestinationCardsToDiscard.get(i).split("\n")[0].split("to ")[1];
+                    destinationCards1[i] = constants.findDestinationCard(first, second);
+                }
+                listOfDestinationCardsToDiscard.clear();
+                return serverProxy.returnDestinationCards(clientModel.getUser().getUsername(), clientModel.getUser().getGame().getGameName(), destinationCards1);
+
+            case 2:
+                DestinationCard[] destinationCards2 = new DestinationCard[2];
+                for (int i = 0; i < listOfDestinationCardsToDiscard.size(); i++) {
+                    String first = listOfDestinationCardsToDiscard.get(i).split(" to")[0];
+                    String second = listOfDestinationCardsToDiscard.get(i).split("\n")[0].split("to ")[1];
+                    destinationCards2[i] = constants.findDestinationCard(first, second);
+                }
+                listOfDestinationCardsToDiscard.clear();
+                return serverProxy.returnDestinationCards(clientModel.getUser().getUsername(), clientModel.getUser().getGame().getGameName(), destinationCards2);
+        }
+
+
+        listOfDestinationCardsToDiscard.clear();
+        return serverProxy.returnDestinationCards(clientModel.getUser().getUsername(), clientModel.getUser().getGame().getGameName(), null);
     }
 
     @Override
     public void update(Observable o, Object arg) {
         new GameBoardActivity.UpdateAsyncTask().execute();
+    }
+
+    //TODO: KEEP TRACK OF TURNS IN CLIENT MODEL AND CHECK WHAT TURN IT IS
+    public boolean addToListOfDestinationCardsToDiscard(String destinationCard) {
+        // If this is the first turn,
+        if (listOfDestinationCardsToDiscard.size() >= 1)
+            return false;
+        // else if it's the other turns then do something else
+        //else if { (listOfDestinationCardsToDiscard.size() >= 1) }
+
+        else {
+            listOfDestinationCardsToDiscard.add(destinationCard);
+            return true;
+        }
+    }
+
+    public ArrayList<String> getListOfDestinationCardsToDiscard() {
+        return listOfDestinationCardsToDiscard;
     }
 }
