@@ -4557,7 +4557,7 @@
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="20dp"
-                        android:text="Player 1"
+                        android:text="No Player"
                         android:id="@+id/player1_name_text_view"/>
 
                     <TextView
@@ -4604,7 +4604,7 @@
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="20dp"
-                        android:text="Player 2"
+                        android:text="No Player"
                         android:id="@+id/player2_name_text_view"/>
 
                     <TextView
@@ -4650,7 +4650,7 @@
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="20dp"
-                        android:text="Player 3"
+                        android:text="No Player"
                         android:id="@+id/player3_name_text_view"/>
 
                     <TextView
@@ -4696,7 +4696,7 @@
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="20dp"
-                        android:text="Player 4"
+                        android:text="No Player"
                         android:id="@+id/player4_name_text_view"/>
 
                     <TextView
@@ -4742,7 +4742,7 @@
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="20dp"
-                        android:text="Player 5"
+                        android:text="No Player"
                         android:id="@+id/player5_name_text_view"/>
 
                     <TextView
