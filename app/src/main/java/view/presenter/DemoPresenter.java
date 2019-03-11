@@ -64,9 +64,9 @@ public class DemoPresenter {
         christian = new User("crc4444", "christianrules");
         ben = new User("ben1996", "benrules");
 
-        mRegisterFacadeOut.register(zack);
         mRegisterFacadeOut.register(christian);
         mRegisterFacadeOut.register(ben);
+        mRegisterFacadeOut.register(zack);
 
         game1 = new Game("game 1");
         mLobbyFacadeOut.createGame(game1, zack.getUsername());
@@ -81,6 +81,7 @@ public class DemoPresenter {
         game1 = mServerProxy.requestGame(game1.getGameName()).getRunningGame();
         mGameStartFacadeOut.startGame(game1.getGameName());
         game1 = mServerProxy.requestGame(game1.getGameName()).getRunningGame();
+
 //
 //        try{
 //            Thread.sleep(3000);
