@@ -3,6 +3,7 @@ package view.presenterInterface;
 import java.util.ArrayList;
 
 import models.data.Player;
+import models.data.Result;
 
 public interface IPlayerInfoPresenter {
     ArrayList<String> getNewDestinationCardStrings();
@@ -11,4 +12,5 @@ public interface IPlayerInfoPresenter {
     Player getPlayer(String username);
     Integer getTrainsLeft();
     ArrayList<String> getDestinationCardStrings();
+    Result returnDestinationCards(String destinations);
 }
