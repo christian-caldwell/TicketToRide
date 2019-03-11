@@ -5,12 +5,14 @@ import com.example.cs340.tickettoride.GameBoardActivity;
 import java.util.ArrayList;
 import java.util.Observable;
 import java.util.Observer;
+import java.util.Set;
 
 import client.ClientModel;
 import client.ServerProxy;
 import models.TTR_Constants;
 import models.data.DestinationCard;
 import models.data.Player;
+import models.data.Route;
 import models.data.Result;
 import view.presenterInterface.IPlayerInfoPresenter;
 
@@ -23,6 +25,11 @@ public class PlayerInfoPresenter implements IPlayerInfoPresenter, Observer {
     public PlayerInfoPresenter(GameBoardActivity activity) {
         boardActivity = activity;
         clientModel.setmPlayerInfoPresenter(this);
+    }
+
+    @Override
+    public Set<Route> getPurchasedRoutesFromPlayer(Integer playerColor) {
+        return clientModel.getUser().getGame().findPlayerByColor(playerColor).getRoutesOwned();
     }
 
     @Override
@@ -76,6 +83,11 @@ public class PlayerInfoPresenter implements IPlayerInfoPresenter, Observer {
             destinationStrings.add(stringToAdd);
         }
         return destinationStrings;
+    }
+
+    @Override
+    public ArrayList<Player> getPlayers() {
+        return clientModel.getUser().getGame().getPlayers();
     }
 
     @Override

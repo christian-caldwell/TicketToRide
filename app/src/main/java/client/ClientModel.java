@@ -14,6 +14,7 @@ import models.data.Player;
 import models.data.User;
 import view.presenter.CardDeckPresenter;
 import view.presenter.ChatPresenter;
+import view.presenter.DemoPresenter;
 import view.presenter.GameLobbyPresenter;
 import view.presenter.GamePresenter;
 import view.presenter.PlayerInfoPresenter;
@@ -32,13 +33,13 @@ public class ClientModel extends Observable {
     private PlayersHandPresenter mPlayersHandPresenter;
 
     //    TEMPORARY DEMO THINGS
-    GameBoardActivity mGameBoardActivity;
-    public GameBoardActivity getGameBoardActivity() {
-        return mGameBoardActivity;
+    DemoPresenter demoPresenter;
+    public DemoPresenter getDemoPresenter() {
+        return demoPresenter;
     }
 
-    public void setGameBoardActivity(GameBoardActivity gameBoardActivity) {
-        mGameBoardActivity = gameBoardActivity;
+    public void setDemoPresenter(DemoPresenter demoPresenter) {
+        this.demoPresenter = demoPresenter;
     }
     //new stuff for phase 2
     private Map<Integer, Integer> ticketCardHand;

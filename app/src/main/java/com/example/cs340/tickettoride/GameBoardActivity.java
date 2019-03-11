@@ -24,11 +24,14 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
 
 import client.ClientModel;
+import models.TTR_Constants;
+import client.Poller;
 import models.TTR_Constants;
 import models.data.ChatMessage;
 import models.data.Player;
@@ -40,6 +43,7 @@ import view.presenter.PlayerInfoPresenter;
 import view.presenter.PlayersHandPresenter;
 import view.presenterInterface.ICardDeckPresenter;
 import view.presenterInterface.IChatPresenter;
+import view.presenterInterface.IGameLobbyPresenter;
 import view.presenterInterface.IPlayerInfoPresenter;
 import view.presenterInterface.IPlayersHandPresenter;
 
@@ -69,6 +73,8 @@ public class GameBoardActivity extends AppCompatActivity {
     private static TextView three_destinationCards, three_trainCards, three_score, three_trainsLeft;
     private static TextView four_destinationCards, four_trainCards, four_score, four_trainsLeft;
     private static TextView five_destinationCards, five_trainCards, five_score, five_trainsLeft;
+    private String demoToast = "Players initialized at Zero Points, 48 trains, Color Set\n Game Initialized: Starting Player Set, Game Decks Filled\n Initial Actions: Players Handed 3 Dest Cards and 4 Tickets";
+    private int demoInterationNumber = 0;
     private static DrawerLayout activityLayout;
 
     @Override
@@ -82,15 +88,14 @@ public class GameBoardActivity extends AppCompatActivity {
         StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
         StrictMode.setThreadPolicy(policy);
         setContentView(R.layout.activity_game_board);
-        View decorView = getWindow().getDecorView();
+        final View decorView = getWindow().getDecorView();
         playerColorValues = new HashMap();
         trainCardImages = new HashMap<>();
-        //FIXME: the hard colored playerColor ints are incorrect. To get the correct colors, do Constants.Player_COLOR for each.
-        playerColorValues.put(5,R.drawable.black_background);
-        playerColorValues.put(3,R.drawable.blue_background);
-        playerColorValues.put(2,R.drawable.green_background);
-        playerColorValues.put(1,R.drawable.red_background);
-        playerColorValues.put(4,R.drawable.yellow_background);
+        playerColorValues.put(TTR_Constants.getInstance().BLACK_PLAYER,R.drawable.black_background);
+        playerColorValues.put(TTR_Constants.getInstance().BLUE_PLAYER,R.drawable.blue_background);
+        playerColorValues.put(TTR_Constants.getInstance().GREEN_PLAYER,R.drawable.green_background);
+        playerColorValues.put(TTR_Constants.getInstance().RED_PLAYER,R.drawable.red_background);
+        playerColorValues.put(TTR_Constants.getInstance().YELLOW_PLAYER,R.drawable.yellow_background);
 
         trainCardImages.put(TTR_Constants.getInstance().BLACK,R.drawable.train_card_black);
         trainCardImages.put(TTR_Constants.getInstance().BLUE,R.drawable.train_card_blue);
@@ -129,21 +134,67 @@ public class GameBoardActivity extends AppCompatActivity {
         });
         gameDemoButton = findViewById(R.id.gameDemoButon);
 
-        ClientModel.create().setGameBoardActivity(this);
-
         gameDemoButton.setOnClickListener(new View.OnClickListener() {
             // When the sendMessage button is clicked, send the text to the presenter.addMessage function
             @Override
             public void onClick(View v) {
-                Toast.makeText(GameBoardActivity.this, "Starting Game Demo", Toast.LENGTH_SHORT).show();
+                /*if (demoToast.equals("")){*/
+                    demoInterationNumber++;
+                    mDemoPresenter = ClientModel.create().getDemoPresenter();
+                    mDemoPresenter.setGameActivity(GameBoardActivity.this);
+                    demoToast = mDemoPresenter.gameDemo();
+                    Toast.makeText(GameBoardActivity.this, demoToast, Toast.LENGTH_LONG).show();
+              /*  }
+                else {
+                    Toast.makeText(GameBoardActivity.this, "Run Demo Iteration " + demoInterationNumber, Toast.LENGTH_SHORT).show();
+                    demoToast = "";
+                }*/
+
+                //FIXME: Break up game demo into multiple button presses. Remove waits?
+//                mDemoPresenter.runNextDemo();
             }
         });
 
+        // Open up a popup window when 'Player info' button is pressed
         playerInfoButton = findViewById(R.id.get_player_info_button);
         playerInfoButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                destinationCardList = playerInfoPresenter.getDestinationCardStrings();
+
+                // Initialize a new instance of LayoutInflater service
+                LayoutInflater inflater = (LayoutInflater) getApplicationContext().getSystemService(LAYOUT_INFLATER_SERVICE);
+
+                // Inflate the custom layout/view
+                View customView = inflater.inflate(R.layout.player_info_popup_window,null);
+
+                // Initialize a new instance of popup window
+                mPopupWindow = new PopupWindow(customView, 900,
+                        600, true);
+
+                RecyclerView destinationCardsRecyclerView = mPopupWindow.getContentView().findViewById(R.id.recycler_view_destination_cards);
+                destinationCardList = playerInfoPresenter.getNewDestinationCardStrings();
+                destinationCardsAdapter = new RecyclerViewAdapterDestinationCards(destinationCardList, mPopupWindow.getContentView().getContext(), playerInfoPresenter);
+                destinationCardsRecyclerView.setHasFixedSize(true);
+                destinationCardsRecyclerView.setAdapter(destinationCardsAdapter);
+                destinationCardsRecyclerView.setLayoutManager(new LinearLayoutManager(mPopupWindow.getContentView().getContext()));
+
+
+
+                // Set an elevation value for popup window
+                if(Build.VERSION.SDK_INT>=21)
+                   mPopupWindow.setElevation(10);
+
+                DrawerLayout activityLayout = findViewById(R.id.game_board_activity);
                 mPopupWindow.showAtLocation(activityLayout, Gravity.CENTER,0,0);
+
+                /*customView.setOnTouchListener(new View.OnTouchListener() {
+                    @Override
+                    public boolean onTouch(View v, MotionEvent event) {
+                        mPopupWindow.dismiss();
+                        return true;
+                    }
+                });*/
             }
         });
 
@@ -1270,49 +1321,75 @@ public class GameBoardActivity extends AppCompatActivity {
             cardTwo.setBackgroundResource((int)trainCardImages.get(cardDeckPresenter.getTrainCardAtPosition(2)));
             cardOne.setBackgroundResource((int)trainCardImages.get(cardDeckPresenter.getTrainCardAtPosition(1)));
 
+            TTR_Constants constants = TTR_Constants.getInstance();
+            for (Player player: playerInfoPresenter.getPlayers()) {
+                Set<Route> routes = playerInfoPresenter.getPurchasedRoutesFromPlayer(player.getPlayerColor());
+                for (Route route: routes) {
+                    if (constants.R_DAL_TO_OKL_1 == route) {
+                            ////FIXME: findView can't be called in a static class, need to find a way to draw routes from async!
+//                        findViewById(R.id.oklahomacity_dallas_g1b1).setBackgroundResource((int)playerColorValues.get(playersHandPresenter.getCurrentPlayerColor()));
+//                        findViewById(R.id.oklahomacity_dallas_g1b1).setAlpha(1);
+//                        findViewById(R.id.oklahomacity_dallas_g1b2).setBackgroundResource((int)playerColorValues.get(playersHandPresenter.getCurrentPlayerColor()));
+//                        findViewById(R.id.oklahomacity_dallas_g1b2).setAlpha(1);
+
+                    }
+                }
+            }
+
+
+
+/*
             for (int i = 0; i < playerInfoPresenter.getNumOfPlayers(); i++) {
                 Player player = playerInfoPresenter.getPlayerByOrder(i);
                 if (player == null) {
                     break;
                 }
                 int destCardSize;
+                int ticketSize;
                 if (player.getDestinationCardHand() == null) {
                     destCardSize = 0;
                 }
                 else {
                     destCardSize = player.getDestinationCardHand().size();
                 }
+                if (player.getTickets() == null) {
+                    ticketSize = 0;
+                }
+                else {
+                    ticketSize = player.countTickets();
+                }
                 if (i == 0) {
                     one_destinationCards.setText("Destination Cards: " + destCardSize);
                     one_score.setText("Score: " + player.getScore());
-                    one_trainCards.setText("Train Cards: " + player.getTickets().values().size());
+                    one_trainCards.setText("Train Cards: " + ticketSize);
                     one_trainsLeft.setText("Trains Left: " + player.getTrainsRemaining());
                 }
                 else if (i == 1) {
                     two_destinationCards.setText("Destination Cards: " + destCardSize);
                     two_score.setText("Score: " + player.getScore());
-                    two_trainCards.setText("Train Cards: " + player.getTickets().values().size());
+                    two_trainCards.setText("Train Cards: " + ticketSize);
                     two_trainsLeft.setText("Trains Left: " + player.getTrainsRemaining());
                 }
                 else if (i == 2) {
                     three_destinationCards.setText("Destination Cards: " + destCardSize);
                     three_score.setText("Score: " + player.getScore());
-                    three_trainCards.setText("Train Cards: " + player.getTickets().values().size());
+                    three_trainCards.setText("Train Cards: " + ticketSize);
                     three_trainsLeft.setText("Trains Left: " + player.getTrainsRemaining());
                 }
                 else if (i == 3) {
                     four_destinationCards.setText("Destination Cards: " + destCardSize);
                     four_score.setText("Score: " + player.getScore());
-                    four_trainCards.setText("Train Cards: " + player.getTickets().values().size());
+                    four_trainCards.setText("Train Cards: " + ticketSize);
                     four_trainsLeft.setText("Trains Left: " + player.getTrainsRemaining());
                 }
                 else if (i == 4) {
                     five_destinationCards.setText("Destination Cards: " + destCardSize);
                     five_score.setText("Score: " + player.getScore());
-                    five_trainCards.setText("Train Cards: " + player.getTickets().values().size());
+                    five_trainCards.setText("Train Cards: " + ticketSize);
                     five_trainsLeft.setText("Trains Left: " + player.getTrainsRemaining());
                 }
             }
+            */
         }
     }
 }
