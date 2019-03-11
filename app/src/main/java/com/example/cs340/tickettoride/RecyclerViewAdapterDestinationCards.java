@@ -3,18 +3,15 @@ package com.example.cs340.tickettoride;
 import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
-import android.text.Layout;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import java.util.ArrayList;
 
-import view.presenter.CardDeckPresenter;
-import view.presenterInterface.ICardDeckPresenter;
+import models.data.Result;
 import view.presenterInterface.IPlayerInfoPresenter;
 
 public class RecyclerViewAdapterDestinationCards extends RecyclerView.Adapter<RecyclerViewAdapterDestinationCards.ViewHolder> {
@@ -47,8 +44,11 @@ public class RecyclerViewAdapterDestinationCards extends RecyclerView.Adapter<Re
                 //TODO: CALL METHOD IN PRESENTER TO DISCARD CARDS
                 //if result is successful, make toast saying it will be discarded
                 //if not, display toast saying user cannot discard it
-                Toast.makeText(mContext, mDestinationRoutes.get(position) +
-                        " will be discarded", Toast.LENGTH_SHORT).show();
+                Result result = playerInfoPresenter.returnDestinationCards(mDestinationRoutes.get(position));
+//                if(result.isSuccessful()) {
+//                    Toast.makeText(mContext, mDestinationRoutes.get(position) +
+//                            " will be discarded", Toast.LENGTH_SHORT).show();
+//                }
             }
         });
 

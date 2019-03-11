@@ -158,8 +158,8 @@ public class ServerProxy implements IServer {
         String methodName = "requestDestinationCards";
 
 
-        Object[] parameterDataArray = new Object[2 + (returnedCards.length * 3)];
-        Class<?>[] parameterClassArray = new Class<?>[2 + (returnedCards.length * 3)];
+        Object[] parameterDataArray = new Object[5];
+        Class<?>[] parameterClassArray = new Class<?>[5];
 
         parameterClassArray[0] = String.class;
         parameterClassArray[1] = String.class;

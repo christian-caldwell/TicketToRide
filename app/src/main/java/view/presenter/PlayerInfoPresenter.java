@@ -7,13 +7,16 @@ import java.util.Observable;
 import java.util.Observer;
 
 import client.ClientModel;
+import client.ServerProxy;
 import models.TTR_Constants;
 import models.data.DestinationCard;
 import models.data.Player;
+import models.data.Result;
 import view.presenterInterface.IPlayerInfoPresenter;
 
 public class PlayerInfoPresenter implements IPlayerInfoPresenter, Observer {
     ClientModel clientModel = ClientModel.create();
+    ServerProxy serverProxy = new ServerProxy();
     private GameBoardActivity boardActivity;
     TTR_Constants constants = TTR_Constants.getInstance();
 
@@ -89,10 +92,15 @@ public class PlayerInfoPresenter implements IPlayerInfoPresenter, Observer {
         return destinationStrings;
     }
 
+    @Override
+    public Result returnDestinationCards(String destinationCard) {
+        String first = destinationCard.split(" to" )[0];
+        String second = destinationCard.split("\n" )[0].split("to ")[1];
+        return serverProxy.returnDestinationCards(clientModel.getUser().getUsername(), clientModel.getUser().getGame().getGameName(), constants.findDestinationCard(first, second));
+    }
 
     @Override
     public void update(Observable o, Object arg) {
         new GameBoardActivity.UpdateAsyncTask().execute();
-
     }
 }
