@@ -1288,6 +1288,7 @@ public class GameBoardActivity extends AppCompatActivity {
             cardThree.setBackgroundResource((int)trainCardImages.get(cardDeckPresenter.getTrainCardAtPosition(3)));
             cardTwo.setBackgroundResource((int)trainCardImages.get(cardDeckPresenter.getTrainCardAtPosition(2)));
             cardOne.setBackgroundResource((int)trainCardImages.get(cardDeckPresenter.getTrainCardAtPosition(1)));
+
 /*
             for (int i = 0; i < playerInfoPresenter.getNumOfPlayers(); i++) {
                 Player player = playerInfoPresenter.getPlayerByOrder(i);

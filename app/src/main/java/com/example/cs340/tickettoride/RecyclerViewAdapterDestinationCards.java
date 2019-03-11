@@ -51,6 +51,7 @@ public class RecyclerViewAdapterDestinationCards extends RecyclerView.Adapter<Re
                 //TODO: CALL METHOD IN PRESENTER TO DISCARD CARDS
                 //if result is successful, make toast saying it will be discarded
                 //if not, display toast saying user cannot discard it
+                //playerInfoPresenter.
                 Toast.makeText(mContext, mDestinationRoutes.get(position) +
                         "\nThis card will be discarded", Toast.LENGTH_SHORT).show();
 
