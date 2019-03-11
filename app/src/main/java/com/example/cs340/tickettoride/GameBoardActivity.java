@@ -26,6 +26,7 @@ import android.widget.Toast;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Set;
 
 import client.ClientModel;
 import models.TTR_Constants;
@@ -1268,8 +1269,8 @@ public class GameBoardActivity extends AppCompatActivity {
 
             //FIXME: GET THE ARRAYLIST OF OLD DESTINATION CARDS TO ALSO SHOW IN THE RECYCLERVIEW
             destinationCardList = playerInfoPresenter.getNewDestinationCardStrings();
-            destinationCardsAdapter.setListOfDestinationCards(destinationCardList);
-            destinationCardsAdapter.notifyDataSetChanged();
+//            destinationCardsAdapter.setListOfDestinationCards(destinationCardList);
+  //          destinationCardsAdapter.notifyDataSetChanged();
 
 
             mGreenTrainCard.setText("" + playersHandPresenter.getTrainCardAmount(1));
@@ -1288,7 +1289,7 @@ public class GameBoardActivity extends AppCompatActivity {
             cardThree.setBackgroundResource((int)trainCardImages.get(cardDeckPresenter.getTrainCardAtPosition(3)));
             cardTwo.setBackgroundResource((int)trainCardImages.get(cardDeckPresenter.getTrainCardAtPosition(2)));
             cardOne.setBackgroundResource((int)trainCardImages.get(cardDeckPresenter.getTrainCardAtPosition(1)));
-/*
+
             for (int i = 0; i < playerInfoPresenter.getNumOfPlayers(); i++) {
                 Player player = playerInfoPresenter.getPlayerByOrder(i);
                 if (player == null) {
@@ -1332,7 +1333,6 @@ public class GameBoardActivity extends AppCompatActivity {
                     five_trainsLeft.setText("Trains Left: " + player.getTrainsRemaining());
                 }
             }
-            */
         }
     }
 }

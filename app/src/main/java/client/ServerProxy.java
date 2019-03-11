@@ -155,7 +155,7 @@ public class ServerProxy implements IServer {
     @Override
     public Result returnDestinationCards(String userName, String gameName, DestinationCard[] returnedCards) {
         String className = RunGameFacade.class.getName();
-        String methodName = "requestDestinationCards";
+        String methodName = "returnDestinationCards";
 
 
         Object[] parameterDataArray = new Object[5];
