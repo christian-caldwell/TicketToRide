@@ -30,6 +30,7 @@ import java.util.Map;
 import java.util.Set;
 
 import client.ClientModel;
+import client.ServerProxy;
 import models.TTR_Constants;
 import client.Poller;
 import models.TTR_Constants;
@@ -428,18 +429,9 @@ public class GameBoardActivity extends AppCompatActivity {
     }
 
     public void change_color_neworleans_miami_g1(View view) {//6
-        findViewById(R.id.neworleans_miami_g1b1).setBackgroundResource((int)playerColorValues.get(playersHandPresenter.getCurrentPlayerColor()));
-        findViewById(R.id.neworleans_miami_g1b1).setAlpha(1);
-        findViewById(R.id.neworleans_miami_g1b2).setBackgroundResource((int)playerColorValues.get(playersHandPresenter.getCurrentPlayerColor()));
-        findViewById(R.id.neworleans_miami_g1b2).setAlpha(1);
-        findViewById(R.id.neworleans_miami_g1b3).setBackgroundResource((int)playerColorValues.get(playersHandPresenter.getCurrentPlayerColor()));
-        findViewById(R.id.neworleans_miami_g1b3).setAlpha(1);
-        findViewById(R.id.neworleans_miami_g1b4).setBackgroundResource((int)playerColorValues.get(playersHandPresenter.getCurrentPlayerColor()));
-        findViewById(R.id.neworleans_miami_g1b4).setAlpha(1);
-        findViewById(R.id.neworleans_miami_g1b5).setBackgroundResource((int)playerColorValues.get(playersHandPresenter.getCurrentPlayerColor()));
-        findViewById(R.id.neworleans_miami_g1b5).setAlpha(1);
-        findViewById(R.id.neworleans_miami_g1b6).setBackgroundResource((int)playerColorValues.get(playersHandPresenter.getCurrentPlayerColor()));
-        findViewById(R.id.neworleans_miami_g1b6).setAlpha(1);
+        ServerProxy proxy = new ServerProxy();
+        ClientModel client = ClientModel.create();
+        proxy.purchaseRoute(client.getUser().getUsername(), client.getUser().getGame().getGameName(), TTR_Constants.getInstance().R_ORI_TO_MIA, 0);
     }
 
     public void change_color_charleston_miami_g1(View view) {//4
@@ -629,18 +621,9 @@ public class GameBoardActivity extends AppCompatActivity {
     }
 
     public void change_color_toronto_duluth_g1(View view) {//6
-        findViewById(R.id.toronto_duluth_g1b1).setBackgroundResource((int)playerColorValues.get(playersHandPresenter.getCurrentPlayerColor()));
-        findViewById(R.id.toronto_duluth_g1b1).setAlpha(1);
-        findViewById(R.id.toronto_duluth_g1b2).setBackgroundResource((int)playerColorValues.get(playersHandPresenter.getCurrentPlayerColor()));
-        findViewById(R.id.toronto_duluth_g1b2).setAlpha(1);
-        findViewById(R.id.toronto_duluth_g1b3).setBackgroundResource((int)playerColorValues.get(playersHandPresenter.getCurrentPlayerColor()));
-        findViewById(R.id.toronto_duluth_g1b3).setAlpha(1);
-        findViewById(R.id.toronto_duluth_g1b4).setBackgroundResource((int)playerColorValues.get(playersHandPresenter.getCurrentPlayerColor()));
-        findViewById(R.id.toronto_duluth_g1b4).setAlpha(1);
-        findViewById(R.id.toronto_duluth_g1b5).setBackgroundResource((int)playerColorValues.get(playersHandPresenter.getCurrentPlayerColor()));
-        findViewById(R.id.toronto_duluth_g1b5).setAlpha(1);
-        findViewById(R.id.toronto_duluth_g1b6).setBackgroundResource((int)playerColorValues.get(playersHandPresenter.getCurrentPlayerColor()));
-        findViewById(R.id.toronto_duluth_g1b6).setAlpha(1);
+        ServerProxy proxy = new ServerProxy();
+        ClientModel client = ClientModel.create();
+        proxy.purchaseRoute(client.getUser().getUsername(), client.getUser().getGame().getGameName(), TTR_Constants.getInstance().R_DUL_TO_TOR, 0);
     }
 
     public void change_color_toronto_pittsburgh_g1(View view) {//2
@@ -1211,18 +1194,9 @@ public class GameBoardActivity extends AppCompatActivity {
     }
 
     public void change_color_elpaso_houston_g1(View view) {
-        findViewById(R.id.elpaso_houston_g1b1).setBackgroundResource((int)playerColorValues.get(playersHandPresenter.getCurrentPlayerColor()));
-        findViewById(R.id.elpaso_houston_g1b1).setAlpha(1);
-        findViewById(R.id.elpaso_houston_g1b2).setBackgroundResource((int)playerColorValues.get(playersHandPresenter.getCurrentPlayerColor()));
-        findViewById(R.id.elpaso_houston_g1b2).setAlpha(1);
-        findViewById(R.id.elpaso_houston_g1b3).setBackgroundResource((int)playerColorValues.get(playersHandPresenter.getCurrentPlayerColor()));
-        findViewById(R.id.elpaso_houston_g1b3).setAlpha(1);
-        findViewById(R.id.elpaso_houston_g1b4).setBackgroundResource((int)playerColorValues.get(playersHandPresenter.getCurrentPlayerColor()));
-        findViewById(R.id.elpaso_houston_g1b4).setAlpha(1);
-        findViewById(R.id.elpaso_houston_g1b5).setBackgroundResource((int)playerColorValues.get(playersHandPresenter.getCurrentPlayerColor()));
-        findViewById(R.id.elpaso_houston_g1b5).setAlpha(1);
-        findViewById(R.id.elpaso_houston_g1b6).setBackgroundResource((int)playerColorValues.get(playersHandPresenter.getCurrentPlayerColor()));
-        findViewById(R.id.elpaso_houston_g1b6).setAlpha(1);
+        ServerProxy proxy = new ServerProxy();
+        ClientModel client = ClientModel.create();
+        proxy.purchaseRoute(client.getUser().getUsername(), client.getUser().getGame().getGameName(), TTR_Constants.getInstance().R_EL_TO_HOU, 0);
     }
 
     public void change_color_winnipeg_duluth_g1(View view) {
@@ -1249,7 +1223,9 @@ public class GameBoardActivity extends AppCompatActivity {
     }
 
     public void change_color_oklahomacity_dallas_g1(View view) {
-
+        ServerProxy proxy = new ServerProxy();
+        ClientModel client = ClientModel.create();
+        proxy.purchaseRoute(client.getUser().getUsername(), client.getUser().getGame().getGameName(), TTR_Constants.getInstance().R_DAL_TO_OKL_1, 0);
     }
 
     public void change_color_dallas_houston_g1(View view) {
@@ -1259,9 +1235,11 @@ public class GameBoardActivity extends AppCompatActivity {
 
 
     public static class UpdateAsyncTask extends AsyncTask<Void, Void, Void> {
+        private GameBoardActivity activity;
 
         //Empty constructor
-        public UpdateAsyncTask() {
+        public UpdateAsyncTask(GameBoardActivity activity) {
+            this.activity = activity;
         }
 
         /**
@@ -1307,14 +1285,56 @@ public class GameBoardActivity extends AppCompatActivity {
             TTR_Constants constants = TTR_Constants.getInstance();
             for (Player player: playerInfoPresenter.getPlayers()) {
                 Set<Route> routes = playerInfoPresenter.getPurchasedRoutesFromPlayer(player.getPlayerColor());
+                System.out.println("player: " + player.getUsername() + "\nroutes: " + player.getRoutesOwned());
                 for (Route route: routes) {
-                    if (constants.R_DAL_TO_OKL_1 == route) {
-                            ////FIXME: findView can't be called in a static class, need to find a way to draw routes from async!
-//                        findViewById(R.id.oklahomacity_dallas_g1b1).setBackgroundResource((int)playerColorValues.get(playersHandPresenter.getCurrentPlayerColor()));
-//                        findViewById(R.id.oklahomacity_dallas_g1b1).setAlpha(1);
-//                        findViewById(R.id.oklahomacity_dallas_g1b2).setBackgroundResource((int)playerColorValues.get(playersHandPresenter.getCurrentPlayerColor()));
-//                        findViewById(R.id.oklahomacity_dallas_g1b2).setAlpha(1);
+                    if (constants.R_DAL_TO_OKL_1.equals(route)) {
+                        activity.findViewById(R.id.oklahomacity_dallas_g1b1).setBackgroundResource((int)playerColorValues.get(player.getPlayerColor()));
+                        activity.findViewById(R.id.oklahomacity_dallas_g1b1).setAlpha(1);
+                        activity.findViewById(R.id.oklahomacity_dallas_g1b2).setBackgroundResource((int)playerColorValues.get(player.getPlayerColor()));
+                        activity.findViewById(R.id.oklahomacity_dallas_g1b2).setAlpha(1);
 
+                    }
+                    else if (constants.R_ORI_TO_MIA.equals(route)) {
+                        activity.findViewById(R.id.neworleans_miami_g1b1).setBackgroundResource((int) playerColorValues.get(player.getPlayerColor()));
+                        activity.findViewById(R.id.neworleans_miami_g1b1).setAlpha(1);
+                        activity.findViewById(R.id.neworleans_miami_g1b2).setBackgroundResource((int) playerColorValues.get(player.getPlayerColor()));
+                        activity.findViewById(R.id.neworleans_miami_g1b2).setAlpha(1);
+                        activity.findViewById(R.id.neworleans_miami_g1b3).setBackgroundResource((int) playerColorValues.get(player.getPlayerColor()));
+                        activity.findViewById(R.id.neworleans_miami_g1b3).setAlpha(1);
+                        activity.findViewById(R.id.neworleans_miami_g1b4).setBackgroundResource((int) playerColorValues.get(player.getPlayerColor()));
+                        activity.findViewById(R.id.neworleans_miami_g1b4).setAlpha(1);
+                        activity.findViewById(R.id.neworleans_miami_g1b5).setBackgroundResource((int) playerColorValues.get(player.getPlayerColor()));
+                        activity.findViewById(R.id.neworleans_miami_g1b5).setAlpha(1);
+                        activity.findViewById(R.id.neworleans_miami_g1b6).setBackgroundResource((int) playerColorValues.get(player.getPlayerColor()));
+                        activity.findViewById(R.id.neworleans_miami_g1b6).setAlpha(1);
+                    }
+                    else if (constants.R_DUL_TO_TOR.equals(route)) {
+                        activity.findViewById(R.id.toronto_duluth_g1b1).setBackgroundResource((int)playerColorValues.get(player.getPlayerColor()));
+                        activity.findViewById(R.id.toronto_duluth_g1b1).setAlpha(1);
+                        activity.findViewById(R.id.toronto_duluth_g1b2).setBackgroundResource((int)playerColorValues.get(player.getPlayerColor()));
+                        activity.findViewById(R.id.toronto_duluth_g1b2).setAlpha(1);
+                        activity.findViewById(R.id.toronto_duluth_g1b3).setBackgroundResource((int)playerColorValues.get(player.getPlayerColor()));
+                        activity.findViewById(R.id.toronto_duluth_g1b3).setAlpha(1);
+                        activity.findViewById(R.id.toronto_duluth_g1b4).setBackgroundResource((int)playerColorValues.get(player.getPlayerColor()));
+                        activity.findViewById(R.id.toronto_duluth_g1b4).setAlpha(1);
+                        activity.findViewById(R.id.toronto_duluth_g1b5).setBackgroundResource((int)playerColorValues.get(player.getPlayerColor()));
+                        activity.findViewById(R.id.toronto_duluth_g1b5).setAlpha(1);
+                        activity.findViewById(R.id.toronto_duluth_g1b6).setBackgroundResource((int)playerColorValues.get(player.getPlayerColor()));
+                        activity.findViewById(R.id.toronto_duluth_g1b6).setAlpha(1);
+                    }
+                    else if (constants.R_EL_TO_HOU.equals(route)) {
+                        activity.findViewById(R.id.elpaso_houston_g1b1).setBackgroundResource((int)playerColorValues.get(player.getPlayerColor()));
+                        activity.findViewById(R.id.elpaso_houston_g1b1).setAlpha(1);
+                        activity.findViewById(R.id.elpaso_houston_g1b2).setBackgroundResource((int)playerColorValues.get(player.getPlayerColor()));
+                        activity.findViewById(R.id.elpaso_houston_g1b2).setAlpha(1);
+                        activity.findViewById(R.id.elpaso_houston_g1b3).setBackgroundResource((int)playerColorValues.get(player.getPlayerColor()));
+                        activity.findViewById(R.id.elpaso_houston_g1b3).setAlpha(1);
+                        activity.findViewById(R.id.elpaso_houston_g1b4).setBackgroundResource((int)playerColorValues.get(player.getPlayerColor()));
+                        activity.findViewById(R.id.elpaso_houston_g1b4).setAlpha(1);
+                        activity.findViewById(R.id.elpaso_houston_g1b5).setBackgroundResource((int)playerColorValues.get(player.getPlayerColor()));
+                        activity.findViewById(R.id.elpaso_houston_g1b5).setAlpha(1);
+                        activity.findViewById(R.id.elpaso_houston_g1b6).setBackgroundResource((int)playerColorValues.get(player.getPlayerColor()));
+                        activity.findViewById(R.id.elpaso_houston_g1b6).setAlpha(1);
                     }
                 }
             }

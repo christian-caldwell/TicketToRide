@@ -104,7 +104,7 @@ public class PlayerInfoPresenter implements IPlayerInfoPresenter, Observer {
 
     @Override
     public void update(Observable o, Object arg) {
-        new GameBoardActivity.UpdateAsyncTask().execute();
+        new GameBoardActivity.UpdateAsyncTask(boardActivity).execute();
 
     }
 }
