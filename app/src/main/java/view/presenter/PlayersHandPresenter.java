@@ -36,7 +36,7 @@ public class PlayersHandPresenter implements IPlayersHandPresenter, Observer {
 
     @Override
     public void update(Observable o, Object arg) {
-        new GameBoardActivity.UpdateAsyncTask().execute();
+        new GameBoardActivity.UpdateAsyncTask(boardActivity).execute();
 
     }
 }
