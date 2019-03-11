@@ -74,7 +74,7 @@ public class GameBoardActivity extends AppCompatActivity {
     private static TextView three_destinationCards, three_trainCards, three_score, three_trainsLeft;
     private static TextView four_destinationCards, four_trainCards, four_score, four_trainsLeft;
     private static TextView five_destinationCards, five_trainCards, five_score, five_trainsLeft;
-    private String demoToast = "Players initialized at Zero Foints, 48 trains, Color Set\n Game Initialized: Starting Player Set, Game Decks Filled\n Initial Actions: Players Handed 3 Dest Cards and 4 Tickets";
+    private String demoToast = "Players initialized at Zero Points, 48 trains, Color Set\n Game Initialized: Starting Player Set, Game Decks Filled\n Initial Actions: Players Handed 3 Dest Cards and 4 Tickets";
     private int demoInterationNumber = 0;
 
     @Override
