@@ -8,7 +8,6 @@ import java.util.Set;
 import models.data.DestinationCard;
 import models.data.Route;
 import models.data.TrainCard;
-import server.ServerData;
 
 public class TTR_Constants {
     //    CARD COLORS
@@ -383,6 +382,17 @@ public class TTR_Constants {
         for (Route r: routes) {
             if (r.getLocation()[0].equals(firstLocation) && r.getLocation()[1].equals(secondLocation)) {
                 return r;
+            }
+        }
+        return null;
+    }
+    public DestinationCard[] findDestinationCard(String firstLocation, String secondLocation) {
+        ArrayList<DestinationCard> destinationCards = getStartingDestinationDeck();
+        DestinationCard[] card = new DestinationCard[1];
+        for (DestinationCard dc: destinationCards) {
+            if (dc.getLocations()[0].equals(firstLocation) && dc.getLocations()[1].equals(secondLocation)) {
+                card[0] = dc;
+                return card;
             }
         }
         return null;
