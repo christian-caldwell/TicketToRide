@@ -10,6 +10,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import client.ClientModel;
 import models.data.Result;
 import view.activityInterface.ILoginView;
 import view.activityInterface.IRegisterView;
@@ -44,19 +45,20 @@ public class LoginViewActivity extends AppCompatActivity implements ILoginView, 
         startDemo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Toast.makeText(LoginViewActivity.this, "Demo Initializing \n Players initialized at Zero Foints, 48 trains, Color Set\n Game Initialized: Starting Player Set, Game Decks Filled\n Initial Actions: Players Handed 3 Dest Cards and 4 Tickets\n", Toast.LENGTH_SHORT).show();
+
+                demoPresenter.startDemo();
                 demoPresenter.onCreate();
 
                 try{
-                    Thread.sleep(2000);
+                    Thread.sleep(550);
                 }catch(InterruptedException e){
                     e.printStackTrace();
                 }
 
-                demoPresenter.startDemo();
 
-                Toast.makeText(LoginViewActivity.this, "Login Demo Done", Toast.LENGTH_SHORT).show();
                 Intent intent = new Intent(LoginViewActivity.this, GameBoardActivity.class);
-//                demoPresenter.setGameActivity();
+                ClientModel.create().setDemoPresenter(demoPresenter);
                 startActivity(intent);
             }
         });

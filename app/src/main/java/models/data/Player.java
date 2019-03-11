@@ -26,6 +26,11 @@ public class Player {
     private Set<Route> routesOwned = new HashSet<>(0);
     private Map<Integer, Integer> tickets = new HashMap<>();
     private ArrayList<DestinationCard> destinationCardHand = new ArrayList<>(0);
+
+    public Set<Route> getRoutesOwned() {
+        return routesOwned;
+    }
+
     private ArrayList<DestinationCard> newDestinationCards = new ArrayList<>(0);
 
 
@@ -136,6 +141,14 @@ public class Player {
         this.tickets.put(color,this.tickets.get(color)-1);
 
     }
+    public Integer countTickets() {
+        int total = 0;
+        for (Integer color : tickets.keySet()) {
+            total += tickets.get(color);
+        }
+        return total;
+    }
+
 
     public void removeTicketsFromHand(Integer color, Integer numTickets) {
         this.tickets.put(color, this.tickets.get(color) - numTickets);

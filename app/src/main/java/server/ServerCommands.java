@@ -131,9 +131,11 @@ public class ServerCommands implements IServer {
             Player targetPlayer = targetGame.findPlayer(userName);
             if (targetPlayer != null) {
                 //Confirm that the cards are in newDestinationCards in the first place?
-                targetPlayer.removeFromNewDestinationCards(returnedCards);
-                targetGame.returnDestinationCards(returnedCards);
-                for (DestinationCard card:targetPlayer.getNewDestinationCards() ) {
+                if (returnedCards != null) {
+                    targetPlayer.removeFromNewDestinationCards(returnedCards);
+                    targetGame.returnDestinationCards(returnedCards);
+                }
+                for (DestinationCard card : targetPlayer.getNewDestinationCards()) {
                     targetPlayer.addToDestinationCardHand(card);
                 }
                 targetPlayer.resetNewDestinationCards();
@@ -223,7 +225,7 @@ public class ServerCommands implements IServer {
     public Result requestGame(String gameName) {
         Result result = new Result();
         result.setSuccessful(false);
-        Game targetGame = serverData.findGame(gameName);
+        Game targetGame = serverData.getGame(gameName);
         if (targetGame != null) {
             result.setSuccessful(true);
             result.setRunningGame(targetGame);

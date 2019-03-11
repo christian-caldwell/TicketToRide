@@ -4582,6 +4582,7 @@
                         android:id="@+id/player1_trains_left_text_view"/>
 
                     <ImageView
+                        android:id="@+id/black_turn_color"
                         android:layout_width="match_parent"
                         android:layout_height="10dp"
                         android:background="@drawable/black_background" />
@@ -4628,6 +4629,7 @@
                         android:id="@+id/player2_trains_left_text_view"/>
 
                     <ImageView
+                        android:id="@+id/blue_turn_color"
                         android:layout_width="match_parent"
                         android:layout_height="10dp"
                         android:background="@drawable/blue_background" />
@@ -4673,6 +4675,7 @@
                         android:id="@+id/player3_trains_left_text_view"/>
 
                     <ImageView
+                        android:id="@+id/red_turn_color"
                         android:layout_width="match_parent"
                         android:layout_height="10dp"
                         android:background="@drawable/red_background" />
@@ -4718,6 +4721,7 @@
                         android:id="@+id/player4_trains_left_text_view"/>
 
                     <ImageView
+                        android:id="@+id/green_turn_color"
                         android:layout_width="match_parent"
                         android:layout_height="10dp"
                         android:background="@drawable/green_background" />
@@ -4763,6 +4767,7 @@
                         android:id="@+id/player5_trains_left_text_view"/>
 
                     <ImageView
+                        android:id="@+id/yellow_turn_color"
                         android:layout_width="match_parent"
                         android:layout_height="10dp"
                         android:background="@drawable/yellow_background" />
