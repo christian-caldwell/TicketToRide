@@ -82,6 +82,12 @@ public class PlayerInfoPresenter implements IPlayerInfoPresenter, Observer {
         return destinationStrings;
     }
 
+
+    @Override
+    public Player getCurrentTurn() {
+        return clientModel.getUser().getGame().findPlayerByColor(clientModel.getUser().getGame().getCurrentTurnPlayer());
+    }
+
     @Override
     public ArrayList<Player> getPlayers() {
         return clientModel.getUser().getGame().getPlayers();

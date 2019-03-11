@@ -76,6 +76,8 @@ public class GameBoardActivity extends AppCompatActivity {
     private static TextView five_destinationCards, five_trainCards, five_score, five_trainsLeft;
     private String demoToast = "Players initialized at Zero Foints, 48 trains, Color Set\n Game Initialized: Starting Player Set, Game Decks Filled\n Initial Actions: Players Handed 3 Dest Cards and 4 Tickets";
     private int demoInterationNumber = 0;
+    private static ImageView blueTurn, redTurn, blackTurn, yellowTurn, greenTurn;
+
 
     @Override
     public void onBackPressed() {
@@ -120,7 +122,12 @@ public class GameBoardActivity extends AppCompatActivity {
         playerInfoPresenter = new PlayerInfoPresenter(this);
         playersHandPresenter = new PlayersHandPresenter(this);
         initRecyclerView();
-        //initDestinationCardsRecyclerView();
+        initDestinationCardsRecyclerView();
+        blueTurn = findViewById(R.id.blue_turn_color);
+        redTurn = findViewById(R.id.red_turn_color);
+        blackTurn = findViewById(R.id.black_turn_color);
+        yellowTurn = findViewById(R.id.yellow_turn_color);
+        greenTurn = findViewById(R.id.green_turn_color);
         inputChatEditText = findViewById(R.id.input_edit_text);
         sendMessageButton = findViewById(R.id.send_message_button);
         sendMessageButton.setOnClickListener(new View.OnClickListener() {
@@ -238,6 +245,12 @@ public class GameBoardActivity extends AppCompatActivity {
         mWildTrainCard.setText("" + playersHandPresenter.getTrainCardAmount(9));
         mBlueTrainCard.setText("" + playersHandPresenter.getTrainCardAmount(4));
         mOrangeTrainCard.setText("" + playersHandPresenter.getTrainCardAmount(5));
+        blackTurn.setVisibility(View.VISIBLE);
+        redTurn.setVisibility(View.INVISIBLE);
+        blueTurn.setVisibility(View.INVISIBLE);
+        greenTurn.setVisibility(View.INVISIBLE);
+        yellowTurn.setVisibility(View.INVISIBLE);
+
 
         destinationCardDeck = findViewById(R.id.destination_card_deck);
         destinationCardDeck.setOnClickListener(new View.OnClickListener() {
@@ -1306,8 +1319,44 @@ public class GameBoardActivity extends AppCompatActivity {
             cardThree.setBackgroundResource((int) trainCardImages.get(cardDeckPresenter.getTrainCardAtPosition(3)));
             cardTwo.setBackgroundResource((int) trainCardImages.get(cardDeckPresenter.getTrainCardAtPosition(2)));
             cardOne.setBackgroundResource((int) trainCardImages.get(cardDeckPresenter.getTrainCardAtPosition(1)));
-
             TTR_Constants constants = TTR_Constants.getInstance();
+
+            if (playerInfoPresenter.getCurrentTurn().getPlayerColor().equals(constants.BLACK_PLAYER)) {
+                blackTurn.setVisibility(View.VISIBLE);
+                redTurn.setVisibility(View.INVISIBLE);
+                blueTurn.setVisibility(View.INVISIBLE);
+                greenTurn.setVisibility(View.INVISIBLE);
+                yellowTurn.setVisibility(View.INVISIBLE);
+            }
+            else if (playerInfoPresenter.getCurrentTurn().getPlayerColor().equals(constants.RED_PLAYER)) {
+                redTurn.setVisibility(View.VISIBLE);
+                blackTurn.setVisibility(View.INVISIBLE);
+                blueTurn.setVisibility(View.INVISIBLE);
+                greenTurn.setVisibility(View.INVISIBLE);
+                yellowTurn.setVisibility(View.INVISIBLE);
+            }
+            else if (playerInfoPresenter.getCurrentTurn().getPlayerColor().equals(constants.BLUE_PLAYER)) {
+                blueTurn.setVisibility(View.VISIBLE);
+                blackTurn.setVisibility(View.INVISIBLE);
+                redTurn.setVisibility(View.INVISIBLE);
+                greenTurn.setVisibility(View.INVISIBLE);
+                yellowTurn.setVisibility(View.INVISIBLE);
+            }
+            else if (playerInfoPresenter.getCurrentTurn().getPlayerColor().equals(constants.GREEN_PLAYER)) {
+                greenTurn.setVisibility(View.VISIBLE);
+                blackTurn.setVisibility(View.INVISIBLE);
+                redTurn.setVisibility(View.INVISIBLE);
+                blueTurn.setVisibility(View.INVISIBLE);
+                yellowTurn.setVisibility(View.INVISIBLE);
+            }
+            else if (playerInfoPresenter.getCurrentTurn().getPlayerColor().equals(constants.YELLOW_PLAYER)) {
+                yellowTurn.setVisibility(View.VISIBLE);
+                blackTurn.setVisibility(View.INVISIBLE);
+                redTurn.setVisibility(View.INVISIBLE);
+                blueTurn.setVisibility(View.INVISIBLE);
+                greenTurn.setVisibility(View.INVISIBLE);
+            }
+
             for (Player player : playerInfoPresenter.getPlayers()) {
                 Set<Route> routes = playerInfoPresenter.getPurchasedRoutesFromPlayer(player.getPlayerColor());
                 for (Route route : routes) {

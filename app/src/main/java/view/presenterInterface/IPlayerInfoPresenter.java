@@ -8,6 +8,7 @@ import models.data.Player;
 import models.data.Route;
 
 public interface IPlayerInfoPresenter {
+    Player getCurrentTurn();
     ArrayList<Player> getPlayers();
     ArrayList<String> getNewDestinationCardStrings();
     Player getPlayerByOrder(int num);
