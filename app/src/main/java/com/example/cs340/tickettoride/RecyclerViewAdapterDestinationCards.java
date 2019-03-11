@@ -43,13 +43,16 @@ public class RecyclerViewAdapterDestinationCards extends RecyclerView.Adapter<Re
         holder.discardButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                v.getBackground().setColorFilter(Color.DKGRAY, PorterDuff.Mode.MULTIPLY);
-                v.setAlpha(.5f);
-                v.setEnabled(false);
+
                 //TODO: ADD THIS ROUTE TO THE ARRAYLIST OF CARDS TO DISCARD
-                if (playerInfoPresenter.addToListOfDestinationCardsToDiscard(mDestinationRoutes.get(position)))
+                if (playerInfoPresenter.addToListOfDestinationCardsToDiscard(mDestinationRoutes.get(position))) {
+                    v.getBackground().setColorFilter(Color.DKGRAY, PorterDuff.Mode.MULTIPLY);
+                    v.setAlpha(.5f);
+                    v.setEnabled(false);
                     Toast.makeText(mContext, mDestinationRoutes.get(position) +
                             "\nThis card will be discarded", Toast.LENGTH_SHORT).show();
+                }
+
                 else
                     Toast.makeText(mContext, "You cannot discard more cards", Toast.LENGTH_SHORT).show();
 
