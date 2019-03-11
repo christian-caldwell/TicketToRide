@@ -104,7 +104,7 @@ public class DemoPresenter {
                 cards1[0] = player1.getNewDestinationCards().get(0);
                 mServerProxy.returnDestinationCards(zack.getUsername(), this.game1.getGameName(), cards1);
                 output = "Test Iteration " + (demoNumber + 1) + ":\n "  + player1.getUsername()
-                        + "Will Reture Destination Card to Game Deck";
+                        + " Will Return Destination Card to Game Deck";
                 break;
             case (2):
                 DestinationCard[] cards2 = new DestinationCard[1];
