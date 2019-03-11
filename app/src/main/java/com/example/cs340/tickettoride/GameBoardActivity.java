@@ -340,6 +340,7 @@ public class GameBoardActivity extends AppCompatActivity {
         trainCardDeck.setText("" + cardDeckPresenter.getTrainCardsLeft());
         gameBoard = findViewById(R.id.game_board_pic);
 
+        new UpdateAsyncTask(this).execute();
     }
 
     private void initDestinationCardsRecyclerView() {
