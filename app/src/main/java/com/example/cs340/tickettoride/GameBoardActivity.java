@@ -69,6 +69,7 @@ public class GameBoardActivity extends AppCompatActivity {
     private static TextView three_destinationCards, three_trainCards, three_score, three_trainsLeft;
     private static TextView four_destinationCards, four_trainCards, four_score, four_trainsLeft;
     private static TextView five_destinationCards, five_trainCards, five_score, five_trainsLeft;
+    private static DrawerLayout activityLayout;
 
     @Override
     public void onBackPressed() {
@@ -114,7 +115,7 @@ public class GameBoardActivity extends AppCompatActivity {
         playerInfoPresenter = new PlayerInfoPresenter(this);
         playersHandPresenter = new PlayersHandPresenter(this);
         initRecyclerView();
-        //initDestinationCardsRecyclerView();
+        initDestinationCardsRecyclerView();
         inputChatEditText = findViewById(R.id.input_edit_text);
         sendMessageButton = findViewById(R.id.send_message_button);
         sendMessageButton.setOnClickListener(new View.OnClickListener() {
@@ -138,46 +139,11 @@ public class GameBoardActivity extends AppCompatActivity {
             }
         });
 
-        //FIXME: FINISH THE LISTENER TO RETURN THE PLAYER'S ROUTE CARDS THAT HE HAS
         playerInfoButton = findViewById(R.id.get_player_info_button);
         playerInfoButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                destinationCardList = playerInfoPresenter.getDestinationCardStrings();
-
-                // Initialize a new instance of LayoutInflater service
-                LayoutInflater inflater = (LayoutInflater) getApplicationContext().getSystemService(LAYOUT_INFLATER_SERVICE);
-
-                // Inflate the custom layout/view
-                View customView = inflater.inflate(R.layout.player_info_popup_window,null);
-
-                // Initialize a new instance of popup window
-                mPopupWindow = new PopupWindow(customView, 900,
-                        800, true);
-
-                RecyclerView destinationCardsRecyclerView = mPopupWindow.getContentView().findViewById(R.id.recycler_view_destination_cards);
-                destinationCardList = playerInfoPresenter.getNewDestinationCardStrings();
-                destinationCardsAdapter = new RecyclerViewAdapterDestinationCards(destinationCardList, mPopupWindow.getContentView().getContext(), playerInfoPresenter);
-                destinationCardsRecyclerView.setHasFixedSize(true);
-                destinationCardsRecyclerView.setAdapter(destinationCardsAdapter);
-                destinationCardsRecyclerView.setLayoutManager(new LinearLayoutManager(mPopupWindow.getContentView().getContext()));
-
-
-
-                // Set an elevation value for popup window
-                if(Build.VERSION.SDK_INT>=21)
-                   mPopupWindow.setElevation(10);
-
-                DrawerLayout activityLayout = findViewById(R.id.game_board_activity);
                 mPopupWindow.showAtLocation(activityLayout, Gravity.CENTER,0,0);
-
-                /*customView.setOnTouchListener(new View.OnTouchListener() {
-                    @Override
-                    public boolean onTouch(View v, MotionEvent event) {
-                        mPopupWindow.dismiss();
-                        return true;
-                    }
-                });*/
             }
         });
 
@@ -291,17 +257,31 @@ public class GameBoardActivity extends AppCompatActivity {
     }
 
     private void initDestinationCardsRecyclerView() {
-        // Inflate the 'player_info_popup_window.xml' to be able to work with it's recyclerView
-        View view;
-        LayoutInflater inflater = (LayoutInflater)   getApplicationContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        view = inflater.inflate(R.layout.player_info_popup_window, null);
-        RecyclerView destinationCardsRecyclerView = view.findViewById(R.id.recycler_view_destination_cards);
+        destinationCardList = playerInfoPresenter.getDestinationCardStrings();
 
+        // Initialize a new instance of LayoutInflater service
+        LayoutInflater inflater = (LayoutInflater) getApplicationContext().getSystemService(LAYOUT_INFLATER_SERVICE);
+
+        // Inflate the custom layout/view
+        View customView = inflater.inflate(R.layout.player_info_popup_window,null);
+
+        // Initialize a new instance of popup window
+        mPopupWindow = new PopupWindow(customView, 900,
+                800, true);
+
+        RecyclerView destinationCardsRecyclerView = mPopupWindow.getContentView().findViewById(R.id.recycler_view_destination_cards);
         destinationCardList = playerInfoPresenter.getNewDestinationCardStrings();
-        destinationCardsAdapter = new RecyclerViewAdapterDestinationCards(destinationCardList, this, playerInfoPresenter);
+        destinationCardsAdapter = new RecyclerViewAdapterDestinationCards(destinationCardList, mPopupWindow.getContentView().getContext(), playerInfoPresenter);
         destinationCardsRecyclerView.setHasFixedSize(true);
         destinationCardsRecyclerView.setAdapter(destinationCardsAdapter);
-        destinationCardsRecyclerView.setLayoutManager(new LinearLayoutManager(this));
+        destinationCardsRecyclerView.setLayoutManager(new LinearLayoutManager(mPopupWindow.getContentView().getContext()));
+
+
+        // Set an elevation value for popup window
+        if(Build.VERSION.SDK_INT>=21)
+            mPopupWindow.setElevation(10);
+
+        activityLayout = findViewById(R.id.game_board_activity);
     }
 
     private void initRecyclerView() {
@@ -1269,8 +1249,8 @@ public class GameBoardActivity extends AppCompatActivity {
 
             //FIXME: GET THE ARRAYLIST OF OLD DESTINATION CARDS TO ALSO SHOW IN THE RECYCLERVIEW
             destinationCardList = playerInfoPresenter.getNewDestinationCardStrings();
-//            destinationCardsAdapter.setListOfDestinationCards(destinationCardList);
-  //          destinationCardsAdapter.notifyDataSetChanged();
+            destinationCardsAdapter.setListOfDestinationCards(destinationCardList);
+            destinationCardsAdapter.notifyDataSetChanged();
 
 
             mGreenTrainCard.setText("" + playersHandPresenter.getTrainCardAmount(1));
