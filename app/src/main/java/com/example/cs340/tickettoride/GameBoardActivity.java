@@ -77,6 +77,7 @@ public class GameBoardActivity extends AppCompatActivity {
     private String demoToast = "Players initialized at Zero Points, 48 trains, Color Set\n Game Initialized: Starting Player Set, Game Decks Filled\n Initial Actions: Players Handed 3 Dest Cards and 4 Tickets";
     private int demoInterationNumber = 0;
     private static ImageView blueTurn, redTurn, blackTurn, yellowTurn, greenTurn;
+    private static TextView player1_username, player2_username, player3_username, player4_username, player5_username;
 
     private static DrawerLayout activityLayout;
 
@@ -204,7 +205,11 @@ public class GameBoardActivity extends AppCompatActivity {
                 });*/
             }
         });
-
+        player1_username = findViewById(R.id.player1_name_text_view);
+        player2_username = findViewById(R.id.player2_name_text_view);
+        player3_username = findViewById(R.id.player3_name_text_view);
+        player4_username = findViewById(R.id.player4_name_text_view);
+        player5_username = findViewById(R.id.player5_name_text_view);
         mGreenTrainCard = findViewById(R.id.greenCard);
         mRedTrainCard = findViewById(R.id.redCard);
         mPinkTrainCard = findViewById(R.id.pinkCard);
@@ -246,6 +251,23 @@ public class GameBoardActivity extends AppCompatActivity {
         mWildTrainCard.setText("" + playersHandPresenter.getTrainCardAmount(9));
         mBlueTrainCard.setText("" + playersHandPresenter.getTrainCardAmount(4));
         mOrangeTrainCard.setText("" + playersHandPresenter.getTrainCardAmount(5));
+        for (int i = 0; i < playerInfoPresenter.getPlayers().size(); i++) {
+            if (i == 0) {
+                player1_username.setText("" + playerInfoPresenter.getPlayerByOrder(i).getUsername());
+            }
+            else if (i == 1) {
+                player2_username.setText("" + playerInfoPresenter.getPlayerByOrder(i).getUsername());
+            }
+            else if (i == 2) {
+                player3_username.setText("" + playerInfoPresenter.getPlayerByOrder(i).getUsername());
+            }
+            else if (i == 3) {
+                player4_username.setText("" + playerInfoPresenter.getPlayerByOrder(i).getUsername());
+            }
+            else if (i == 4) {
+                player5_username.setText("" + playerInfoPresenter.getPlayerByOrder(i).getUsername());
+            }
+        }
         blackTurn.setVisibility(View.VISIBLE);
         redTurn.setVisibility(View.INVISIBLE);
         blueTurn.setVisibility(View.INVISIBLE);
