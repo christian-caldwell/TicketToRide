@@ -50,12 +50,11 @@ public class RecyclerViewAdapterDestinationCards extends RecyclerView.Adapter<Re
                 //if result is successful, make toast saying it will be discarded
                 //if not, display toast saying user cannot discard it
                 Result result = playerInfoPresenter.returnDestinationCards(mDestinationRoutes.get(position));
-//                if(result.isSuccessful()) {
-//                    Toast.makeText(mContext, mDestinationRoutes.get(position) +
-//                            " will be discarded", Toast.LENGTH_SHORT).show();
-//                }
-                Toast.makeText(mContext, mDestinationRoutes.get(position) +
-                        "\nThis card will be discarded", Toast.LENGTH_SHORT).show();
+                if(result.isSuccessful()) {
+                    Toast.makeText(mContext, mDestinationRoutes.get(position) +
+                            "\nThis card will be discarded", Toast.LENGTH_SHORT).show();
+                }
+
 
             }
         });
