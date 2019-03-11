@@ -69,9 +69,9 @@ public class Player {
         }
     }
     public void hideCards() {
-        tickets = null;
-        this.destinationCardHand = null;
-        this.newDestinationCards = null;
+//        tickets = null;
+//        this.destinationCardHand = null;
+//        this.newDestinationCards = null;
     }
 /////////////////////////////////////////////////////////////////////////////////////////////////
 
