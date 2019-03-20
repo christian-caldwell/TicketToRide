@@ -1,12 +1,12 @@
 package client;
 
-import com.example.cs340.tickettoride.GameBoardActivity;
-
 import java.util.ArrayList;
 import java.util.Map;
 import java.util.Observable;
 import java.util.Observer;
 
+import client.PlayerStates.NotInGame;
+import client.PlayerStates.PlayerState;
 import models.data.ChatMessage;
 import models.data.DestinationCard;
 import models.data.Game;
@@ -31,6 +31,7 @@ public class ClientModel extends Observable {
     private CardDeckPresenter mCardDeckPresenter;
     private PlayerInfoPresenter mPlayerInfoPresenter;
     private PlayersHandPresenter mPlayersHandPresenter;
+    private PlayerState state = NotInGame.getInstance();
 
     //    TEMPORARY DEMO THINGS
     DemoPresenter demoPresenter;
@@ -220,6 +221,22 @@ public class ClientModel extends Observable {
         setChanged();
         notifyObservers();
         deleteObservers();
+    }
+
+
+    public void initializeGame(){
+        state.initializeGame(this);
+    };
+    public void requestTicketCard(ClientModel clientModel){};
+    public void requestDestinationCards(ClientModel clientModel){};
+    public void returnDestinationCards(ClientModel clientModel){};
+    public void postChatMessage(ClientModel clientModel){};
+    public void purchaseRoute(ClientModel clientModel){};
+    public void acceptPlayerAction(ClientModel clientModel){};
+    public void leaveGame(ClientModel clientModel){};
+
+    public void setState(PlayerState state) {
+        this.state = state;
     }
 
     @Override
