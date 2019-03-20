@@ -13,13 +13,6 @@ public class NotYourTurn extends PlayerState {
     private NotYourTurn() {
     }
 
-    public void initializeGame(ClientModel clientModel){
-        if(clientModel.getUser().isHost()) {
-            GameStartFacadeOut gameStartFacadeOut = new GameStartFacadeOut();
-            gameStartFacadeOut.startGame(clientModel.getUser().getGame().getGameName());
-        }
-        clientModel.setState(NotYourTurn.getInstance());
-    };
     public void requestTicketCard(ClientModel clientModel){};
     public void requestDestinationCards(ClientModel clientModel){};
     public void returnDestinationCards(ClientModel clientModel){};
