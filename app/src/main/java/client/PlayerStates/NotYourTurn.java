@@ -1,6 +1,8 @@
 package client.PlayerStates;
 
 import client.ClientModel;
+import client.ServerProxy;
+import models.data.Game;
 import view.facade.client.out.GameStartFacadeOut;
 
 public class NotYourTurn extends PlayerState {
@@ -11,14 +13,14 @@ public class NotYourTurn extends PlayerState {
     }
 
     private NotYourTurn() {
+
     }
 
-    public void requestTicketCard(ClientModel clientModel){};
-    public void requestDestinationCards(ClientModel clientModel){};
-    public void returnDestinationCards(ClientModel clientModel){};
-    public void postChatMessage(ClientModel clientModel){};
-    public void purchaseRoute(ClientModel clientModel){};
-    public void acceptPlayerAction(ClientModel clientModel){};
-    public void leaveGame(ClientModel clientModel){};
+    public void acceptPlayerAction(ClientModel clientModel){
+        Game game = clientModel.getUser().getGame();
+        if (game.findPlayerByColor(game.getCurrentTurnPlayer()).getUsername().equals(clientModel.getUser().getUsername())) {
+            clientModel.setState(YourTurnDefault.getInstance());
+        }
+    };
 
 }

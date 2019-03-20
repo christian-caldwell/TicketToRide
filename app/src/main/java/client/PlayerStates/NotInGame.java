@@ -14,10 +14,10 @@ public class NotInGame extends PlayerState {
     }
 
     public void initializeGame(ClientModel clientModel){
-        if(clientModel.getUser().isHost()) {
-            GameStartFacadeOut gameStartFacadeOut = new GameStartFacadeOut();
-            gameStartFacadeOut.startGame(clientModel.getUser().getGame().getGameName());
-        }
+            if(clientModel.getUser().isHost()) {
+                GameStartFacadeOut gameStartFacadeOut = new GameStartFacadeOut();
+                gameStartFacadeOut.startGame(clientModel.getUser().getGame().getGameName());
+            }
         clientModel.setState(NotYourTurn.getInstance());
         }
     };
