@@ -226,14 +226,28 @@ public class ClientModel extends Observable {
 
     public void initializeGame(){
         state.initializeGame(this);
-    };
-    public void requestTicketCard(ClientModel clientModel){};
-    public void requestDestinationCards(ClientModel clientModel){};
-    public void returnDestinationCards(ClientModel clientModel){};
-    public void postChatMessage(ClientModel clientModel){};
-    public void purchaseRoute(ClientModel clientModel){};
-    public void acceptPlayerAction(ClientModel clientModel){};
-    public void leaveGame(ClientModel clientModel){};
+    }
+    public void requestTicketCard(ClientModel clientModel, int cardNum){
+        state.requestTicketCard(this, cardNum);
+    }
+    public void requestDestinationCards(ClientModel clientModel){
+        state.requestDestinationCards(this);
+    }
+    public void returnDestinationCards(ClientModel clientModel){
+        state.returnDestinationCards(this);
+    }
+    public void postChatMessage(ClientModel clientModel){
+        state.postChatMessage(this);
+    }
+    public void purchaseRoute(ClientModel clientModel){
+        state.purchaseRoute(this);
+    }
+    public void acceptPlayerAction(ClientModel clientModel){
+        state.acceptPlayerAction(this);
+    }
+    public void leaveGame(ClientModel clientModel){
+        state.leaveGame(this);
+    }
 
     public void setState(PlayerState state) {
         this.state = state;

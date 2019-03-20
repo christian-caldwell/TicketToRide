@@ -4,7 +4,7 @@ import client.ClientModel;
 
 public class PlayerState {
     public void initializeGame(ClientModel clientModel){};
-    public void requestTicketCard(ClientModel clientModel){};
+    public void requestTicketCard(ClientModel clientModel, int cardNum){};
     public void requestDestinationCards(ClientModel clientModel){};
     public void returnDestinationCards(ClientModel clientModel){};
     public void postChatMessage(ClientModel clientModel){};
