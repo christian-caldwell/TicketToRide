@@ -20,6 +20,8 @@ public class Game {
     private Integer numPlayerActions;
     private Integer currentLongestRouteValue;
     private Integer currentTurnPlayer;
+    private boolean lastRound = false;
+    private boolean lastTurn = false;
 
     private ArrayList<String> playerUsernames = new ArrayList<>();
 
@@ -382,5 +384,21 @@ public class Game {
         for (int i = 1; i < 10; i++ ) {
             this.ticketCardDiscard.put(i, 0);
         }
+    }
+
+    public boolean isLastRound() {
+        return lastRound;
+    }
+
+    public void setLastRound(boolean lastRound) {
+        this.lastRound = lastRound;
+    }
+
+    public boolean isLastTurn() {
+        return lastTurn;
+    }
+
+    public void setLastTurn(boolean lastTurn) {
+        this.lastTurn = lastTurn;
     }
 }
