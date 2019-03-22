@@ -6,6 +6,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 import models.data.DestinationCard;
+import models.data.Graph;
 import models.data.Route;
 import models.data.TrainCard;
 
@@ -203,6 +204,8 @@ public class TTR_Constants {
     private final int WILD_TICKET_STARTING_COUNT = 14;
     public final int TRAIN_STARTING_COUNT = 45;
 
+    public Graph g = new Graph(36);
+
     private static TTR_Constants singleton;
     
     private TTR_Constants () {
@@ -215,6 +218,18 @@ public class TTR_Constants {
         }
         
         return  singleton;
+    }
+
+    public void createGraph() {
+
+    }
+    public Graph getGraph() {
+        g.addEdge(0, 1);
+        g.addEdge(0, 2);
+        g.addEdge(1, 2);
+        g.addEdge(2, 0);
+        g.addEdge(2, 3);
+        g.addEdge(3, 3);
     }
     public HashMap<Integer, Integer> getStartingTicketDeck(){
         HashMap<Integer, Integer> newDeck = new HashMap<>();
