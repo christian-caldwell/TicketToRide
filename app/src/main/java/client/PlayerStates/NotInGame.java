@@ -1,6 +1,7 @@
 package client.PlayerStates;
 
 import client.ClientModel;
+import models.data.Result;
 import view.facade.client.out.GameStartFacadeOut;
 
 public class NotInGame extends PlayerState {
@@ -13,12 +14,15 @@ public class NotInGame extends PlayerState {
     private NotInGame() {
     }
 
-    public void initializeGame(ClientModel clientModel) {
-        if (clientModel.getUser().isHost()) {
+    public Result initializeGame(ClientModel clientModel){
+        Result result = new Result();
+        result.setSuccessful(false);
+        if(clientModel.getUser().isHost()) {
             GameStartFacadeOut gameStartFacadeOut = new GameStartFacadeOut();
-            gameStartFacadeOut.startGame(clientModel.getUser().getGame().getGameName());
+            result = gameStartFacadeOut.startGame(clientModel.getUser().getGame().getGameName());
         }
-        clientModel.setState(YourTurnAwaitingDestinations.getInstance());
+        clientModel.setState(NotYourTurn.getInstance());
+        return result;
     }
-}
+};
 

@@ -12,6 +12,7 @@ import models.data.DestinationCard;
 import models.data.Game;
 import models.data.Player;
 import models.data.Route;
+import models.data.Result;
 import models.data.User;
 import view.presenter.CardDeckPresenter;
 import view.presenter.ChatPresenter;
@@ -204,6 +205,7 @@ public class ClientModel extends Observable {
     }
 
     public void updateGame() {
+        this.acceptPlayerAction();
         if (mGamePresenter != null) {
             addObserver(this.mGamePresenter);
         }
@@ -225,30 +227,27 @@ public class ClientModel extends Observable {
     }
 
 
-    public void initializeGame(){
-        state.initializeGame(this);
-    }
-    public void requestTicketCard(ClientModel clientModel, int cardNum){
-        state.requestTicketCard(this, cardNum);
-    }
-    public void requestDestinationCards(ClientModel clientModel){
-        state.requestDestinationCards(this);
-    }
-    public void returnDestinationCards(ClientModel clientModel){
-        state.returnDestinationCards(this);
-    }
-    public void postChatMessage(ClientModel clientModel){
-        state.postChatMessage(this);
-    }
-    public void purchaseRoute(ClientModel clientModel, Route route, int numberOfWilds){
-        state.purchaseRoute(this, route, numberOfWilds);
-    }
-    public void acceptPlayerAction(ClientModel clientModel){
-        state.acceptPlayerAction(this);
-    }
-    public void leaveGame(ClientModel clientModel){
-        state.leaveGame(this);
-    }
+    public Result initializeGame(){
+        return state.initializeGame(this);
+    };
+    public Result requestTicketCard(int cardNum){
+        return state.requestTicketCard(this, cardNum);
+    };
+    public Result requestDestinationCards(){
+        return state.requestDestinationCards(this);
+    };
+    public Result returnDestinationCards(DestinationCard[] destinationCards){
+        return state.returnDestinationCards(this, destinationCards);
+    };
+    public Result purchaseRoute(){
+        return state.purchaseRoute(this);
+    };
+    public Result leaveGame(){
+        return state.leaveGame(this);
+    };
+    public Result acceptPlayerAction(){
+        return state.acceptPlayerAction(this);
+    };
 
     public void setState(PlayerState state) {
         this.state = state;

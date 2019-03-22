@@ -1,15 +1,30 @@
 package client.PlayerStates;
 
 import client.ClientModel;
+import models.data.DestinationCard;
+import models.data.Result;
 import models.data.Route;
 
 public class PlayerState {
-    public void initializeGame(ClientModel clientModel){}
-    public void requestTicketCard(ClientModel clientModel, int cardNum){}
-    public void requestDestinationCards(ClientModel clientModel){}
-    public void returnDestinationCards(ClientModel clientModel){}
-    public void postChatMessage(ClientModel clientModel){}
-    public void purchaseRoute(ClientModel clientModel, Route route, int numberOfWilds){}
-    public void acceptPlayerAction(ClientModel clientModel){}
-    public void leaveGame(ClientModel clientModel){}
+    public Result initializeGame(ClientModel clientModel){
+        return null;
+    };
+    public Result requestTicketCard(ClientModel clientModel, int cardNum){
+        return null;
+    };
+    public Result requestDestinationCards(ClientModel clientModel){
+        return null;
+    };
+    public Result returnDestinationCards(ClientModel clientModel, DestinationCard[] destinationCards){
+        return null;
+    };
+    public Result purchaseRoute(ClientModel clientModel, Route route, int numberOfWilds){
+        return null;
+    };
+    public Result acceptPlayerAction(ClientModel clientModel){
+        return null;
+    };
+    public Result leaveGame(ClientModel clientModel){
+        return null;
+    };
 }
