@@ -15,12 +15,12 @@ public class GameOverPresenter implements IGameOverPresenter {
     }
 
     @Override
-    public Integer getDestinationPointsGained() {
-        return 1;
+    public Integer getDestinationPointsGained(Player player) {
+        return player.getDestinationCardHand().get(1).getPoints();
     }
 
     @Override
-    public Integer getDestinationPoinntsLost() {
+    public Integer getDestinationPointsLost(Player player) {
         return 3;
     }
 }
