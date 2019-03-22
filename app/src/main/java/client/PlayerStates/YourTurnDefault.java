@@ -25,7 +25,8 @@ public class YourTurnDefault extends PlayerState {
         clientModel.setState(YourTurnAwaitingDestinations.getInstance());
     }
     public void purchaseRoute(ClientModel clientModel, Route route, int numberOfWilds){
-        // TODO: the game board calls the proxy directly. make call to presenter and then implement state pattern.
+        serverProxy.purchaseRoute(clientModel.getUser().getUsername(), clientModel.getUser().getGame().getGameName(), route, numberOfWilds);
+        clientModel.setState(NotYourTurn.getInstance());
     }
     public void acceptPlayerAction(ClientModel clientModel){}
     public void leaveGame(ClientModel clientModel){}
