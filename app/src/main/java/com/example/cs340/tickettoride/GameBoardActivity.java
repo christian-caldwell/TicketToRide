@@ -456,7 +456,6 @@ public class GameBoardActivity extends AppCompatActivity {
     }
 
     public void change_color_neworleans_miami_g1(View view) {//6
-        ServerProxy proxy = new ServerProxy();
         ClientModel.create().purchaseRoute(clientModel, TTR_Constants.getInstance().R_ORI_TO_MIA, 0);
 //         proxy.purchaseRoute(client.getUser().getUsername(), client.getUser().getGame().getGameName(), TTR_Constants.getInstance().R_ORI_TO_MIA, 0);
     }
