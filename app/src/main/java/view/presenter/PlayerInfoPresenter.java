@@ -116,7 +116,7 @@ public class PlayerInfoPresenter implements IPlayerInfoPresenter, Observer {
         switch (listOfDestinationCardsToDiscard.size()) {
             case 0:
                 listOfDestinationCardsToDiscard.clear();
-                return serverProxy.returnDestinationCards(clientModel.getUser().getUsername(), clientModel.getUser().getGame().getGameName(), null);
+                return ClientModel.create().returnDestinationCards(null);
             case 1:
                 DestinationCard[] destinationCards1 = new DestinationCard[1];
                 for (int i = 0; i < listOfDestinationCardsToDiscard.size(); i++) {
@@ -125,7 +125,7 @@ public class PlayerInfoPresenter implements IPlayerInfoPresenter, Observer {
                     destinationCards1[i] = constants.findDestinationCard(first, second);
                 }
                 listOfDestinationCardsToDiscard.clear();
-                return serverProxy.returnDestinationCards(clientModel.getUser().getUsername(), clientModel.getUser().getGame().getGameName(), destinationCards1);
+                return ClientModel.create().returnDestinationCards(destinationCards1);
 
             case 2:
                 DestinationCard[] destinationCards2 = new DestinationCard[2];
@@ -135,12 +135,11 @@ public class PlayerInfoPresenter implements IPlayerInfoPresenter, Observer {
                     destinationCards2[i] = constants.findDestinationCard(first, second);
                 }
                 listOfDestinationCardsToDiscard.clear();
-                return serverProxy.returnDestinationCards(clientModel.getUser().getUsername(), clientModel.getUser().getGame().getGameName(), destinationCards2);
+                return ClientModel.create().returnDestinationCards(destinationCards2);
         }
 
-
         listOfDestinationCardsToDiscard.clear();
-        return serverProxy.returnDestinationCards(clientModel.getUser().getUsername(), clientModel.getUser().getGame().getGameName(), null);
+        return ClientModel.create().returnDestinationCards(null);
     }
 
     @Override

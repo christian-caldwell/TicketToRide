@@ -1,5 +1,9 @@
 package client.PlayerStates;
 
+import client.ClientModel;
+import client.ServerProxy;
+import models.data.Result;
+
 public class GameFinished extends PlayerState{
     private static final GameFinished ourInstance = new GameFinished();
 
@@ -8,5 +12,15 @@ public class GameFinished extends PlayerState{
     }
 
     private GameFinished() {
+
     }
+
+    public Result leaveGame(ClientModel clientModel){
+        Result result = null;
+        ServerProxy serverProxy = new ServerProxy();
+        //result = serverproxy.leaveGame(username, gamename);
+        clientModel.getUser().setGameJoined(null);
+        clientModel.setState(NotInGame.getInstance());
+        return result;
+    };
 }

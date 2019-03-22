@@ -9,6 +9,7 @@ import java.util.Observer;
 import client.ClientModel;
 import client.ServerProxy;
 import models.data.Player;
+import models.data.Result;
 import models.data.Route;
 import view.presenterInterface.ICardDeckPresenter;
 
@@ -36,7 +37,8 @@ public class CardDeckPresenter implements ICardDeckPresenter, Observer {
 //        public Result returnDestinationCards (String userName, String gameName, DestinationCard[] returnedCards)
         //FIXME: needs to be updated if they chose a rainbow card.
         //Player player = clientModel.getUser().getGame().findPlayer(clientModel.getUser().getUsername());
-        serverProxy.requestTicketCard(clientModel.getUser().getUsername(), clientModel.getUser().getGame().getGameName(), cardNum, secondTurn);
+        Result result = null;
+        result = ClientModel.create().requestTicketCard(cardNum);
         if (secondTurn) {
             secondTurn = false;
         }

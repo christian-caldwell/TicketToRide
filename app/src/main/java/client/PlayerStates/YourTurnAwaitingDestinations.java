@@ -1,6 +1,9 @@
 package client.PlayerStates;
 
 import client.ClientModel;
+import client.ServerProxy;
+import models.data.DestinationCard;
+import models.data.Result;
 
 public class YourTurnAwaitingDestinations extends PlayerState {
     private static final YourTurnAwaitingDestinations ourInstance = new YourTurnAwaitingDestinations();
@@ -12,6 +15,20 @@ public class YourTurnAwaitingDestinations extends PlayerState {
     private YourTurnAwaitingDestinations() {
 
     }
-    public void returnDestinationCards(ClientModel clientModel){};
-    public void acceptPlayerAction(ClientModel clientModel){};
+    public Result returnDestinationCards(ClientModel clientModel, DestinationCard[] destinationCards){
+        ServerProxy serverProxy = new ServerProxy();
+        return serverProxy.returnDestinationCards(clientModel.getUser().getUsername(), clientModel.getUser().getGame().getGameName(), destinationCards);
+    };
+    public Result acceptPlayerAction(ClientModel clientModel){
+        Result result = new Result();
+        if(clientModel.getUser().getGame().isLastTurn()) {
+            clientModel.setState(GameFinished.getInstance());
+            result.setSuccessful(true);
+        }
+        else {
+            clientModel.setState(YourTurnDefault.getInstance());
+            result.setSuccessful(true);
+        }
+        return result;
+    };
 }
