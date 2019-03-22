@@ -58,7 +58,6 @@ public class RecyclerViewAdapterDestinationCards extends RecyclerView.Adapter<Re
 
             }
         });
-
     }
 
     @Override
