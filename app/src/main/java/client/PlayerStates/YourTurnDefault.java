@@ -2,6 +2,7 @@ package client.PlayerStates;
 
 import client.ClientModel;
 import client.ServerProxy;
+import models.data.Result;
 import models.data.Route;
 
 public class YourTurnDefault extends PlayerState {
@@ -14,22 +15,28 @@ public class YourTurnDefault extends PlayerState {
     private YourTurnDefault() {
     }
 
-    public void requestTicketCard(ClientModel clientModel,  int cardNum){
-        serverProxy.requestTicketCard(clientModel.getUser().getUsername(), clientModel.getUser().getGame().getGameName(), cardNum, false);
+    public Result requestTicketCard(ClientModel clientModel, int cardNum){
+        Result result = new Result();
+        result = serverProxy.requestTicketCard(clientModel.getUser().getUsername(), clientModel.getUser().getGame().getGameName(), cardNum, false);
         clientModel.setState(YourTurnSecondDraw.getInstance());
+        return result;
     }
 
-    public void requestDestinationCards(ClientModel clientModel){
-        serverProxy.requestDestinationCards(clientModel.getUser().getUsername(), clientModel.getUser().getGame().getGameName());
+    public Result requestDestinationCards(ClientModel clientModel){
+        Result result = new Result();
+        result = serverProxy.requestDestinationCards(clientModel.getUser().getUsername(), clientModel.getUser().getGame().getGameName());
         clientModel.setState(YourTurnAwaitingDestinations.getInstance());
+        return result;
     }
 
-    public void purchaseRoute(ClientModel clientModel, Route route, int numberOfWilds){
-        serverProxy.purchaseRoute(clientModel.getUser().getUsername(), clientModel.getUser().getGame().getGameName(), route, numberOfWilds);
+    public Result purchaseRoute(ClientModel clientModel, Route route, int numberOfWilds){
+        Result result = new Result();
+        result = serverProxy.purchaseRoute(clientModel.getUser().getUsername(), clientModel.getUser().getGame().getGameName(), route, numberOfWilds);
         clientModel.setState(NotYourTurn.getInstance());
+        return result;
     }
 
-    public void acceptPlayerAction(ClientModel clientModel){}
-
-    public void leaveGame(ClientModel clientModel){}
+//    public Result acceptPlayerAction(ClientModel clientModel){}
+//
+//    public Result leaveGame(ClientModel clientModel){}
 }

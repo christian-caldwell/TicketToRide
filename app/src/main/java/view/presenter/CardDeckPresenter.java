@@ -2,15 +2,11 @@ package view.presenter;
 
 import com.example.cs340.tickettoride.GameBoardActivity;
 
-import java.util.ArrayList;
 import java.util.Observable;
 import java.util.Observer;
 
 import client.ClientModel;
 import client.ServerProxy;
-import models.data.Player;
-import models.data.Result;
-import models.data.Route;
 import view.presenterInterface.ICardDeckPresenter;
 
 public class CardDeckPresenter implements ICardDeckPresenter, Observer {
@@ -37,7 +33,7 @@ public class CardDeckPresenter implements ICardDeckPresenter, Observer {
 //        public Result returnDestinationCards (String userName, String gameName, DestinationCard[] returnedCards)
         //FIXME: needs to be updated if they chose a rainbow card.
         //Player player = clientModel.getUser().getGame().findPlayer(clientModel.getUser().getUsername());
-        ClientModel.create().requestTicketCard(clientModel, cardNum);
+        ClientModel.create().requestTicketCard(cardNum);
 //        serverProxy.requestTicketCard(clientModel.getUser().getUsername(), clientModel.getUser().getGame().getGameName(), cardNum, secondTurn);
 //        if (secondTurn) {
 //            secondTurn = false;
@@ -50,7 +46,7 @@ public class CardDeckPresenter implements ICardDeckPresenter, Observer {
     @Override
     public void drawDestinationCard() {
 //        serverProxy.requestDestinationCards(clientModel.getUser().getUsername(), clientModel.getUser().getGame().getGameName());
-        ClientModel.create().requestDestinationCards(clientModel);
+        ClientModel.create().requestDestinationCards();
     }
 
     @Override
