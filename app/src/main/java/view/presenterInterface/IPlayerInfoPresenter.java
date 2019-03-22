@@ -17,5 +17,8 @@ public interface IPlayerInfoPresenter {
     Integer getTrainsLeft();
     Set<Route> getPurchasedRoutesFromPlayer(Integer playerColor);
     ArrayList<String> getDestinationCardStrings();
-    Result returnDestinationCards(String destinations);
-}
+    Result returnDestinationCards();
+    public boolean addToListOfDestinationCardsToDiscard(String destinationCard);
+    public ArrayList<String> getListOfDestinationCardsToDiscard();
+
+    }

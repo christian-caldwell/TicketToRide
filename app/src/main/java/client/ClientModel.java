@@ -1,16 +1,18 @@
 package client;
 
-import com.example.cs340.tickettoride.GameBoardActivity;
-
 import java.util.ArrayList;
 import java.util.Map;
 import java.util.Observable;
 import java.util.Observer;
 
+import client.PlayerStates.NotInGame;
+import client.PlayerStates.PlayerState;
 import models.data.ChatMessage;
 import models.data.DestinationCard;
 import models.data.Game;
 import models.data.Player;
+import models.data.Route;
+import models.data.Result;
 import models.data.User;
 import view.presenter.CardDeckPresenter;
 import view.presenter.ChatPresenter;
@@ -31,6 +33,7 @@ public class ClientModel extends Observable {
     private CardDeckPresenter mCardDeckPresenter;
     private PlayerInfoPresenter mPlayerInfoPresenter;
     private PlayersHandPresenter mPlayersHandPresenter;
+    private PlayerState state = NotInGame.getInstance();
 
     //    TEMPORARY DEMO THINGS
     DemoPresenter demoPresenter;
@@ -202,6 +205,7 @@ public class ClientModel extends Observable {
     }
 
     public void updateGame() {
+        this.acceptPlayerAction();
         if (mGamePresenter != null) {
             addObserver(this.mGamePresenter);
         }
@@ -220,6 +224,33 @@ public class ClientModel extends Observable {
         setChanged();
         notifyObservers();
         deleteObservers();
+    }
+
+
+    public Result initializeGame(){
+        return state.initializeGame(this);
+    };
+    public Result requestTicketCard(int cardNum){
+        return state.requestTicketCard(this, cardNum);
+    };
+    public Result requestDestinationCards(){
+        return state.requestDestinationCards(this);
+    };
+    public Result returnDestinationCards(DestinationCard[] destinationCards){
+        return state.returnDestinationCards(this, destinationCards);
+    };
+    public Result purchaseRoute(ClientModel clientModel, Route route, int numberOfWilds){
+        return state.purchaseRoute(this, route, numberOfWilds);
+    };
+    public Result leaveGame(){
+        return state.leaveGame(this);
+    };
+    public Result acceptPlayerAction(){
+        return state.acceptPlayerAction(this);
+    };
+
+    public void setState(PlayerState state) {
+        this.state = state;
     }
 
     @Override

@@ -50,4 +50,20 @@ public class Route {
     public void setLocation(String[] locations) {
         this.locations = locations;
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (o == null) {
+            return false;
+        }
+
+        if (!o.getClass().equals(this.getClass())) {
+            return false;
+        }
+
+        Route r = (Route) o;
+
+        return (locations[0].equals(r.locations[0]) && locations[1].equals(r.locations[1]) &&
+                points.equals(r.points) && cardColor.equals(r.cardColor));
+    }
 }

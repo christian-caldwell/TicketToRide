@@ -201,7 +201,7 @@ public class TTR_Constants {
 
     private final int COLORED_TICKET_STARTING_COUNT = 12;
     private final int WILD_TICKET_STARTING_COUNT = 14;
-    public final int TRAIN_STARTING_COUNT = 48;
+    public final int TRAIN_STARTING_COUNT = 45;
 
     private static TTR_Constants singleton;
     
@@ -386,13 +386,11 @@ public class TTR_Constants {
         }
         return null;
     }
-    public DestinationCard[] findDestinationCard(String firstLocation, String secondLocation) {
+    public DestinationCard findDestinationCard(String firstLocation, String secondLocation) {
         ArrayList<DestinationCard> destinationCards = getStartingDestinationDeck();
-        DestinationCard[] card = new DestinationCard[1];
         for (DestinationCard dc: destinationCards) {
             if (dc.getLocations()[0].equals(firstLocation) && dc.getLocations()[1].equals(secondLocation)) {
-                card[0] = dc;
-                return card;
+                return dc;
             }
         }
         return null;

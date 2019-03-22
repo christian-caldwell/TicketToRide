@@ -25,8 +25,7 @@ public class RunGameFacade {
 
     public Result returnDestinationCards(String userName, String gameName, String first_location, String second_location, Integer points){
         DestinationCard[] returnedCards = new DestinationCard[1];
-        String[] route = new String[]{first_location, second_location};
-        DestinationCard card = new DestinationCard(route, points);
+        DestinationCard card = TTR_Constants.getInstance().findDestinationCard(first_location, second_location);
         returnedCards[0] = card;
         return serverCommands.returnDestinationCards(userName, gameName, returnedCards);
     }
@@ -34,9 +33,9 @@ public class RunGameFacade {
     public Result returnDestinationCards(String userName, String gameName, String first_location_1, String second_location_1, Integer points_1, String first_location_2, String second_location_2, Integer points_2){
         DestinationCard[] returnedCards = new DestinationCard[2];
         String[] route_1 = new String[]{first_location_1, second_location_1};
-        DestinationCard card_1 = new DestinationCard(route_1, points_1);
+        DestinationCard card_1 = TTR_Constants.getInstance().findDestinationCard(first_location_1, second_location_1);
         String[] route_2 = new String[]{first_location_2, second_location_2};
-        DestinationCard card_2 = new DestinationCard(route_2, points_2);
+        DestinationCard card_2 = TTR_Constants.getInstance().findDestinationCard(first_location_2, second_location_2);
         returnedCards[0] = card_1;
         returnedCards[1] = card_2;
         return serverCommands.returnDestinationCards(userName, gameName, returnedCards);

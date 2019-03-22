@@ -2,13 +2,10 @@ package view.presenter;
 
 import com.example.cs340.tickettoride.GameBoardActivity;
 import com.example.cs340.tickettoride.LoginViewActivity;
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
 
 import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.Map;
 
 import client.Poller;
 import client.ServerProxy;
@@ -17,13 +14,11 @@ import models.data.ChatMessage;
 import models.data.DestinationCard;
 import models.data.Game;
 import models.data.Player;
-import models.data.Route;
 import models.data.User;
 import server.facade.RunGameFacade;
 import view.facade.client.ClientFacade;
 import view.facade.client.out.GameStartFacadeOut;
 import view.facade.client.out.LobbyFacadeOut;
-import view.facade.client.out.LoginFacadeOut;
 import view.facade.client.out.RegisterFacadeOut;
 
 public class DemoPresenter {
@@ -69,9 +64,9 @@ public class DemoPresenter {
         christian = new User("crc4444", "christianrules");
         ben = new User("ben1996", "benrules");
 
-        mRegisterFacadeOut.register(zack);
         mRegisterFacadeOut.register(christian);
         mRegisterFacadeOut.register(ben);
+        mRegisterFacadeOut.register(zack);
 
         game1 = new Game("game 1");
         mLobbyFacadeOut.createGame(game1, zack.getUsername());
@@ -86,6 +81,7 @@ public class DemoPresenter {
         game1 = mServerProxy.requestGame(game1.getGameName()).getRunningGame();
         mGameStartFacadeOut.startGame(game1.getGameName());
         game1 = mServerProxy.requestGame(game1.getGameName()).getRunningGame();
+
 //
 //        try{
 //            Thread.sleep(3000);
@@ -108,7 +104,8 @@ public class DemoPresenter {
                 DestinationCard[] cards1 = new DestinationCard[1];
                 cards1[0] = player1.getNewDestinationCards().get(0);
                 mServerProxy.returnDestinationCards(zack.getUsername(), this.game1.getGameName(), cards1);
-                output = "Test Iteration " + (demoNumber + 1) + ":\n Player 1 Will Reture Destination Card to Game Deck";
+                output = "Test Iteration " + (demoNumber + 1) + ":\n "  + player1.getUsername()
+                        + " Will Return Destination Card to Game Deck";
                 break;
             case (2):
                 DestinationCard[] cards2 = new DestinationCard[1];
@@ -117,11 +114,11 @@ public class DemoPresenter {
                 cards3[0] = player3.getNewDestinationCards().get(0);
                 mServerProxy.returnDestinationCards(christian.getUsername(), game1.getGameName(), cards2);
                 mServerProxy.returnDestinationCards(ben.getUsername(), game1.getGameName(), cards3);
-                output = "Test Iteration " + (demoNumber+1) + ":\n Player 2 and Player 3 Returning Destination Card to Game Deck";
+                output = "Test Iteration " + (demoNumber+1) + ":\n " + player2.getUsername() + " and " + player3.getUsername() + " Returning Destination Card to Game Deck";
                 break;
             case (3):
                 mServerProxy.requestTicketCard(player1.getUsername(), game1.getGameName(), 0, false);
-                output = "Test Iteration " + (demoNumber+1) + ":\n Player 1 Requesting Ticket Card";
+                output = "Test Iteration " + (demoNumber+1) + ":\n " + player1.getUsername() + " Requesting Ticket Card";
                 break;
             case (4):
                 mServerProxy.requestTicketCard(player2.getUsername(), game1.getGameName(), 0, false);
@@ -164,7 +161,7 @@ public class DemoPresenter {
                 break;
             case (8):
                 mServerProxy.requestTicketCard(player1.getUsername(), game1.getGameName(), 1, false);
-                output = "Test Iteration " + (demoNumber+1) + ":\n Player 1 draws ticket from first face-up position";
+                output = "Test Iteration " + (demoNumber+1) + ":\n " + player1.getUsername() + " draws ticket from first face-up position";
                 break;
             case (9):
                 mServerProxy.requestTicketCard(player1.getUsername(), game1.getGameName(), 1, false);
@@ -186,7 +183,7 @@ public class DemoPresenter {
 //                    }
 //                }
                 mServerProxy.purchaseRoute(player1.getUsername(), game1.getGameName(), TTR_Constants.getInstance().getRoute("New Orleans", "Miami"), 0);
-                output = "Test Iteration " + (demoNumber+1) + ":\n Player 1 Purchases a Route, Corresponding Card Color Decremented";
+                output = "Test Iteration " + (demoNumber+1) + ":\n " + player1.getUsername() + " Purchases a Route, Corresponding Card Color Decremented";
                 break;
             case (11):
 //                boolean enoughTickets2 = false;
@@ -200,7 +197,7 @@ public class DemoPresenter {
 //                    }
 //                }
                 mServerProxy.purchaseRoute(player2.getUsername(), game1.getGameName(), TTR_Constants.getInstance().getRoute("Duluth", "Toronto"), 0);
-                output = "Test Iteration " + (demoNumber+1) + ":\n Player 2 Purchases a Route, Corresponding Card Color Decremented";
+                output = "Test Iteration " + (demoNumber+1) + ":\n " + player2.getUsername() + " Purchases a Route, Corresponding Card Color Decremented";
                 break;
             case (12):
 //                boolean enoughTickets3 = false;
@@ -214,31 +211,31 @@ public class DemoPresenter {
 //                    }
 //                }
                 mServerProxy.purchaseRoute(player3.getUsername(), game1.getGameName(), TTR_Constants.getInstance().getRoute("El Paso", "Houston"), 0);
-                output = "Test Iteration " + (demoNumber+1) + ":\n Player 3 Purchases a Route, Corresponding Card Color Decremented" ;
+                output = "Test Iteration " + (demoNumber+1) + ":\n " + player3.getUsername() + " Purchases a Route, Corresponding Card Color Decremented" ;
                 break;
             case (13):
                 mServerProxy.requestDestinationCards(player1.getUsername(), game1.getGameName());
-                output = "Test Iteration " + (demoNumber+1) + ":\n Player 1 Requests Dest Cards";
+                output = "Test Iteration " + (demoNumber+1) + ":\n " + player1.getUsername() + " Requests Dest Cards";
                 break;
             case (14):
                 mServerProxy.returnDestinationCards(zack.getUsername(), game1.getGameName(), null);
-                output = "Test Iteration " + (demoNumber+1) + ":\n Player 1 Chooses to Keep All Dest Cards";
+                output = "Test Iteration " + (demoNumber+1) + ":\n " + player1.getUsername() + " Chooses to Keep All Dest Cards";
                 break;
             case (15):
                 mServerProxy.requestDestinationCards(player1.getUsername(), game1.getGameName());
-                output = "Test Iteration " + (demoNumber+1) + ":\n Player 1 Requests Dest Card";
+                output = "Test Iteration " + (demoNumber+1) + ":\n " + player1.getUsername() + " Requests Dest Card";
                 break;
             case (16):
                 cards1 = new DestinationCard[2];
                 cards1[0] = player1.getDestinationCardHand().get(0);
                 cards1[1] = player1.getDestinationCardHand().get(1);
                 mServerProxy.returnDestinationCards(zack.getUsername(), game1.getGameName(), cards1);
-                output = "Test Iteration " + (demoNumber+1) + ":\n Player 1 Returns 2 Dest Cards";
+                output = "Test Iteration " + (demoNumber+1) + ":\n " + player1.getUsername() + " Returns 2 Dest Cards";
                 break;
             case (17):
                 mServerProxy.requestDestinationCards(player2.getUsername(), game1.getGameName());
                 mServerProxy.requestDestinationCards(player3.getUsername(), game1.getGameName());
-                output = "Test Iteration " + (demoNumber+1) + ":\n Player 2 and Player 3 Request Dest Cards";
+                output = "Test Iteration " + (demoNumber+1) + ":\n " + player2.getUsername() + " and " + player3.getUsername() + " Request Dest Cards";
                 break;
             case (18):
                 cards2 = new DestinationCard[2];
@@ -249,12 +246,12 @@ public class DemoPresenter {
                 cards3[0] = player3.getNewDestinationCards().get(0);
                 cards3[1] = player3.getNewDestinationCards().get(1);
                 mServerProxy.returnDestinationCards(ben.getUsername(), game1.getGameName(), cards3);
-                output = "Test Iteration " + (demoNumber+1) + ":\n Player 2 and Player 3 Return 2 Dest Cards";
+                output = "Test Iteration " + (demoNumber+1) + ":\n " + player2.getUsername() + " and " + player3.getUsername() + " Return 2 Dest Cards";
                 break;
             case (19):
                 ChatMessage message = createMessage("Nice Demo!!!", player1.getUsername());
                 mServerProxy.postChatMessage(game1.getGameName(), message);
-                output = "Test Iteration " + (demoNumber+1) + ":\n Player 1 Posts Message";
+                output = "Test Iteration " + (demoNumber+1) + ":\n " + player1.getUsername() + " Posts Message";
                 break;
             case (20):
                 message = createMessage("Sup", player2.getUsername());
