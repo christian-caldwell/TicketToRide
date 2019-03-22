@@ -204,6 +204,7 @@ public class ClientModel extends Observable {
     }
 
     public void updateGame() {
+        this.acceptPlayerAction();
         if (mGamePresenter != null) {
             addObserver(this.mGamePresenter);
         }

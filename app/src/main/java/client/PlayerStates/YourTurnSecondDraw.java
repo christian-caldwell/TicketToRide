@@ -18,7 +18,7 @@ public class YourTurnSecondDraw extends PlayerState {
         ServerProxy serverProxy = new ServerProxy();
         Result result = new Result();
         User user = clientModel.getUser();
-        result = serverProxy.requestTicketCard(user.getUsername(), user.getGame().getGameName(), cardNum, false);
+        result = serverProxy.requestTicketCard(user.getUsername(), user.getGame().getGameName(), cardNum, true);
         return result;
     };
     public Result acceptPlayerAction(ClientModel clientModel){
