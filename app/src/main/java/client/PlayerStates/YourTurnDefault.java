@@ -7,7 +7,6 @@ import models.data.Route;
 public class YourTurnDefault extends PlayerState {
     private static final YourTurnDefault ourInstance = new YourTurnDefault();
     ServerProxy serverProxy = new ServerProxy();
-
     public static YourTurnDefault getInstance() {
         return ourInstance;
     }
@@ -24,10 +23,13 @@ public class YourTurnDefault extends PlayerState {
         serverProxy.requestDestinationCards(clientModel.getUser().getUsername(), clientModel.getUser().getGame().getGameName());
         clientModel.setState(YourTurnAwaitingDestinations.getInstance());
     }
+
     public void purchaseRoute(ClientModel clientModel, Route route, int numberOfWilds){
         serverProxy.purchaseRoute(clientModel.getUser().getUsername(), clientModel.getUser().getGame().getGameName(), route, numberOfWilds);
         clientModel.setState(NotYourTurn.getInstance());
     }
+
     public void acceptPlayerAction(ClientModel clientModel){}
+
     public void leaveGame(ClientModel clientModel){}
 }
