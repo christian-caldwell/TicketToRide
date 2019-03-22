@@ -28,7 +28,7 @@ public class YourTurnSecondDraw extends PlayerState {
             result.setSuccessful(true);
         }
         else {
-            clientModel.setState(YourTurnDefault.getInstance());
+            clientModel.setState(NotYourTurn.getInstance());
             result.setSuccessful(true);
         }
 
