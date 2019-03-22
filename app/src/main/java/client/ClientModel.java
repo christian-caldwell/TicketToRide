@@ -19,6 +19,7 @@ import view.presenter.GameLobbyPresenter;
 import view.presenter.GamePresenter;
 import view.presenter.PlayerInfoPresenter;
 import view.presenter.PlayersHandPresenter;
+import view.presenter.RoutePresenter;
 
 public class ClientModel extends Observable {
     private User userPlayer;
@@ -31,9 +32,11 @@ public class ClientModel extends Observable {
     private CardDeckPresenter mCardDeckPresenter;
     private PlayerInfoPresenter mPlayerInfoPresenter;
     private PlayersHandPresenter mPlayersHandPresenter;
+    private RoutePresenter mRoutePresenter;
 
     //    TEMPORARY DEMO THINGS
     DemoPresenter demoPresenter;
+
     public DemoPresenter getDemoPresenter() {
         return demoPresenter;
     }
@@ -190,6 +193,10 @@ public class ClientModel extends Observable {
 
     public void setChatPresenter(ChatPresenter chatPresenter) { mChatPresenter = chatPresenter; }
 
+    public void setRoutePresenter(RoutePresenter routePresenter) { mRoutePresenter = routePresenter; }
+
+    public RoutePresenter getmRoutePresenter() { return mRoutePresenter; }
+
     public void update() {
         if (mGameLobbyPresenter != null) {
             addObserver(this.mGameLobbyPresenter);
@@ -216,6 +223,9 @@ public class ClientModel extends Observable {
         }
         if (mPlayersHandPresenter != null) {
             addObserver(this.mPlayersHandPresenter);
+        }
+        if (mRoutePresenter != null) {
+            addObserver(this.mRoutePresenter);
         }
         setChanged();
         notifyObservers();
