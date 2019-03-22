@@ -6,6 +6,6 @@ import models.data.Player;
 
 public interface IGameOverPresenter {
     public ArrayList<Player> getPlayersInWinningOrder();
-    public Integer getDestinationPointsGained();
-    public Integer getDestinationPoinntsLost();
+    public Integer getDestinationPointsGained(Player player);
+    public Integer getDestinationPointsLost(Player player);
 }

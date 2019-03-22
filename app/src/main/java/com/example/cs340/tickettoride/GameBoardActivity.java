@@ -1,5 +1,6 @@
 package com.example.cs340.tickettoride;
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.PorterDuff;
 import android.os.AsyncTask;
@@ -1259,6 +1260,11 @@ public class GameBoardActivity extends AppCompatActivity {
         findViewById(R.id.dallas_houston_g1b1).setAlpha(1);
     }
 
+    public void initiateGameOver() {
+        // Intent intent = new Intent(GameBoardActivity.this, GameOverActivity.class);
+        // startActivity(intent);
+    }
+
 
     public static class UpdateAsyncTask extends AsyncTask<Void, Void, Void> {
         private GameBoardActivity activity;
@@ -1285,12 +1291,16 @@ public class GameBoardActivity extends AppCompatActivity {
             adapter.notifyDataSetChanged();
             chatMessages = chatPresenter.getMessages();
 
-            //FIXME: GET THE ARRAYLIST OF OLD DESTINATION CARDS TO ALSO SHOW IN THE RECYCLERVIEW
+            //FIXME: DONT SHOW DISCARD BUTTON ON SET DESTINATION CARDS
             newDestinationCardList = playerInfoPresenter.getNewDestinationCardStrings();
             currentDestinationCardList = playerInfoPresenter.getDestinationCardStrings();
             currentDestinationCardList.addAll(newDestinationCardList);
             destinationCardsAdapter.setListOfDestinationCards(currentDestinationCardList);
             destinationCardsAdapter.notifyDataSetChanged();
+
+            //TODO: CHECK IF IT IS THE END OF THE GAME.  IF SO, START THE GAMEOVERACTIVITY
+            // if (gameOver)
+                // initiateGameOver();
 
 
             mGreenTrainCard.setText("" + playersHandPresenter.getTrainCardAmount(1));

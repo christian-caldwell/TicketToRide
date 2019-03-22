@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/Fireworks"
+    android:background="@drawable/_fireworks"
     tools:context=".GameOverActivity">
 
     <RelativeLayout
@@ -322,6 +322,7 @@
         </LinearLayout>
 
         <Button
+            android:id="@+id/back_to_game_lobby_btn"
             android:layout_width="110dp"
             android:layout_height="80dp"
             android:layout_alignParentRight="true"
