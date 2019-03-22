@@ -1,0 +1,28 @@
+package client.PlayerStates;
+
+import client.ClientModel;
+import models.data.Result;
+import view.facade.client.out.GameStartFacadeOut;
+
+public class NotInGame extends PlayerState {
+    private static final NotInGame ourInstance = new NotInGame();
+
+    public static NotInGame getInstance() {
+        return ourInstance;
+    }
+
+    private NotInGame() {
+    }
+
+    public Result initializeGame(ClientModel clientModel){
+        Result result = new Result();
+        result.setSuccessful(false);
+        if(clientModel.getUser().isHost()) {
+            GameStartFacadeOut gameStartFacadeOut = new GameStartFacadeOut();
+            result = gameStartFacadeOut.startGame(clientModel.getUser().getGame().getGameName());
+        }
+        clientModel.setState(NotYourTurn.getInstance());
+        return result;
+    }
+};
+
