@@ -72,8 +72,8 @@ public class GameBoardActivity extends AppCompatActivity {
     private int demoInterationNumber = 0;
     private static ImageView blueTurn, redTurn, blackTurn, yellowTurn, greenTurn;
     private static TextView player1_username, player2_username, player3_username, player4_username, player5_username;
-
     private static DrawerLayout activityLayout;
+    private ClientModel clientModel;
 
     @Override
     public void onBackPressed() {
@@ -82,6 +82,7 @@ public class GameBoardActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        clientModel = ClientModel.create();
         super.onCreate(savedInstanceState);
         StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
         StrictMode.setThreadPolicy(policy);
@@ -456,8 +457,8 @@ public class GameBoardActivity extends AppCompatActivity {
 
     public void change_color_neworleans_miami_g1(View view) {//6
         ServerProxy proxy = new ServerProxy();
-        ClientModel client = ClientModel.create();
-        proxy.purchaseRoute(client.getUser().getUsername(), client.getUser().getGame().getGameName(), TTR_Constants.getInstance().R_ORI_TO_MIA, 0);
+        ClientModel.create().purchaseRoute(clientModel, TTR_Constants.getInstance().R_ORI_TO_MIA, 0);
+//         proxy.purchaseRoute(client.getUser().getUsername(), client.getUser().getGame().getGameName(), TTR_Constants.getInstance().R_ORI_TO_MIA, 0);
     }
 
     public void change_color_charleston_miami_g1(View view) {//4

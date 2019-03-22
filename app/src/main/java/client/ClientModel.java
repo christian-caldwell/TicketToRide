@@ -11,6 +11,7 @@ import models.data.ChatMessage;
 import models.data.DestinationCard;
 import models.data.Game;
 import models.data.Player;
+import models.data.Route;
 import models.data.User;
 import view.presenter.CardDeckPresenter;
 import view.presenter.ChatPresenter;
@@ -239,8 +240,8 @@ public class ClientModel extends Observable {
     public void postChatMessage(ClientModel clientModel){
         state.postChatMessage(this);
     }
-    public void purchaseRoute(ClientModel clientModel){
-        state.purchaseRoute(this);
+    public void purchaseRoute(ClientModel clientModel, Route route, int numberOfWilds){
+        state.purchaseRoute(this, route, numberOfWilds);
     }
     public void acceptPlayerAction(ClientModel clientModel){
         state.acceptPlayerAction(this);
