@@ -1,7 +1,6 @@
 package com.example.cs340.tickettoride;
 
 import android.support.annotation.NonNull;
-import android.support.constraint.ConstraintLayout;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -26,10 +25,12 @@ public class RecyclerViewAdapterChat  extends RecyclerView.Adapter<RecyclerViewA
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
         View view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.layoutlist_item_chat, viewGroup, false);
         RecyclerViewAdapterChat.ViewHolder holder = new RecyclerViewAdapterChat.ViewHolder(view);
-        return holder;    }
+        return holder;
+    }
 
     @Override
     public void onBindViewHolder(@NonNull final ViewHolder holder, final int position) {
+
         holder.currentMessage.setText(listOfMessages.get(position).getMessageContents());
         holder.timestamp.setText(listOfMessages.get(position).getTimeStamp());
         holder.user.setText(listOfMessages.get(position).getAuthorUserName());

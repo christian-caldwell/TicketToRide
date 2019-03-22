@@ -1,6 +1,7 @@
 package view.facade.client.out;
 
 import client.ServerProxy;
+import models.data.Result;
 
 public class GameStartFacadeOut {
 
@@ -10,8 +11,8 @@ public class GameStartFacadeOut {
         this.server = new ServerProxy();
     }
 
-    public Boolean startGame(String gameName) {
-        return this.server.startGame(gameName).isSuccessful();
+    public Result startGame(String gameName) {
+        return this.server.startGame(gameName);
     }
 
 }

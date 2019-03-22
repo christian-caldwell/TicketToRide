@@ -6,7 +6,6 @@ import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.StrictMode;
-import android.support.constraint.ConstraintLayout;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
@@ -22,7 +21,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
@@ -30,11 +28,8 @@ import java.util.Set;
 import client.ClientModel;
 import client.ServerProxy;
 import models.TTR_Constants;
-import client.Poller;
-import models.TTR_Constants;
 import models.data.ChatMessage;
 import models.data.Player;
-import models.data.Result;
 import models.data.Route;
 import view.presenter.CardDeckPresenter;
 import view.presenter.ChatPresenter;
@@ -43,7 +38,6 @@ import view.presenter.PlayerInfoPresenter;
 import view.presenter.PlayersHandPresenter;
 import view.presenterInterface.ICardDeckPresenter;
 import view.presenterInterface.IChatPresenter;
-import view.presenterInterface.IGameLobbyPresenter;
 import view.presenterInterface.IPlayerInfoPresenter;
 import view.presenterInterface.IPlayersHandPresenter;
 
@@ -78,8 +72,8 @@ public class GameBoardActivity extends AppCompatActivity {
     private int demoInterationNumber = 0;
     private static ImageView blueTurn, redTurn, blackTurn, yellowTurn, greenTurn;
     private static TextView player1_username, player2_username, player3_username, player4_username, player5_username;
-
     private static DrawerLayout activityLayout;
+    private ClientModel clientModel;
 
     @Override
     public void onBackPressed() {
@@ -88,6 +82,7 @@ public class GameBoardActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        clientModel = ClientModel.create();
         super.onCreate(savedInstanceState);
         StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
         StrictMode.setThreadPolicy(policy);
@@ -461,9 +456,8 @@ public class GameBoardActivity extends AppCompatActivity {
     }
 
     public void change_color_neworleans_miami_g1(View view) {//6
-        ServerProxy proxy = new ServerProxy();
-        ClientModel client = ClientModel.create();
-        proxy.purchaseRoute(client.getUser().getUsername(), client.getUser().getGame().getGameName(), TTR_Constants.getInstance().R_ORI_TO_MIA, 0);
+        ClientModel.create().purchaseRoute(clientModel, TTR_Constants.getInstance().R_ORI_TO_MIA, 0);
+//         proxy.purchaseRoute(client.getUser().getUsername(), client.getUser().getGame().getGameName(), TTR_Constants.getInstance().R_ORI_TO_MIA, 0);
     }
 
     public void change_color_charleston_miami_g1(View view) {//4

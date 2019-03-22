@@ -19,7 +19,7 @@ import view.presenterInterface.IGameLobbyPresenter;
  * The GameLobbyPresenter inherits from IGameLobbyPresenter and Observer.
  * It is created in the LobbyViewActivity and its methods are called from the buttons in the activity.
  */
-public class GameLobbyPresenter implements IGameLobbyPresenter, Observer {
+public class    GameLobbyPresenter implements IGameLobbyPresenter, Observer {
 
     /**
      * The gameList data member is the list of games that are in the lobby.

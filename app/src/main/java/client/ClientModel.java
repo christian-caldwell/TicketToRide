@@ -11,6 +11,8 @@ import models.data.ChatMessage;
 import models.data.DestinationCard;
 import models.data.Game;
 import models.data.Player;
+import models.data.Route;
+import models.data.Result;
 import models.data.User;
 import view.presenter.CardDeckPresenter;
 import view.presenter.ChatPresenter;
@@ -203,6 +205,7 @@ public class ClientModel extends Observable {
     }
 
     public void updateGame() {
+        this.acceptPlayerAction();
         if (mGamePresenter != null) {
             addObserver(this.mGamePresenter);
         }
@@ -224,16 +227,27 @@ public class ClientModel extends Observable {
     }
 
 
-    public void initializeGame(){
-        state.initializeGame(this);
+    public Result initializeGame(){
+        return state.initializeGame(this);
     };
-    public void requestTicketCard(ClientModel clientModel){};
-    public void requestDestinationCards(ClientModel clientModel){};
-    public void returnDestinationCards(ClientModel clientModel){};
-    public void postChatMessage(ClientModel clientModel){};
-    public void purchaseRoute(ClientModel clientModel){};
-    public void acceptPlayerAction(ClientModel clientModel){};
-    public void leaveGame(ClientModel clientModel){};
+    public Result requestTicketCard(int cardNum){
+        return state.requestTicketCard(this, cardNum);
+    };
+    public Result requestDestinationCards(){
+        return state.requestDestinationCards(this);
+    };
+    public Result returnDestinationCards(DestinationCard[] destinationCards){
+        return state.returnDestinationCards(this, destinationCards);
+    };
+    public Result purchaseRoute(ClientModel clientModel, Route route, int numberOfWilds){
+        return state.purchaseRoute(this, route, numberOfWilds);
+    };
+    public Result leaveGame(){
+        return state.leaveGame(this);
+    };
+    public Result acceptPlayerAction(){
+        return state.acceptPlayerAction(this);
+    };
 
     public void setState(PlayerState state) {
         this.state = state;
