@@ -1,12 +1,11 @@
 package view.presenter;
 
 import com.example.cs340.tickettoride.GameBoardActivity;
-
 import java.util.Observable;
 import java.util.Observer;
-
 import client.ClientModel;
 import client.ServerProxy;
+import models.data.Result;
 import view.presenterInterface.ICardDeckPresenter;
 
 public class CardDeckPresenter implements ICardDeckPresenter, Observer {
@@ -20,33 +19,19 @@ public class CardDeckPresenter implements ICardDeckPresenter, Observer {
         clientModel.setmCardDeckPresenter(this);
     }
 
-
     @Override
     public Integer getTrainCardAtPosition(int num) {
         return clientModel.getUser().getGame().getFaceUpTrainCards()[num-1].getCardColor();
     }
 
     @Override
-    public void drawTrainCard(int cardNum) {
-
-//        public Result purchaseRoute (String userName, String gameName, Route purchasedRoute)
-//        public Result returnDestinationCards (String userName, String gameName, DestinationCard[] returnedCards)
-        //FIXME: needs to be updated if they chose a rainbow card.
-        //Player player = clientModel.getUser().getGame().findPlayer(clientModel.getUser().getUsername());
-        ClientModel.create().requestTicketCard(cardNum);
-//        serverProxy.requestTicketCard(clientModel.getUser().getUsername(), clientModel.getUser().getGame().getGameName(), cardNum, secondTurn);
-//        if (secondTurn) {
-//            secondTurn = false;
-//        }
-//        else {
-//            secondTurn = true;
-//        }
+    public Result drawTrainCard(int cardNum) {
+        return ClientModel.create().requestTicketCard(cardNum);
     }
 
     @Override
-    public void drawDestinationCard() {
-//        serverProxy.requestDestinationCards(clientModel.getUser().getUsername(), clientModel.getUser().getGame().getGameName());
-        ClientModel.create().requestDestinationCards();
+    public Result drawDestinationCard() {
+        return ClientModel.create().requestDestinationCards();
     }
 
     @Override
