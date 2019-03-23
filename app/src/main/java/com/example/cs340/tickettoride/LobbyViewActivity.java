@@ -31,13 +31,13 @@ import view.presenterInterface.IGameLobbyPresenter;
 public class LobbyViewActivity extends AppCompatActivity /*implements IGameLobby*/ {
 
     // Member variables
-    private static ArrayList<Game> listOfGames;
-    static private Button startGameButton, createGameButton;
+    private ArrayList<Game> listOfGames;
+    private Button startGameButton, createGameButton;
     private boolean createGameOpen = false;
     private String create_game_text = "";
-    private static RecyclerViewAdapterLobby adapter;
+    private RecyclerViewAdapterLobby adapter;
     private IGameLobbyPresenter presenter;
-    private static LobbyViewActivity singleton;
+    private LobbyViewActivity singleton;
     private Activity a = LobbyViewActivity.this;
 
 
@@ -148,7 +148,7 @@ public class LobbyViewActivity extends AppCompatActivity /*implements IGameLobby
     }
 
 
-    public static Void updateGameList(ArrayList<Game> lobbyGames, User user) {
+    public Void updateGameList(ArrayList<Game> lobbyGames, User user) {
         listOfGames = lobbyGames;
         return null;
     }
@@ -166,25 +166,25 @@ public class LobbyViewActivity extends AppCompatActivity /*implements IGameLobby
     }
 
 
-    public static void disableStartGameButton() {
+    public void disableStartGameButton() {
         startGameButton.getBackground().setColorFilter(Color.DKGRAY, PorterDuff.Mode.MULTIPLY);
         startGameButton.setAlpha(.5f);
         startGameButton.setEnabled(false);
     }
 
-    public static void enableStartGameButton() {
+    public void enableStartGameButton() {
         startGameButton.getBackground().setColorFilter(null);
         startGameButton.setAlpha(1);
         startGameButton.setEnabled(true);
     }
 
-    public static void disableCreateGameButton(){
+    public void disableCreateGameButton(){
         createGameButton.getBackground().setColorFilter(Color.DKGRAY, PorterDuff.Mode.MULTIPLY);
         createGameButton.setAlpha(.5f);
         createGameButton.setEnabled(false);
     }
 
-    public static void enableCreateGameButton() {
+    public void enableCreateGameButton() {
         createGameButton.getBackground().setColorFilter(null);
         createGameButton.setAlpha(1);
         createGameButton.setEnabled(true);
@@ -193,11 +193,11 @@ public class LobbyViewActivity extends AppCompatActivity /*implements IGameLobby
 
 
     // AsyncTask class
-    public static class UpdateGameListAsyncTask extends AsyncTask<ArrayList<Game>, Void, Void> {
+    public class UpdateGameListAsyncTask extends AsyncTask<ArrayList<Game>, Void, Void> {
         //private IGameLobby gameLobby = new LobbyViewActivity();
         private User user;
         private Context context;
-
+        
 
         //Constructor to make
         public UpdateGameListAsyncTask(User user, Context context) {

@@ -28,7 +28,7 @@ public class YourTurnAwaitingDestinations extends PlayerState {
             result.setSuccessful(true);
         }
         else {
-            clientModel.setState(YourTurnDefault.getInstance());
+            clientModel.setState(NotYourTurn.getInstance());
             result.setSuccessful(true);
         }
         return result;

@@ -172,11 +172,7 @@ public class    GameLobbyPresenter implements IGameLobbyPresenter, Observer {
         ClientModel client = (ClientModel) o;
         System.out.println("Server Polled by User: " + client.getUser().getUsername());
 
-
         this.gameList = client.getChangedGameList();
-
-        //IGameLobby gameLobby = new LobbyViewActivity();
-        //gameLobby.updateGameList(this.gameList, client.getUser());
-        new LobbyViewActivity.UpdateGameListAsyncTask(client.getUser(), gameLobby).execute(this.gameList);
+        gameLobby.new UpdateGameListAsyncTask(client.getUser(), gameLobby).execute(this.gameList);
     }
 }
