@@ -226,7 +226,6 @@ public class ClientModel extends Observable {
         deleteObservers();
     }
 
-
     public Result initializeGame(){
         return state.initializeGame(this);
     };

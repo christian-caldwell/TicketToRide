@@ -1,11 +1,12 @@
 package view.presenterInterface;
 
+import android.util.Pair;
+
 import java.util.ArrayList;
 
 import models.data.Player;
 
 public interface IGameOverPresenter {
     public ArrayList<Player> getPlayersInWinningOrder();
-    public Integer getDestinationPointsGained(Player player);
-    public Integer getDestinationPointsLost(Player player);
+    public Pair<Integer, Integer> getDestinationPoints(Player player);
 }
