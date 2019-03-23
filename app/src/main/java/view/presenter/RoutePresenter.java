@@ -40,8 +40,10 @@ public class RoutePresenter implements IRoutePresenter, Observer {
             System.out.println("ERROR: routeDrawn in purchase method is null...");
         }
         else if (routeDrawn){
+            System.out.println("route has already been drawn");
             return false;
         }
+        System.out.println("routeDrawn is false. Proceeding");
 
         Integer purchaseCardColor = route.getCardColor();
         if (purchaseCardColor == TTR_Constants.getInstance().WILD) {
@@ -55,12 +57,30 @@ public class RoutePresenter implements IRoutePresenter, Observer {
         // check if the player has the necessary cards for the purchase
         ClientModel model = ClientModel.create();
         Map<Integer, Integer> ticketHand = model.getPlayer().getTickets();
-        if (ticketHand.get(route.getCardColor()) + numWilds >= route.findLength() &&
+        if (ticketHand.get(purchaseCardColor) + numWilds >= route.findLength() &&
                 numWilds <= ticketHand.get(TTR_Constants.getInstance().WILD) &&
                 model.getPlayer().getTrainsRemaining() >= route.findLength()) {
             //FIXME: add the purchasing color to the purchaseRoute method
+            System.out.println("Purchasing route from ClientModel");
             model.purchaseRoute(route, numWilds);
+            return true; //This should probably reflect the success of the method call...
         }
+        if (!(ticketHand.get(purchaseCardColor) + numWilds >= route.findLength())) {
+            System.out.println("Not enough cards");
+            System.out.print(ticketHand.get(purchaseCardColor));
+            System.out.print(" + ");
+            System.out.print(numWilds);
+            System.out.print(" < ");
+            System.out.println(route.findLength());
+
+        }
+        if (!(numWilds <= ticketHand.get(TTR_Constants.getInstance().WILD))) {
+            System.out.println("You don't have that many wild cards");
+        }
+        if (!(model.getPlayer().getTrainsRemaining() >= route.findLength())) {
+            System.out.println("You don't have enough trains left for that");
+        }
+        System.out.println("Didn't purchase route...");
 
         return false;
     }
