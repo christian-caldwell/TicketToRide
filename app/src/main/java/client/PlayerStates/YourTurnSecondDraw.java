@@ -31,9 +31,8 @@ public class YourTurnSecondDraw extends PlayerState {
         if(clientModel.getUser().getGame().isLastTurn()) {
             clientModel.setState(GameFinished.getInstance());
             result.setSuccessful(true);
-        }
-        else {
-            clientModel.setState(NotYourTurn.getInstance());
+        } else {
+//            clientModel.setState(YourTurnDefault.getInstance());
             result.setSuccessful(true);
         }
 

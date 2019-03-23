@@ -23,7 +23,7 @@ public class NotInGame extends PlayerState {
             GameStartFacadeOut gameStartFacadeOut = new GameStartFacadeOut();
             result = gameStartFacadeOut.startGame(clientModel.getUser().getGame().getGameName());
         }
-        clientModel.setState(NotYourTurn.getInstance());
+        clientModel.setState(YourTurnAwaitingDestinations.getInstance());
         return result;
     }
 };
