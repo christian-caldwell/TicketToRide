@@ -1292,7 +1292,6 @@ public class GameBoardActivity extends AppCompatActivity {
             destinationCardsAdapter.setListOfDestinationCards(currentDestinationCardList);
             destinationCardsAdapter.notifyDataSetChanged();
 
-
             mGreenTrainCard.setText("" + playersHandPresenter.getTrainCardAmount(1));
             mRedTrainCard.setText("" + playersHandPresenter.getTrainCardAmount(2));
             mPinkTrainCard.setText("" + playersHandPresenter.getTrainCardAmount(6));
