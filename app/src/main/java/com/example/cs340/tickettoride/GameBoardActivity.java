@@ -77,6 +77,7 @@ public class GameBoardActivity extends AppCompatActivity {
     private DrawerLayout activityLayout;
     private ClientModel clientModel;
     private ArrayList<Button> discardButtons;
+    private int lengthOfNewDestinationCards;
 
     @Override
     public void onBackPressed() {
@@ -385,7 +386,8 @@ public class GameBoardActivity extends AppCompatActivity {
         for (String s : newDestinationCardList) {
             discardButtons.add(new Button(this));
         }
-        destinationCardsAdapter = new RecyclerViewAdapterDestinationCards(currentDestinationCardList, discardButtons, mPopupWindow.getContentView().getContext(), playerInfoPresenter);
+        lengthOfNewDestinationCards = newDestinationCardList.size();
+        destinationCardsAdapter = new RecyclerViewAdapterDestinationCards(currentDestinationCardList, discardButtons, lengthOfNewDestinationCards, mPopupWindow.getContentView().getContext(), playerInfoPresenter);
         destinationCardsRecyclerView.setHasFixedSize(true);
         destinationCardsRecyclerView.setAdapter(destinationCardsAdapter);
         destinationCardsRecyclerView.setLayoutManager(new LinearLayoutManager(mPopupWindow.getContentView().getContext()));
@@ -1352,10 +1354,11 @@ public class GameBoardActivity extends AppCompatActivity {
             allCards.addAll(newDestinationCardList);
             allCards.addAll(currentDestinationCardList);
             discardButtons.clear();
-            for (String s : newDestinationCardList) {
+            for (String s : allCards) {
                 discardButtons.add(new Button(getApplicationContext()));
             }
-            destinationCardsAdapter.setListOfDestinationCards(currentDestinationCardList, discardButtons);
+            lengthOfNewDestinationCards = newDestinationCardList.size();
+            destinationCardsAdapter.setListOfDestinationCards(allCards, discardButtons, lengthOfNewDestinationCards);
             destinationCardsAdapter.notifyDataSetChanged();
 
 
