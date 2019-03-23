@@ -26,6 +26,7 @@ import java.util.Map;
 import java.util.Set;
 
 import client.ClientModel;
+import client.PlayerStates.YourTurnDefault;
 import client.ServerProxy;
 import models.TTR_Constants;
 import models.data.ChatMessage;
@@ -1285,13 +1286,13 @@ public class GameBoardActivity extends AppCompatActivity {
             adapter.notifyDataSetChanged();
             chatMessages = chatPresenter.getMessages();
 
+            //FIXME: you can discard a card, press done and then discard another.
             //FIXME: GET THE ARRAYLIST OF OLD DESTINATION CARDS TO ALSO SHOW IN THE RECYCLERVIEW
             newDestinationCardList = playerInfoPresenter.getNewDestinationCardStrings();
             currentDestinationCardList = playerInfoPresenter.getDestinationCardStrings();
             currentDestinationCardList.addAll(newDestinationCardList);
             destinationCardsAdapter.setListOfDestinationCards(currentDestinationCardList);
             destinationCardsAdapter.notifyDataSetChanged();
-
 
             mGreenTrainCard.setText("" + playersHandPresenter.getTrainCardAmount(1));
             mRedTrainCard.setText("" + playersHandPresenter.getTrainCardAmount(2));

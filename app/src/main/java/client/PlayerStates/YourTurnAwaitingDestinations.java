@@ -17,6 +17,8 @@ public class YourTurnAwaitingDestinations extends PlayerState {
     }
     public Result returnDestinationCards(ClientModel clientModel, DestinationCard[] destinationCards){
         ServerProxy serverProxy = new ServerProxy();
+        //FIXME: this may need to be removed depending on what is going on with the acceptPlayerAction function.
+        clientModel.setState(NotYourTurn.getInstance());
         return serverProxy.returnDestinationCards(clientModel.getUser().getUsername(), clientModel.getUser().getGame().getGameName(), destinationCards);
     };
     public Result acceptPlayerAction(ClientModel clientModel){

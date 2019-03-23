@@ -1,5 +1,6 @@
 package view.presenter;
 
+
 import android.util.Pair;
 
 import java.util.ArrayList;
@@ -38,7 +39,6 @@ public class GameOverPresenter implements IGameOverPresenter {
                 pointsLost += destinationCard.getPoints();
             }
         }
-        Pair<Integer,Integer> pair = new Pair<>(pointsGained,pointsLost);
-        return pair;
+        return new Pair<>(pointsGained,pointsLost);
     }
 }

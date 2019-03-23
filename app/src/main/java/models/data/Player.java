@@ -39,7 +39,7 @@ public class Player {
         this.playerColor = playerColor;
         this.score = 0;
         TTR_Constants constants = TTR_Constants.getInstance();
-        this.trainsRemaining = constants.TRAIN_STARTING_COUNT;//TODO: i cant remember if this is the right # of trains that a player starts with
+        this.trainsRemaining = constants.TRAIN_STARTING_COUNT;
         this.individualLongestRouteValue = 0;
         this.hasLongestRoute = false;
         initTickets();

@@ -113,10 +113,8 @@ public class PlayerInfoPresenter implements IPlayerInfoPresenter, Observer {
 
     @Override
     public Result returnDestinationCards() {
+        ClientModel clientModel = ClientModel.create();
         switch (listOfDestinationCardsToDiscard.size()) {
-            case 0:
-                listOfDestinationCardsToDiscard.clear();
-                return ClientModel.create().returnDestinationCards(null);
             case 1:
                 DestinationCard[] destinationCards1 = new DestinationCard[1];
                 for (int i = 0; i < listOfDestinationCardsToDiscard.size(); i++) {
@@ -125,8 +123,7 @@ public class PlayerInfoPresenter implements IPlayerInfoPresenter, Observer {
                     destinationCards1[i] = constants.findDestinationCard(first, second);
                 }
                 listOfDestinationCardsToDiscard.clear();
-                return ClientModel.create().returnDestinationCards(destinationCards1);
-
+                return clientModel.returnDestinationCards(destinationCards1);
             case 2:
                 DestinationCard[] destinationCards2 = new DestinationCard[2];
                 for (int i = 0; i < listOfDestinationCardsToDiscard.size(); i++) {
@@ -135,11 +132,11 @@ public class PlayerInfoPresenter implements IPlayerInfoPresenter, Observer {
                     destinationCards2[i] = constants.findDestinationCard(first, second);
                 }
                 listOfDestinationCardsToDiscard.clear();
-                return ClientModel.create().returnDestinationCards(destinationCards2);
+                return clientModel.returnDestinationCards(destinationCards2);
         }
 
         listOfDestinationCardsToDiscard.clear();
-        return ClientModel.create().returnDestinationCards(null);
+        return clientModel.returnDestinationCards(null);
     }
 
     @Override
