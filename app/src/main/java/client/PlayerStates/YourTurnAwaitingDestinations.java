@@ -17,7 +17,17 @@ public class YourTurnAwaitingDestinations extends PlayerState {
     }
     public Result returnDestinationCards(ClientModel clientModel, DestinationCard[] destinationCards){
         ServerProxy serverProxy = new ServerProxy();
-        return serverProxy.returnDestinationCards(clientModel.getUser().getUsername(), clientModel.getUser().getGame().getGameName(), destinationCards);
+
+        Result result = new Result();
+        result = serverProxy.returnDestinationCards(clientModel.getUser().getUsername(), clientModel.getUser().getGame().getGameName(), destinationCards);
+
+//      Handle whose turn it is.
+        if (clientModel.getUser().getGame().getCurrentTurnPlayer().equals(clientModel.getPlayer().getPlayerColor())) {
+            clientModel.setState(YourTurnDefault.getInstance());
+        } else {
+            clientModel.setState(NotYourTurn.getInstance());
+        }
+        return result;
     };
     public Result acceptPlayerAction(ClientModel clientModel){
         Result result = new Result();
@@ -26,9 +36,10 @@ public class YourTurnAwaitingDestinations extends PlayerState {
             result.setSuccessful(true);
         }
         else {
-            clientModel.setState(YourTurnDefault.getInstance());
+//            TODO: Ask Christian about this. It is effecting the stats of other emulators.
+//            clientModel.setState(YourTurnDefault.getInstance());
             result.setSuccessful(true);
         }
         return result;
-    };
+    }
 }
