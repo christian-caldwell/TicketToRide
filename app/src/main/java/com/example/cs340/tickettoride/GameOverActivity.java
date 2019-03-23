@@ -25,8 +25,8 @@ public class GameOverActivity extends AppCompatActivity {
             p4Name, p4Score, p4gainedDestinationCards, p4LostDestinationCards, p4LongestRoute,
             p5Name, p5Score, p5gainedDestinationCards, p5LostDestinationCards, p5LongestRoute;
     Button backToGameLobbyButton;
-    private static Map playerColorValues;
-    private static IGameOverPresenter presenter;
+    private Map playerColorValues;
+    private IGameOverPresenter presenter;
 
 
     @Override
