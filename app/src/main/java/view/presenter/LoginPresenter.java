@@ -5,6 +5,7 @@ import java.util.Observer;
 import java.util.regex.Pattern;
 
 import client.ClientModel;
+import models.TTR_Constants;
 import models.data.Result;
 import models.data.User;
 import view.activityInterface.ILoginView;

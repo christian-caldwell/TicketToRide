@@ -27,6 +27,7 @@ import java.util.Map;
 import java.util.Set;
 
 import client.ClientModel;
+import client.PlayerStates.YourTurnDefault;
 import client.ServerProxy;
 import models.TTR_Constants;
 import models.data.ChatMessage;
@@ -176,7 +177,12 @@ public class GameBoardActivity extends AppCompatActivity {
                         v.getBackground().setColorFilter(Color.DKGRAY, PorterDuff.Mode.MULTIPLY);
                         v.setAlpha(.5f);
                         v.setEnabled(false);
-                        playerInfoPresenter.returnDestinationCards();
+                        if (playerInfoPresenter.returnDestinationCards() != null) {
+                            Toast.makeText(GameBoardActivity.this, "successfully returned destination cards.", Toast.LENGTH_SHORT).show();
+                        }
+                        else {
+                            Toast.makeText(GameBoardActivity.this, "Cannot return destination cards", Toast.LENGTH_SHORT).show();
+                        }
                     }
                 });
             }
@@ -256,7 +262,12 @@ public class GameBoardActivity extends AppCompatActivity {
         destinationCardDeck.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                cardDeckPresenter.drawDestinationCard();
+                if (cardDeckPresenter.drawDestinationCard() != null) {
+                    Toast.makeText(GameBoardActivity.this, "Drew destination card successfully", Toast.LENGTH_SHORT).show();
+                }
+                else {
+                    Toast.makeText(GameBoardActivity.this, "Cannot draw destination card!", Toast.LENGTH_SHORT).show();
+                }
             }
         });
 
@@ -264,7 +275,12 @@ public class GameBoardActivity extends AppCompatActivity {
         trainCardDeck.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                cardDeckPresenter.drawTrainCard(0);
+                if (cardDeckPresenter.drawTrainCard(0) != null) {
+                    Toast.makeText(GameBoardActivity.this, "Successfully drew train card!", Toast.LENGTH_SHORT).show();
+                }
+                else {
+                    Toast.makeText(GameBoardActivity.this, "Cannot draw train card!", Toast.LENGTH_SHORT).show();
+                }
             }
         });
 
@@ -272,7 +288,12 @@ public class GameBoardActivity extends AppCompatActivity {
         cardOne.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                cardDeckPresenter.drawTrainCard(1);
+                if (cardDeckPresenter.drawTrainCard(1) != null) {
+                    Toast.makeText(GameBoardActivity.this, "Successfully drew train card!", Toast.LENGTH_SHORT).show();
+                }
+                else {
+                    Toast.makeText(GameBoardActivity.this, "Cannot draw train card!", Toast.LENGTH_SHORT).show();
+                }
             }
         });
 
@@ -280,7 +301,12 @@ public class GameBoardActivity extends AppCompatActivity {
         cardTwo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                cardDeckPresenter.drawTrainCard(2);
+                if (cardDeckPresenter.drawTrainCard(2) != null) {
+                    Toast.makeText(GameBoardActivity.this, "Successfully drew train card!", Toast.LENGTH_SHORT).show();
+                }
+                else {
+                    Toast.makeText(GameBoardActivity.this, "Cannot draw train card!", Toast.LENGTH_SHORT).show();
+                }
             }
         });
 
@@ -288,7 +314,12 @@ public class GameBoardActivity extends AppCompatActivity {
         cardThree.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                cardDeckPresenter.drawTrainCard(3);
+                if (cardDeckPresenter.drawTrainCard(3) != null) {
+                    Toast.makeText(GameBoardActivity.this, "Successfully drew train card!", Toast.LENGTH_SHORT).show();
+                }
+                else {
+                    Toast.makeText(GameBoardActivity.this, "Cannot draw train card!", Toast.LENGTH_SHORT).show();
+                }
             }
         });
 
@@ -296,7 +327,12 @@ public class GameBoardActivity extends AppCompatActivity {
         cardFour.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                cardDeckPresenter.drawTrainCard(4);
+                if (cardDeckPresenter.drawTrainCard(4) != null) {
+                    Toast.makeText(GameBoardActivity.this, "Successfully drew train card!", Toast.LENGTH_SHORT).show();
+                }
+                else {
+                    Toast.makeText(GameBoardActivity.this, "Cannot draw train card!", Toast.LENGTH_SHORT).show();
+                }
             }
         });
 
@@ -304,7 +340,12 @@ public class GameBoardActivity extends AppCompatActivity {
         cardFive.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                cardDeckPresenter.drawTrainCard(5);
+                if (cardDeckPresenter.drawTrainCard(5) != null) {
+                    Toast.makeText(GameBoardActivity.this, "Successfully drew train card!", Toast.LENGTH_SHORT).show();
+                }
+                else {
+                    Toast.makeText(GameBoardActivity.this, "Cannot draw train card!", Toast.LENGTH_SHORT).show();
+                }
             }
         });
 
