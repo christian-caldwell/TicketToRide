@@ -44,36 +44,36 @@ import view.presenterInterface.IPlayersHandPresenter;
 
 public class GameBoardActivity extends AppCompatActivity {
 
-    private static ArrayList<ChatMessage> chatMessages;
-    private static ArrayList<String> newDestinationCardList;
-    private static ArrayList<String> currentDestinationCardList;
-    private static IChatPresenter chatPresenter;
-    private static IPlayersHandPresenter playersHandPresenter;
-    private static IPlayerInfoPresenter playerInfoPresenter;
-    private static ICardDeckPresenter cardDeckPresenter;
-    private static RecyclerViewAdapterChat adapter;
-    private static RecyclerViewAdapterDestinationCards destinationCardsAdapter;
-    private static EditText inputChatEditText;
-    private static Button gameDemoButton;
+    private ArrayList<ChatMessage> chatMessages;
+    private ArrayList<String> newDestinationCardList;
+    private ArrayList<String> currentDestinationCardList;
+    private IChatPresenter chatPresenter;
+    private IPlayersHandPresenter playersHandPresenter;
+    private IPlayerInfoPresenter playerInfoPresenter;
+    private ICardDeckPresenter cardDeckPresenter;
+    private RecyclerViewAdapterChat adapter;
+    private RecyclerViewAdapterDestinationCards destinationCardsAdapter;
+    private EditText inputChatEditText;
+    private Button gameDemoButton;
     private DemoPresenter mDemoPresenter;
-    private static Button sendMessageButton, playerInfoButton, doneButton;
-    private static Button mGreenTrainCard, mRedTrainCard, mPinkTrainCard, mYellowTrainCard,
+    private Button sendMessageButton, playerInfoButton, doneButton;
+    private Button mGreenTrainCard, mRedTrainCard, mPinkTrainCard, mYellowTrainCard,
             mWhiteTrainCard, mBlackTrainCard, mWildTrainCard, mBlueTrainCard, mOrangeTrainCard;
-    private static Button destinationCardDeck, trainCardDeck, cardOne, cardTwo, cardThree, cardFour, cardFive;
-    private static ImageView gameBoard;
-    private static Map playerColorValues;
-    private static Map trainCardImages;
-    private static PopupWindow mPopupWindow;
-    private static TextView one_destinationCards, one_trainCards, one_score, one_trainsLeft;
-    private static TextView two_destinationCards, two_trainCards, two_score, two_trainsLeft;
-    private static TextView three_destinationCards, three_trainCards, three_score, three_trainsLeft;
-    private static TextView four_destinationCards, four_trainCards, four_score, four_trainsLeft;
-    private static TextView five_destinationCards, five_trainCards, five_score, five_trainsLeft;
+    private Button destinationCardDeck, trainCardDeck, cardOne, cardTwo, cardThree, cardFour, cardFive;
+    private ImageView gameBoard;
+    private Map playerColorValues;
+    private Map trainCardImages;
+    private PopupWindow mPopupWindow;
+    private TextView one_destinationCards, one_trainCards, one_score, one_trainsLeft;
+    private TextView two_destinationCards, two_trainCards, two_score, two_trainsLeft;
+    private TextView three_destinationCards, three_trainCards, three_score, three_trainsLeft;
+    private TextView four_destinationCards, four_trainCards, four_score, four_trainsLeft;
+    private TextView five_destinationCards, five_trainCards, five_score, five_trainsLeft;
     private String demoToast = "Players initialized at Zero Points, 48 trains, Color Set\n Game Initialized: Starting Player Set, Game Decks Filled\n Initial Actions: Players Handed 3 Dest Cards and 4 Tickets";
     private int demoInterationNumber = 0;
-    private static ImageView blueTurn, redTurn, blackTurn, yellowTurn, greenTurn;
-    private static TextView player1_username, player2_username, player3_username, player4_username, player5_username;
-    private static DrawerLayout activityLayout;
+    private ImageView blueTurn, redTurn, blackTurn, yellowTurn, greenTurn;
+    private TextView player1_username, player2_username, player3_username, player4_username, player5_username;
+    private DrawerLayout activityLayout;
     private ClientModel clientModel;
 
     @Override
@@ -359,7 +359,7 @@ public class GameBoardActivity extends AppCompatActivity {
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
     }
 
-    public static Void updateChatList(ArrayList<ChatMessage> newChatMessages) {
+    public Void updateChatList(ArrayList<ChatMessage> newChatMessages) {
         chatMessages = newChatMessages;
         return null;
     }
@@ -1266,7 +1266,7 @@ public class GameBoardActivity extends AppCompatActivity {
     }
 
 
-    public static class UpdateAsyncTask extends AsyncTask<Void, Void, Void> {
+    public class UpdateAsyncTask extends AsyncTask<Void, Void, Void> {
         private GameBoardActivity activity;
 
         //Empty constructor
@@ -1291,7 +1291,7 @@ public class GameBoardActivity extends AppCompatActivity {
             adapter.notifyDataSetChanged();
             chatMessages = chatPresenter.getMessages();
 
-            //FIXME: DONT SHOW DISCARD BUTTON ON SET DESTINATION CARDS
+            //FIXME: DONT SHOW DISCARD BUTTON ON OLD DESTINATION CARDS
             newDestinationCardList = playerInfoPresenter.getNewDestinationCardStrings();
             currentDestinationCardList = playerInfoPresenter.getDestinationCardStrings();
             currentDestinationCardList.addAll(newDestinationCardList);

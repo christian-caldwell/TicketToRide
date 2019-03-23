@@ -144,8 +144,7 @@ public class PlayerInfoPresenter implements IPlayerInfoPresenter, Observer {
 
     @Override
     public void update(Observable o, Object arg) {
-        new GameBoardActivity.UpdateAsyncTask(boardActivity).execute();
-
+        boardActivity.new UpdateAsyncTask(boardActivity).execute();
     }
 
     //TODO: KEEP TRACK OF TURNS IN CLIENT MODEL AND CHECK WHAT TURN IT IS
