@@ -20,11 +20,13 @@ import view.presenterInterface.IPlayerInfoPresenter;
 public class RecyclerViewAdapterDestinationCards extends RecyclerView.Adapter<RecyclerViewAdapterDestinationCards.ViewHolder> {
 
     private ArrayList<String> mDestinationRoutes;
+    private ArrayList<Button> mDiscardButtons;
     private Context mContext;
     private IPlayerInfoPresenter playerInfoPresenter;
 
-    public RecyclerViewAdapterDestinationCards(ArrayList<String> mDestinationRoutes, Context mContext, IPlayerInfoPresenter playerInfoPresenter) {
+    public RecyclerViewAdapterDestinationCards(ArrayList<String> mDestinationRoutes, ArrayList<Button> mDiscardButtons, Context mContext, IPlayerInfoPresenter playerInfoPresenter) {
         this.mDestinationRoutes = mDestinationRoutes;
+        this.mDiscardButtons = mDiscardButtons;
         this.mContext = mContext;
         this.playerInfoPresenter = playerInfoPresenter;
     }
@@ -46,9 +48,13 @@ public class RecyclerViewAdapterDestinationCards extends RecyclerView.Adapter<Re
 
                 //TODO: ADD THIS ROUTE TO THE ARRAYLIST OF CARDS TO DISCARD
                 if (playerInfoPresenter.addToListOfDestinationCardsToDiscard(mDestinationRoutes.get(position))) {
-                    v.getBackground().setColorFilter(Color.DKGRAY, PorterDuff.Mode.MULTIPLY);
-                    v.setAlpha(.5f);
-                    v.setEnabled(false);
+                    mDiscardButtons.get(position).getBackground().setColorFilter(Color.DKGRAY, PorterDuff.Mode.MULTIPLY);
+                    mDiscardButtons.get(position).setAlpha(.5f);
+                    mDiscardButtons.get(position).setEnabled(false);
+
+                    //v.getBackground().setColorFilter(Color.DKGRAY, PorterDuff.Mode.MULTIPLY);
+                    //v.setAlpha(.5f);
+                    //v.setEnabled(false);
                     Toast.makeText(mContext, mDestinationRoutes.get(position) +
                             "\nThis card will be discarded", Toast.LENGTH_SHORT).show();
                 }
@@ -65,8 +71,9 @@ public class RecyclerViewAdapterDestinationCards extends RecyclerView.Adapter<Re
         return mDestinationRoutes.size();
     }
 
-    public void setListOfDestinationCards(ArrayList<String> destinationCardList) {
+    public void setListOfDestinationCards(ArrayList<String> destinationCardList, ArrayList<Button> discardButtons) {
         mDestinationRoutes = destinationCardList;
+        mDiscardButtons = discardButtons;
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder{
