@@ -34,6 +34,33 @@ public class RoutePresenter implements IRoutePresenter, Observer {
 
     @Override
     public Boolean purchase(Route route) {
+        Boolean routeDrawn = hasBeenDrawn.get(route);
+        if (routeDrawn == null) {
+            System.out.println("ERROR: routeDrawn in purchase method is null...");
+        }
+        else if (routeDrawn){
+            return false;
+        }
+
+        Integer purchaseCardColor = route.getCardColor();
+        if (purchaseCardColor == TTR_Constants.getInstance().WILD) {
+            purchaseCardColor = TTR_Constants.getInstance().RED;
+            //purchaseCardColor = activity.getPurchaseCardColor();
+        }
+
+        Integer numWilds = 0;
+        //Integer numWilds = activity.getPurchaseNumberWilds();
+
+        // check if the player has the necessary cards for the purchase
+        ClientModel model = ClientModel.create();
+        Map<Integer, Integer> ticketHand = model.getTicketCardHand();
+        if (ticketHand.get(route.getCardColor()) + numWilds >= route.findLength() &&
+                numWilds <= ticketHand.get(TTR_Constants.getInstance().WILD) &&
+                model.getPlayer().getTrainsRemaining() <= route.findLength()) {
+            //FIXME: add the purchasing color to the purchaseRoute method
+            model.purchaseRoute(route, numWilds);
+        }
+
         return false;
     }
 

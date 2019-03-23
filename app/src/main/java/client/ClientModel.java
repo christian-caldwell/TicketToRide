@@ -248,7 +248,7 @@ public class ClientModel extends Observable {
     public Result returnDestinationCards(DestinationCard[] destinationCards){
         return state.returnDestinationCards(this, destinationCards);
     };
-    public Result purchaseRoute(ClientModel clientModel, Route route, int numberOfWilds){
+    public Result purchaseRoute(Route route, int numberOfWilds){
         return state.purchaseRoute(this, route, numberOfWilds);
     };
     public Result leaveGame(){
