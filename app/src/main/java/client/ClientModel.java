@@ -122,13 +122,16 @@ public class ClientModel extends Observable {
     }
 
     public void setActiveGame(Game gamePlaying) {
+        System.out.print("Setting active game: ");
         if (gamePlaying.getPlayerUsernames().contains(userPlayer.getUsername())) { // change this back to checking player?
+            System.out.print("Game is updating");
             this.gameActive = gamePlaying;
             this.userPlayer.setGameJoined(gamePlaying);
             this.player = gamePlaying.getPlayer(userPlayer.getUsername());
             this.ticketCardHand = player.getTickets();
             this.destinationCardHand = player.getDestinationCardHand();
         }
+        System.out.println();
     }
 
     public ArrayList<Game> getLobbyGamesList() {
