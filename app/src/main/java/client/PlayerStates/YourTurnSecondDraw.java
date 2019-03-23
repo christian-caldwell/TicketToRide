@@ -19,6 +19,7 @@ public class YourTurnSecondDraw extends PlayerState {
         Result result = new Result();
         User user = clientModel.getUser();
         result = serverProxy.requestTicketCard(user.getUsername(), user.getGame().getGameName(), cardNum, true);
+        clientModel.setState(NotYourTurn.getInstance());
         return result;
     };
     public Result acceptPlayerAction(ClientModel clientModel){
@@ -26,9 +27,8 @@ public class YourTurnSecondDraw extends PlayerState {
         if(clientModel.getUser().getGame().isLastTurn()) {
             clientModel.setState(GameFinished.getInstance());
             result.setSuccessful(true);
-        }
-        else {
-            clientModel.setState(NotYourTurn.getInstance());
+        } else {
+//            clientModel.setState(YourTurnDefault.getInstance());
             result.setSuccessful(true);
         }
 
