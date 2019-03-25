@@ -81,6 +81,8 @@ public class GameBoardActivity extends AppCompatActivity {
     private TextView player1_username, player2_username, player3_username, player4_username, player5_username;
     private DrawerLayout activityLayout;
     private ClientModel clientModel;
+    private ArrayList<Button> discardButtons;
+    private int lengthOfNewDestinationCards;
 
     @Override
     public void onBackPressed() {
@@ -362,7 +364,6 @@ public class GameBoardActivity extends AppCompatActivity {
         destinationCardDeck.setText("" + cardDeckPresenter.getDestinationCardsLeft());
         trainCardDeck.setText("" + cardDeckPresenter.getTrainCardsLeft());
         gameBoard = findViewById(R.id.game_board_pic);
-
         new UpdateAsyncTask(this).execute();
     }
 
@@ -383,8 +384,16 @@ public class GameBoardActivity extends AppCompatActivity {
         RecyclerView destinationCardsRecyclerView = mPopupWindow.getContentView().findViewById(R.id.recycler_view_destination_cards);
         newDestinationCardList = playerInfoPresenter.getNewDestinationCardStrings();
         currentDestinationCardList = playerInfoPresenter.getDestinationCardStrings();
-        currentDestinationCardList.addAll(newDestinationCardList);
-        destinationCardsAdapter = new RecyclerViewAdapterDestinationCards(currentDestinationCardList, mPopupWindow.getContentView().getContext(), playerInfoPresenter);
+        ArrayList<String> allCards = new ArrayList<>();
+        allCards.addAll(newDestinationCardList);
+        allCards.addAll(currentDestinationCardList);
+        // currentDestinationCardList.addAll(newDestinationCardList);
+        discardButtons = new ArrayList<>();
+        for (String s : newDestinationCardList) {
+            discardButtons.add(new Button(this));
+        }
+        lengthOfNewDestinationCards = newDestinationCardList.size();
+        destinationCardsAdapter = new RecyclerViewAdapterDestinationCards(currentDestinationCardList, discardButtons, lengthOfNewDestinationCards, mPopupWindow.getContentView().getContext(), playerInfoPresenter);
         destinationCardsRecyclerView.setHasFixedSize(true);
         destinationCardsRecyclerView.setAdapter(destinationCardsAdapter);
         destinationCardsRecyclerView.setLayoutManager(new LinearLayoutManager(mPopupWindow.getContentView().getContext()));
@@ -876,9 +885,27 @@ public class GameBoardActivity extends AppCompatActivity {
             //FIXME: DONT SHOW DISCARD BUTTON ON OLD DESTINATION CARDS
             newDestinationCardList = playerInfoPresenter.getNewDestinationCardStrings();
             currentDestinationCardList = playerInfoPresenter.getDestinationCardStrings();
-            currentDestinationCardList.addAll(newDestinationCardList);
-            destinationCardsAdapter.setListOfDestinationCards(currentDestinationCardList);
+            //currentDestinationCardList.addAll(newDestinationCardList);
+
+
+
+
+
+            ArrayList<String> allCards = new ArrayList<>();
+            allCards.addAll(newDestinationCardList);
+            allCards.addAll(currentDestinationCardList);
+            discardButtons.clear();
+            for (String s : allCards) {
+                discardButtons.add(new Button(getApplicationContext()));
+            }
+            lengthOfNewDestinationCards = newDestinationCardList.size();
+            destinationCardsAdapter.setListOfDestinationCards(allCards, discardButtons, lengthOfNewDestinationCards);
             destinationCardsAdapter.notifyDataSetChanged();
+
+
+
+
+
 
             //TODO: CHECK IF IT IS THE END OF THE GAME.  IF SO, START THE GAMEOVERACTIVITY
             // if (gameOver)

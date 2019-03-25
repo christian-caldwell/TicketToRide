@@ -144,17 +144,26 @@ public class PlayerInfoPresenter implements IPlayerInfoPresenter, Observer {
         boardActivity.new UpdateAsyncTask(boardActivity).execute();
     }
 
-    //TODO: KEEP TRACK OF TURNS IN CLIENT MODEL AND CHECK WHAT TURN IT IS
     public boolean addToListOfDestinationCardsToDiscard(String destinationCard) {
         // If this is the first turn,
-        if (listOfDestinationCardsToDiscard.size() >= 1)
-            return false;
-        // else if it's the other turns then do something else
-        //else if { (listOfDestinationCardsToDiscard.size() >= 1) }
-
+        if (clientModel.getUser().getGame().getNumPlayerActions() < clientModel.getUser().getGame().getPlayers().size()) {
+            //Check that the user hasn't discarded more than 1 cards
+            // They should only be able to discard 0 or 1 cards on the first turn
+            if (listOfDestinationCardsToDiscard.size() >= 1)
+                return false;
+            else {
+                listOfDestinationCardsToDiscard.add(destinationCard);
+                return true;
+            }
+        }
+        // If it's not the first turn then make sure the user can only discard 0, 1, or 2 cards
         else {
-            listOfDestinationCardsToDiscard.add(destinationCard);
-            return true;
+            if (listOfDestinationCardsToDiscard.size() >= 2)
+                return false;
+            else {
+                listOfDestinationCardsToDiscard.add(destinationCard);
+                return true;
+            }
         }
     }
 
