@@ -50,13 +50,17 @@ public class RoutePresenter implements IRoutePresenter, Observer {
             purchaseCardColor = TTR_Constants.getInstance().RED;
             //purchaseCardColor = activity.getPurchaseCardColor();
         }
-
-        Integer numWilds = 0;
-        //Integer numWilds = activity.getPurchaseNumberWilds();
-
-        // check if the player has the necessary cards for the purchase
         ClientModel model = ClientModel.create();
         Map<Integer, Integer> ticketHand = model.getPlayer().getTickets();
+
+        Integer numWilds = 0;
+        Integer ownedWilds = ticketHand.get(TTR_Constants.getInstance().WILD);
+        System.out.println(ownedWilds);
+        if (ownedWilds != null && ownedWilds > 0) {
+            //numWilds = activity.getPurchaseNumberWilds();
+        }
+
+        // check if the player has the necessary cards for the purchase
         if (ticketHand.get(purchaseCardColor) + numWilds >= route.findLength() &&
                 numWilds <= ticketHand.get(TTR_Constants.getInstance().WILD) &&
                 model.getPlayer().getTrainsRemaining() >= route.findLength()) {
