@@ -20,7 +20,7 @@ import view.presenterInterface.IChatPresenter;
  */
 public class ChatPresenter implements IChatPresenter, Observer {
 
-    private static final SimpleDateFormat sdf = new SimpleDateFormat("yyyy.MM.dd.HH.mm.ss");
+    private static final SimpleDateFormat sdf = new SimpleDateFormat("HH.mm.ss");
     private final ServerProxy serverProxy = new ServerProxy();
     private ClientModel clientModel = ClientModel.create();
     private GameBoardActivity boardActivity;
