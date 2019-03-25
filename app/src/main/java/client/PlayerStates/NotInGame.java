@@ -1,6 +1,7 @@
 package client.PlayerStates;
 
 import client.ClientModel;
+import models.TTR_Constants;
 import models.data.Result;
 import view.facade.client.out.GameStartFacadeOut;
 
@@ -16,6 +17,7 @@ public class NotInGame extends PlayerState {
 
     public Result initializeGame(ClientModel clientModel){
         Result result = new Result();
+        TTR_Constants.getInstance().createGraph();
         result.setSuccessful(false);
         if(clientModel.getUser().isHost()) {
             GameStartFacadeOut gameStartFacadeOut = new GameStartFacadeOut();

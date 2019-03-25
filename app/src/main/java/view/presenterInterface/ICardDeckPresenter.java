@@ -1,14 +1,11 @@
 package view.presenterInterface;
 
-import java.util.ArrayList;
-
-import models.data.DestinationCard;
-import models.data.TrainCard;
+import models.data.Result;
 
 public interface ICardDeckPresenter {
     Integer getTrainCardAtPosition(int num);
-    void drawTrainCard(int num);
-    void drawDestinationCard();
+    Result drawTrainCard(int num);
+    Result drawDestinationCard();
     Integer getDestinationCardsLeft();
     Integer getTrainCardsLeft();
 }

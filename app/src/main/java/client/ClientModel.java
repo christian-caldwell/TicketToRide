@@ -238,7 +238,6 @@ public class ClientModel extends Observable {
         deleteObservers();
     }
 
-
     public Result initializeGame(){
         System.out.println("Trying to initialize game in state " + state.getClass().getName());
         return state.initializeGame(this);

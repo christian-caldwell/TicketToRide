@@ -58,7 +58,6 @@ public class RunGameFacade {
     }
 
     public Result purchaseRoute(String userName, String gameName, Integer points, String first_location, String second_location, Integer color, Integer wildCount) {
-        //TODO replace the 'Enums.Color' with parameter Integer
         Route purchasedRoute = TTR_Constants.getInstance().getRoute(first_location, second_location);
         return serverCommands.purchaseRoute(userName, gameName, purchasedRoute, wildCount);
     }
