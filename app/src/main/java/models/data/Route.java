@@ -66,4 +66,9 @@ public class Route {
         return (locations[0].equals(r.locations[0]) && locations[1].equals(r.locations[1]) &&
                 points.equals(r.points) && cardColor.equals(r.cardColor));
     }
+
+    @Override
+    public int hashCode() {
+        return locations[0].hashCode() + locations[1].hashCode();
+    }
 }

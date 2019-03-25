@@ -23,6 +23,8 @@ import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
@@ -789,8 +791,13 @@ public class GameBoardActivity extends AppCompatActivity {
 
     public void draw(Set<Integer> ids, Integer playerColor) {
         for (Integer id: ids) {
-            findViewById(id).setBackgroundResource((int)playerColorValues.get(playerColor));
-            findViewById(id).setAlpha(1);
+            View view = findViewById(id);
+            int color = (int)playerColorValues.get(playerColor);
+            System.out.println("Color: " + color);
+            view.setBackgroundResource(color);
+            view.setAlpha(1);
+//            findViewById(id).setBackgroundResource((int)playerColorValues.get(playerColor));
+//            findViewById(id).setAlpha(1);
         }
     }
 
@@ -1001,6 +1008,52 @@ public class GameBoardActivity extends AppCompatActivity {
                 }
             }
 
+        }
+    }
+
+    public class updateRouteAsyncTask extends AsyncTask<Void, Void, Map<Integer, Set<Integer>>> {
+        GameBoardActivity activity;
+        Map<Route, Boolean> hasBeenDrawn;
+
+        public updateRouteAsyncTask(GameBoardActivity activity, Map<Route, Boolean> hasBeenDrawn) {
+            this.activity = activity;
+            this.hasBeenDrawn = hasBeenDrawn;
+        }
+
+        @Override
+        protected Map<Integer, Set<Integer>> doInBackground(Void... voids) {
+            System.out.println("Updating routes");
+            ClientModel model = ClientModel.create();
+            List<Player> players = model.getUser().getGame().getPlayers();
+            Map<Integer, Set<Integer>> colorToIds = new HashMap<>();
+            if (players != null) {
+                for (Player p: players) {
+                    for (Route r: p.getRoutesOwned()) {
+                        Boolean rDrawn = hasBeenDrawn.get(r);
+                        if (rDrawn == null) {
+                            System.out.println("Not finding r in hasBeenDrawn...");
+                        }
+                        else if (!rDrawn) {
+                            Set<Integer> ids = TTR_Constants.routeToIdMap.get(r);
+//                            activity.draw(ids, p.getPlayerColor());
+                            if (colorToIds.get(p.getPlayerColor()) == null) {
+                                colorToIds.put(p.getPlayerColor(), new HashSet<Integer>());
+                            }
+                            colorToIds.get(p.getPlayerColor()).addAll(ids);
+                            hasBeenDrawn.put(r, true);
+                        }
+                    }
+                }
+            }
+
+            return colorToIds;
+        }
+
+        @Override
+        protected void onPostExecute(Map<Integer, Set<Integer>> colorToIds) {
+            for (Integer color: colorToIds.keySet()) {
+                draw(colorToIds.get(color), color);
+            }
         }
     }
 }
