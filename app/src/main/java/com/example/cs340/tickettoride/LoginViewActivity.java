@@ -14,7 +14,6 @@ import client.ClientModel;
 import models.data.Result;
 import view.activityInterface.ILoginView;
 import view.activityInterface.IRegisterView;
-import view.presenter.DemoPresenter;
 import view.presenter.LoginPresenter;
 
 public class LoginViewActivity extends AppCompatActivity implements ILoginView, IRegisterView {

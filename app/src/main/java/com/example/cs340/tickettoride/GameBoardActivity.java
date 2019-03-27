@@ -1,6 +1,5 @@
 package com.example.cs340.tickettoride;
 
-import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.PorterDuff;
 import android.os.AsyncTask;
@@ -27,7 +26,6 @@ import java.util.Map;
 import java.util.Set;
 
 import client.ClientModel;
-import client.PlayerStates.YourTurnDefault;
 import client.ServerProxy;
 import models.TTR_Constants;
 import models.data.ChatMessage;
@@ -35,7 +33,6 @@ import models.data.Player;
 import models.data.Route;
 import view.presenter.CardDeckPresenter;
 import view.presenter.ChatPresenter;
-import view.presenter.DemoPresenter;
 import view.presenter.PlayerInfoPresenter;
 import view.presenter.PlayersHandPresenter;
 import view.presenterInterface.ICardDeckPresenter;

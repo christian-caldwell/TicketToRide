@@ -16,9 +16,7 @@ import models.data.Result;
 import models.data.User;
 import view.presenter.CardDeckPresenter;
 import view.presenter.ChatPresenter;
-import view.presenter.DemoPresenter;
 import view.presenter.GameLobbyPresenter;
-import view.presenter.GamePresenter;
 import view.presenter.PlayerInfoPresenter;
 import view.presenter.PlayersHandPresenter;
 

@@ -279,18 +279,7 @@ public class ServerCommands implements IServer {
     }
 
 
-
     //RUN GAME FACADE STUFF
-        private ServerCommands serverCommands;
-
-        public RunGameFacade() {
-            serverCommands = new ServerCommands();
-        }
-
-        public Result startGame(String gameName) {
-            return serverCommands.startGame(gameName);
-        }
-
         public Result returnDestinationCards(String userName, String gameName){
             DestinationCard[] returnedCards = null;
             return serverCommands.returnDestinationCards(userName, gameName, returnedCards);
