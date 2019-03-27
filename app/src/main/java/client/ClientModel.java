@@ -21,6 +21,7 @@ import view.presenter.GameLobbyPresenter;
 import view.presenter.GamePresenter;
 import view.presenter.PlayerInfoPresenter;
 import view.presenter.PlayersHandPresenter;
+import view.presenter.RoutePresenter;
 
 public class ClientModel extends Observable {
     private User userPlayer;
@@ -33,6 +34,7 @@ public class ClientModel extends Observable {
     private CardDeckPresenter mCardDeckPresenter;
     private PlayerInfoPresenter mPlayerInfoPresenter;
     private PlayersHandPresenter mPlayersHandPresenter;
+    private RoutePresenter mRoutePresenter;
     private PlayerState state = NotInGame.getInstance();
 
     //    TEMPORARY DEMO THINGS
@@ -120,13 +122,16 @@ public class ClientModel extends Observable {
     }
 
     public void setActiveGame(Game gamePlaying) {
+        System.out.print("Setting active game: ");
         if (gamePlaying.getPlayerUsernames().contains(userPlayer.getUsername())) { // change this back to checking player?
+            System.out.print("Game is updating");
             this.gameActive = gamePlaying;
             this.userPlayer.setGameJoined(gamePlaying);
             this.player = gamePlaying.getPlayer(userPlayer.getUsername());
             this.ticketCardHand = player.getTickets();
             this.destinationCardHand = player.getDestinationCardHand();
         }
+        System.out.println();
     }
 
     public ArrayList<Game> getLobbyGamesList() {
@@ -193,6 +198,10 @@ public class ClientModel extends Observable {
 
     public void setChatPresenter(ChatPresenter chatPresenter) { mChatPresenter = chatPresenter; }
 
+    public void setRoutePresenter(RoutePresenter routePresenter) { mRoutePresenter = routePresenter; }
+
+    public RoutePresenter getmRoutePresenter() { return mRoutePresenter; }
+
     public void update() {
         if (mGameLobbyPresenter != null) {
             addObserver(this.mGameLobbyPresenter);
@@ -221,30 +230,41 @@ public class ClientModel extends Observable {
         if (mPlayersHandPresenter != null) {
             addObserver(this.mPlayersHandPresenter);
         }
+        if (mRoutePresenter != null) {
+            addObserver(this.mRoutePresenter);
+        }
         setChanged();
         notifyObservers();
         deleteObservers();
     }
 
     public Result initializeGame(){
+        System.out.println("Trying to initialize game in state " + state.getClass().getName());
         return state.initializeGame(this);
     };
     public Result requestTicketCard(int cardNum){
+        System.out.println("Trying to request ticket card in state " + state.getClass().getName());
         return state.requestTicketCard(this, cardNum);
     };
     public Result requestDestinationCards(){
+        System.out.println("Trying to request destination cards in state " + state.getClass().getName());
         return state.requestDestinationCards(this);
     };
     public Result returnDestinationCards(DestinationCard[] destinationCards){
+        System.out.println("Trying to return destination cards in state " + state.getClass().getName());
         return state.returnDestinationCards(this, destinationCards);
     };
-    public Result purchaseRoute(ClientModel clientModel, Route route, int numberOfWilds){
+    public Result purchaseRoute(Route route, int numberOfWilds){
+        System.out.println("Trying to purchase a route in state " + state.getClass().getName());
         return state.purchaseRoute(this, route, numberOfWilds);
     };
     public Result leaveGame(){
+
+        System.out.println("Trying to leave game in state " + state.getClass().getName());
         return state.leaveGame(this);
     };
     public Result acceptPlayerAction(){
+        System.out.println("Trying to accept player action in state " + state.getClass().getName());
         return state.acceptPlayerAction(this);
     };
 
