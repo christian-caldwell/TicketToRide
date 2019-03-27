@@ -44,8 +44,16 @@ public class RecyclerViewAdapterDestinationCards extends RecyclerView.Adapter<Re
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, final int position) {
         holder.destinationRoute.setText(mDestinationRoutes.get(position));
-        if (position >= mLengthOfNewDestinationCards) {
+        // This if statement will make sure the discard button doesn't show on old destination cards
+        if (position >= mLengthOfNewDestinationCards)
             holder.discardButton.setVisibility(View.GONE);
+        else
+            holder.discardButton.setVisibility(View.VISIBLE);
+
+        if (mDiscardButtons.get(position).isEnabled()) {
+            holder.discardButton.getBackground().setColorFilter(null);
+            holder.discardButton.setAlpha(1);
+            holder.discardButton.setEnabled(true);
         }
         holder.discardButton.setOnClickListener(new View.OnClickListener() {
             @Override

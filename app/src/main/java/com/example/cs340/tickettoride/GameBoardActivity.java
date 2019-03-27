@@ -170,20 +170,28 @@ public class GameBoardActivity extends AppCompatActivity {
             public void onClick(View v) {
                 mPopupWindow.showAtLocation(activityLayout, Gravity.CENTER,0,0);
                 doneButton = mPopupWindow.getContentView().findViewById(R.id.done_button);
+                // Re-enable the done button if there are cards to discard
+                if (playerInfoPresenter.getNewDestinationCardStrings().size() > 0) {
+                    doneButton.getBackground().setColorFilter(null);
+                    doneButton.setAlpha(1);
+                    doneButton.setEnabled(true);
+                }
+                else {
+                    doneButton.getBackground().setColorFilter(Color.DKGRAY, PorterDuff.Mode.MULTIPLY);
+                    doneButton.setAlpha(.5f);
+                    doneButton.setEnabled(false);
+                }
+
                 doneButton.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        // TODO: WE WILL HAVE TO RE-ENABLE THIS DONE BUTTON AT SOME POINT AFTER THE PLAYER DRAWS
-                        // MORE DESTINATION CARDS AGAIN
                         v.getBackground().setColorFilter(Color.DKGRAY, PorterDuff.Mode.MULTIPLY);
                         v.setAlpha(.5f);
                         v.setEnabled(false);
-                        if (playerInfoPresenter.returnDestinationCards() != null) {
-                            Toast.makeText(GameBoardActivity.this, "successfully returned destination cards.", Toast.LENGTH_SHORT).show();
-                        }
-                        else {
+                        if (playerInfoPresenter.returnDestinationCards() != null)
+                            Toast.makeText(GameBoardActivity.this, "Successfully returned destination cards.", Toast.LENGTH_SHORT).show();
+                        else
                             Toast.makeText(GameBoardActivity.this, "Cannot return destination cards", Toast.LENGTH_SHORT).show();
-                        }
                     }
                 });
             }
@@ -1341,7 +1349,6 @@ public class GameBoardActivity extends AppCompatActivity {
             adapter.notifyDataSetChanged();
             chatMessages = chatPresenter.getMessages();
 
-            //FIXME: DONT SHOW DISCARD BUTTON ON OLD DESTINATION CARDS
             newDestinationCardList = playerInfoPresenter.getNewDestinationCardStrings();
             currentDestinationCardList = playerInfoPresenter.getDestinationCardStrings();
             //currentDestinationCardList.addAll(newDestinationCardList);
