@@ -18,29 +18,29 @@ public class YourTurnDefault extends PlayerState {
 
     public Result requestTicketCard(ClientModel clientModel, int cardNum){
         if(cardNum != 0) {
-            if(clientModel.getUser().getGame().getFaceUpTrainCards()[cardNum-1].CardColor.equals(TTR_Constants.getInstance().WILD)) {
+            if(clientModel.getUser().getGameJoined().getFaceUpTrainCards()[cardNum-1].CardColor.equals(TTR_Constants.getInstance().WILD)) {
                 Result result = new Result();
-                result = serverProxy.requestTicketCard(clientModel.getUser().getUsername(), clientModel.getUser().getGame().getGameName(), cardNum, false);
+                result = serverProxy.requestTicketCard(clientModel.getUser().getUsername(), clientModel.getUser().getGameJoined().getGameName(), cardNum, false);
                 clientModel.setState(NotYourTurn.getInstance());
                 return result;
             }
         }
         Result result = new Result();
-        result = serverProxy.requestTicketCard(clientModel.getUser().getUsername(), clientModel.getUser().getGame().getGameName(), cardNum, false);
+        result = serverProxy.requestTicketCard(clientModel.getUser().getUsername(), clientModel.getUser().getGameJoined().getGameName(), cardNum, false);
         clientModel.setState(YourTurnSecondDraw.getInstance());
         return result;
     }
 
     public Result requestDestinationCards(ClientModel clientModel){
         Result result = new Result();
-        result = serverProxy.requestDestinationCards(clientModel.getUser().getUsername(), clientModel.getUser().getGame().getGameName());
+        result = serverProxy.requestDestinationCards(clientModel.getUser().getUsername(), clientModel.getUser().getGameJoined().getGameName());
         clientModel.setState(YourTurnAwaitingDestinations.getInstance());
         return result;
     }
 
     public Result purchaseRoute(ClientModel clientModel, Route route, int numberOfWilds){
         Result result = new Result();
-        result = serverProxy.purchaseRoute(clientModel.getUser().getUsername(), clientModel.getUser().getGame().getGameName(), route, numberOfWilds);
+        result = serverProxy.purchaseRoute(clientModel.getUser().getUsername(), clientModel.getUser().getGameJoined().getGameName(), route, numberOfWilds);
         clientModel.setState(NotYourTurn.getInstance());
         return result;
     }

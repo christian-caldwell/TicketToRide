@@ -17,17 +17,17 @@ public class YourTurnSecondDraw extends PlayerState {
     }
     public Result requestTicketCard(ClientModel clientModel, int cardNum){
         if(cardNum != 0) {
-            if (!clientModel.getUser().getGame().getFaceUpTrainCards()[cardNum-1].CardColor.equals(TTR_Constants.getInstance().WILD)) {
+            if (!clientModel.getUser().getGameJoined().getFaceUpTrainCards()[cardNum-1].CardColor.equals(TTR_Constants.getInstance().WILD)) {
                 ServerProxy serverProxy = new ServerProxy();
                 User user = clientModel.getUser();
                 clientModel.setState(NotYourTurn.getInstance());
-                return serverProxy.requestTicketCard(user.getUsername(), user.getGame().getGameName(), cardNum, true);
+                return serverProxy.requestTicketCard(user.getUsername(), user.getGameJoined().getGameName(), cardNum, true);
             }
         } else {
             ServerProxy serverProxy = new ServerProxy();
             User user = clientModel.getUser();
             clientModel.setState(NotYourTurn.getInstance());
-            return serverProxy.requestTicketCard(user.getUsername(), user.getGame().getGameName(), cardNum, true);
+            return serverProxy.requestTicketCard(user.getUsername(), user.getGameJoined().getGameName(), cardNum, true);
         }
         Result result = new Result();
         result.setErrorMessage("cannot draw a wild card.");
@@ -36,7 +36,7 @@ public class YourTurnSecondDraw extends PlayerState {
     }
     public Result acceptPlayerAction(ClientModel clientModel){
         Result result = new Result();
-        if(clientModel.getUser().getGame().isLastTurn()) {
+        if(clientModel.getUser().getGameJoined().isLastTurn()) {
             clientModel.setState(GameFinished.getInstance());
             result.setSuccessful(true);
         } else {

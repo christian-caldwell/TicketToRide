@@ -31,12 +31,18 @@ public class CommandHandler implements HttpHandler {
             //Display/log the request JSON data
             System.out.println("JSON sent to server: " + reqData);
 
-            ICommandExecuter facadeCommand;
+            GeneralCommand facadeCommand;
             ICommandExecuter clientProxyCommand;
 
             // Create the command through deserialization
             ObjectMapper mapper = new ObjectMapper();
             facadeCommand = mapper.readValue(reqData, GeneralCommand.class);
+            Class<?>[] paramTypes = facadeCommand.get_paramTypes();
+            Object[] paramValues = facadeCommand.get_paramValues();
+            for (int i = 0; i < paramTypes.length; ++i) {
+                paramValues[i] = mapper.convertValue(paramValues[i], paramTypes[i]);
+            }
+            facadeCommand.set_paramValues(paramValues);
             Result result = facadeCommand.exec();
 
 

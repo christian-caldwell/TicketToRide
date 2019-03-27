@@ -227,7 +227,7 @@ public class LobbyViewActivity extends AppCompatActivity /*implements IGameLobby
             adapter.notifyDataSetChanged();
 
             // If user is part of a game, disable the createGameButton
-            if (user.getGame() != null)
+            if (user.getGameJoined() != null)
                 disableCreateGameButton();
 
                 // If user isn't part of a game, disable the startGameButton
@@ -237,8 +237,8 @@ public class LobbyViewActivity extends AppCompatActivity /*implements IGameLobby
             System.out.println(user);
             // If user is a host and the amount of players in the game is greater than 1, then
             // enable the startGamebutton
-            if (user.getGame() != null) {
-                if (user.isHost() && user.getGame().getPlayerUsernames().size() > 1) {
+            if (user.getGameJoined() != null) {
+                if (user.isHost() && user.getGameJoined().getPlayerUsernames().size() > 1) {
                     enableStartGameButton();
                 }
                 // If not a host or if there aren't enough players, disable the 'Start game' button
@@ -249,7 +249,7 @@ public class LobbyViewActivity extends AppCompatActivity /*implements IGameLobby
 //                    user.getGame().setStarted(true);
 //                    // client.setActiveGame(user.getGame()) // Not sure, Aliasing should handle this...
 //                }
-                if (user.getGame().isStarted()) {
+                if (user.getGameJoined().isStarted()) {
                     Poller.instance().startPollingGame();
                     Intent intent = new Intent(context, GameBoardActivity.class);
                     intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);

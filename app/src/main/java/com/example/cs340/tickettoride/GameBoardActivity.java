@@ -58,7 +58,6 @@ public class GameBoardActivity extends AppCompatActivity {
     private RecyclerViewAdapterDestinationCards destinationCardsAdapter;
     private EditText inputChatEditText;
     private Button gameDemoButton;
-    private DemoPresenter mDemoPresenter;
     private Button sendMessageButton, playerInfoButton, doneButton;
     private Button mGreenTrainCard, mRedTrainCard, mPinkTrainCard, mYellowTrainCard,
             mWhiteTrainCard, mBlackTrainCard, mWildTrainCard, mBlueTrainCard, mOrangeTrainCard;
@@ -149,20 +148,6 @@ public class GameBoardActivity extends AppCompatActivity {
             // When the sendMessage button is clicked, send the text to the presenter.addMessage function
             @Override
             public void onClick(View v) {
-                /*if (demoToast.equals("")){*/
-                    demoInterationNumber++;
-                    mDemoPresenter = ClientModel.create().getDemoPresenter();
-                    mDemoPresenter.setGameActivity(GameBoardActivity.this);
-                    demoToast = mDemoPresenter.gameDemo();
-                    Toast.makeText(GameBoardActivity.this, demoToast, Toast.LENGTH_LONG).show();
-              /*  }
-                else {
-                    Toast.makeText(GameBoardActivity.this, "Run Demo Iteration " + demoInterationNumber, Toast.LENGTH_SHORT).show();
-                    demoToast = "";
-                }*/
-
-                //FIXME: Break up game demo into multiple button presses. Remove waits?
-//                mDemoPresenter.runNextDemo();
             }
         });
 
@@ -1089,7 +1074,7 @@ public class GameBoardActivity extends AppCompatActivity {
         protected Map<Integer, Set<Integer>> doInBackground(Void... voids) {
             System.out.println("Updating routes");
             ClientModel model = ClientModel.create();
-            List<Player> players = model.getUser().getGame().getPlayers();
+            List<Player> players = model.getUser().getGameJoined().getPlayers();
             Map<Integer, Set<Integer>> colorToIds = new HashMap<>();
             if (players != null) {
                 for (Player p: players) {

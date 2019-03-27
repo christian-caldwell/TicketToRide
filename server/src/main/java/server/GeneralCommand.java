@@ -59,9 +59,8 @@ public class GeneralCommand implements ICommandExecuter, Serializable {
     public Object[] _paramValues;
 
 
-    public GeneralCommand(String className, String methodName,
+    public GeneralCommand(String methodName,
                           Class<?>[] paramTypes, Object[] paramValues) {
-        _className = className;
         _methodName = methodName;
         _paramTypes = paramTypes;
         _paramValues = paramValues;
@@ -70,12 +69,17 @@ public class GeneralCommand implements ICommandExecuter, Serializable {
     @Override
     public Result exec() {
         CommandResult commandResult = new CommandResult();
-        Result result = null;
+        Result result = new Result();
         try {
 
-            Class<?> receiver = Class.forName(_className);
+            Class<?> receiver = Class.forName(ServerCommands.class.getName());
+            for (int i = 0; i < _paramTypes.length; ++i) {
+                _paramValues[i] = _paramTypes[i].cast(_paramValues[i]);
+            }
+            System.out.println(_paramValues[0].getClass());
             Method method = receiver.getMethod(_methodName, _paramTypes);
-            commandResult.setData(method.invoke(receiver.newInstance(), _paramValues));
+            Object o = method.invoke(receiver.newInstance(), _paramValues);
+            commandResult.setData(o);
             result = (Result)commandResult.getData();
         }
         catch (Exception e) {
