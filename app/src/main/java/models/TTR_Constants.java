@@ -1,5 +1,7 @@
 package models;
 
+import com.example.cs340.tickettoride.R;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -169,7 +171,6 @@ public class TTR_Constants {
     public final Route R_MON_TO_BOS_1 = new Route(2, WILD , new String[] {MONTREAL_STRING, BOSTON_STRING});
     public final Route R_MON_TO_BOS_2 = new Route(2, WILD , new String[] {MONTREAL_STRING, BOSTON_STRING});
 
-
     public final DestinationCard DEN_TO_EL = new DestinationCard(new String[] {DENVER_STRING, ELPASO_STRING}, 4);
     public final DestinationCard KAN_TO_HOU = new DestinationCard(new String[] {KANSASCITY_STRING, HOUSTON_STRING}, 5);
     public final DestinationCard NYC_TO_ATL = new DestinationCard(new String[] {NEWYORK_STRING, ATLANTA_STRING}, 6);
@@ -207,8 +208,8 @@ public class TTR_Constants {
 
     public Graph graph = new Graph();
 
-    private static TTR_Constants singleton;
-    
+    private static TTR_Constants singleton = new TTR_Constants();
+
     private TTR_Constants () {
 
     }
@@ -220,6 +221,9 @@ public class TTR_Constants {
         
         return  singleton;
     }
+
+    public final static Map<Route, Set<Integer>> routeToIdMap = singleton.getRouteIdMap();
+
 
     public void createGraph() {
         graph.add(VANCOUVER_STRING, SEATTLE_STRING);
@@ -576,5 +580,626 @@ public class TTR_Constants {
             case (8): return new TrainCard(9);
             default: return null;
         }
+    }
+
+    private Map<Route, Set<Integer>> getRouteIdMap() {
+        HashMap<Route, Set<Integer>> routeIdMap = new HashMap<>();
+        HashSet<Integer> ids = new HashSet<>();
+
+        //VAN_TO_SEA_1
+        ids.clear();
+        ids.add(R.id.vancouver_seattle_g1b1);
+        routeIdMap.put(R_VAN_TO_SEA_1, new HashSet<>(ids));
+        //VAN_TO_SEA_2
+        ids.clear();
+        ids.add(R.id.vancouver_seattle_g2b1);
+        routeIdMap.put(R_VAN_TO_SEA_2, new HashSet<>(ids));
+        //R_SEA_TO_POR_1
+        ids.clear();
+        ids.add(R.id.seattle_portland_g1b1);
+        routeIdMap.put(R_SEA_TO_POR_1, new HashSet<>(ids));
+        //R_SEA_TO_POR_2
+        ids.clear();
+        ids.add(R.id.seattle_portland_g2b1);
+        routeIdMap.put(R_SEA_TO_POR_2, new HashSet<>(ids));
+        //R_POR_TO_SAN_1
+        ids.clear();
+        ids.add(R.id.portland_sanfransisco_g1b1);
+        ids.add(R.id.portland_sanfransisco_g1b2);
+        ids.add(R.id.portland_sanfransisco_g1b3);
+        ids.add(R.id.portland_sanfransisco_g1b4);
+        ids.add(R.id.portland_sanfransisco_g1b5);
+        routeIdMap.put(R_POR_TO_SAN_1, new HashSet<>(ids));
+        //R_POR_TO_SAN_2
+        ids.clear();
+        ids.add(R.id.portland_sanfransisco_g2b1);
+        ids.add(R.id.portland_sanfransisco_g2b2);
+        ids.add(R.id.portland_sanfransisco_g2b3);
+        ids.add(R.id.portland_sanfransisco_g2b4);
+        ids.add(R.id.portland_sanfransisco_g2b5);
+        routeIdMap.put(R_POR_TO_SAN_2, new HashSet<>(ids));
+        //R_SAN_TO_SLC_1
+        ids.clear();
+        ids.add(R.id.sanfransisco_saltlakecity_g1b1);
+        ids.add(R.id.sanfransisco_saltlakecity_g1b2);
+        ids.add(R.id.sanfransisco_saltlakecity_g1b3);
+        ids.add(R.id.sanfransisco_saltlakecity_g1b4);
+        ids.add(R.id.sanfransisco_saltlakecity_g1b5);
+        routeIdMap.put(R_SAN_TO_SLC_1, new HashSet<>(ids));
+        //R_SAN_TO_SLC_2
+        ids.clear();
+        ids.add(R.id.sanfransisco_saltlakecity_g2b1);
+        ids.add(R.id.sanfransisco_saltlakecity_g2b2);
+        ids.add(R.id.sanfransisco_saltlakecity_g2b3);
+        ids.add(R.id.sanfransisco_saltlakecity_g2b4);
+        ids.add(R.id.sanfransisco_saltlakecity_g2b5);
+        routeIdMap.put(R_SAN_TO_SLC_2, new HashSet<>(ids));
+        //R_SAN_TO_LA_1
+        ids.clear();
+        ids.add(R.id.sanfransisco_losangeles_g1b1);
+        ids.add(R.id.sanfransisco_losangeles_g1b2);
+        ids.add(R.id.sanfransisco_losangeles_g1b3);
+        routeIdMap.put(R_SAN_TO_LA_1, new HashSet<>(ids));
+        //R_SAN_TO_LA_2
+        ids.clear();
+        ids.add(R.id.sanfransisco_losangeles_g2b1);
+        ids.add(R.id.sanfransisco_losangeles_g2b2);
+        ids.add(R.id.sanfransisco_losangeles_g2b3);
+        routeIdMap.put(R_SAN_TO_LA_2, new HashSet<>(ids));
+        //R_VAN_TO_CAL
+        ids.clear();
+        ids.add(R.id.vancouver_calgary_g1b1);
+        ids.add(R.id.vancouver_calgary_g1b2);
+        ids.add(R.id.vancouver_calgary_g1b3);
+        routeIdMap.put(R_VAN_TO_CAL, new HashSet<>(ids));
+        //R_SEA_TO_CAL
+        ids.clear();
+        ids.add(R.id.seattle_calgary_g1b1);
+        ids.add(R.id.seattle_calgary_g1b2);
+        ids.add(R.id.seattle_calgary_g1b3);
+        ids.add(R.id.seattle_calgary_g1b4);
+        routeIdMap.put(R_SEA_TO_CAL, new HashSet<>(ids));
+        //R_SEA_TO_HEL
+        ids.clear();
+        ids.add(R.id.seattle_helena_g1b1);
+        ids.add(R.id.seattle_helena_g1b2);
+        ids.add(R.id.seattle_helena_g1b3);
+        ids.add(R.id.seattle_helena_g1b4);
+        ids.add(R.id.seattle_helena_g1b5);
+        ids.add(R.id.seattle_helena_g1b6);
+        routeIdMap.put(R_SEA_TO_HEL, new HashSet<>(ids));
+        //R_POR_TO_SLC
+        ids.clear();
+        ids.add(R.id.portland_saltlakecity_g1b1);
+        ids.add(R.id.portland_saltlakecity_g1b2);
+        ids.add(R.id.portland_saltlakecity_g1b3);
+        ids.add(R.id.portland_saltlakecity_g1b4);
+        ids.add(R.id.portland_saltlakecity_g1b5);
+        ids.add(R.id.portland_saltlakecity_g1b6);
+        routeIdMap.put(R_POR_TO_SLC, new HashSet<>(ids));
+        //R_LA_TO_LAS
+        ids.clear();
+        ids.add(R.id.losangeles_lasvegas_g1b1);
+        ids.add(R.id.losangeles_lasvegas_g1b2);
+        routeIdMap.put(R_LA_TO_LAS, new HashSet<>(ids));
+        //R_LA_TO_PHO
+        ids.clear();
+        ids.add(R.id.losangeles_phoenix_g1b1);
+        ids.add(R.id.losangeles_phoenix_g1b2);
+        ids.add(R.id.losangeles_phoenix_g1b3);
+        routeIdMap.put(R_LA_TO_PHO, new HashSet<>(ids));
+        //R_LA_TO_EL
+        ids.clear();
+        ids.add(R.id.losangeles_elpaso_g1b1);
+        ids.add(R.id.losangeles_elpaso_g1b2);
+        ids.add(R.id.losangeles_elpaso_g1b3);
+        ids.add(R.id.losangeles_elpaso_g1b4);
+        ids.add(R.id.losangeles_elpaso_g1b5);
+        ids.add(R.id.losangeles_elpaso_g1b6);
+        routeIdMap.put(R_LA_TO_EL, new HashSet<>(ids));
+        //R_CAL_TO_WIN
+        ids.clear();
+        ids.add(R.id.calgary_winnipeg_g1b1);
+        ids.add(R.id.calgary_winnipeg_g1b2);
+        ids.add(R.id.calgary_winnipeg_g1b3);
+        ids.add(R.id.calgary_winnipeg_g1b4);
+        ids.add(R.id.calgary_winnipeg_g1b5);
+        ids.add(R.id.calgary_winnipeg_g1b6);
+        routeIdMap.put(R_CAL_TO_WIN, new HashSet<>(ids));
+        //R_CAL_TO_HEL
+        ids.clear();
+        ids.add(R.id.calgary_helena_g1b1);
+        ids.add(R.id.calgary_helena_g1b2);
+        ids.add(R.id.calgary_helena_g1b3);
+        ids.add(R.id.calgary_helena_g1b4);
+        routeIdMap.put(R_CAL_TO_HEL, new HashSet<>(ids));
+        //R_SLC_TO_HEL
+        ids.clear();
+        ids.add(R.id.saltlakecity_helena_g1b1);
+        ids.add(R.id.saltlakecity_helena_g1b2);
+        ids.add(R.id.saltlakecity_helena_g1b3);
+        routeIdMap.put(R_SLC_TO_HEL, new HashSet<>(ids));
+        //R_SLC_TO_DEN_1
+        ids.clear();
+        ids.add(R.id.saltlakecity_denver_g1b1);
+        ids.add(R.id.saltlakecity_denver_g1b2);
+        ids.add(R.id.saltlakecity_denver_g1b3);
+        routeIdMap.put(R_SLC_TO_DEN_1, new HashSet<>(ids));
+        //R_SLC_TO_DEN_2
+        ids.clear();
+        ids.add(R.id.saltlakecity_denver_g2b1);
+        ids.add(R.id.saltlakecity_denver_g2b2);
+        ids.add(R.id.saltlakecity_denver_g2b3);
+        routeIdMap.put(R_SLC_TO_DEN_2, new HashSet<>(ids));
+        //R_LAS_TO_SLC
+        ids.clear();
+        ids.add(R.id.lasvegas_saltlakecity_g1b1);
+        ids.add(R.id.lasvegas_saltlakecity_g1b2);
+        ids.add(R.id.lasvegas_saltlakecity_g1b3);
+        routeIdMap.put(R_LAS_TO_SLC, new HashSet<>(ids));
+        //R_PHO_TO_EL
+        ids.clear();
+        ids.add(R.id.phoenix_elpaso_g1b1);
+        ids.add(R.id.phoenix_elpaso_g1b2);
+        ids.add(R.id.phoenix_elpaso_g1b3);
+        routeIdMap.put(R_PHO_TO_EL, new HashSet<>(ids));
+        //R_PHO_TO_FE
+        ids.clear();
+        ids.add(R.id.phoenix_santafe_g1b1);
+        ids.add(R.id.phoenix_santafe_g1b2);
+        ids.add(R.id.phoenix_santafe_g1b3);
+        routeIdMap.put(R_PHO_TO_FE, new HashSet<>(ids));
+        //R_PHO_TO_DEN
+        ids.clear();
+        ids.add(R.id.phoenix_denver_g1b1);
+        ids.add(R.id.phoenix_denver_g1b2);
+        ids.add(R.id.phoenix_denver_g1b3);
+        ids.add(R.id.phoenix_denver_g1b4);
+        ids.add(R.id.phoenix_denver_g1b5);
+        routeIdMap.put(R_PHO_TO_DEN, new HashSet<>(ids));
+        //R_EL_TO_FE
+        ids.clear();
+        ids.add(R.id.santafe_elpaso_g1b1);
+        ids.add(R.id.santafe_elpaso_g1b2);
+        routeIdMap.put(R_EL_TO_FE, new HashSet<>(ids));
+        //R_FE_TO_DEN
+        ids.clear();
+        ids.add(R.id.denver_santafe_g1b1);
+        ids.add(R.id.denver_santafe_g1b2);
+        routeIdMap.put(R_FE_TO_DEN, new HashSet<>(ids));
+        //R_DEN_TO_HEL
+        ids.clear();
+        ids.add(R.id.helena_denver_g1b1);
+        ids.add(R.id.helena_denver_g1b2);
+        ids.add(R.id.helena_denver_g1b3);
+        ids.add(R.id.helena_denver_g1b4);
+        routeIdMap.put(R_DEN_TO_HEL, new HashSet<>(ids));
+        //R_HEL_TO_WIN
+        ids.clear();
+        ids.add(R.id.helena_winnipeg_g1b1);
+        ids.add(R.id.helena_winnipeg_g1b2);
+        ids.add(R.id.helena_winnipeg_g1b3);
+        ids.add(R.id.helena_winnipeg_g1b4);
+        routeIdMap.put(R_HEL_TO_WIN, new HashSet<>(ids));
+        //R_EL_TO_HOU
+        ids.clear();
+        ids.add(R.id.elpaso_houston_g1b1);
+        ids.add(R.id.elpaso_houston_g1b2);
+        ids.add(R.id.elpaso_houston_g1b3);
+        ids.add(R.id.elpaso_houston_g1b4);
+        ids.add(R.id.elpaso_houston_g1b5);
+        ids.add(R.id.elpaso_houston_g1b6);
+        routeIdMap.put(R_EL_TO_HOU, new HashSet<>(ids));
+        //R_EL_TO_DAL
+        ids.clear();
+        ids.add(R.id.elpaso_dallas_g1b1);
+        ids.add(R.id.elpaso_dallas_g1b2);
+        ids.add(R.id.elpaso_dallas_g1b3);
+        ids.add(R.id.elpaso_dallas_g1b4);
+        routeIdMap.put(R_EL_TO_DAL, new HashSet<>(ids));
+        //R_EL_TO_OKL
+        ids.clear();
+        ids.add(R.id.elpaso_oklahomacity_g1b1);
+        ids.add(R.id.elpaso_oklahomacity_g1b2);
+        ids.add(R.id.elpaso_oklahomacity_g1b3);
+        ids.add(R.id.elpaso_oklahomacity_g1b4);
+        ids.add(R.id.elpaso_oklahomacity_g1b5);
+        routeIdMap.put(R_EL_TO_OKL, new HashSet<>(ids));
+        //R_FE_TO_OKL
+        ids.clear();
+        ids.add(R.id.santafe_oklahomacity_g1b1);
+        ids.add(R.id.santafe_oklahomacity_g1b2);
+        ids.add(R.id.santafe_oklahomacity_g1b3);
+        routeIdMap.put(R_FE_TO_OKL, new HashSet<>(ids));
+        //R_DEN_TO_OKL
+        ids.clear();
+        ids.add(R.id.denver_oklahomacity_g1b1);
+        ids.add(R.id.denver_oklahomacity_g1b2);
+        ids.add(R.id.denver_oklahomacity_g1b3);
+        ids.add(R.id.denver_oklahomacity_g1b4);
+        routeIdMap.put(R_DEN_TO_OKL, new HashSet<>(ids));
+        //R_DEN_TO_KAN_1
+        ids.clear();
+        ids.add(R.id.denver_kansascity_g1b1);
+        ids.add(R.id.denver_kansascity_g1b2);
+        ids.add(R.id.denver_kansascity_g1b3);
+        ids.add(R.id.denver_kansascity_g1b4);
+        routeIdMap.put(R_DEN_TO_KAN_1, new HashSet<>(ids));
+        //R_DEN_TO_KAN_2
+        ids.clear();
+        ids.add(R.id.denver_kansascity_g2b1);
+        ids.add(R.id.denver_kansascity_g2b2);
+        ids.add(R.id.denver_kansascity_g2b3);
+        ids.add(R.id.denver_kansascity_g2b4);
+        routeIdMap.put(R_DEN_TO_KAN_2, new HashSet<>(ids));
+        //R_DEN_TO_OMA
+        ids.clear();
+        ids.add(R.id.denver_omaha_g1b1);
+        ids.add(R.id.denver_omaha_g1b2);
+        ids.add(R.id.denver_omaha_g1b3);
+        ids.add(R.id.denver_omaha_g1b4);
+        routeIdMap.put(R_DEN_TO_OMA, new HashSet<>(ids));
+        //R_HEL_TO_OMA
+        ids.clear();
+        ids.add(R.id.helena_omaha_g1b1);
+        ids.add(R.id.helena_omaha_g1b2);
+        ids.add(R.id.helena_omaha_g1b3);
+        ids.add(R.id.helena_omaha_g1b4);
+        ids.add(R.id.helena_omaha_g1b5);
+        routeIdMap.put(R_HEL_TO_OMA, new HashSet<>(ids));
+        //R_HEL_TO_DUL
+        ids.clear();
+        ids.add(R.id.helena_duluth_g1b1);
+        ids.add(R.id.helena_duluth_g1b2);
+        ids.add(R.id.helena_duluth_g1b3);
+        ids.add(R.id.helena_duluth_g1b4);
+        ids.add(R.id.helena_duluth_g1b5);
+        ids.add(R.id.helena_duluth_g1b6);
+        routeIdMap.put(R_HEL_TO_DUL, new HashSet<>(ids));
+        //R_WIN_TO_SSM
+        ids.clear();
+        ids.add(R.id.winnipeg_saulstmarie_g1b1);
+        ids.add(R.id.winnipeg_saulstmarie_g1b2);
+        ids.add(R.id.winnipeg_saulstmarie_g1b3);
+        ids.add(R.id.winnipeg_saulstmarie_g1b4);
+        ids.add(R.id.winnipeg_saulstmarie_g1b5);
+        ids.add(R.id.winnipeg_saulstmarie_g1b6);
+        routeIdMap.put(R_WIN_TO_SSM, new HashSet<>(ids));
+        //R_WIN_TO_DUL
+        ids.clear();
+        ids.add(R.id.winnipeg_duluth_g1b1);
+        ids.add(R.id.winnipeg_duluth_g1b2);
+        ids.add(R.id.winnipeg_duluth_g1b3);
+        ids.add(R.id.winnipeg_duluth_g1b4);
+        routeIdMap.put(R_WIN_TO_DUL, new HashSet<>(ids));
+        //R_HOU_TO_DAL_1
+        ids.clear();
+        ids.add(R.id.dallas_houston_g1b1);
+        routeIdMap.put(R_HOU_TO_DAL_1, new HashSet<>(ids));
+        //R_HOU_TO_DAL_2
+        ids.clear();
+        ids.add(R.id.dallas_houston_g2b1);
+        routeIdMap.put(R_HOU_TO_DAL_2, new HashSet<>(ids));
+        //R_DAL_TO_OKL_1
+        ids.clear();
+        ids.add(R.id.oklahomacity_dallas_g1b1);
+        ids.add(R.id.oklahomacity_dallas_g1b2);
+        routeIdMap.put(R_DAL_TO_OKL_1, new HashSet<>(ids));
+        //R_DAL_TO_OKL_2
+        ids.clear();
+        ids.add(R.id.oklahomacity_dallas_g2b1);
+        ids.add(R.id.oklahomacity_dallas_g2b2);
+        routeIdMap.put(R_DAL_TO_OKL_2, new HashSet<>(ids));
+        //R_OKL_TO_KAN_1
+        ids.clear();
+        ids.add(R.id.oklahomacity_kansascity_g1b1);
+        ids.add(R.id.oklahomacity_kansascity_g1b2);
+        routeIdMap.put(R_OKL_TO_KAN_1, new HashSet<>(ids));
+        //R_OKL_TO_KAN_2
+        ids.clear();
+        ids.add(R.id.kansascity_oklahomacity_g2b1);
+        ids.add(R.id.kansascity_oklahomacity_g2b2);
+        routeIdMap.put(R_OKL_TO_KAN_2, new HashSet<>(ids));
+        //R_KAN_TO_OMA_1
+        ids.clear();
+        ids.add(R.id.omaha_kansascity_g1b1);
+        routeIdMap.put(R_KAN_TO_OMA_1, new HashSet<>(ids));
+        //R_KAN_TO_OMA_2
+        ids.clear();
+        ids.add(R.id.omaha_kansascity_g2b1);
+        routeIdMap.put(R_KAN_TO_OMA_2, new HashSet<>(ids));
+        //R_OMA_TO_DUL_1
+        ids.clear();
+        ids.add(R.id.omaha_duluth_g1b1);
+        ids.add(R.id.omaha_duluth_g1b2);
+        routeIdMap.put(R_OMA_TO_DUL_1, new HashSet<>(ids));
+        //R_OMA_TO_DUL_2
+        ids.clear();
+        ids.add(R.id.duluth_omaha_g2b1);
+        ids.add(R.id.duluth_omaha_g2b2);
+        routeIdMap.put(R_OMA_TO_DUL_2, new HashSet<>(ids));
+        //R_DUL_TO_SSM
+        ids.clear();
+        ids.add(R.id.saulstmarie_duluth_g1b1);
+        ids.add(R.id.saulstmarie_duluth_g1b2);
+        ids.add(R.id.saulstmarie_duluth_g1b3);
+        routeIdMap.put(R_DUL_TO_SSM, new HashSet<>(ids));
+        //R_HOU_TO_ORI
+        ids.clear();
+        ids.add(R.id.neworleans_houston_g1b1);
+        ids.add(R.id.neworleans_houston_g1b2);
+        routeIdMap.put(R_HOU_TO_ORI, new HashSet<>(ids));
+        //R_DAL_TO_LIT
+        ids.clear();
+        ids.add(R.id.littlerock_dallas_g1b1);
+        ids.add(R.id.littlerock_dallas_g1b2);
+        routeIdMap.put(R_DAL_TO_LIT, new HashSet<>(ids));
+        //R_OKL_TO_LIT
+        ids.clear();
+        ids.add(R.id.oklahomacity_littlerock_g1b1);
+        ids.add(R.id.oklahomacity_littlerock_g1b2);
+        routeIdMap.put(R_OKL_TO_LIT, new HashSet<>(ids));
+        //R_KAN_TO_SAI_1
+        ids.clear();
+        ids.add(R.id.kansascity_saintlouis_g1b1);
+        ids.add(R.id.kansascity_saintlouis_g1b2);
+        routeIdMap.put(R_KAN_TO_SAI_1, new HashSet<>(ids));
+        //R_KAN_TO_SAI_2
+        ids.clear();
+        ids.add(R.id.kansascity_saintlouis_g2b1);
+        ids.add(R.id.kansascity_saintlouis_g2b2);
+        routeIdMap.put(R_KAN_TO_SAI_2, new HashSet<>(ids));
+        //R_OMA_TO_CHI
+        ids.clear();
+        ids.add(R.id.chicago_omaha_g1b1);
+        ids.add(R.id.chicago_omaha_g1b2);
+        ids.add(R.id.chicago_omaha_g1b3);
+        ids.add(R.id.chicago_omaha_g1b4);
+        routeIdMap.put(R_OMA_TO_CHI, new HashSet<>(ids));
+        //R_DUL_TO_CHI
+        ids.clear();
+        ids.add(R.id.duluth_chicago_g1b1);
+        ids.add(R.id.duluth_chicago_g1b2);
+        ids.add(R.id.duluth_chicago_g1b3);
+        routeIdMap.put(R_DUL_TO_CHI, new HashSet<>(ids));
+        //R_DUL_TO_TOR
+        ids.clear();
+        ids.add(R.id.toronto_duluth_g1b1);
+        ids.add(R.id.toronto_duluth_g1b2);
+        ids.add(R.id.toronto_duluth_g1b3);
+        ids.add(R.id.toronto_duluth_g1b4);
+        ids.add(R.id.toronto_duluth_g1b5);
+        ids.add(R.id.toronto_duluth_g1b6);
+        routeIdMap.put(R_DUL_TO_TOR, new HashSet<>(ids));
+        //R_SSM_TO_TOR
+        ids.clear();
+        ids.add(R.id.saulstmarie_toronto_g1b1);
+        ids.add(R.id.saulstmarie_toronto_g1b2);
+        routeIdMap.put(R_SSM_TO_TOR, new HashSet<>(ids));
+        //R_SSM_TO_MON
+        ids.clear();
+        ids.add(R.id.montreal_saulstmarie_g1b1);
+        ids.add(R.id.montreal_saulstmarie_g1b2);
+        ids.add(R.id.montreal_saulstmarie_g1b3);
+        ids.add(R.id.montreal_saulstmarie_g1b4);
+        ids.add(R.id.montreal_saulstmarie_g1b5);
+        routeIdMap.put(R_SSM_TO_MON, new HashSet<>(ids));
+        //R_ORI_TO_LIT
+        ids.clear();
+        ids.add(R.id.littlerock_neworleans_g1b1);
+        ids.add(R.id.littlerock_neworleans_g1b2);
+        ids.add(R.id.littlerock_neworleans_g1b3);
+        routeIdMap.put(R_ORI_TO_LIT, new HashSet<>(ids));
+        //R_LIT_TO_SAI
+        ids.clear();
+        ids.add(R.id.saintlouis_littlerock_g1b1);
+        ids.add(R.id.saintlouis_littlerock_g1b2);
+        routeIdMap.put(R_LIT_TO_SAI, new HashSet<>(ids));
+        //R_SAI_TO_CHI_1
+        ids.clear();
+        ids.add(R.id.chicago_saintlouis_g1b1);
+        ids.add(R.id.chicago_saintlouis_g1b2);
+        routeIdMap.put(R_SAI_TO_CHI_1, new HashSet<>(ids));
+        //R_SAI_TO_CHI_2
+        ids.clear();
+        ids.add(R.id.chicago_saintlouis_g2b1);
+        ids.add(R.id.chicago_saintlouis_g2b2);
+        routeIdMap.put(R_SAI_TO_CHI_2, new HashSet<>(ids));
+        //R_CHI_TO_TOR
+        ids.clear();
+        ids.add(R.id.toronto_chicago_g1b1);
+        ids.add(R.id.toronto_chicago_g1b2);
+        ids.add(R.id.toronto_chicago_g1b3);
+        ids.add(R.id.toronto_chicago_g1b4);
+        routeIdMap.put(R_CHI_TO_TOR, new HashSet<>(ids));
+        //R_TOR_TO_MON
+        ids.clear();
+        ids.add(R.id.montreal_toronto_g1b1);
+        ids.add(R.id.montreal_toronto_g1b2);
+        ids.add(R.id.montreal_toronto_g1b3);
+        routeIdMap.put(R_TOR_TO_MON, new HashSet<>(ids));
+        //R_ORI_TO_MIA
+        ids.clear();
+        ids.add(R.id.neworleans_miami_g1b1);
+        ids.add(R.id.neworleans_miami_g1b2);
+        ids.add(R.id.neworleans_miami_g1b3);
+        ids.add(R.id.neworleans_miami_g1b4);
+        ids.add(R.id.neworleans_miami_g1b5);
+        ids.add(R.id.neworleans_miami_g1b6);
+        routeIdMap.put(R_ORI_TO_MIA, new HashSet<>(ids));
+        //R_ORI_TO_ATL_1
+        ids.clear();
+        ids.add(R.id.atlanta_neworleans_g1b1);
+        ids.add(R.id.atlanta_neworleans_g1b2);
+        ids.add(R.id.atlanta_neworleans_g1b3);
+        ids.add(R.id.atlanta_neworleans_g1b4);
+        routeIdMap.put(R_ORI_TO_ATL_1, new HashSet<>(ids));
+        //R_ORI_TO_ATL_2
+        ids.clear();
+        ids.add(R.id.atlanta_neworleans_g2b1);
+        ids.add(R.id.atlanta_neworleans_g2b2);
+        ids.add(R.id.atlanta_neworleans_g2b3);
+        ids.add(R.id.atlanta_neworleans_g2b4);
+        routeIdMap.put(R_ORI_TO_ATL_2, new HashSet<>(ids));
+        //R_LIT_TO_NAS
+        ids.clear();
+        ids.add(R.id.nashville_littlerock_g1b1);
+        ids.add(R.id.nashville_littlerock_g1b2);
+        ids.add(R.id.nashville_littlerock_g1b3);
+        routeIdMap.put(R_LIT_TO_NAS, new HashSet<>(ids));
+        //R_SAI_TO_NAS
+        ids.clear();
+        ids.add(R.id.saintlouis_nashville_g1b1);
+        ids.add(R.id.saintlouis_nashville_g1b2);
+        routeIdMap.put(R_SAI_TO_NAS, new HashSet<>(ids));
+        //R_SAI_TO_PIT
+        ids.clear();
+        ids.add(R.id.pittsburgh_saintlouis_g1b1);
+        ids.add(R.id.pittsburgh_saintlouis_g1b2);
+        ids.add(R.id.pittsburgh_saintlouis_g1b3);
+        ids.add(R.id.pittsburgh_saintlouis_g1b4);
+        ids.add(R.id.pittsburgh_saintlouis_g1b5);
+        routeIdMap.put(R_SAI_TO_PIT, new HashSet<>(ids));
+        //R_CHI_TO_PIT_1
+        ids.clear();
+        ids.add(R.id.pittsburgh_chicago_g1b1);
+        ids.add(R.id.pittsburgh_chicago_g1b2);
+        ids.add(R.id.pittsburgh_chicago_g1b3);
+        routeIdMap.put(R_CHI_TO_PIT_1, new HashSet<>(ids));
+        //R_CHI_TO_PIT_2
+        ids.clear();
+        ids.add(R.id.pittsburgh_chicago_g2b1);
+        ids.add(R.id.pittsburgh_chicago_g2b2);
+        ids.add(R.id.pittsburgh_chicago_g2b3);
+        routeIdMap.put(R_CHI_TO_PIT_2, new HashSet<>(ids));
+        //R_MIA_TO_ATL
+        ids.clear();
+        ids.add(R.id.atlanta_miami_g1b1);
+        ids.add(R.id.atlanta_miami_g1b2);
+        ids.add(R.id.atlanta_miami_g1b3);
+        ids.add(R.id.atlanta_miami_g1b4);
+        ids.add(R.id.atlanta_miami_g1b5);
+        routeIdMap.put(R_MIA_TO_ATL, new HashSet<>(ids));
+        //R_MIA_TO_CHA
+        ids.clear();
+        ids.add(R.id.charleston_miami_g1b1);
+        ids.add(R.id.charleston_miami_g1b2);
+        ids.add(R.id.charleston_miami_g1b3);
+        ids.add(R.id.charleston_miami_g1b4);
+        routeIdMap.put(R_MIA_TO_CHA, new HashSet<>(ids));
+        //R_ATL_TO_CHA
+        ids.clear();
+        ids.add(R.id.atlanta_charleston_g1b1);
+        ids.add(R.id.atlanta_charleston_g1b2);
+        routeIdMap.put(R_ATL_TO_CHA, new HashSet<>(ids));
+        //R_ATL_TO_NAS
+        ids.clear();
+        ids.add(R.id.nashville_atlanta_g1b1);
+        routeIdMap.put(R_ATL_TO_NAS, new HashSet<>(ids));
+        //R_ATL_TO_RAL_1
+        ids.clear();
+        ids.add(R.id.raleigh_atlanta_g1b1);
+        ids.add(R.id.raleigh_atlanta_g1b2);
+        routeIdMap.put(R_ATL_TO_RAL_1, new HashSet<>(ids));
+        //R_ATL_TO_RAL_2
+        ids.clear();
+        ids.add(R.id.raleigh_atlanta_g2b1);
+        ids.add(R.id.raleigh_atlanta_g2b2);
+        routeIdMap.put(R_ATL_TO_RAL_2, new HashSet<>(ids));
+        //R_NAS_TO_RAL
+        ids.clear();
+        ids.add(R.id.raleigh_nashville_g1b1);
+        ids.add(R.id.raleigh_nashville_g1b2);
+        ids.add(R.id.raleigh_nashville_g1b3);
+        routeIdMap.put(R_NAS_TO_RAL, new HashSet<>(ids));
+        //R_NAS_TO_PIT
+        ids.clear();
+        ids.add(R.id.pittsburgh_nashville_g1b1);
+        ids.add(R.id.pittsburgh_nashville_g1b2);
+        ids.add(R.id.pittsburgh_nashville_g1b3);
+        ids.add(R.id.pittsburgh_nashville_g1b4);
+        routeIdMap.put(R_NAS_TO_PIT, new HashSet<>(ids));
+        //R_CHA_TO_RAL
+        ids.clear();
+        ids.add(R.id.raleigh_charleston_g1b1);
+        ids.add(R.id.raleigh_charleston_g1b2);
+        routeIdMap.put(R_CHA_TO_RAL, new HashSet<>(ids));
+        //R_RAL_TO_WAS_1
+        ids.clear();
+        ids.add(R.id.washington_raleigh_g1b1);
+        ids.add(R.id.washington_raleigh_g1b2);
+        routeIdMap.put(R_RAL_TO_WAS_1, new HashSet<>(ids));
+        //R_RAL_TO_WAS_2
+        ids.clear();
+        ids.add(R.id.washington_raleigh_g2b1);
+        ids.add(R.id.washington_raleigh_g2b2);
+        routeIdMap.put(R_RAL_TO_WAS_2, new HashSet<>(ids));
+        //R_RAL_TO_PIT
+        ids.clear();
+        ids.add(R.id.pittsburgh_raleigh_g1b1);
+        ids.add(R.id.pittsburgh_raleigh_g1b2);
+        routeIdMap.put(R_RAL_TO_PIT, new HashSet<>(ids));
+        //R_WAS_TO_PIT
+        ids.clear();
+        ids.add(R.id.pittsburgh_washington_g1b1);
+        ids.add(R.id.pittsburgh_washington_g1b2);
+        routeIdMap.put(R_WAS_TO_PIT, new HashSet<>(ids));
+        //R_WAS_TO_NYC_1
+        ids.clear();
+        ids.add(R.id.newyork_washington_g1b1);
+        ids.add(R.id.newyork_washington_g1b2);
+        routeIdMap.put(R_WAS_TO_NYC_1, new HashSet<>(ids));
+        //R_WAS_TO_NYC_2
+        ids.clear();
+        ids.add(R.id.newyork_washington_g2b1);
+        ids.add(R.id.newyork_washington_g2b2);
+        routeIdMap.put(R_WAS_TO_NYC_2, new HashSet<>(ids));
+        //R_PIT_TO_NYC_1
+        ids.clear();
+        ids.add(R.id.newyork_pittsburgh_g1b1);
+        ids.add(R.id.newyork_pittsburgh_g1b2);
+        routeIdMap.put(R_PIT_TO_NYC_1, new HashSet<>(ids));
+        //R_PIT_TO_NYC_2
+        ids.clear();
+        ids.add(R.id.newyork_pittsburgh_g2b1);
+        ids.add(R.id.newyork_pittsburgh_g2b2);
+        routeIdMap.put(R_PIT_TO_NYC_2, new HashSet<>(ids));
+        //R_PIT_TO_TOR
+        ids.clear();
+        ids.add(R.id.toronto_pittsburgh_g1b1);
+        ids.add(R.id.toronto_pittsburgh_g1b2);
+        routeIdMap.put(R_PIT_TO_TOR, new HashSet<>(ids));
+        //R_NYC_TO_MON
+        ids.clear();
+        ids.add(R.id.montreal_newyork_g1b1);
+        ids.add(R.id.montreal_newyork_g1b2);
+        ids.add(R.id.montreal_newyork_g1b3);
+        routeIdMap.put(R_NYC_TO_MON, new HashSet<>(ids));
+        //R_NYC_TO_BOS_1
+        ids.clear();
+        ids.add(R.id.boston_newyork_g1b1);
+        ids.add(R.id.boston_newyork_g1b2);
+        routeIdMap.put(R_NYC_TO_BOS_1, new HashSet<>(ids));
+        //R_NYC_TO_BOS_2
+        ids.clear();
+        ids.add(R.id.boston_newyork_g2b1);
+        ids.add(R.id.boston_newyork_g2b2);
+        routeIdMap.put(R_NYC_TO_BOS_2, new HashSet<>(ids));
+        //R_MON_TO_BOS_1
+        ids.clear();
+        ids.add(R.id.montreal_boston_g1b1);
+        ids.add(R.id.montreal_boston_g1b2);
+        routeIdMap.put(R_MON_TO_BOS_1, new HashSet<>(ids));
+        //R_MON_TO_BOS_2
+        ids.clear();
+        ids.add(R.id.montreal_boston_g2b1);
+        ids.add(R.id.montreal_boston_g2b2);
+        routeIdMap.put(R_MON_TO_BOS_2, new HashSet<>(ids));
+
+        return routeIdMap;
+    }
+
+    public Map<Route, Set<Integer>> getRouteIds() {
+        return routeToIdMap;
     }
 }

@@ -2,6 +2,7 @@ package client.PlayerStates;
 
 import client.ClientModel;
 import client.ServerProxy;
+import models.TTR_Constants;
 import models.data.Result;
 import models.data.Route;
 
@@ -16,6 +17,14 @@ public class YourTurnDefault extends PlayerState {
     }
 
     public Result requestTicketCard(ClientModel clientModel, int cardNum){
+        if(cardNum != 0) {
+            if(clientModel.getUser().getGame().getFaceUpTrainCards()[cardNum-1].CardColor.equals(TTR_Constants.getInstance().WILD)) {
+                Result result = new Result();
+                result = serverProxy.requestTicketCard(clientModel.getUser().getUsername(), clientModel.getUser().getGame().getGameName(), cardNum, false);
+                clientModel.setState(NotYourTurn.getInstance());
+                return result;
+            }
+        }
         Result result = new Result();
         result = serverProxy.requestTicketCard(clientModel.getUser().getUsername(), clientModel.getUser().getGame().getGameName(), cardNum, false);
         clientModel.setState(YourTurnSecondDraw.getInstance());

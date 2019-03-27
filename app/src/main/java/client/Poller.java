@@ -31,14 +31,14 @@ public class Poller {
         create();
         singleton.shutdown();
         singleton.startPollingLobby();
-        singleton.start(0, 2000, false);
+        singleton.start(0, 500, false);
     }
 
     public static void startGamePoller() {
         create();
         singleton.shutdown();
         singleton.startPollingGame();
-        singleton.start(0, 2000, false);
+        singleton.start(0, 500, false);
     }
 
     public ArrayList<Game> pollServerForGames() {
@@ -64,7 +64,7 @@ public class Poller {
 //        String className = PollManager.class.getName();
         String methodName = "getRunningGame";
 
-        Game game = client.getUser().getGame();
+        Game game = client.getActiveGame();
 
         Object[] parameterDataArray = new Object[4];
         parameterDataArray[0] = game.getGameName();
@@ -218,7 +218,7 @@ public class Poller {
                 for (Game game: client.getLobbyGamesList()) {
                     for (String userName: game.getPlayerUsernames()) {
                         if (userName.equals(client.getUser().getUsername())) {
-                            client.getUser().setGameJoined(game);
+                            client.setActiveGame(game);
                         }
                     }
                 }

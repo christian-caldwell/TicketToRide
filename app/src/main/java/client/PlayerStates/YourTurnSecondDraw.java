@@ -16,9 +16,17 @@ public class YourTurnSecondDraw extends PlayerState {
     private YourTurnSecondDraw() {
     }
     public Result requestTicketCard(ClientModel clientModel, int cardNum){
-        if (!clientModel.getUser().getGame().getFaceUpTrainCards()[cardNum].equals(TTR_Constants.getInstance().WILD)) {
+        if(cardNum != 0) {
+            if (!clientModel.getUser().getGame().getFaceUpTrainCards()[cardNum-1].CardColor.equals(TTR_Constants.getInstance().WILD)) {
+                ServerProxy serverProxy = new ServerProxy();
+                User user = clientModel.getUser();
+                clientModel.setState(NotYourTurn.getInstance());
+                return serverProxy.requestTicketCard(user.getUsername(), user.getGame().getGameName(), cardNum, true);
+            }
+        } else {
             ServerProxy serverProxy = new ServerProxy();
             User user = clientModel.getUser();
+            clientModel.setState(NotYourTurn.getInstance());
             return serverProxy.requestTicketCard(user.getUsername(), user.getGame().getGameName(), cardNum, true);
         }
         Result result = new Result();
