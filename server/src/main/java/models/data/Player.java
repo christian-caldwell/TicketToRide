@@ -7,6 +7,7 @@ import java.util.Map;
 import java.util.Set;
 
 import models.TTR_Constants;
+import server.ServerData;
 
 public class Player {
     private Boolean hasLongestRoute;
@@ -14,6 +15,7 @@ public class Player {
     public Player() {
     }
 
+    private ServerData serverData = ServerData.getInstance();
     private Integer score;
     private Integer trainsRemaining;
     private Integer individualLongestRouteValue;

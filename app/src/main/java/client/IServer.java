@@ -1,12 +1,10 @@
-package server;
-
-import java.util.Date;
+package client;
 
 import models.data.ChatMessage;
 import models.data.DestinationCard;
 import models.data.Result;
-import models.data.User;
 import models.data.Route;
+import models.data.User;
 
 
 public interface IServer {
