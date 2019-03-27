@@ -21,7 +21,7 @@ public class CardDeckPresenter implements ICardDeckPresenter, Observer {
 
     @Override
     public Integer getTrainCardAtPosition(int num) {
-        return clientModel.getUser().getGame().getFaceUpTrainCards()[num-1].getCardColor();
+        return clientModel.getUser().getGameJoined().getFaceUpTrainCards()[num-1].getCardColor();
     }
 
     @Override
@@ -36,12 +36,12 @@ public class CardDeckPresenter implements ICardDeckPresenter, Observer {
 
     @Override
     public Integer getDestinationCardsLeft() {
-        return clientModel.getUser().getGame().getDestinationDeck().size();
+        return clientModel.getUser().getGameJoined().getDestinationDeck().size();
     }
 
     @Override
     public Integer getTrainCardsLeft() {
-        return clientModel.getUser().getGame().countTickets();
+        return clientModel.getUser().getGameJoined().countTickets();
     }
 
     @Override

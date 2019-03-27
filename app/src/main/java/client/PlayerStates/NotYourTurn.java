@@ -18,10 +18,10 @@ public class NotYourTurn extends PlayerState {
     }
 
     public Result acceptPlayerAction(ClientModel clientModel){
-        Game game = clientModel.getUser().getGame();
+        Game game = clientModel.getUser().getGameJoined();
         Result result = new Result();
         result.setSuccessful(false);
-        if (clientModel.getUser().getGame().isLastTurn()) {
+        if (clientModel.getUser().getGameJoined().isLastTurn()) {
             clientModel.setState(GameFinished.getInstance());
             result.setSuccessful(true);
         }

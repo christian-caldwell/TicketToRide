@@ -2,6 +2,7 @@ package server;
 
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
@@ -62,6 +63,9 @@ public class ServerCommands implements IServer {
             }
         }
         Result result = serverData.setGame(game);
+        if (result.isSuccessful()) {
+            joinGame(username, gameName, numPlayers);
+        }
         //clientProxy.updateCreateGame(gameName);
         return result;
 
@@ -107,8 +111,8 @@ public class ServerCommands implements IServer {
                     if(user.isHost()) {
                         result.setHost(true);
                     }
-                    if (user.getGame() != null) {
-                        result.setGameJoined(user.getGame().getGameName());
+                    if (user.getGameJoined() != null) {
+                        result.setGameJoined(user.getGameJoined().getGameName());
                     }
                     result.setAuthenticationToken(UUID.randomUUID().toString().toUpperCase());
                     result.setSuccessful(true);
@@ -280,11 +284,11 @@ public class ServerCommands implements IServer {
 
 
     //RUN GAME FACADE STUFF
-        public Result returnDestinationCards(String userName, String gameName){
-            DestinationCard[] returnedCards = null;
-            return serverCommands.returnDestinationCards(userName, gameName, returnedCards);
-        }
-
+//        public Result returnDestinationCards(String userName, String gameName){
+//            DestinationCard[] returnedCards = null;
+//            return serverCommands.returnDestinationCards(userName, gameName, returnedCards);
+//        }
+/*
         public Result returnDestinationCards(String userName, String gameName, String first_location, String second_location, Integer points){
             DestinationCard[] returnedCards = new DestinationCard[1];
             DestinationCard card = TTR_Constants.getInstance().findDestinationCard(first_location, second_location);
@@ -316,4 +320,5 @@ public class ServerCommands implements IServer {
             Route purchasedRoute = TTR_Constants.getInstance().getRoute(first_location, second_location);
             return serverCommands.purchaseRoute(userName, gameName, purchasedRoute, wildCount);
         }
+        */
 }

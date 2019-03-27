@@ -20,7 +20,6 @@ public class CommandHandler implements HttpHandler {
         boolean success = false;
 
         try {
-            System.out.println("\n\n /////////////////    NEW COMMAND RECEIVED   /////////////////");
             //exchange.sendResponseHeaders(HttpURLConnection.HTTP_OK, 0);
             OutputStream respBody = exchange.getResponseBody();
 
@@ -29,20 +28,29 @@ public class CommandHandler implements HttpHandler {
             String reqData = helper.httpRequestToJson(exchange);
 
             //Display/log the request JSON data
-            System.out.println("JSON sent to server: " + reqData);
 
-            ICommandExecuter facadeCommand;
+            GeneralCommand facadeCommand;
             ICommandExecuter clientProxyCommand;
 
             // Create the command through deserialization
             ObjectMapper mapper = new ObjectMapper();
             facadeCommand = mapper.readValue(reqData, GeneralCommand.class);
+            Class<?>[] paramTypes = facadeCommand.get_paramTypes();
+            Object[] paramValues = facadeCommand.get_paramValues();
+            for (int i = 0; i < paramTypes.length; ++i) {
+                paramValues[i] = mapper.convertValue(paramValues[i], paramTypes[i]);
+            }
+            facadeCommand.set_paramValues(paramValues);
             Result result = facadeCommand.exec();
-
 
             //Use ObjectMappper to convert the result to a json object
             String jsonResponse = mapper.writeValueAsString(result);
-            System.out.println("JSON sent to Client:" + jsonResponse);
+
+            if (!facadeCommand.get_methodName().equals("getRunningGame") || result.getRunningGame() != null) {
+                System.out.println("\n\n /////////////////    NEW COMMAND RECEIVED   /////////////////");
+                System.out.println("JSON sent to server: " + reqData);
+                System.out.println("JSON sent to Client:" + jsonResponse);
+            }
 
             //Send the HTTP response to the client
             if (helper.sendHttpResponse(exchange, jsonResponse))

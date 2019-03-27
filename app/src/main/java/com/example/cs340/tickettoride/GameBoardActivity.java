@@ -1063,7 +1063,7 @@ public class GameBoardActivity extends AppCompatActivity {
         protected Map<Integer, Set<Integer>> doInBackground(Void... voids) {
             System.out.println("Updating routes");
             ClientModel model = ClientModel.create();
-            List<Player> players = model.getUser().getGame().getPlayers();
+            List<Player> players = model.getUser().getGameJoined().getPlayers();
             Map<Integer, Set<Integer>> colorToIds = new HashMap<>();
             if (players != null) {
                 for (Player p: players) {

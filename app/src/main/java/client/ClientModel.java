@@ -27,7 +27,6 @@ public class ClientModel extends Observable {
     private ArrayList<Game> lobbyGameList = new ArrayList<>();
     private ArrayList<Game> newGameList = new ArrayList<>();
     private GameLobbyPresenter mGameLobbyPresenter;
-    private GamePresenter mGamePresenter;
     private ChatPresenter mChatPresenter;
     private CardDeckPresenter mCardDeckPresenter;
     private PlayerInfoPresenter mPlayerInfoPresenter;
@@ -36,14 +35,6 @@ public class ClientModel extends Observable {
     private PlayerState state = NotInGame.getInstance();
 
     //    TEMPORARY DEMO THINGS
-    DemoPresenter demoPresenter;
-    public DemoPresenter getDemoPresenter() {
-        return demoPresenter;
-    }
-
-    public void setDemoPresenter(DemoPresenter demoPresenter) {
-        this.demoPresenter = demoPresenter;
-    }
     //new stuff for phase 2
     private Map<Integer, Integer> ticketCardHand;
     private ArrayList<DestinationCard> destinationCardHand;
@@ -174,12 +165,6 @@ public class ClientModel extends Observable {
         mGameLobbyPresenter = gameLobbyPresenter;
     }
 
-    public GamePresenter getGamePresenter() { return mGamePresenter; }
-
-    public void setGamePresenter(GamePresenter gamePresenter) {
-        mGamePresenter = gamePresenter;
-    }
-
     public void setmCardDeckPresenter(CardDeckPresenter mCardDeckPresenter) {
         this.mCardDeckPresenter = mCardDeckPresenter;
     }
@@ -213,9 +198,6 @@ public class ClientModel extends Observable {
 
     public void updateGame() {
         this.acceptPlayerAction();
-        if (mGamePresenter != null) {
-            addObserver(this.mGamePresenter);
-        }
         if (mChatPresenter != null) {
             addObserver(this.mChatPresenter);
         }

@@ -2,14 +2,14 @@ package models.data;
 
 public class User {
     private String username;
-    private String pass;
+    private String password;
     private Boolean host;
     private Game gameJoined;
 
 
     public User(String username, String password) {
         this.username = username;
-        this.pass = password;
+        this.password = password;
         this.host = false;
     }
 
@@ -20,7 +20,7 @@ public class User {
         return username;
     }
     public String getPassword() {
-        return pass;
+        return password;
     }
 
     public void setGameJoined(Game gameJoined) {
@@ -29,7 +29,7 @@ public class User {
 
 
 
-    public Game getGame() {
+    public Game getGameJoined() {
         return gameJoined;
     }
 

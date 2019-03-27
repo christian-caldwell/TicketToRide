@@ -30,7 +30,7 @@ public class PlayerInfoPresenter implements IPlayerInfoPresenter, Observer {
 
     @Override
     public Set<Route> getPurchasedRoutesFromPlayer(Integer playerColor) {
-        return clientModel.getUser().getGame().findPlayerByColor(playerColor).getRoutesOwned();
+        return clientModel.getUser().getGameJoined().findPlayerByColor(playerColor).getRoutesOwned();
     }
 
     @Override
@@ -55,17 +55,17 @@ public class PlayerInfoPresenter implements IPlayerInfoPresenter, Observer {
             default:
                 return null;
         }
-        return clientModel.getUser().getGame().findPlayerByColor(searchColor);
+        return clientModel.getUser().getGameJoined().findPlayerByColor(searchColor);
     }
 
     @Override
     public Integer getNumOfPlayers() {
-        return clientModel.getUser().getGame().getPlayers().size();
+        return clientModel.getUser().getGameJoined().getPlayers().size();
     }
 
     @Override
     public Player getPlayer(String username) {
-        return clientModel.getUser().getGame().findPlayer(username);
+        return clientModel.getUser().getGameJoined().findPlayer(username);
     }
     @Override
     public Integer getTrainsLeft() {
@@ -76,7 +76,7 @@ public class PlayerInfoPresenter implements IPlayerInfoPresenter, Observer {
     public ArrayList<String> getDestinationCardStrings() {
         ArrayList<String> destinationStrings = new ArrayList<>();
         String username = clientModel.getUser().getUsername();
-        Player player = clientModel.getUser().getGame().findPlayer(username);
+        Player player = clientModel.getUser().getGameJoined().findPlayer(username);
         for (int i = 0; i < player.getDestinationCardHand().size(); i++) {
             DestinationCard destinationCard = player.getDestinationCardHand().get(i);
             String[] location_strings = destinationCard.getLocations();
@@ -89,19 +89,19 @@ public class PlayerInfoPresenter implements IPlayerInfoPresenter, Observer {
 
     @Override
     public Player getCurrentTurn() {
-        return clientModel.getUser().getGame().findPlayerByColor(clientModel.getUser().getGame().getCurrentTurnPlayer());
+        return clientModel.getUser().getGameJoined().findPlayerByColor(clientModel.getUser().getGameJoined().getCurrentTurnPlayer());
     }
 
     @Override
     public ArrayList<Player> getPlayers() {
-        return clientModel.getUser().getGame().getPlayers();
+        return clientModel.getUser().getGameJoined().getPlayers();
     }
 
     @Override
     public ArrayList<String> getNewDestinationCardStrings() {
         ArrayList<String> destinationStrings = new ArrayList<>();
         String username = clientModel.getUser().getUsername();
-        Player player = clientModel.getUser().getGame().findPlayer(username);
+        Player player = clientModel.getUser().getGameJoined().findPlayer(username);
         for (int i = 0; i < player.getNewDestinationCards().size(); i++) {
             DestinationCard destinationCard = player.getNewDestinationCards().get(i);
             String[] location_strings = destinationCard.getLocations();
@@ -146,7 +146,7 @@ public class PlayerInfoPresenter implements IPlayerInfoPresenter, Observer {
 
     public boolean addToListOfDestinationCardsToDiscard(String destinationCard) {
         // If this is the first turn,
-        if (clientModel.getUser().getGame().getNumPlayerActions() < clientModel.getUser().getGame().getPlayers().size()) {
+        if (clientModel.getUser().getGameJoined().getNumPlayerActions() < clientModel.getUser().getGameJoined().getPlayers().size()) {
             //Check that the user hasn't discarded more than 1 cards
             // They should only be able to discard 0 or 1 cards on the first turn
             if (listOfDestinationCardsToDiscard.size() >= 1)
