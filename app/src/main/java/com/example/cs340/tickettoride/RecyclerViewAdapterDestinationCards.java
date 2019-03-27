@@ -55,6 +55,7 @@ public class RecyclerViewAdapterDestinationCards extends RecyclerView.Adapter<Re
             holder.discardButton.setAlpha(1);
             holder.discardButton.setEnabled(true);
         }
+
         holder.discardButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

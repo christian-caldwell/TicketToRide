@@ -1,5 +1,6 @@
 package com.example.cs340.tickettoride;
 
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.PorterDuff;
@@ -11,9 +12,12 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.DisplayMetrics;
+import android.util.TypedValue;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewTreeObserver;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -90,7 +94,60 @@ public class GameBoardActivity extends AppCompatActivity {
     }
 
     @Override
+    public void onWindowFocusChanged(boolean hasFocus) {
+        super.onWindowFocusChanged(hasFocus);
+        if (hasFocus) {
+            hideSystemUI();
+        }
+    }
+
+    private void hideSystemUI() {
+        // Enables sticky immersive mode.
+        // For "lean back" mode, remove SYSTEM_UI_FLAG_IMMERSIVE.
+        // Or for "sticky immersive," replace it with SYSTEM_UI_FLAG_IMMERSIVE_STICKY
+        View decorView = getWindow().getDecorView();
+        decorView.setSystemUiVisibility(
+                View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY
+                        // Set the content to appear under the system bars so that the
+                        // content doesn't resize when the system bars hide and show.
+                        | View.SYSTEM_UI_FLAG_LAYOUT_STABLE
+                        | View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
+                        | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
+                        // Hide the nav bar and status bar
+                        | View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
+                        | View.SYSTEM_UI_FLAG_FULLSCREEN);
+    }
+
+    // Shows the system bars by removing all the flags
+// except for the ones that make the content appear under the system bars.
+    private void showSystemUI() {
+        View decorView = getWindow().getDecorView();
+        decorView.setSystemUiVisibility(
+                View.SYSTEM_UI_FLAG_LAYOUT_STABLE
+                        | View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
+                        | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN);
+    }
+
+    public static float dpToPx(Context context, float valueInDp) {
+        DisplayMetrics metrics = context.getResources().getDisplayMetrics();
+        return TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, valueInDp, metrics);
+    }
+
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
+        final View activityRootView = findViewById(R.id.game_board_activity);
+        activityRootView.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
+            @Override
+            public void onGlobalLayout() {
+                int heightDiff = activityRootView.getRootView().getHeight() - activityRootView.getHeight();
+                if (heightDiff > dpToPx(this, 200)) { // if more than 200 dp, it's probably a keyboard...
+                    // ... do something here
+                }
+            }
+        });
+
+
+
         clientModel = ClientModel.create();
         super.onCreate(savedInstanceState);
         StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
@@ -176,6 +233,7 @@ public class GameBoardActivity extends AppCompatActivity {
             public void onClick(View v) {
                 mPopupWindow.showAtLocation(activityLayout, Gravity.CENTER,0,0);
                 doneButton = mPopupWindow.getContentView().findViewById(R.id.done_button);
+
                 // Re-enable the done button if there are cards to discard
                 if (playerInfoPresenter.getNewDestinationCardStrings().size() > 0) {
                     doneButton.getBackground().setColorFilter(null);
@@ -187,7 +245,6 @@ public class GameBoardActivity extends AppCompatActivity {
                     doneButton.setAlpha(.5f);
                     doneButton.setEnabled(false);
                 }
-
                 doneButton.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
@@ -892,12 +949,6 @@ public class GameBoardActivity extends AppCompatActivity {
 
             newDestinationCardList = playerInfoPresenter.getNewDestinationCardStrings();
             currentDestinationCardList = playerInfoPresenter.getDestinationCardStrings();
-            //currentDestinationCardList.addAll(newDestinationCardList);
-
-
-
-
-
             ArrayList<String> allCards = new ArrayList<>();
             allCards.addAll(newDestinationCardList);
             allCards.addAll(currentDestinationCardList);
@@ -908,10 +959,6 @@ public class GameBoardActivity extends AppCompatActivity {
             lengthOfNewDestinationCards = newDestinationCardList.size();
             destinationCardsAdapter.setListOfDestinationCards(allCards, discardButtons, lengthOfNewDestinationCards);
             destinationCardsAdapter.notifyDataSetChanged();
-
-
-
-
 
 
             //TODO: CHECK IF IT IS THE END OF THE GAME.  IF SO, START THE GAMEOVERACTIVITY
