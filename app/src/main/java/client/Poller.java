@@ -66,7 +66,7 @@ public class Poller {
         String className = PollManager.class.getName();
         String methodName = "getRunningGame";
 
-        Game game = client.getUser().getGame();
+        Game game = client.getActiveGame();
 
         Object[] parameterDataArray = new Object[4];
         parameterDataArray[0] = game.getGameName();
@@ -220,7 +220,7 @@ public class Poller {
                 for (Game game: client.getLobbyGamesList()) {
                     for (String userName: game.getPlayerUsernames()) {
                         if (userName.equals(client.getUser().getUsername())) {
-                            client.getUser().setGameJoined(game);
+                            client.setActiveGame(game);
                         }
                     }
                 }

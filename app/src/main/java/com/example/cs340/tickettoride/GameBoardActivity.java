@@ -23,6 +23,8 @@ import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
@@ -38,10 +40,12 @@ import view.presenter.ChatPresenter;
 import view.presenter.DemoPresenter;
 import view.presenter.PlayerInfoPresenter;
 import view.presenter.PlayersHandPresenter;
+import view.presenter.RoutePresenter;
 import view.presenterInterface.ICardDeckPresenter;
 import view.presenterInterface.IChatPresenter;
 import view.presenterInterface.IPlayerInfoPresenter;
 import view.presenterInterface.IPlayersHandPresenter;
+import view.presenterInterface.IRoutePresenter;
 
 public class GameBoardActivity extends AppCompatActivity {
 
@@ -52,6 +56,7 @@ public class GameBoardActivity extends AppCompatActivity {
     private IPlayersHandPresenter playersHandPresenter;
     private IPlayerInfoPresenter playerInfoPresenter;
     private ICardDeckPresenter cardDeckPresenter;
+    private IRoutePresenter routePresenter;
     private RecyclerViewAdapterChat adapter;
     private RecyclerViewAdapterDestinationCards destinationCardsAdapter;
     private EditText inputChatEditText;
@@ -122,6 +127,7 @@ public class GameBoardActivity extends AppCompatActivity {
         cardDeckPresenter = new CardDeckPresenter(this);
         playerInfoPresenter = new PlayerInfoPresenter(this);
         playersHandPresenter = new PlayersHandPresenter(this);
+        routePresenter = new RoutePresenter(this);
         initRecyclerView();
         initDestinationCardsRecyclerView();
         blueTurn = findViewById(R.id.blue_turn_color);
@@ -423,899 +429,434 @@ public class GameBoardActivity extends AppCompatActivity {
     }
 
     public void change_color_nashville_littlerock_g1(View view) {
-        findViewById(R.id.nashville_littlerock_g1b1).setBackgroundResource((int) playerColorValues.get(playersHandPresenter.getCurrentPlayerColor()));
-        findViewById(R.id.nashville_littlerock_g1b1).setAlpha(1);
-        findViewById(R.id.nashville_littlerock_g1b2).setBackgroundResource((int) playerColorValues.get(playersHandPresenter.getCurrentPlayerColor()));
-        findViewById(R.id.nashville_littlerock_g1b2).setAlpha(1);
-        findViewById(R.id.nashville_littlerock_g1b3).setBackgroundResource((int) playerColorValues.get(playersHandPresenter.getCurrentPlayerColor()));
-        findViewById(R.id.nashville_littlerock_g1b3).setAlpha(1);
+        routePresenter.purchase(TTR_Constants.getInstance().R_LIT_TO_NAS);
     }
 
     public void change_color_neworleans_houston_g1(View view) {
-        findViewById(R.id.neworleans_houston_g1b1).setBackgroundResource((int) playerColorValues.get(playersHandPresenter.getCurrentPlayerColor()));
-        findViewById(R.id.neworleans_houston_g1b1).setAlpha(1);
-        findViewById(R.id.neworleans_houston_g1b2).setBackgroundResource((int) playerColorValues.get(playersHandPresenter.getCurrentPlayerColor()));
-        findViewById(R.id.neworleans_houston_g1b2).setAlpha(1);
+        routePresenter.purchase(TTR_Constants.getInstance().R_HOU_TO_ORI);
     }
 
     public void change_color_littlerock_neworleans_g1(View view) {
-        findViewById(R.id.littlerock_neworleans_g1b1).setBackgroundResource((int) playerColorValues.get(playersHandPresenter.getCurrentPlayerColor()));
-        findViewById(R.id.littlerock_neworleans_g1b1).setAlpha(1);
-        findViewById(R.id.littlerock_neworleans_g1b2).setBackgroundResource((int) playerColorValues.get(playersHandPresenter.getCurrentPlayerColor()));
-        findViewById(R.id.littlerock_neworleans_g1b2).setAlpha(1);
-        findViewById(R.id.littlerock_neworleans_g1b3).setBackgroundResource((int) playerColorValues.get(playersHandPresenter.getCurrentPlayerColor()));
-        findViewById(R.id.littlerock_neworleans_g1b3).setAlpha(1);
+        routePresenter.purchase(TTR_Constants.getInstance().R_ORI_TO_LIT);
     }
 
     public void change_color_dallas_houston_g2(View view) {
-        findViewById(R.id.dallas_houston_g2b1).setBackgroundResource((int) playerColorValues.get(playersHandPresenter.getCurrentPlayerColor()));
-        findViewById(R.id.dallas_houston_g2b1).setAlpha(1);
+        routePresenter.purchase(TTR_Constants.getInstance().R_HOU_TO_DAL_2);
 
     }
 
     public void change_color_littlerock_dallas_g1(View view) {
-        findViewById(R.id.littlerock_dallas_g1b1).setBackgroundResource((int) playerColorValues.get(playersHandPresenter.getCurrentPlayerColor()));
-        findViewById(R.id.littlerock_dallas_g1b1).setAlpha(1);
-        findViewById(R.id.littlerock_dallas_g1b2).setBackgroundResource((int) playerColorValues.get(playersHandPresenter.getCurrentPlayerColor()));
-        findViewById(R.id.littlerock_dallas_g1b2).setAlpha(1);
+        routePresenter.purchase(TTR_Constants.getInstance().R_DAL_TO_LIT);
     }
 
     public void change_color_oklahomacity_dallas_g2(View view) {
-        findViewById(R.id.oklahomacity_dallas_g2b1).setBackgroundResource((int) playerColorValues.get(playersHandPresenter.getCurrentPlayerColor()));
-        findViewById(R.id.oklahomacity_dallas_g2b1).setAlpha(1);
-        findViewById(R.id.oklahomacity_dallas_g2b2).setBackgroundResource((int) playerColorValues.get(playersHandPresenter.getCurrentPlayerColor()));
-        findViewById(R.id.oklahomacity_dallas_g2b2).setAlpha(1);
+        routePresenter.purchase(TTR_Constants.getInstance().R_DAL_TO_OKL_2);
     }
 
     public void change_color_oklahomacity_littlerock_g1(View view) {
-        findViewById(R.id.oklahomacity_littlerock_g1b1).setBackgroundResource((int) playerColorValues.get(playersHandPresenter.getCurrentPlayerColor()));
-        findViewById(R.id.oklahomacity_littlerock_g1b1).setAlpha(1);
-        findViewById(R.id.oklahomacity_littlerock_g1b2).setBackgroundResource((int) playerColorValues.get(playersHandPresenter.getCurrentPlayerColor()));
-        findViewById(R.id.oklahomacity_littlerock_g1b2).setAlpha(1);
+        routePresenter.purchase(TTR_Constants.getInstance().R_OKL_TO_LIT);
     }
 
     public void change_color_saintlouis_nashville_g1(View view) {
-        findViewById(R.id.saintlouis_nashville_g1b1).setBackgroundResource((int) playerColorValues.get(playersHandPresenter.getCurrentPlayerColor()));
-        findViewById(R.id.saintlouis_nashville_g1b1).setAlpha(1);
-        findViewById(R.id.saintlouis_nashville_g1b2).setBackgroundResource((int) playerColorValues.get(playersHandPresenter.getCurrentPlayerColor()));
-        findViewById(R.id.saintlouis_nashville_g1b2).setAlpha(1);
+        routePresenter.purchase(TTR_Constants.getInstance().R_SAI_TO_NAS);
     }
 
     public void change_color_saintlouis_littlerock_g1(View view) {
-        findViewById(R.id.saintlouis_littlerock_g1b1).setBackgroundResource((int) playerColorValues.get(playersHandPresenter.getCurrentPlayerColor()));
-        findViewById(R.id.saintlouis_littlerock_g1b1).setAlpha(1);
-        findViewById(R.id.saintlouis_littlerock_g1b2).setBackgroundResource((int) playerColorValues.get(playersHandPresenter.getCurrentPlayerColor()));
-        findViewById(R.id.saintlouis_littlerock_g1b2).setAlpha(1);
+        routePresenter.purchase(TTR_Constants.getInstance().R_LIT_TO_SAI);
     }
 
     public void change_color_kansascity_saintlouis_g2(View view) {//2
-        findViewById(R.id.kansascity_saintlouis_g2b1).setBackgroundResource((int) playerColorValues.get(playersHandPresenter.getCurrentPlayerColor()));
-        findViewById(R.id.kansascity_saintlouis_g2b1).setAlpha(1);
-        findViewById(R.id.kansascity_saintlouis_g2b2).setBackgroundResource((int) playerColorValues.get(playersHandPresenter.getCurrentPlayerColor()));
-        findViewById(R.id.kansascity_saintlouis_g2b2).setAlpha(1);
+        routePresenter.purchase(TTR_Constants.getInstance().R_KAN_TO_SAI_2);
     }
 
     public void change_color_kansascity_saintlouis_g1(View view) {//2
-        findViewById(R.id.kansascity_saintlouis_g1b1).setBackgroundResource((int) playerColorValues.get(playersHandPresenter.getCurrentPlayerColor()));
-        findViewById(R.id.kansascity_saintlouis_g1b1).setAlpha(1);
-        findViewById(R.id.kansascity_saintlouis_g1b2).setBackgroundResource((int) playerColorValues.get(playersHandPresenter.getCurrentPlayerColor()));
-        findViewById(R.id.kansascity_saintlouis_g1b2).setAlpha(1);
+        routePresenter.purchase(TTR_Constants.getInstance().R_KAN_TO_SAI_1);
     }
 
     public void change_color_kansascity_oklahomacity_g2(View view) {//2
-        findViewById(R.id.kansascity_oklahomacity_g2b1).setBackgroundResource((int) playerColorValues.get(playersHandPresenter.getCurrentPlayerColor()));
-        findViewById(R.id.kansascity_oklahomacity_g2b1).setAlpha(1);
-        findViewById(R.id.kansascity_oklahomacity_g2b2).setBackgroundResource((int) playerColorValues.get(playersHandPresenter.getCurrentPlayerColor()));
-        findViewById(R.id.kansascity_oklahomacity_g2b2).setAlpha(1);
+        routePresenter.purchase(TTR_Constants.getInstance().R_OKL_TO_KAN_2);
     }
 
     public void change_color_omaha_kansascity_g2(View view) {//1
-        findViewById(R.id.omaha_kansascity_g2b1).setBackgroundResource((int) playerColorValues.get(playersHandPresenter.getCurrentPlayerColor()));
-        findViewById(R.id.omaha_kansascity_g2b1).setAlpha(1);
+        routePresenter.purchase(TTR_Constants.getInstance().R_KAN_TO_OMA_2);
     }
 
     public void change_color_neworleans_miami_g1(View view) {//6
-        ClientModel.create().purchaseRoute(clientModel, TTR_Constants.getInstance().R_ORI_TO_MIA, 0);
-//         proxy.purchaseRoute(client.getUser().getUsername(), client.getUser().getGame().getGameName(), TTR_Constants.getInstance().R_ORI_TO_MIA, 0);
+        routePresenter.purchase(TTR_Constants.getInstance().R_ORI_TO_MIA);
+//        ServerProxy proxy = new ServerProxy();
+//        ClientModel client = ClientModel.create();
+//        proxy.purchaseRoute(client.getUser().getUsername(), client.getUser().getGame().getGameName(), TTR_Constants.getInstance().R_ORI_TO_MIA, 0);
     }
 
     public void change_color_charleston_miami_g1(View view) {//4
-        findViewById(R.id.charleston_miami_g1b1).setBackgroundResource((int) playerColorValues.get(playersHandPresenter.getCurrentPlayerColor()));
-        findViewById(R.id.charleston_miami_g1b1).setAlpha(1);
-        findViewById(R.id.charleston_miami_g1b2).setBackgroundResource((int) playerColorValues.get(playersHandPresenter.getCurrentPlayerColor()));
-        findViewById(R.id.charleston_miami_g1b2).setAlpha(1);
-        findViewById(R.id.charleston_miami_g1b3).setBackgroundResource((int) playerColorValues.get(playersHandPresenter.getCurrentPlayerColor()));
-        findViewById(R.id.charleston_miami_g1b3).setAlpha(1);
-        findViewById(R.id.charleston_miami_g1b4).setBackgroundResource((int) playerColorValues.get(playersHandPresenter.getCurrentPlayerColor()));
-        findViewById(R.id.charleston_miami_g1b4).setAlpha(1);
+        routePresenter.purchase(TTR_Constants.getInstance().R_MIA_TO_CHA);
     }
 
     public void change_color_atlanta_charleston_g1(View view) {//2
-        findViewById(R.id.atlanta_charleston_g1b1).setBackgroundResource((int) playerColorValues.get(playersHandPresenter.getCurrentPlayerColor()));
-        findViewById(R.id.atlanta_charleston_g1b1).setAlpha(1);
-        findViewById(R.id.atlanta_charleston_g1b2).setBackgroundResource((int) playerColorValues.get(playersHandPresenter.getCurrentPlayerColor()));
-        findViewById(R.id.atlanta_charleston_g1b2).setAlpha(1);
+        routePresenter.purchase(TTR_Constants.getInstance().R_ATL_TO_CHA);
     }
 
     public void change_color_atlanta_miami_g1(View view) {//5
-        findViewById(R.id.atlanta_miami_g1b1).setBackgroundResource((int) playerColorValues.get(playersHandPresenter.getCurrentPlayerColor()));
-        findViewById(R.id.atlanta_miami_g1b1).setAlpha(1);
-        findViewById(R.id.atlanta_miami_g1b2).setBackgroundResource((int) playerColorValues.get(playersHandPresenter.getCurrentPlayerColor()));
-        findViewById(R.id.atlanta_miami_g1b2).setAlpha(1);
-        findViewById(R.id.atlanta_miami_g1b3).setBackgroundResource((int) playerColorValues.get(playersHandPresenter.getCurrentPlayerColor()));
-        findViewById(R.id.atlanta_miami_g1b3).setAlpha(1);
-        findViewById(R.id.atlanta_miami_g1b4).setBackgroundResource((int) playerColorValues.get(playersHandPresenter.getCurrentPlayerColor()));
-        findViewById(R.id.atlanta_miami_g1b4).setAlpha(1);
-        findViewById(R.id.atlanta_miami_g1b5).setBackgroundResource((int) playerColorValues.get(playersHandPresenter.getCurrentPlayerColor()));
-        findViewById(R.id.atlanta_miami_g1b5).setAlpha(1);
+        routePresenter.purchase(TTR_Constants.getInstance().R_MIA_TO_ATL);
 
     }
 
     public void change_color_atlanta_neworleans_g2(View view) {//4
-        findViewById(R.id.atlanta_neworleans_g2b1).setBackgroundResource((int) playerColorValues.get(playersHandPresenter.getCurrentPlayerColor()));
-        findViewById(R.id.atlanta_neworleans_g2b1).setAlpha(1);
-        findViewById(R.id.atlanta_neworleans_g2b2).setBackgroundResource((int) playerColorValues.get(playersHandPresenter.getCurrentPlayerColor()));
-        findViewById(R.id.atlanta_neworleans_g2b2).setAlpha(1);
-        findViewById(R.id.atlanta_neworleans_g2b3).setBackgroundResource((int) playerColorValues.get(playersHandPresenter.getCurrentPlayerColor()));
-        findViewById(R.id.atlanta_neworleans_g2b3).setAlpha(1);
-        findViewById(R.id.atlanta_neworleans_g2b4).setBackgroundResource((int) playerColorValues.get(playersHandPresenter.getCurrentPlayerColor()));
-        findViewById(R.id.atlanta_neworleans_g2b4).setAlpha(1);
+        routePresenter.purchase(TTR_Constants.getInstance().R_ORI_TO_ATL_2);
 
     }
 
     public void change_color_atlanta_neworleans_g1(View view) {//4
-        findViewById(R.id.atlanta_neworleans_g1b1).setBackgroundResource((int) playerColorValues.get(playersHandPresenter.getCurrentPlayerColor()));
-        findViewById(R.id.atlanta_neworleans_g1b1).setAlpha(1);
-        findViewById(R.id.atlanta_neworleans_g1b2).setBackgroundResource((int) playerColorValues.get(playersHandPresenter.getCurrentPlayerColor()));
-        findViewById(R.id.atlanta_neworleans_g1b2).setAlpha(1);
-        findViewById(R.id.atlanta_neworleans_g1b3).setBackgroundResource((int) playerColorValues.get(playersHandPresenter.getCurrentPlayerColor()));
-        findViewById(R.id.atlanta_neworleans_g1b3).setAlpha(1);
-        findViewById(R.id.atlanta_neworleans_g1b4).setBackgroundResource((int) playerColorValues.get(playersHandPresenter.getCurrentPlayerColor()));
-        findViewById(R.id.atlanta_neworleans_g1b4).setAlpha(1);
+        routePresenter.purchase(TTR_Constants.getInstance().R_ORI_TO_ATL_1);
     }
 
     public void change_color_nashville_atlanta_g1(View view) {//1
-        findViewById(R.id.nashville_atlanta_g1b1).setBackgroundResource((int) playerColorValues.get(playersHandPresenter.getCurrentPlayerColor()));
-        findViewById(R.id.nashville_atlanta_g1b1).setAlpha(1);
+        routePresenter.purchase(TTR_Constants.getInstance().R_ATL_TO_NAS);
     }
 
     public void change_color_raleigh_nashville_g1(View view) {//3
-        findViewById(R.id.raleigh_nashville_g1b1).setBackgroundResource((int) playerColorValues.get(playersHandPresenter.getCurrentPlayerColor()));
-        findViewById(R.id.raleigh_nashville_g1b1).setAlpha(1);
-        findViewById(R.id.raleigh_nashville_g1b2).setBackgroundResource((int) playerColorValues.get(playersHandPresenter.getCurrentPlayerColor()));
-        findViewById(R.id.raleigh_nashville_g1b2).setAlpha(1);
-        findViewById(R.id.raleigh_nashville_g1b3).setBackgroundResource((int) playerColorValues.get(playersHandPresenter.getCurrentPlayerColor()));
-        findViewById(R.id.raleigh_nashville_g1b3).setAlpha(1);
+        routePresenter.purchase(TTR_Constants.getInstance().R_NAS_TO_RAL);
     }
 
     public void change_color_pittsburgh_raleigh_g1(View view) {//2
-        findViewById(R.id.pittsburgh_raleigh_g1b1).setBackgroundResource((int) playerColorValues.get(playersHandPresenter.getCurrentPlayerColor()));
-        findViewById(R.id.pittsburgh_raleigh_g1b1).setAlpha(1);
-        findViewById(R.id.pittsburgh_raleigh_g1b2).setBackgroundResource((int) playerColorValues.get(playersHandPresenter.getCurrentPlayerColor()));
-        findViewById(R.id.pittsburgh_raleigh_g1b2).setAlpha(1);
+        routePresenter.purchase(TTR_Constants.getInstance().R_RAL_TO_PIT);
     }
 
     public void change_color_pittsburgh_nashville_g1(View view) {//4
-        findViewById(R.id.pittsburgh_nashville_g1b1).setBackgroundResource((int) playerColorValues.get(playersHandPresenter.getCurrentPlayerColor()));
-        findViewById(R.id.pittsburgh_nashville_g1b1).setAlpha(1);
-        findViewById(R.id.pittsburgh_nashville_g1b2).setBackgroundResource((int) playerColorValues.get(playersHandPresenter.getCurrentPlayerColor()));
-        findViewById(R.id.pittsburgh_nashville_g1b2).setAlpha(1);
-        findViewById(R.id.pittsburgh_nashville_g1b3).setBackgroundResource((int) playerColorValues.get(playersHandPresenter.getCurrentPlayerColor()));
-        findViewById(R.id.pittsburgh_nashville_g1b3).setAlpha(1);
-        findViewById(R.id.pittsburgh_nashville_g1b4).setBackgroundResource((int) playerColorValues.get(playersHandPresenter.getCurrentPlayerColor()));
-        findViewById(R.id.pittsburgh_nashville_g1b4).setAlpha(1);
+        routePresenter.purchase(TTR_Constants.getInstance().R_NAS_TO_PIT);
     }
 
     public void change_color_pittsburgh_saintlouis_g1(View view) {//5
-        findViewById(R.id.pittsburgh_saintlouis_g1b1).setBackgroundResource((int) playerColorValues.get(playersHandPresenter.getCurrentPlayerColor()));
-        findViewById(R.id.pittsburgh_saintlouis_g1b1).setAlpha(1);
-        findViewById(R.id.pittsburgh_saintlouis_g1b2).setBackgroundResource((int) playerColorValues.get(playersHandPresenter.getCurrentPlayerColor()));
-        findViewById(R.id.pittsburgh_saintlouis_g1b2).setAlpha(1);
-        findViewById(R.id.pittsburgh_saintlouis_g1b3).setBackgroundResource((int) playerColorValues.get(playersHandPresenter.getCurrentPlayerColor()));
-        findViewById(R.id.pittsburgh_saintlouis_g1b3).setAlpha(1);
-        findViewById(R.id.pittsburgh_saintlouis_g1b4).setBackgroundResource((int) playerColorValues.get(playersHandPresenter.getCurrentPlayerColor()));
-        findViewById(R.id.pittsburgh_saintlouis_g1b4).setAlpha(1);
-        findViewById(R.id.pittsburgh_saintlouis_g1b5).setBackgroundResource((int) playerColorValues.get(playersHandPresenter.getCurrentPlayerColor()));
-        findViewById(R.id.pittsburgh_saintlouis_g1b5).setAlpha(1);
+        routePresenter.purchase(TTR_Constants.getInstance().R_SAI_TO_PIT);
 
     }
 
     public void change_color_pittsburgh_chicago_g2(View view) {//3
-        findViewById(R.id.pittsburgh_chicago_g2b1).setBackgroundResource((int) playerColorValues.get(playersHandPresenter.getCurrentPlayerColor()));
-        findViewById(R.id.pittsburgh_chicago_g2b1).setAlpha(1);
-        findViewById(R.id.pittsburgh_chicago_g2b2).setBackgroundResource((int) playerColorValues.get(playersHandPresenter.getCurrentPlayerColor()));
-        findViewById(R.id.pittsburgh_chicago_g2b2).setAlpha(1);
-        findViewById(R.id.pittsburgh_chicago_g2b3).setBackgroundResource((int) playerColorValues.get(playersHandPresenter.getCurrentPlayerColor()));
-        findViewById(R.id.pittsburgh_chicago_g2b3).setAlpha(1);
+        routePresenter.purchase(TTR_Constants.getInstance().R_CHI_TO_PIT_2);
     }
 
     public void change_color_pittsburgh_chicago_g1(View view) {//3
-        findViewById(R.id.pittsburgh_chicago_g1b1).setBackgroundResource((int) playerColorValues.get(playersHandPresenter.getCurrentPlayerColor()));
-        findViewById(R.id.pittsburgh_chicago_g1b1).setAlpha(1);
-        findViewById(R.id.pittsburgh_chicago_g1b2).setBackgroundResource((int) playerColorValues.get(playersHandPresenter.getCurrentPlayerColor()));
-        findViewById(R.id.pittsburgh_chicago_g1b2).setAlpha(1);
-        findViewById(R.id.pittsburgh_chicago_g1b3).setBackgroundResource((int) playerColorValues.get(playersHandPresenter.getCurrentPlayerColor()));
-        findViewById(R.id.pittsburgh_chicago_g1b3).setAlpha(1);
+        routePresenter.purchase(TTR_Constants.getInstance().R_CHI_TO_PIT_1);
     }
 
     public void change_color_chicago_saintlouis_g2(View view) {//2
-        findViewById(R.id.chicago_saintlouis_g2b1).setBackgroundResource((int) playerColorValues.get(playersHandPresenter.getCurrentPlayerColor()));
-        findViewById(R.id.chicago_saintlouis_g2b1).setAlpha(1);
-        findViewById(R.id.chicago_saintlouis_g2b2).setBackgroundResource((int) playerColorValues.get(playersHandPresenter.getCurrentPlayerColor()));
-        findViewById(R.id.chicago_saintlouis_g2b2).setAlpha(1);
+        routePresenter.purchase(TTR_Constants.getInstance().R_SAI_TO_CHI_2);
     }
 
     public void change_color_chicago_saintlouis_g1(View view) {//2
-        findViewById(R.id.chicago_saintlouis_g1b1).setBackgroundResource((int) playerColorValues.get(playersHandPresenter.getCurrentPlayerColor()));
-        findViewById(R.id.chicago_saintlouis_g1b1).setAlpha(1);
-        findViewById(R.id.chicago_saintlouis_g1b2).setBackgroundResource((int) playerColorValues.get(playersHandPresenter.getCurrentPlayerColor()));
-        findViewById(R.id.chicago_saintlouis_g1b2).setAlpha(1);
+        routePresenter.purchase(TTR_Constants.getInstance().R_SAI_TO_CHI_1);
     }
 
     public void change_color_chicago_omaha_g1(View view) {//4
-        findViewById(R.id.chicago_omaha_g1b1).setBackgroundResource((int) playerColorValues.get(playersHandPresenter.getCurrentPlayerColor()));
-        findViewById(R.id.chicago_omaha_g1b1).setAlpha(1);
-        findViewById(R.id.chicago_omaha_g1b2).setBackgroundResource((int) playerColorValues.get(playersHandPresenter.getCurrentPlayerColor()));
-        findViewById(R.id.chicago_omaha_g1b2).setAlpha(1);
-        findViewById(R.id.chicago_omaha_g1b3).setBackgroundResource((int) playerColorValues.get(playersHandPresenter.getCurrentPlayerColor()));
-        findViewById(R.id.chicago_omaha_g1b3).setAlpha(1);
-        findViewById(R.id.chicago_omaha_g1b4).setBackgroundResource((int) playerColorValues.get(playersHandPresenter.getCurrentPlayerColor()));
-        findViewById(R.id.chicago_omaha_g1b4).setAlpha(1);
+        routePresenter.purchase(TTR_Constants.getInstance().R_OMA_TO_CHI);
 
     }
 
     public void change_color_duluth_chicago_g1(View view) {//3
-        findViewById(R.id.duluth_chicago_g1b1).setBackgroundResource((int) playerColorValues.get(playersHandPresenter.getCurrentPlayerColor()));
-        findViewById(R.id.duluth_chicago_g1b1).setAlpha(1);
-        findViewById(R.id.duluth_chicago_g1b2).setBackgroundResource((int) playerColorValues.get(playersHandPresenter.getCurrentPlayerColor()));
-        findViewById(R.id.duluth_chicago_g1b2).setAlpha(1);
-        findViewById(R.id.duluth_chicago_g1b3).setBackgroundResource((int) playerColorValues.get(playersHandPresenter.getCurrentPlayerColor()));
-        findViewById(R.id.duluth_chicago_g1b3).setAlpha(1);
+        routePresenter.purchase(TTR_Constants.getInstance().R_DUL_TO_CHI);
     }
 
     public void change_color_duluth_omaha_g2(View view) {//2
-        findViewById(R.id.duluth_omaha_g2b1).setBackgroundResource((int) playerColorValues.get(playersHandPresenter.getCurrentPlayerColor()));
-        findViewById(R.id.duluth_omaha_g2b1).setAlpha(1);
-        findViewById(R.id.duluth_omaha_g2b2).setBackgroundResource((int) playerColorValues.get(playersHandPresenter.getCurrentPlayerColor()));
-        findViewById(R.id.duluth_omaha_g2b2).setAlpha(1);
+        routePresenter.purchase(TTR_Constants.getInstance().R_OMA_TO_DUL_2);
     }
 
     public void change_color_saulstmarie_duluth_g1(View view) {//3
-        findViewById(R.id.saulstmarie_duluth_g1b1).setBackgroundResource((int) playerColorValues.get(playersHandPresenter.getCurrentPlayerColor()));
-        findViewById(R.id.saulstmarie_duluth_g1b1).setAlpha(1);
-        findViewById(R.id.saulstmarie_duluth_g1b2).setBackgroundResource((int) playerColorValues.get(playersHandPresenter.getCurrentPlayerColor()));
-        findViewById(R.id.saulstmarie_duluth_g1b2).setAlpha(1);
-        findViewById(R.id.saulstmarie_duluth_g1b3).setBackgroundResource((int) playerColorValues.get(playersHandPresenter.getCurrentPlayerColor()));
-        findViewById(R.id.saulstmarie_duluth_g1b3).setAlpha(1);
+        routePresenter.purchase(TTR_Constants.getInstance().R_DUL_TO_SSM);
 
     }
 
     public void change_color_winnipeg_saulstmarie_g1(View view) {//6
-        findViewById(R.id.winnipeg_saulstmarie_g1b1).setBackgroundResource((int) playerColorValues.get(playersHandPresenter.getCurrentPlayerColor()));
-        findViewById(R.id.winnipeg_saulstmarie_g1b1).setAlpha(1);
-        findViewById(R.id.winnipeg_saulstmarie_g1b2).setBackgroundResource((int) playerColorValues.get(playersHandPresenter.getCurrentPlayerColor()));
-        findViewById(R.id.winnipeg_saulstmarie_g1b2).setAlpha(1);
-        findViewById(R.id.winnipeg_saulstmarie_g1b3).setBackgroundResource((int) playerColorValues.get(playersHandPresenter.getCurrentPlayerColor()));
-        findViewById(R.id.winnipeg_saulstmarie_g1b3).setAlpha(1);
-        findViewById(R.id.winnipeg_saulstmarie_g1b4).setBackgroundResource((int) playerColorValues.get(playersHandPresenter.getCurrentPlayerColor()));
-        findViewById(R.id.winnipeg_saulstmarie_g1b4).setAlpha(1);
-        findViewById(R.id.winnipeg_saulstmarie_g1b5).setBackgroundResource((int) playerColorValues.get(playersHandPresenter.getCurrentPlayerColor()));
-        findViewById(R.id.winnipeg_saulstmarie_g1b5).setAlpha(1);
-        findViewById(R.id.winnipeg_saulstmarie_g1b6).setBackgroundResource((int) playerColorValues.get(playersHandPresenter.getCurrentPlayerColor()));
-        findViewById(R.id.winnipeg_saulstmarie_g1b6).setAlpha(1);
+        routePresenter.purchase(TTR_Constants.getInstance().R_WIN_TO_SSM);
     }
 
     public void change_color_toronto_duluth_g1(View view) {//6
-        ServerProxy proxy = new ServerProxy();
-        ClientModel client = ClientModel.create();
-        proxy.purchaseRoute(client.getUser().getUsername(), client.getUser().getGame().getGameName(), TTR_Constants.getInstance().R_DUL_TO_TOR, 0);
+        routePresenter.purchase(TTR_Constants.getInstance().R_DUL_TO_TOR);
+//        ServerProxy proxy = new ServerProxy();
+//        ClientModel client = ClientModel.create();
+//        proxy.purchaseRoute(client.getUser().getUsername(), client.getUser().getGame().getGameName(), TTR_Constants.getInstance().R_DUL_TO_TOR, 0);
     }
 
     public void change_color_toronto_pittsburgh_g1(View view) {//2
-        findViewById(R.id.toronto_pittsburgh_g1b1).setBackgroundResource((int) playerColorValues.get(playersHandPresenter.getCurrentPlayerColor()));
-        findViewById(R.id.toronto_pittsburgh_g1b1).setAlpha(1);
-        findViewById(R.id.toronto_pittsburgh_g1b2).setBackgroundResource((int) playerColorValues.get(playersHandPresenter.getCurrentPlayerColor()));
-        findViewById(R.id.toronto_pittsburgh_g1b2).setAlpha(1);
+        routePresenter.purchase(TTR_Constants.getInstance().R_PIT_TO_TOR);
     }
 
     public void change_color_toronto_chicago_g1(View view) {//4
-        findViewById(R.id.toronto_chicago_g1b1).setBackgroundResource((int) playerColorValues.get(playersHandPresenter.getCurrentPlayerColor()));
-        findViewById(R.id.toronto_chicago_g1b1).setAlpha(1);
-        findViewById(R.id.toronto_chicago_g1b2).setBackgroundResource((int) playerColorValues.get(playersHandPresenter.getCurrentPlayerColor()));
-        findViewById(R.id.toronto_chicago_g1b2).setAlpha(1);
-        findViewById(R.id.toronto_chicago_g1b3).setBackgroundResource((int) playerColorValues.get(playersHandPresenter.getCurrentPlayerColor()));
-        findViewById(R.id.toronto_chicago_g1b3).setAlpha(1);
-        findViewById(R.id.toronto_chicago_g1b4).setBackgroundResource((int) playerColorValues.get(playersHandPresenter.getCurrentPlayerColor()));
-        findViewById(R.id.toronto_chicago_g1b4).setAlpha(1);
+        routePresenter.purchase(TTR_Constants.getInstance().R_CHI_TO_TOR);
     }
 
     public void change_color_saulstmarie_toronto_g1(View view) {//2
-        findViewById(R.id.saulstmarie_toronto_g1b1).setBackgroundResource((int) playerColorValues.get(playersHandPresenter.getCurrentPlayerColor()));
-        findViewById(R.id.saulstmarie_toronto_g1b1).setAlpha(1);
-        findViewById(R.id.saulstmarie_toronto_g1b2).setBackgroundResource((int) playerColorValues.get(playersHandPresenter.getCurrentPlayerColor()));
-        findViewById(R.id.saulstmarie_toronto_g1b2).setAlpha(1);
+        routePresenter.purchase(TTR_Constants.getInstance().R_SSM_TO_TOR);
     }
 
     public void change_color_montreal_saulstmarie_g1(View view) {//5
-        findViewById(R.id.montreal_saulstmarie_g1b1).setBackgroundResource((int) playerColorValues.get(playersHandPresenter.getCurrentPlayerColor()));
-        findViewById(R.id.montreal_saulstmarie_g1b1).setAlpha(1);
-        findViewById(R.id.montreal_saulstmarie_g1b2).setBackgroundResource((int) playerColorValues.get(playersHandPresenter.getCurrentPlayerColor()));
-        findViewById(R.id.montreal_saulstmarie_g1b2).setAlpha(1);
-        findViewById(R.id.montreal_saulstmarie_g1b3).setBackgroundResource((int) playerColorValues.get(playersHandPresenter.getCurrentPlayerColor()));
-        findViewById(R.id.montreal_saulstmarie_g1b3).setAlpha(1);
-        findViewById(R.id.montreal_saulstmarie_g1b4).setBackgroundResource((int) playerColorValues.get(playersHandPresenter.getCurrentPlayerColor()));
-        findViewById(R.id.montreal_saulstmarie_g1b4).setAlpha(1);
-        findViewById(R.id.montreal_saulstmarie_g1b5).setBackgroundResource((int) playerColorValues.get(playersHandPresenter.getCurrentPlayerColor()));
-        findViewById(R.id.montreal_saulstmarie_g1b5).setAlpha(1);
+        routePresenter.purchase(TTR_Constants.getInstance().R_SSM_TO_MON);
 
     }
 
     public void change_color_montreal_toronto_g1(View view) {//3
-        findViewById(R.id.montreal_toronto_g1b1).setBackgroundResource((int) playerColorValues.get(playersHandPresenter.getCurrentPlayerColor()));
-        findViewById(R.id.montreal_toronto_g1b1).setAlpha(1);
-        findViewById(R.id.montreal_toronto_g1b2).setBackgroundResource((int) playerColorValues.get(playersHandPresenter.getCurrentPlayerColor()));
-        findViewById(R.id.montreal_toronto_g1b2).setAlpha(1);
-        findViewById(R.id.montreal_toronto_g1b3).setBackgroundResource((int) playerColorValues.get(playersHandPresenter.getCurrentPlayerColor()));
-        findViewById(R.id.montreal_toronto_g1b3).setAlpha(1);
+        routePresenter.purchase(TTR_Constants.getInstance().R_TOR_TO_MON);
     }
 
     public void change_color_raleigh_atlanta_g2(View view) {//2
-        findViewById(R.id.raleigh_atlanta_g2b1).setBackgroundResource((int) playerColorValues.get(playersHandPresenter.getCurrentPlayerColor()));
-        findViewById(R.id.raleigh_atlanta_g2b1).setAlpha(1);
-        findViewById(R.id.raleigh_atlanta_g2b2).setBackgroundResource((int) playerColorValues.get(playersHandPresenter.getCurrentPlayerColor()));
-        findViewById(R.id.raleigh_atlanta_g2b2).setAlpha(1);
+        routePresenter.purchase(TTR_Constants.getInstance().R_ATL_TO_RAL_2);
     }
 
     public void change_color_raleigh_atlanta_g1(View view) {//2
-        findViewById(R.id.raleigh_atlanta_g1b1).setBackgroundResource((int) playerColorValues.get(playersHandPresenter.getCurrentPlayerColor()));
-        findViewById(R.id.raleigh_atlanta_g1b1).setAlpha(1);
-        findViewById(R.id.raleigh_atlanta_g1b2).setBackgroundResource((int) playerColorValues.get(playersHandPresenter.getCurrentPlayerColor()));
-        findViewById(R.id.raleigh_atlanta_g1b2).setAlpha(1);
+        routePresenter.purchase(TTR_Constants.getInstance().R_ATL_TO_RAL_1);
     }
 
     public void change_color_raleigh_charleston_g1(View view) {//2
-        findViewById(R.id.raleigh_charleston_g1b1).setBackgroundResource((int) playerColorValues.get(playersHandPresenter.getCurrentPlayerColor()));
-        findViewById(R.id.raleigh_charleston_g1b1).setAlpha(1);
-        findViewById(R.id.raleigh_charleston_g1b2).setBackgroundResource((int) playerColorValues.get(playersHandPresenter.getCurrentPlayerColor()));
-        findViewById(R.id.raleigh_charleston_g1b2).setAlpha(1);
+        routePresenter.purchase(TTR_Constants.getInstance().R_CHA_TO_RAL);
     }
 
     public void change_color_washington_raleigh_g2(View view) {//2
-        findViewById(R.id.washington_raleigh_g2b1).setBackgroundResource((int) playerColorValues.get(playersHandPresenter.getCurrentPlayerColor()));
-        findViewById(R.id.washington_raleigh_g2b1).setAlpha(1);
-        findViewById(R.id.washington_raleigh_g2b2).setBackgroundResource((int) playerColorValues.get(playersHandPresenter.getCurrentPlayerColor()));
-        findViewById(R.id.washington_raleigh_g2b2).setAlpha(1);
+        routePresenter.purchase(TTR_Constants.getInstance().R_RAL_TO_WAS_2);
     }
 
     public void change_color_washington_raleigh_g1(View view) {//2
-        findViewById(R.id.washington_raleigh_g1b1).setBackgroundResource((int) playerColorValues.get(playersHandPresenter.getCurrentPlayerColor()));
-        findViewById(R.id.washington_raleigh_g1b1).setAlpha(1);
-        findViewById(R.id.washington_raleigh_g1b2).setBackgroundResource((int) playerColorValues.get(playersHandPresenter.getCurrentPlayerColor()));
-        findViewById(R.id.washington_raleigh_g1b2).setAlpha(1);
+        routePresenter.purchase(TTR_Constants.getInstance().R_RAL_TO_WAS_1);
     }
 
     public void change_color_pittsburgh_washington_g1(View view) {//2
-        findViewById(R.id.pittsburgh_washington_g1b1).setBackgroundResource((int) playerColorValues.get(playersHandPresenter.getCurrentPlayerColor()));
-        findViewById(R.id.pittsburgh_washington_g1b1).setAlpha(1);
-        findViewById(R.id.pittsburgh_washington_g1b2).setBackgroundResource((int) playerColorValues.get(playersHandPresenter.getCurrentPlayerColor()));
-        findViewById(R.id.pittsburgh_washington_g1b2).setAlpha(1);
+        routePresenter.purchase(TTR_Constants.getInstance().R_WAS_TO_PIT);
     }
 
     public void change_color_newyork_washington_g2(View view) {//2
-        findViewById(R.id.newyork_washington_g2b1).setBackgroundResource((int) playerColorValues.get(playersHandPresenter.getCurrentPlayerColor()));
-        findViewById(R.id.newyork_washington_g2b1).setAlpha(1);
-        findViewById(R.id.newyork_washington_g2b2).setBackgroundResource((int) playerColorValues.get(playersHandPresenter.getCurrentPlayerColor()));
-        findViewById(R.id.newyork_washington_g2b2).setAlpha(1);
+        routePresenter.purchase(TTR_Constants.getInstance().R_WAS_TO_NYC_2);
     }
 
     public void change_color_newyork_washington_g1(View view) {//2
-        findViewById(R.id.newyork_washington_g1b1).setBackgroundResource((int) playerColorValues.get(playersHandPresenter.getCurrentPlayerColor()));
-        findViewById(R.id.newyork_washington_g1b1).setAlpha(1);
-        findViewById(R.id.newyork_washington_g1b2).setBackgroundResource((int) playerColorValues.get(playersHandPresenter.getCurrentPlayerColor()));
-        findViewById(R.id.newyork_washington_g1b2).setAlpha(1);
+        routePresenter.purchase(TTR_Constants.getInstance().R_WAS_TO_NYC_1);
     }
 
     public void change_color_newyork_pittsburgh_g2(View view) {//2
-        findViewById(R.id.newyork_pittsburgh_g2b1).setBackgroundResource((int) playerColorValues.get(playersHandPresenter.getCurrentPlayerColor()));
-        findViewById(R.id.newyork_pittsburgh_g2b1).setAlpha(1);
-        findViewById(R.id.newyork_pittsburgh_g2b2).setBackgroundResource((int) playerColorValues.get(playersHandPresenter.getCurrentPlayerColor()));
-        findViewById(R.id.newyork_pittsburgh_g2b2).setAlpha(1);
+        routePresenter.purchase(TTR_Constants.getInstance().R_PIT_TO_NYC_2);
     }
 
     public void change_color_newyork_pittsburgh_g1(View view) {//2
-        findViewById(R.id.newyork_pittsburgh_g1b1).setBackgroundResource((int) playerColorValues.get(playersHandPresenter.getCurrentPlayerColor()));
-        findViewById(R.id.newyork_pittsburgh_g1b1).setAlpha(1);
-        findViewById(R.id.newyork_pittsburgh_g1b2).setBackgroundResource((int) playerColorValues.get(playersHandPresenter.getCurrentPlayerColor()));
-        findViewById(R.id.newyork_pittsburgh_g1b2).setAlpha(1);
+        routePresenter.purchase(TTR_Constants.getInstance().R_PIT_TO_NYC_1);
     }
 
     public void change_color_boston_newyork_g2(View view) {//2
-        findViewById(R.id.boston_newyork_g2b1).setBackgroundResource((int) playerColorValues.get(playersHandPresenter.getCurrentPlayerColor()));
-        findViewById(R.id.boston_newyork_g2b1).setAlpha(1);
-        findViewById(R.id.boston_newyork_g2b2).setBackgroundResource((int) playerColorValues.get(playersHandPresenter.getCurrentPlayerColor()));
-        findViewById(R.id.boston_newyork_g2b2).setAlpha(1);
+        routePresenter.purchase(TTR_Constants.getInstance().R_NYC_TO_BOS_2);
     }
 
     public void change_color_boston_newyork_g1(View view) {//2
-        findViewById(R.id.boston_newyork_g1b1).setBackgroundResource((int) playerColorValues.get(playersHandPresenter.getCurrentPlayerColor()));
-        findViewById(R.id.boston_newyork_g1b1).setAlpha(1);
-        findViewById(R.id.boston_newyork_g1b2).setBackgroundResource((int) playerColorValues.get(playersHandPresenter.getCurrentPlayerColor()));
-        findViewById(R.id.boston_newyork_g1b2).setAlpha(1);
+        routePresenter.purchase(TTR_Constants.getInstance().R_NYC_TO_BOS_1);
     }
 
     public void change_color_montreal_boston_g2(View view) {//2
-        findViewById(R.id.montreal_boston_g2b1).setBackgroundResource((int) playerColorValues.get(playersHandPresenter.getCurrentPlayerColor()));
-        findViewById(R.id.montreal_boston_g2b1).setAlpha(1);
-        findViewById(R.id.montreal_boston_g2b2).setBackgroundResource((int) playerColorValues.get(playersHandPresenter.getCurrentPlayerColor()));
-        findViewById(R.id.montreal_boston_g2b2).setAlpha(1);
+        routePresenter.purchase(TTR_Constants.getInstance().R_MON_TO_BOS_2);
     }
 
     public void change_color_montreal_boston_g1(View view) {//2
-        findViewById(R.id.montreal_boston_g1b1).setBackgroundResource((int) playerColorValues.get(playersHandPresenter.getCurrentPlayerColor()));
-        findViewById(R.id.montreal_boston_g1b1).setAlpha(1);
-        findViewById(R.id.montreal_boston_g1b2).setBackgroundResource((int) playerColorValues.get(playersHandPresenter.getCurrentPlayerColor()));
-        findViewById(R.id.montreal_boston_g1b2).setAlpha(1);
+        routePresenter.purchase(TTR_Constants.getInstance().R_MON_TO_BOS_1);
     }
 
     public void change_color_montreal_newyork_g1(View view) {//3
-        findViewById(R.id.montreal_newyork_g1b1).setBackgroundResource((int) playerColorValues.get(playersHandPresenter.getCurrentPlayerColor()));
-        findViewById(R.id.montreal_newyork_g1b1).setAlpha(1);
-        findViewById(R.id.montreal_newyork_g1b2).setBackgroundResource((int) playerColorValues.get(playersHandPresenter.getCurrentPlayerColor()));
-        findViewById(R.id.montreal_newyork_g1b2).setAlpha(1);
-        findViewById(R.id.montreal_newyork_g1b3).setBackgroundResource((int) playerColorValues.get(playersHandPresenter.getCurrentPlayerColor()));
-        findViewById(R.id.montreal_newyork_g1b3).setAlpha(1);
+        routePresenter.purchase(TTR_Constants.getInstance().R_NYC_TO_MON);
     }
 
     public void change_color_portland_sanfransisco_g2(View v) {
-        findViewById(R.id.portland_sanfransisco_g2b1).setBackgroundResource((int) playerColorValues.get(playersHandPresenter.getCurrentPlayerColor()));
-        findViewById(R.id.portland_sanfransisco_g2b1).setAlpha(1);
-        findViewById(R.id.portland_sanfransisco_g2b2).setBackgroundResource((int) playerColorValues.get(playersHandPresenter.getCurrentPlayerColor()));
-        findViewById(R.id.portland_sanfransisco_g2b2).setAlpha(1);
-        findViewById(R.id.portland_sanfransisco_g2b3).setBackgroundResource((int) playerColorValues.get(playersHandPresenter.getCurrentPlayerColor()));
-        findViewById(R.id.portland_sanfransisco_g2b3).setAlpha(1);
-        findViewById(R.id.portland_sanfransisco_g2b4).setBackgroundResource((int) playerColorValues.get(playersHandPresenter.getCurrentPlayerColor()));
-        findViewById(R.id.portland_sanfransisco_g2b4).setAlpha(1);
-        findViewById(R.id.portland_sanfransisco_g2b5).setBackgroundResource((int) playerColorValues.get(playersHandPresenter.getCurrentPlayerColor()));
-        findViewById(R.id.portland_sanfransisco_g2b5).setAlpha(1);
+        routePresenter.purchase(TTR_Constants.getInstance().R_POR_TO_SAN_2);
     }
 
     public void change_color_vancouver_seattle_g1(View view) {
-        findViewById(R.id.vancouver_seattle_g1b1).setBackgroundResource((int) playerColorValues.get(playersHandPresenter.getCurrentPlayerColor()));
-        findViewById(R.id.vancouver_seattle_g1b1).setAlpha(1);
+        routePresenter.purchase(TTR_Constants.getInstance().R_VAN_TO_SEA_1);
     }
 
     public void change_color_vancouver_seattle_g2(View view) {
-        findViewById(R.id.vancouver_seattle_g2b1).setBackgroundResource((int) playerColorValues.get(playersHandPresenter.getCurrentPlayerColor()));
-        findViewById(R.id.vancouver_seattle_g2b1).setAlpha(1);
+        routePresenter.purchase(TTR_Constants.getInstance().R_VAN_TO_SEA_2);
     }
 
     public void change_color_seattle_portland_g1(View view) {
-        findViewById(R.id.seattle_portland_g1b1).setBackgroundResource((int) playerColorValues.get(playersHandPresenter.getCurrentPlayerColor()));
-        findViewById(R.id.seattle_portland_g1b1).setAlpha(1);
+        routePresenter.purchase(TTR_Constants.getInstance().R_SEA_TO_POR_1);
     }
 
     public void change_color_seattle_portland_g2(View view) {
-        findViewById(R.id.seattle_portland_g2b1).setBackgroundResource((int) playerColorValues.get(playersHandPresenter.getCurrentPlayerColor()));
-        findViewById(R.id.seattle_portland_g2b1).setAlpha(1);
+        routePresenter.purchase(TTR_Constants.getInstance().R_SEA_TO_POR_2);
     }
 
     public void change_color_portland_sanfransisco_g1(View view) {
-        findViewById(R.id.portland_sanfransisco_g1b1).setBackgroundResource((int) playerColorValues.get(playersHandPresenter.getCurrentPlayerColor()));
-        findViewById(R.id.portland_sanfransisco_g1b1).setAlpha(1);
-        findViewById(R.id.portland_sanfransisco_g1b2).setBackgroundResource((int) playerColorValues.get(playersHandPresenter.getCurrentPlayerColor()));
-        findViewById(R.id.portland_sanfransisco_g1b2).setAlpha(1);
-        findViewById(R.id.portland_sanfransisco_g1b3).setBackgroundResource((int) playerColorValues.get(playersHandPresenter.getCurrentPlayerColor()));
-        findViewById(R.id.portland_sanfransisco_g1b3).setAlpha(1);
-        findViewById(R.id.portland_sanfransisco_g1b4).setBackgroundResource((int) playerColorValues.get(playersHandPresenter.getCurrentPlayerColor()));
-        findViewById(R.id.portland_sanfransisco_g1b4).setAlpha(1);
-        findViewById(R.id.portland_sanfransisco_g1b5).setBackgroundResource((int) playerColorValues.get(playersHandPresenter.getCurrentPlayerColor()));
-        findViewById(R.id.portland_sanfransisco_g1b5).setAlpha(1);
+        routePresenter.purchase(TTR_Constants.getInstance().R_POR_TO_SAN_1);
     }
 
     public void change_color_sanfransisco_losangeles_g1(View view) {
-        findViewById(R.id.sanfransisco_losangeles_g1b1).setBackgroundResource((int) playerColorValues.get(playersHandPresenter.getCurrentPlayerColor()));
-        findViewById(R.id.sanfransisco_losangeles_g1b1).setAlpha(1);
-        findViewById(R.id.sanfransisco_losangeles_g1b2).setBackgroundResource((int) playerColorValues.get(playersHandPresenter.getCurrentPlayerColor()));
-        findViewById(R.id.sanfransisco_losangeles_g1b2).setAlpha(1);
-        findViewById(R.id.sanfransisco_losangeles_g1b3).setBackgroundResource((int) playerColorValues.get(playersHandPresenter.getCurrentPlayerColor()));
-        findViewById(R.id.sanfransisco_losangeles_g1b3).setAlpha(1);
+        routePresenter.purchase(TTR_Constants.getInstance().R_SAN_TO_LA_1);
     }
 
     public void change_color_sanfransisco_losangeles_g2(View view) {
-        findViewById(R.id.sanfransisco_losangeles_g2b1).setBackgroundResource((int) playerColorValues.get(playersHandPresenter.getCurrentPlayerColor()));
-        findViewById(R.id.sanfransisco_losangeles_g2b1).setAlpha(1);
-        findViewById(R.id.sanfransisco_losangeles_g2b2).setBackgroundResource((int) playerColorValues.get(playersHandPresenter.getCurrentPlayerColor()));
-        findViewById(R.id.sanfransisco_losangeles_g2b2).setAlpha(1);
-        findViewById(R.id.sanfransisco_losangeles_g2b3).setBackgroundResource((int) playerColorValues.get(playersHandPresenter.getCurrentPlayerColor()));
-        findViewById(R.id.sanfransisco_losangeles_g2b3).setAlpha(1);
+        routePresenter.purchase(TTR_Constants.getInstance().R_SAN_TO_LA_2);
     }
 
     public void change_color_losangeles_elpaso_g1(View view) {
-        findViewById(R.id.losangeles_elpaso_g1b1).setBackgroundResource((int) playerColorValues.get(playersHandPresenter.getCurrentPlayerColor()));
-        findViewById(R.id.losangeles_elpaso_g1b1).setAlpha(1);
-        findViewById(R.id.losangeles_elpaso_g1b2).setBackgroundResource((int) playerColorValues.get(playersHandPresenter.getCurrentPlayerColor()));
-        findViewById(R.id.losangeles_elpaso_g1b2).setAlpha(1);
-        findViewById(R.id.losangeles_elpaso_g1b3).setBackgroundResource((int) playerColorValues.get(playersHandPresenter.getCurrentPlayerColor()));
-        findViewById(R.id.losangeles_elpaso_g1b3).setAlpha(1);
-        findViewById(R.id.losangeles_elpaso_g1b4).setBackgroundResource((int) playerColorValues.get(playersHandPresenter.getCurrentPlayerColor()));
-        findViewById(R.id.losangeles_elpaso_g1b4).setAlpha(1);
-        findViewById(R.id.losangeles_elpaso_g1b5).setBackgroundResource((int) playerColorValues.get(playersHandPresenter.getCurrentPlayerColor()));
-        findViewById(R.id.losangeles_elpaso_g1b5).setAlpha(1);
-        findViewById(R.id.losangeles_elpaso_g1b6).setBackgroundResource((int) playerColorValues.get(playersHandPresenter.getCurrentPlayerColor()));
-        findViewById(R.id.losangeles_elpaso_g1b6).setAlpha(1);
+        routePresenter.purchase(TTR_Constants.getInstance().R_LA_TO_EL);
     }
 
     public void change_color_vancouver_calgary_g1(View view) {
-        findViewById(R.id.vancouver_calgary_g1b1).setBackgroundResource((int) playerColorValues.get(playersHandPresenter.getCurrentPlayerColor()));
-        findViewById(R.id.vancouver_calgary_g1b1).setAlpha(1);
-        findViewById(R.id.vancouver_calgary_g1b2).setBackgroundResource((int) playerColorValues.get(playersHandPresenter.getCurrentPlayerColor()));
-        findViewById(R.id.vancouver_calgary_g1b2).setAlpha(1);
-        findViewById(R.id.vancouver_calgary_g1b3).setBackgroundResource((int) playerColorValues.get(playersHandPresenter.getCurrentPlayerColor()));
-        findViewById(R.id.vancouver_calgary_g1b3).setAlpha(1);
+        routePresenter.purchase(TTR_Constants.getInstance().R_VAN_TO_CAL);
     }
 
     public void change_color_seattle_calgary_g1(View view) {
-        findViewById(R.id.seattle_calgary_g1b1).setBackgroundResource((int) playerColorValues.get(playersHandPresenter.getCurrentPlayerColor()));
-        findViewById(R.id.seattle_calgary_g1b1).setAlpha(1);
-        findViewById(R.id.seattle_calgary_g1b2).setBackgroundResource((int) playerColorValues.get(playersHandPresenter.getCurrentPlayerColor()));
-        findViewById(R.id.seattle_calgary_g1b2).setAlpha(1);
-        findViewById(R.id.seattle_calgary_g1b3).setBackgroundResource((int) playerColorValues.get(playersHandPresenter.getCurrentPlayerColor()));
-        findViewById(R.id.seattle_calgary_g1b3).setAlpha(1);
-        findViewById(R.id.seattle_calgary_g1b4).setBackgroundResource((int) playerColorValues.get(playersHandPresenter.getCurrentPlayerColor()));
-        findViewById(R.id.seattle_calgary_g1b4).setAlpha(1);
+        routePresenter.purchase(TTR_Constants.getInstance().R_SEA_TO_CAL);
     }
 
     public void change_color_seattle_helena_g1(View view) {
-        findViewById(R.id.seattle_helena_g1b1).setBackgroundResource((int) playerColorValues.get(playersHandPresenter.getCurrentPlayerColor()));
-        findViewById(R.id.seattle_helena_g1b1).setAlpha(1);
-        findViewById(R.id.seattle_helena_g1b2).setBackgroundResource((int) playerColorValues.get(playersHandPresenter.getCurrentPlayerColor()));
-        findViewById(R.id.seattle_helena_g1b2).setAlpha(1);
-        findViewById(R.id.seattle_helena_g1b3).setBackgroundResource((int) playerColorValues.get(playersHandPresenter.getCurrentPlayerColor()));
-        findViewById(R.id.seattle_helena_g1b3).setAlpha(1);
-        findViewById(R.id.seattle_helena_g1b4).setBackgroundResource((int) playerColorValues.get(playersHandPresenter.getCurrentPlayerColor()));
-        findViewById(R.id.seattle_helena_g1b4).setAlpha(1);
-        findViewById(R.id.seattle_helena_g1b5).setBackgroundResource((int) playerColorValues.get(playersHandPresenter.getCurrentPlayerColor()));
-        findViewById(R.id.seattle_helena_g1b5).setAlpha(1);
-        findViewById(R.id.seattle_helena_g1b6).setBackgroundResource((int) playerColorValues.get(playersHandPresenter.getCurrentPlayerColor()));
-        findViewById(R.id.seattle_helena_g1b6).setAlpha(1);
+        routePresenter.purchase(TTR_Constants.getInstance().R_SEA_TO_HEL);
     }
 
     public void change_color_calgary_winnipeg_g1(View view) {
-        findViewById(R.id.calgary_winnipeg_g1b1).setBackgroundResource((int) playerColorValues.get(playersHandPresenter.getCurrentPlayerColor()));
-        findViewById(R.id.calgary_winnipeg_g1b1).setAlpha(1);
-        findViewById(R.id.calgary_winnipeg_g1b2).setBackgroundResource((int) playerColorValues.get(playersHandPresenter.getCurrentPlayerColor()));
-        findViewById(R.id.calgary_winnipeg_g1b2).setAlpha(1);
-        findViewById(R.id.calgary_winnipeg_g1b3).setBackgroundResource((int) playerColorValues.get(playersHandPresenter.getCurrentPlayerColor()));
-        findViewById(R.id.calgary_winnipeg_g1b3).setAlpha(1);
-        findViewById(R.id.calgary_winnipeg_g1b4).setBackgroundResource((int) playerColorValues.get(playersHandPresenter.getCurrentPlayerColor()));
-        findViewById(R.id.calgary_winnipeg_g1b4).setAlpha(1);
-        findViewById(R.id.calgary_winnipeg_g1b5).setBackgroundResource((int) playerColorValues.get(playersHandPresenter.getCurrentPlayerColor()));
-        findViewById(R.id.calgary_winnipeg_g1b5).setAlpha(1);
-        findViewById(R.id.calgary_winnipeg_g1b6).setBackgroundResource((int) playerColorValues.get(playersHandPresenter.getCurrentPlayerColor()));
-        findViewById(R.id.calgary_winnipeg_g1b6).setAlpha(1);
+        routePresenter.purchase(TTR_Constants.getInstance().R_CAL_TO_WIN);
     }
 
     public void change_color_calgary_helena_g1(View view) {
-        findViewById(R.id.calgary_helena_g1b1).setBackgroundResource((int) playerColorValues.get(playersHandPresenter.getCurrentPlayerColor()));
-        findViewById(R.id.calgary_helena_g1b1).setAlpha(1);
-        findViewById(R.id.calgary_helena_g1b2).setBackgroundResource((int) playerColorValues.get(playersHandPresenter.getCurrentPlayerColor()));
-        findViewById(R.id.calgary_helena_g1b2).setAlpha(1);
-        findViewById(R.id.calgary_helena_g1b3).setBackgroundResource((int) playerColorValues.get(playersHandPresenter.getCurrentPlayerColor()));
-        findViewById(R.id.calgary_helena_g1b3).setAlpha(1);
-        findViewById(R.id.calgary_helena_g1b4).setBackgroundResource((int) playerColorValues.get(playersHandPresenter.getCurrentPlayerColor()));
-        findViewById(R.id.calgary_helena_g1b4).setAlpha(1);
+        routePresenter.purchase(TTR_Constants.getInstance().R_CAL_TO_HEL);
     }
 
     public void change_color_helena_winnipeg_g1(View view) {
-        findViewById(R.id.helena_winnipeg_g1b1).setBackgroundResource((int) playerColorValues.get(playersHandPresenter.getCurrentPlayerColor()));
-        findViewById(R.id.helena_winnipeg_g1b1).setAlpha(1);
-        findViewById(R.id.helena_winnipeg_g1b2).setBackgroundResource((int) playerColorValues.get(playersHandPresenter.getCurrentPlayerColor()));
-        findViewById(R.id.helena_winnipeg_g1b2).setAlpha(1);
-        findViewById(R.id.helena_winnipeg_g1b3).setBackgroundResource((int) playerColorValues.get(playersHandPresenter.getCurrentPlayerColor()));
-        findViewById(R.id.helena_winnipeg_g1b3).setAlpha(1);
-        findViewById(R.id.helena_winnipeg_g1b4).setBackgroundResource((int) playerColorValues.get(playersHandPresenter.getCurrentPlayerColor()));
-        findViewById(R.id.helena_winnipeg_g1b4).setAlpha(1);
+        routePresenter.purchase(TTR_Constants.getInstance().R_HEL_TO_WIN);
     }
 
     public void change_color_portland_saltlakecity_g1(View view) {
-        findViewById(R.id.portland_saltlakecity_g1b1).setBackgroundResource((int) playerColorValues.get(playersHandPresenter.getCurrentPlayerColor()));
-        findViewById(R.id.portland_saltlakecity_g1b1).setAlpha(1);
-        findViewById(R.id.portland_saltlakecity_g1b2).setBackgroundResource((int) playerColorValues.get(playersHandPresenter.getCurrentPlayerColor()));
-        findViewById(R.id.portland_saltlakecity_g1b2).setAlpha(1);
-        findViewById(R.id.portland_saltlakecity_g1b3).setBackgroundResource((int) playerColorValues.get(playersHandPresenter.getCurrentPlayerColor()));
-        findViewById(R.id.portland_saltlakecity_g1b3).setAlpha(1);
-        findViewById(R.id.portland_saltlakecity_g1b4).setBackgroundResource((int) playerColorValues.get(playersHandPresenter.getCurrentPlayerColor()));
-        findViewById(R.id.portland_saltlakecity_g1b4).setAlpha(1);
-        findViewById(R.id.portland_saltlakecity_g1b5).setBackgroundResource((int) playerColorValues.get(playersHandPresenter.getCurrentPlayerColor()));
-        findViewById(R.id.portland_saltlakecity_g1b5).setAlpha(1);
-        findViewById(R.id.portland_saltlakecity_g1b6).setBackgroundResource((int) playerColorValues.get(playersHandPresenter.getCurrentPlayerColor()));
-        findViewById(R.id.portland_saltlakecity_g1b6).setAlpha(1);
+        routePresenter.purchase(TTR_Constants.getInstance().R_POR_TO_SLC);
     }
 
     public void change_color_sanfransisco_saltlakecity_g1(View view) {
-        findViewById(R.id.sanfransisco_saltlakecity_g1b1).setBackgroundResource((int) playerColorValues.get(playersHandPresenter.getCurrentPlayerColor()));
-        findViewById(R.id.sanfransisco_saltlakecity_g1b1).setAlpha(1);
-        findViewById(R.id.sanfransisco_saltlakecity_g1b2).setBackgroundResource((int) playerColorValues.get(playersHandPresenter.getCurrentPlayerColor()));
-        findViewById(R.id.sanfransisco_saltlakecity_g1b2).setAlpha(1);
-        findViewById(R.id.sanfransisco_saltlakecity_g1b3).setBackgroundResource((int) playerColorValues.get(playersHandPresenter.getCurrentPlayerColor()));
-        findViewById(R.id.sanfransisco_saltlakecity_g1b3).setAlpha(1);
-        findViewById(R.id.sanfransisco_saltlakecity_g1b4).setBackgroundResource((int) playerColorValues.get(playersHandPresenter.getCurrentPlayerColor()));
-        findViewById(R.id.sanfransisco_saltlakecity_g1b4).setAlpha(1);
-        findViewById(R.id.sanfransisco_saltlakecity_g1b5).setBackgroundResource((int) playerColorValues.get(playersHandPresenter.getCurrentPlayerColor()));
-        findViewById(R.id.sanfransisco_saltlakecity_g1b5).setAlpha(1);
+        routePresenter.purchase(TTR_Constants.getInstance().R_SAN_TO_SLC_1);
     }
 
     public void change_color_sanfransisco_saltlakecity_g2(View view) {
-        findViewById(R.id.sanfransisco_saltlakecity_g2b1).setBackgroundResource((int) playerColorValues.get(playersHandPresenter.getCurrentPlayerColor()));
-        findViewById(R.id.sanfransisco_saltlakecity_g2b1).setAlpha(1);
-        findViewById(R.id.sanfransisco_saltlakecity_g2b2).setBackgroundResource((int) playerColorValues.get(playersHandPresenter.getCurrentPlayerColor()));
-        findViewById(R.id.sanfransisco_saltlakecity_g2b2).setAlpha(1);
-        findViewById(R.id.sanfransisco_saltlakecity_g2b3).setBackgroundResource((int) playerColorValues.get(playersHandPresenter.getCurrentPlayerColor()));
-        findViewById(R.id.sanfransisco_saltlakecity_g2b3).setAlpha(1);
-        findViewById(R.id.sanfransisco_saltlakecity_g2b4).setBackgroundResource((int) playerColorValues.get(playersHandPresenter.getCurrentPlayerColor()));
-        findViewById(R.id.sanfransisco_saltlakecity_g2b4).setAlpha(1);
-        findViewById(R.id.sanfransisco_saltlakecity_g2b5).setBackgroundResource((int) playerColorValues.get(playersHandPresenter.getCurrentPlayerColor()));
-        findViewById(R.id.sanfransisco_saltlakecity_g2b5).setAlpha(1);
+        routePresenter.purchase(TTR_Constants.getInstance().R_SAN_TO_SLC_2);
     }
 
     public void change_color_losangeles_lasvegas_g1(View view) {
-        findViewById(R.id.losangeles_lasvegas_g1b1).setBackgroundResource((int) playerColorValues.get(playersHandPresenter.getCurrentPlayerColor()));
-        findViewById(R.id.losangeles_lasvegas_g1b1).setAlpha(1);
-        findViewById(R.id.losangeles_lasvegas_g1b2).setBackgroundResource((int) playerColorValues.get(playersHandPresenter.getCurrentPlayerColor()));
-        findViewById(R.id.losangeles_lasvegas_g1b2).setAlpha(1);
+        routePresenter.purchase(TTR_Constants.getInstance().R_LA_TO_LAS);
     }
 
     public void change_color_lasvegas_saltlakecity_g1(View view) {
-        findViewById(R.id.lasvegas_saltlakecity_g1b1).setBackgroundResource((int) playerColorValues.get(playersHandPresenter.getCurrentPlayerColor()));
-        findViewById(R.id.lasvegas_saltlakecity_g1b1).setAlpha(1);
-        findViewById(R.id.lasvegas_saltlakecity_g1b2).setBackgroundResource((int) playerColorValues.get(playersHandPresenter.getCurrentPlayerColor()));
-        findViewById(R.id.lasvegas_saltlakecity_g1b2).setAlpha(1);
-        findViewById(R.id.lasvegas_saltlakecity_g1b3).setBackgroundResource((int) playerColorValues.get(playersHandPresenter.getCurrentPlayerColor()));
-        findViewById(R.id.lasvegas_saltlakecity_g1b3).setAlpha(1);
+        routePresenter.purchase(TTR_Constants.getInstance().R_LAS_TO_SLC);
     }
 
     public void change_color_losangeles_phoenix_g1(View view) {
-        findViewById(R.id.losangeles_phoenix_g1b1).setBackgroundResource((int) playerColorValues.get(playersHandPresenter.getCurrentPlayerColor()));
-        findViewById(R.id.losangeles_phoenix_g1b1).setAlpha(1);
-        findViewById(R.id.losangeles_phoenix_g1b2).setBackgroundResource((int) playerColorValues.get(playersHandPresenter.getCurrentPlayerColor()));
-        findViewById(R.id.losangeles_phoenix_g1b2).setAlpha(1);
-        findViewById(R.id.losangeles_phoenix_g1b3).setBackgroundResource((int) playerColorValues.get(playersHandPresenter.getCurrentPlayerColor()));
-        findViewById(R.id.losangeles_phoenix_g1b3).setAlpha(1);
+        routePresenter.purchase(TTR_Constants.getInstance().R_LA_TO_PHO);
     }
 
     public void change_color_phoenix_elpaso_g1(View view) {
-        findViewById(R.id.phoenix_elpaso_g1b1).setBackgroundResource((int) playerColorValues.get(playersHandPresenter.getCurrentPlayerColor()));
-        findViewById(R.id.phoenix_elpaso_g1b1).setAlpha(1);
-        findViewById(R.id.phoenix_elpaso_g1b2).setBackgroundResource((int) playerColorValues.get(playersHandPresenter.getCurrentPlayerColor()));
-        findViewById(R.id.phoenix_elpaso_g1b2).setAlpha(1);
-        findViewById(R.id.phoenix_elpaso_g1b3).setBackgroundResource((int) playerColorValues.get(playersHandPresenter.getCurrentPlayerColor()));
-        findViewById(R.id.phoenix_elpaso_g1b3).setAlpha(1);
+        routePresenter.purchase(TTR_Constants.getInstance().R_PHO_TO_EL);
     }
 
     public void change_color_phoenix_santafe_g1(View view) {
-        findViewById(R.id.phoenix_santafe_g1b1).setBackgroundResource((int) playerColorValues.get(playersHandPresenter.getCurrentPlayerColor()));
-        findViewById(R.id.phoenix_santafe_g1b1).setAlpha(1);
-        findViewById(R.id.phoenix_santafe_g1b2).setBackgroundResource((int) playerColorValues.get(playersHandPresenter.getCurrentPlayerColor()));
-        findViewById(R.id.phoenix_santafe_g1b2).setAlpha(1);
-        findViewById(R.id.phoenix_santafe_g1b3).setBackgroundResource((int) playerColorValues.get(playersHandPresenter.getCurrentPlayerColor()));
-        findViewById(R.id.phoenix_santafe_g1b3).setAlpha(1);
+        routePresenter.purchase(TTR_Constants.getInstance().R_PHO_TO_FE);
     }
 
     public void change_color_phoenix_denver_g1(View view) {
-        findViewById(R.id.phoenix_denver_g1b1).setBackgroundResource((int) playerColorValues.get(playersHandPresenter.getCurrentPlayerColor()));
-        findViewById(R.id.phoenix_denver_g1b1).setAlpha(1);
-        findViewById(R.id.phoenix_denver_g1b2).setBackgroundResource((int) playerColorValues.get(playersHandPresenter.getCurrentPlayerColor()));
-        findViewById(R.id.phoenix_denver_g1b2).setAlpha(1);
-        findViewById(R.id.phoenix_denver_g1b3).setBackgroundResource((int) playerColorValues.get(playersHandPresenter.getCurrentPlayerColor()));
-        findViewById(R.id.phoenix_denver_g1b3).setAlpha(1);
-        findViewById(R.id.phoenix_denver_g1b4).setBackgroundResource((int) playerColorValues.get(playersHandPresenter.getCurrentPlayerColor()));
-        findViewById(R.id.phoenix_denver_g1b4).setAlpha(1);
-        findViewById(R.id.phoenix_denver_g1b5).setBackgroundResource((int) playerColorValues.get(playersHandPresenter.getCurrentPlayerColor()));
-        findViewById(R.id.phoenix_denver_g1b5).setAlpha(1);
+        routePresenter.purchase(TTR_Constants.getInstance().R_PHO_TO_DEN);
     }
 
     public void change_color_saltlakecity_denver_g1(View view) {
-        findViewById(R.id.saltlakecity_denver_g1b1).setBackgroundResource((int) playerColorValues.get(playersHandPresenter.getCurrentPlayerColor()));
-        findViewById(R.id.saltlakecity_denver_g1b1).setAlpha(1);
-        findViewById(R.id.saltlakecity_denver_g1b2).setBackgroundResource((int) playerColorValues.get(playersHandPresenter.getCurrentPlayerColor()));
-        findViewById(R.id.saltlakecity_denver_g1b2).setAlpha(1);
-        findViewById(R.id.saltlakecity_denver_g1b3).setBackgroundResource((int) playerColorValues.get(playersHandPresenter.getCurrentPlayerColor()));
-        findViewById(R.id.saltlakecity_denver_g1b3).setAlpha(1);
+        routePresenter.purchase(TTR_Constants.getInstance().R_SLC_TO_DEN_1);
     }
 
     public void change_color_saltlakecity_denver_g2(View view) {
-        findViewById(R.id.saltlakecity_denver_g2b1).setBackgroundResource((int) playerColorValues.get(playersHandPresenter.getCurrentPlayerColor()));
-        findViewById(R.id.saltlakecity_denver_g2b1).setAlpha(1);
-        findViewById(R.id.saltlakecity_denver_g2b2).setBackgroundResource((int) playerColorValues.get(playersHandPresenter.getCurrentPlayerColor()));
-        findViewById(R.id.saltlakecity_denver_g2b2).setAlpha(1);
-        findViewById(R.id.saltlakecity_denver_g2b3).setBackgroundResource((int) playerColorValues.get(playersHandPresenter.getCurrentPlayerColor()));
-        findViewById(R.id.saltlakecity_denver_g2b3).setAlpha(1);
+        routePresenter.purchase(TTR_Constants.getInstance().R_SLC_TO_DEN_2);
     }
 
     public void change_color_saltlakecity_helena_g1(View view) {
-        findViewById(R.id.saltlakecity_helena_g1b1).setBackgroundResource((int) playerColorValues.get(playersHandPresenter.getCurrentPlayerColor()));
-        findViewById(R.id.saltlakecity_helena_g1b1).setAlpha(1);
-        findViewById(R.id.saltlakecity_helena_g1b2).setBackgroundResource((int) playerColorValues.get(playersHandPresenter.getCurrentPlayerColor()));
-        findViewById(R.id.saltlakecity_helena_g1b2).setAlpha(1);
-        findViewById(R.id.saltlakecity_helena_g1b3).setBackgroundResource((int) playerColorValues.get(playersHandPresenter.getCurrentPlayerColor()));
-        findViewById(R.id.saltlakecity_helena_g1b3).setAlpha(1);
+        routePresenter.purchase(TTR_Constants.getInstance().R_SLC_TO_HEL);
     }
 
     public void change_color_helena_denver_g1(View view) {
-        findViewById(R.id.helena_denver_g1b1).setBackgroundResource((int) playerColorValues.get(playersHandPresenter.getCurrentPlayerColor()));
-        findViewById(R.id.helena_denver_g1b1).setAlpha(1);
-        findViewById(R.id.helena_denver_g1b2).setBackgroundResource((int) playerColorValues.get(playersHandPresenter.getCurrentPlayerColor()));
-        findViewById(R.id.helena_denver_g1b2).setAlpha(1);
-        findViewById(R.id.helena_denver_g1b3).setBackgroundResource((int) playerColorValues.get(playersHandPresenter.getCurrentPlayerColor()));
-        findViewById(R.id.helena_denver_g1b3).setAlpha(1);
-        findViewById(R.id.helena_denver_g1b4).setBackgroundResource((int) playerColorValues.get(playersHandPresenter.getCurrentPlayerColor()));
-        findViewById(R.id.helena_denver_g1b4).setAlpha(1);
+        routePresenter.purchase(TTR_Constants.getInstance().R_DEN_TO_HEL);
     }
 
     public void change_color_helena_duluth_g1(View view) {
-        findViewById(R.id.helena_duluth_g1b1).setBackgroundResource((int) playerColorValues.get(playersHandPresenter.getCurrentPlayerColor()));
-        findViewById(R.id.helena_duluth_g1b1).setAlpha(1);
-        findViewById(R.id.helena_duluth_g1b2).setBackgroundResource((int) playerColorValues.get(playersHandPresenter.getCurrentPlayerColor()));
-        findViewById(R.id.helena_duluth_g1b2).setAlpha(1);
-        findViewById(R.id.helena_duluth_g1b3).setBackgroundResource((int) playerColorValues.get(playersHandPresenter.getCurrentPlayerColor()));
-        findViewById(R.id.helena_duluth_g1b3).setAlpha(1);
-        findViewById(R.id.helena_duluth_g1b4).setBackgroundResource((int) playerColorValues.get(playersHandPresenter.getCurrentPlayerColor()));
-        findViewById(R.id.helena_duluth_g1b4).setAlpha(1);
-        findViewById(R.id.helena_duluth_g1b5).setBackgroundResource((int) playerColorValues.get(playersHandPresenter.getCurrentPlayerColor()));
-        findViewById(R.id.helena_duluth_g1b5).setAlpha(1);
-        findViewById(R.id.helena_duluth_g1b6).setBackgroundResource((int) playerColorValues.get(playersHandPresenter.getCurrentPlayerColor()));
-        findViewById(R.id.helena_duluth_g1b6).setAlpha(1);
+        routePresenter.purchase(TTR_Constants.getInstance().R_HEL_TO_DUL);
     }
 
     public void change_color_helena_omaha_g1(View view) {
-        findViewById(R.id.helena_omaha_g1b1).setBackgroundResource((int) playerColorValues.get(playersHandPresenter.getCurrentPlayerColor()));
-        findViewById(R.id.helena_omaha_g1b1).setAlpha(1);
-        findViewById(R.id.helena_omaha_g1b2).setBackgroundResource((int) playerColorValues.get(playersHandPresenter.getCurrentPlayerColor()));
-        findViewById(R.id.helena_omaha_g1b2).setAlpha(1);
-        findViewById(R.id.helena_omaha_g1b3).setBackgroundResource((int) playerColorValues.get(playersHandPresenter.getCurrentPlayerColor()));
-        findViewById(R.id.helena_omaha_g1b3).setAlpha(1);
-        findViewById(R.id.helena_omaha_g1b4).setBackgroundResource((int) playerColorValues.get(playersHandPresenter.getCurrentPlayerColor()));
-        findViewById(R.id.helena_omaha_g1b4).setAlpha(1);
-        findViewById(R.id.helena_omaha_g1b5).setBackgroundResource((int) playerColorValues.get(playersHandPresenter.getCurrentPlayerColor()));
-        findViewById(R.id.helena_omaha_g1b5).setAlpha(1);
+        routePresenter.purchase(TTR_Constants.getInstance().R_HEL_TO_OMA);
     }
 
     public void change_color_omaha_duluth_g1(View view) {
-        findViewById(R.id.omaha_duluth_g1b1).setBackgroundResource((int) playerColorValues.get(playersHandPresenter.getCurrentPlayerColor()));
-        findViewById(R.id.omaha_duluth_g1b1).setAlpha(1);
-        findViewById(R.id.omaha_duluth_g1b2).setBackgroundResource((int) playerColorValues.get(playersHandPresenter.getCurrentPlayerColor()));
-        findViewById(R.id.omaha_duluth_g1b2).setAlpha(1);
+        routePresenter.purchase(TTR_Constants.getInstance().R_OMA_TO_DUL_1);
     }
 
     public void change_color_denver_omaha_g1(View view) {
-        findViewById(R.id.denver_omaha_g1b1).setBackgroundResource((int) playerColorValues.get(playersHandPresenter.getCurrentPlayerColor()));
-        findViewById(R.id.denver_omaha_g1b1).setAlpha(1);
-        findViewById(R.id.denver_omaha_g1b2).setBackgroundResource((int) playerColorValues.get(playersHandPresenter.getCurrentPlayerColor()));
-        findViewById(R.id.denver_omaha_g1b2).setAlpha(1);
-        findViewById(R.id.denver_omaha_g1b3).setBackgroundResource((int) playerColorValues.get(playersHandPresenter.getCurrentPlayerColor()));
-        findViewById(R.id.denver_omaha_g1b3).setAlpha(1);
-        findViewById(R.id.denver_omaha_g1b4).setBackgroundResource((int) playerColorValues.get(playersHandPresenter.getCurrentPlayerColor()));
-        findViewById(R.id.denver_omaha_g1b4).setAlpha(1);
+        routePresenter.purchase(TTR_Constants.getInstance().R_DEN_TO_OMA);
     }
 
     public void change_color_denver_kansascity_g1(View view) {
-        findViewById(R.id.denver_kansascity_g1b1).setBackgroundResource((int) playerColorValues.get(playersHandPresenter.getCurrentPlayerColor()));
-        findViewById(R.id.denver_kansascity_g1b1).setAlpha(1);
-        findViewById(R.id.denver_kansascity_g1b2).setBackgroundResource((int) playerColorValues.get(playersHandPresenter.getCurrentPlayerColor()));
-        findViewById(R.id.denver_kansascity_g1b2).setAlpha(1);
-        findViewById(R.id.denver_kansascity_g1b3).setBackgroundResource((int) playerColorValues.get(playersHandPresenter.getCurrentPlayerColor()));
-        findViewById(R.id.denver_kansascity_g1b3).setAlpha(1);
-        findViewById(R.id.denver_kansascity_g1b4).setBackgroundResource((int) playerColorValues.get(playersHandPresenter.getCurrentPlayerColor()));
-        findViewById(R.id.denver_kansascity_g1b4).setAlpha(1);
+        routePresenter.purchase(TTR_Constants.getInstance().R_DEN_TO_KAN_1);
     }
 
     public void change_color_denver_kansascity_g2(View view) {
-        findViewById(R.id.denver_kansascity_g2b1).setBackgroundResource((int) playerColorValues.get(playersHandPresenter.getCurrentPlayerColor()));
-        findViewById(R.id.denver_kansascity_g2b1).setAlpha(1);
-        findViewById(R.id.denver_kansascity_g2b2).setBackgroundResource((int) playerColorValues.get(playersHandPresenter.getCurrentPlayerColor()));
-        findViewById(R.id.denver_kansascity_g2b2).setAlpha(1);
-        findViewById(R.id.denver_kansascity_g2b3).setBackgroundResource((int) playerColorValues.get(playersHandPresenter.getCurrentPlayerColor()));
-        findViewById(R.id.denver_kansascity_g2b3).setAlpha(1);
-        findViewById(R.id.denver_kansascity_g2b4).setBackgroundResource((int) playerColorValues.get(playersHandPresenter.getCurrentPlayerColor()));
-        findViewById(R.id.denver_kansascity_g2b4).setAlpha(1);
+        routePresenter.purchase(TTR_Constants.getInstance().R_DEN_TO_KAN_2);
     }
 
     public void change_color_denver_oklahomacity_g1(View view) {
-        findViewById(R.id.denver_oklahomacity_g1b1).setBackgroundResource((int) playerColorValues.get(playersHandPresenter.getCurrentPlayerColor()));
-        findViewById(R.id.denver_oklahomacity_g1b1).setAlpha(1);
-        findViewById(R.id.denver_oklahomacity_g1b2).setBackgroundResource((int) playerColorValues.get(playersHandPresenter.getCurrentPlayerColor()));
-        findViewById(R.id.denver_oklahomacity_g1b2).setAlpha(1);
-        findViewById(R.id.denver_oklahomacity_g1b3).setBackgroundResource((int) playerColorValues.get(playersHandPresenter.getCurrentPlayerColor()));
-        findViewById(R.id.denver_oklahomacity_g1b3).setAlpha(1);
-        findViewById(R.id.denver_oklahomacity_g1b4).setBackgroundResource((int) playerColorValues.get(playersHandPresenter.getCurrentPlayerColor()));
-        findViewById(R.id.denver_oklahomacity_g1b4).setAlpha(1);
+        routePresenter.purchase(TTR_Constants.getInstance().R_DEN_TO_OKL);
     }
 
     public void change_color_denver_santafe_g1(View view) {
-        findViewById(R.id.denver_santafe_g1b1).setBackgroundResource((int) playerColorValues.get(playersHandPresenter.getCurrentPlayerColor()));
-        findViewById(R.id.denver_santafe_g1b1).setAlpha(1);
-        findViewById(R.id.denver_santafe_g1b2).setBackgroundResource((int) playerColorValues.get(playersHandPresenter.getCurrentPlayerColor()));
-        findViewById(R.id.denver_santafe_g1b2).setAlpha(1);
+        routePresenter.purchase(TTR_Constants.getInstance().R_FE_TO_DEN);
     }
 
     public void change_color_santafe_elpaso_g1(View view) {
-        findViewById(R.id.santafe_elpaso_g1b1).setBackgroundResource((int) playerColorValues.get(playersHandPresenter.getCurrentPlayerColor()));
-        findViewById(R.id.santafe_elpaso_g1b1).setAlpha(1);
-        findViewById(R.id.santafe_elpaso_g1b2).setBackgroundResource((int) playerColorValues.get(playersHandPresenter.getCurrentPlayerColor()));
-        findViewById(R.id.santafe_elpaso_g1b2).setAlpha(1);
+        routePresenter.purchase(TTR_Constants.getInstance().R_EL_TO_FE);
     }
 
     public void change_color_santafe_oklahomacity_g1(View view) {
-        findViewById(R.id.santafe_oklahomacity_g1b1).setBackgroundResource((int) playerColorValues.get(playersHandPresenter.getCurrentPlayerColor()));
-        findViewById(R.id.santafe_oklahomacity_g1b1).setAlpha(1);
-        findViewById(R.id.santafe_oklahomacity_g1b2).setBackgroundResource((int) playerColorValues.get(playersHandPresenter.getCurrentPlayerColor()));
-        findViewById(R.id.santafe_oklahomacity_g1b2).setAlpha(1);
-        findViewById(R.id.santafe_oklahomacity_g1b3).setBackgroundResource((int) playerColorValues.get(playersHandPresenter.getCurrentPlayerColor()));
-        findViewById(R.id.santafe_oklahomacity_g1b3).setAlpha(1);
+        routePresenter.purchase(TTR_Constants.getInstance().R_FE_TO_OKL);
     }
 
     public void change_color_elpaso_oklahomacity_g1(View view) {
-        findViewById(R.id.elpaso_oklahomacity_g1b1).setBackgroundResource((int) playerColorValues.get(playersHandPresenter.getCurrentPlayerColor()));
-        findViewById(R.id.elpaso_oklahomacity_g1b1).setAlpha(1);
-        findViewById(R.id.elpaso_oklahomacity_g1b2).setBackgroundResource((int) playerColorValues.get(playersHandPresenter.getCurrentPlayerColor()));
-        findViewById(R.id.elpaso_oklahomacity_g1b2).setAlpha(1);
-        findViewById(R.id.elpaso_oklahomacity_g1b3).setBackgroundResource((int) playerColorValues.get(playersHandPresenter.getCurrentPlayerColor()));
-        findViewById(R.id.elpaso_oklahomacity_g1b3).setAlpha(1);
-        findViewById(R.id.elpaso_oklahomacity_g1b4).setBackgroundResource((int) playerColorValues.get(playersHandPresenter.getCurrentPlayerColor()));
-        findViewById(R.id.elpaso_oklahomacity_g1b4).setAlpha(1);
-        findViewById(R.id.elpaso_oklahomacity_g1b5).setBackgroundResource((int) playerColorValues.get(playersHandPresenter.getCurrentPlayerColor()));
-        findViewById(R.id.elpaso_oklahomacity_g1b5).setAlpha(1);
+        routePresenter.purchase(TTR_Constants.getInstance().R_EL_TO_OKL);
     }
 
     public void change_color_elpaso_dallas_g1(View view) {
-        findViewById(R.id.elpaso_dallas_g1b1).setBackgroundResource((int) playerColorValues.get(playersHandPresenter.getCurrentPlayerColor()));
-        findViewById(R.id.elpaso_dallas_g1b1).setAlpha(1);
-        findViewById(R.id.elpaso_dallas_g1b2).setBackgroundResource((int) playerColorValues.get(playersHandPresenter.getCurrentPlayerColor()));
-        findViewById(R.id.elpaso_dallas_g1b2).setAlpha(1);
-        findViewById(R.id.elpaso_dallas_g1b3).setBackgroundResource((int) playerColorValues.get(playersHandPresenter.getCurrentPlayerColor()));
-        findViewById(R.id.elpaso_dallas_g1b3).setAlpha(1);
-        findViewById(R.id.elpaso_dallas_g1b4).setBackgroundResource((int) playerColorValues.get(playersHandPresenter.getCurrentPlayerColor()));
-        findViewById(R.id.elpaso_dallas_g1b4).setAlpha(1);
+        routePresenter.purchase(TTR_Constants.getInstance().R_EL_TO_DAL);
     }
 
     public void change_color_elpaso_houston_g1(View view) {
-        ServerProxy proxy = new ServerProxy();
-        ClientModel client = ClientModel.create();
-        proxy.purchaseRoute(client.getUser().getUsername(), client.getUser().getGame().getGameName(), TTR_Constants.getInstance().R_EL_TO_HOU, 0);
+        routePresenter.purchase(TTR_Constants.getInstance().R_EL_TO_HOU);
+//        ServerProxy proxy = new ServerProxy();
+//        ClientModel client = ClientModel.create();
+//        proxy.purchaseRoute(client.getUser().getUsername(), client.getUser().getGame().getGameName(), TTR_Constants.getInstance().R_EL_TO_HOU, 0);
     }
 
     public void change_color_winnipeg_duluth_g1(View view) {
-        findViewById(R.id.winnipeg_duluth_g1b1).setBackgroundResource((int) playerColorValues.get(playersHandPresenter.getCurrentPlayerColor()));
-        findViewById(R.id.winnipeg_duluth_g1b1).setAlpha(1);
-        findViewById(R.id.winnipeg_duluth_g1b2).setBackgroundResource((int) playerColorValues.get(playersHandPresenter.getCurrentPlayerColor()));
-        findViewById(R.id.winnipeg_duluth_g1b2).setAlpha(1);
-        findViewById(R.id.winnipeg_duluth_g1b3).setBackgroundResource((int) playerColorValues.get(playersHandPresenter.getCurrentPlayerColor()));
-        findViewById(R.id.winnipeg_duluth_g1b3).setAlpha(1);
-        findViewById(R.id.winnipeg_duluth_g1b4).setBackgroundResource((int) playerColorValues.get(playersHandPresenter.getCurrentPlayerColor()));
-        findViewById(R.id.winnipeg_duluth_g1b4).setAlpha(1);
+        routePresenter.purchase(TTR_Constants.getInstance().R_WIN_TO_DUL);
     }
 
     public void change_color_omaha_kansascity_g1(View view) {
-        findViewById(R.id.omaha_kansascity_g1b1).setBackgroundResource((int) playerColorValues.get(playersHandPresenter.getCurrentPlayerColor()));
-        findViewById(R.id.omaha_kansascity_g1b1).setAlpha(1);
+        routePresenter.purchase(TTR_Constants.getInstance().R_KAN_TO_OMA_1);
     }
 
     public void change_color_oklahomacity_kansascity_g1(View view) {
-        findViewById(R.id.oklahomacity_kansascity_g1b1).setBackgroundResource((int) playerColorValues.get(playersHandPresenter.getCurrentPlayerColor()));
-        findViewById(R.id.oklahomacity_kansascity_g1b1).setAlpha(1);
-        findViewById(R.id.oklahomacity_kansascity_g1b2).setBackgroundResource((int) playerColorValues.get(playersHandPresenter.getCurrentPlayerColor()));
-        findViewById(R.id.oklahomacity_kansascity_g1b2).setAlpha(1);
+        routePresenter.purchase(TTR_Constants.getInstance().R_OKL_TO_KAN_1);
     }
 
     public void change_color_oklahomacity_dallas_g1(View view) {
-        ServerProxy proxy = new ServerProxy();
-        ClientModel client = ClientModel.create();
-        proxy.purchaseRoute(client.getUser().getUsername(), client.getUser().getGame().getGameName(), TTR_Constants.getInstance().R_DAL_TO_OKL_1, 0);
+        routePresenter.purchase(TTR_Constants.getInstance().R_DAL_TO_OKL_1);
+//        ServerProxy proxy = new ServerProxy();
+//        ClientModel client = ClientModel.create();
+//        proxy.purchaseRoute(client.getUser().getUsername(), client.getUser().getGame().getGameName(), TTR_Constants.getInstance().R_DAL_TO_OKL_1, 0);
     }
 
     public void change_color_dallas_houston_g1(View view) {
-        findViewById(R.id.dallas_houston_g1b1).setBackgroundResource((int)playerColorValues.get(playersHandPresenter.getCurrentPlayerColor()));
-        findViewById(R.id.dallas_houston_g1b1).setAlpha(1);
+        routePresenter.purchase(TTR_Constants.getInstance().R_HOU_TO_DAL_1);
+    }
+
+    public void draw(Set<Integer> ids, Integer playerColor) {
+        for (Integer id: ids) {
+            View view = findViewById(id);
+            int color = (int)playerColorValues.get(playerColor);
+            System.out.println("Color: " + color);
+            view.setBackgroundResource(color);
+            view.setAlpha(1);
+//            findViewById(id).setBackgroundResource((int)playerColorValues.get(playerColor));
+//            findViewById(id).setAlpha(1);
+        }
     }
 
     public void initiateGameOver() {
@@ -1542,6 +1083,52 @@ public class GameBoardActivity extends AppCompatActivity {
                 }
             }
 
+        }
+    }
+
+    public class updateRouteAsyncTask extends AsyncTask<Void, Void, Map<Integer, Set<Integer>>> {
+        GameBoardActivity activity;
+        Map<Route, Boolean> hasBeenDrawn;
+
+        public updateRouteAsyncTask(GameBoardActivity activity, Map<Route, Boolean> hasBeenDrawn) {
+            this.activity = activity;
+            this.hasBeenDrawn = hasBeenDrawn;
+        }
+
+        @Override
+        protected Map<Integer, Set<Integer>> doInBackground(Void... voids) {
+            System.out.println("Updating routes");
+            ClientModel model = ClientModel.create();
+            List<Player> players = model.getUser().getGame().getPlayers();
+            Map<Integer, Set<Integer>> colorToIds = new HashMap<>();
+            if (players != null) {
+                for (Player p: players) {
+                    for (Route r: p.getRoutesOwned()) {
+                        Boolean rDrawn = hasBeenDrawn.get(r);
+                        if (rDrawn == null) {
+                            System.out.println("Not finding r in hasBeenDrawn...");
+                        }
+                        else if (!rDrawn) {
+                            Set<Integer> ids = TTR_Constants.routeToIdMap.get(r);
+//                            activity.draw(ids, p.getPlayerColor());
+                            if (colorToIds.get(p.getPlayerColor()) == null) {
+                                colorToIds.put(p.getPlayerColor(), new HashSet<Integer>());
+                            }
+                            colorToIds.get(p.getPlayerColor()).addAll(ids);
+                            hasBeenDrawn.put(r, true);
+                        }
+                    }
+                }
+            }
+
+            return colorToIds;
+        }
+
+        @Override
+        protected void onPostExecute(Map<Integer, Set<Integer>> colorToIds) {
+            for (Integer color: colorToIds.keySet()) {
+                draw(colorToIds.get(color), color);
+            }
         }
     }
 }
