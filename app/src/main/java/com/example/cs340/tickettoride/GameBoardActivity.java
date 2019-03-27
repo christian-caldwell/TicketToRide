@@ -163,7 +163,7 @@ public class GameBoardActivity extends AppCompatActivity {
             }
         });
 
-        // Open up a popup window when 'Player info' button is pressed
+        // Open up a popup window when 'Player destination Cards' button is pressed
         playerInfoButton = findViewById(R.id.get_player_info_button);
         playerInfoButton.setOnClickListener(new View.OnClickListener() {
             @Override

@@ -58,8 +58,6 @@ public class RecyclerViewAdapterDestinationCards extends RecyclerView.Adapter<Re
         holder.discardButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-                //TODO: CHECK IF THE BUTTON IN mDiscardButtons.(position) IS ENABLED.  iF IT IS, THEN ENABLE THE holder.discardButton
                 if (playerInfoPresenter.addToListOfDestinationCardsToDiscard(mDestinationRoutes.get(position))) {
                     mDiscardButtons.get(position).getBackground().setColorFilter(Color.DKGRAY, PorterDuff.Mode.MULTIPLY);
                     mDiscardButtons.get(position).setAlpha(.5f);
