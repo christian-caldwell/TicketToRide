@@ -57,8 +57,6 @@ public class GameBoardActivity extends AppCompatActivity {
     private RecyclerViewAdapterChat adapter;
     private RecyclerViewAdapterDestinationCards destinationCardsAdapter;
     private EditText inputChatEditText;
-    private Button gameDemoButton;
-    private DemoPresenter mDemoPresenter;
     private Button sendMessageButton, playerInfoButton, doneButton;
     private Button mGreenTrainCard, mRedTrainCard, mPinkTrainCard, mYellowTrainCard,
             mWhiteTrainCard, mBlackTrainCard, mWildTrainCard, mBlueTrainCard, mOrangeTrainCard;
@@ -72,8 +70,6 @@ public class GameBoardActivity extends AppCompatActivity {
     private TextView three_destinationCards, three_trainCards, three_score, three_trainsLeft;
     private TextView four_destinationCards, four_trainCards, four_score, four_trainsLeft;
     private TextView five_destinationCards, five_trainCards, five_score, five_trainsLeft;
-    private String demoToast = "Players initialized at Zero Points, 48 trains, Color Set\n Game Initialized: Starting Player Set, Game Decks Filled\n Initial Actions: Players Handed 3 Dest Cards and 4 Tickets";
-    private int demoInterationNumber = 0;
     private ImageView blueTurn, redTurn, blackTurn, yellowTurn, greenTurn;
     private TextView player1_username, player2_username, player3_username, player4_username, player5_username;
     private DrawerLayout activityLayout;
@@ -141,28 +137,6 @@ public class GameBoardActivity extends AppCompatActivity {
                 String newMessage = inputChatEditText.getText().toString();
                 chatPresenter.addMessage(newMessage);
                 inputChatEditText.setText("");
-            }
-        });
-        gameDemoButton = findViewById(R.id.gameDemoButon);
-
-        gameDemoButton.setOnClickListener(new View.OnClickListener() {
-            // When the sendMessage button is clicked, send the text to the presenter.addMessage function
-            @Override
-            public void onClick(View v) {
-                /*if (demoToast.equals("")){*/
-                    demoInterationNumber++;
-                    mDemoPresenter = ClientModel.create().getDemoPresenter();
-                    mDemoPresenter.setGameActivity(GameBoardActivity.this);
-                    demoToast = mDemoPresenter.gameDemo();
-                    Toast.makeText(GameBoardActivity.this, demoToast, Toast.LENGTH_LONG).show();
-              /*  }
-                else {
-                    Toast.makeText(GameBoardActivity.this, "Run Demo Iteration " + demoInterationNumber, Toast.LENGTH_SHORT).show();
-                    demoToast = "";
-                }*/
-
-                //FIXME: Break up game demo into multiple button presses. Remove waits?
-//                mDemoPresenter.runNextDemo();
             }
         });
 
