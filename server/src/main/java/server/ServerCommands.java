@@ -2,6 +2,7 @@ package server;
 
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
@@ -62,6 +63,9 @@ public class ServerCommands implements IServer {
             }
         }
         Result result = serverData.setGame(game);
+        if (result.isSuccessful()) {
+            joinGame(username, gameName, numPlayers);
+        }
         //clientProxy.updateCreateGame(gameName);
         return result;
 

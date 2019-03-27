@@ -1,5 +1,8 @@
 package client;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import models.data.ChatMessage;
 import models.data.DestinationCard;
 import models.data.Result;

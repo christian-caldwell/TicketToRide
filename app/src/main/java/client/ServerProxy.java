@@ -1,5 +1,8 @@
 package client;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import models.data.ChatMessage;
 import models.data.DestinationCard;
 import models.data.Game;
@@ -148,36 +151,39 @@ public class ServerProxy implements IServer {
 //        String className = RunGameFacade.class.getName();
         String methodName = "returnDestinationCards";
 
-        int additionalArraySize = 0;
-        if (returnedCards != null) {
-            additionalArraySize = (returnedCards.length * 3);
-        }
+//        int additionalArraySize = 0;
+//        if (returnedCards != null) {
+//            additionalArraySize = (returnedCards.length * 3);
+//        }
 
-        Object[] parameterDataArray = new Object[2 + additionalArraySize];
-        Class<?>[] parameterClassArray = new Class<?>[2 + additionalArraySize];
+        Object[] parameterDataArray = new Object[3];
+        Class<?>[] parameterClassArray = new Class<?>[3];
 
         parameterClassArray[0] = String.class;
         parameterClassArray[1] = String.class;
+        parameterClassArray[2] = DestinationCard[].class;
+        System.out.println("------------------" + DestinationCard.class + "----------------------");
         parameterDataArray[0] = userName;
         parameterDataArray[1] = gameName;
+        parameterDataArray[2] = returnedCards;
 
-        if (returnedCards != null) {
-            int position = 0;
-            for (DestinationCard currentCard : returnedCards) {
-                String[] location = returnedCards[position].getLocations();
-                String first_location = location[0];
-                String second_location = location[1];
-                Integer points = returnedCards[position].getPoints();
-
-                parameterClassArray[2 + position * 3] = String.class;
-                parameterClassArray[3 + position * 3] = String.class;
-                parameterClassArray[4 + position * 3] = Integer.class;
-                parameterDataArray[2 + position * 3] = first_location;
-                parameterDataArray[3 + position * 3] = second_location;
-                parameterDataArray[4 + position * 3] = points;
-                position++;
-            }
-        }
+//        if (returnedCards != null) {
+//            int position = 0;
+//            for (DestinationCard currentCard : returnedCards) {
+//                String[] location = returnedCards[position].getLocations();
+//                String first_location = location[0];
+//                String second_location = location[1];
+//                Integer points = returnedCards[position].getPoints();
+//
+//                parameterClassArray[2 + position * 3] = String.class;
+//                parameterClassArray[3 + position * 3] = String.class;
+//                parameterClassArray[4 + position * 3] = Integer.class;
+//                parameterDataArray[2 + position * 3] = first_location;
+//                parameterDataArray[3 + position * 3] = second_location;
+//                parameterDataArray[4 + position * 3] = points;
+//                position++;
+//            }
+//        }
 
         GeneralCommand newCommand = new GeneralCommand(methodName, parameterClassArray, parameterDataArray);
 

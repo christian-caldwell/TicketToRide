@@ -1,5 +1,7 @@
 package client.PlayerStates;
 
+import java.util.ArrayList;
+
 import client.ClientModel;
 import client.ServerProxy;
 import models.data.DestinationCard;

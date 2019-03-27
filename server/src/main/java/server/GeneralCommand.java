@@ -76,7 +76,6 @@ public class GeneralCommand implements ICommandExecuter, Serializable {
             for (int i = 0; i < _paramTypes.length; ++i) {
                 _paramValues[i] = _paramTypes[i].cast(_paramValues[i]);
             }
-            System.out.println(_paramValues[0].getClass());
             Method method = receiver.getMethod(_methodName, _paramTypes);
             Object o = method.invoke(receiver.newInstance(), _paramValues);
             commandResult.setData(o);
