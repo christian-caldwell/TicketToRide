@@ -119,6 +119,9 @@ public class ClientModel extends Observable {
             this.player = gamePlaying.getPlayer(userPlayer.getUsername());
             this.ticketCardHand = player.getTickets();
             this.destinationCardHand = player.getDestinationCardHand();
+            if (gamePlaying.isLastTurn()) {
+                this.leaveGame();
+            }
         }
         System.out.println();
     }

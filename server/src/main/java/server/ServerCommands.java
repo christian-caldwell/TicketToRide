@@ -2,7 +2,6 @@ package server;
 
 
 import java.util.ArrayList;
-import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
@@ -158,7 +157,8 @@ public class ServerCommands implements IServer {
         Result result = new Result();
         result.setSuccessful(false);
         Game targetGame = serverData.findGame(gameName);
-        if (targetGame != null){
+        if (targetGame != null) {
+            if ()
             if (targetGame.purchaseRoute(userName, purchasedRoute, numberOfWilds)){
                 targetGame.incrementNumPlayerActions();
                 targetGame.incrementCurrentTurnPlayer();

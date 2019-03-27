@@ -21,6 +21,7 @@ public class Game {
     private Integer currentTurnPlayer;
     private boolean lastRound = false;
     private boolean lastTurn = false;
+    private Integer lastPlayerColor = null;
 
     private ArrayList<String> playerUsernames = new ArrayList<>();
 
@@ -204,28 +205,33 @@ public class Game {
 
         for (Player player : this.players){
             if (player.getUsername().equals(playerName)) {
-                //check if the player has the cards and the train markers to make this purchase
-                player.decrementTrainsRemaining(purchasedRoute.findLength());
-                Integer color = purchasedRoute.getCardColor();
-                Integer numberOfNonWilds = purchasedRoute.findLength() - numberOfWilds;
-                this.ticketCardDiscard.put(color, this.ticketCardDiscard.get(color) + numberOfNonWilds);
-                player.removeTicketsFromHand(color, numberOfNonWilds);
+                if (player.getTrainsRemaining() >= purchasedRoute.findLength()) {
+                    //check if the player has the cards and the train markers to make this purchase
+                    player.decrementTrainsRemaining(purchasedRoute.findLength());
+                    Integer color = purchasedRoute.getCardColor();
+                    Integer numberOfNonWilds = purchasedRoute.findLength() - numberOfWilds;
+                    this.ticketCardDiscard.put(color, this.ticketCardDiscard.get(color) + numberOfNonWilds);
+                    player.removeTicketsFromHand(color, numberOfNonWilds);
 //                for (int i = 0; i < purchasedRoute.findLength() - numberOfWilds; i++) {
 //                    this.ticketCardDiscard.put(color,this.ticketCardDiscard.get(color)+1);
 //                    player.removeTicketFromHand(color);
 //                }
-
-                this.ticketCardDiscard.put(constants.WILD, this.ticketCardDiscard.get(constants.WILD) + numberOfWilds);
-                player.removeTicketsFromHand(constants.WILD, numberOfWilds);
+                    this.ticketCardDiscard.put(constants.WILD, this.ticketCardDiscard.get(constants.WILD) + numberOfWilds);
+                    player.removeTicketsFromHand(constants.WILD, numberOfWilds);
 //                for (int i = 0; i < numberOfWilds; i++) {
 //                    this.ticketCardDiscard.put(constants.WILD,this.ticketCardDiscard.get(constants.WILD)+1);
 //                    player.removeTicketFromHand(constants.WILD);
 //                }
-
-                player.incrementScore(purchasedRoute.getPoints());
-                player.addRoute(purchasedRoute);
-                this.availableRoutes.remove(purchasedRoute);
-                return true;
+                    player.incrementScore(purchasedRoute.getPoints());
+                    player.addRoute(purchasedRoute);
+                    this.availableRoutes.remove(purchasedRoute);
+                    if (player.getTrainsRemaining() > 3) {
+                        this.lastRound = true;
+                        this.lastPlayerColor = player.getPlayerColor();
+                    }
+                    //TODO: calculate the longest route here and give player longest route if they have it.
+                    return true;
+                }
             }
         }
         return false;

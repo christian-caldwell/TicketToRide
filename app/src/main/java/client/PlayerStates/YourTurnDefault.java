@@ -5,6 +5,7 @@ import client.ServerProxy;
 import models.TTR_Constants;
 import models.data.Result;
 import models.data.Route;
+import models.data.User;
 
 public class YourTurnDefault extends PlayerState {
     private static final YourTurnDefault ourInstance = new YourTurnDefault();
@@ -16,7 +17,7 @@ public class YourTurnDefault extends PlayerState {
     private YourTurnDefault() {
     }
 
-    public Result requestTicketCard(ClientModel clientModel, int cardNum){
+    public Result requestTicketCard(ClientModel clientModel, int cardNum) {
         if(cardNum != 0) {
             if(clientModel.getUser().getGameJoined().getFaceUpTrainCards()[cardNum-1].CardColor.equals(TTR_Constants.getInstance().WILD)) {
                 Result result = new Result();
@@ -31,17 +32,20 @@ public class YourTurnDefault extends PlayerState {
         return result;
     }
 
-    public Result requestDestinationCards(ClientModel clientModel){
+    public Result requestDestinationCards(ClientModel clientModel) {
         Result result = new Result();
         result = serverProxy.requestDestinationCards(clientModel.getUser().getUsername(), clientModel.getUser().getGameJoined().getGameName());
         clientModel.setState(YourTurnAwaitingDestinations.getInstance());
         return result;
     }
 
-    public Result purchaseRoute(ClientModel clientModel, Route route, int numberOfWilds){
+    public Result purchaseRoute(ClientModel clientModel, Route route, int numberOfWilds) {
         Result result = new Result();
         result = serverProxy.purchaseRoute(clientModel.getUser().getUsername(), clientModel.getUser().getGameJoined().getGameName(), route, numberOfWilds);
-        clientModel.setState(NotYourTurn.getInstance());
+        if (result.isSuccessful()) {
+            clientModel.setState(NotYourTurn.getInstance());
+        }
+
         return result;
     }
 

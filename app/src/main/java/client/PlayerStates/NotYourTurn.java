@@ -32,6 +32,13 @@ public class NotYourTurn extends PlayerState {
             }
         }
         return result;
-    };
+    }
+
+    public Result leaveGame(ClientModel clientModel) {
+        Result result = new Result();
+        result.setSuccessful(true);
+        clientModel.setState(GameFinished.getInstance());
+        return result;
+    }
 
 }
