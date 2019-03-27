@@ -119,7 +119,7 @@ public class GameBoardActivity extends AppCompatActivity {
     }
 
     // Shows the system bars by removing all the flags
-// except for the ones that make the content appear under the system bars.
+    // except for the ones that make the content appear under the system bars.
     private void showSystemUI() {
         View decorView = getWindow().getDecorView();
         decorView.setSystemUiVisibility(
@@ -140,8 +140,9 @@ public class GameBoardActivity extends AppCompatActivity {
             @Override
             public void onGlobalLayout() {
                 int heightDiff = activityRootView.getRootView().getHeight() - activityRootView.getHeight();
-                if (heightDiff > dpToPx(this, 200)) { // if more than 200 dp, it's probably a keyboard...
-                    // ... do something here
+                if (heightDiff > dpToPx(getApplicationContext(), 200)) {
+                    // if more than 200 dp, it's probably a keyboard...
+                    onWindowFocusChanged(true);
                 }
             }
         });
@@ -153,7 +154,6 @@ public class GameBoardActivity extends AppCompatActivity {
         StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
         StrictMode.setThreadPolicy(policy);
         setContentView(R.layout.activity_game_board);
-        final View decorView = getWindow().getDecorView();
         playerColorValues = new HashMap();
         trainCardImages = new HashMap<>();
         playerColorValues.put(TTR_Constants.getInstance().BLACK_PLAYER, R.drawable.black_background);
@@ -172,8 +172,11 @@ public class GameBoardActivity extends AppCompatActivity {
         trainCardImages.put(TTR_Constants.getInstance().WILD, R.drawable.train_card_wild);
         trainCardImages.put(TTR_Constants.getInstance().YELLOW, R.drawable.train_card_yellow);
 
+        final View decorView = getWindow().getDecorView();
+
         // Hide both the navigation bar and the status bar.
         int uiOptions = View.SYSTEM_UI_FLAG_LAYOUT_STABLE
+
                 | View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
                 | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
                 | View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
@@ -204,7 +207,6 @@ public class GameBoardActivity extends AppCompatActivity {
             }
         });
         gameDemoButton = findViewById(R.id.gameDemoButon);
-
         gameDemoButton.setOnClickListener(new View.OnClickListener() {
             // When the sendMessage button is clicked, send the text to the presenter.addMessage function
             @Override
@@ -225,6 +227,7 @@ public class GameBoardActivity extends AppCompatActivity {
 //                mDemoPresenter.runNextDemo();
             }
         });
+        doneButton = mPopupWindow.getContentView().findViewById(R.id.done_button);
 
         // Open up a popup window when 'Player destination Cards' button is pressed
         playerInfoButton = findViewById(R.id.get_player_info_button);
@@ -232,8 +235,7 @@ public class GameBoardActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 mPopupWindow.showAtLocation(activityLayout, Gravity.CENTER,0,0);
-                doneButton = mPopupWindow.getContentView().findViewById(R.id.done_button);
-
+                /*
                 // Re-enable the done button if there are cards to discard
                 if (playerInfoPresenter.getNewDestinationCardStrings().size() > 0) {
                     doneButton.getBackground().setColorFilter(null);
@@ -245,6 +247,7 @@ public class GameBoardActivity extends AppCompatActivity {
                     doneButton.setAlpha(.5f);
                     doneButton.setEnabled(false);
                 }
+                */
                 doneButton.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
@@ -265,14 +268,23 @@ public class GameBoardActivity extends AppCompatActivity {
         player4_username = findViewById(R.id.player4_name_text_view);
         player5_username = findViewById(R.id.player5_name_text_view);
         mGreenTrainCard = findViewById(R.id.greenCard);
+        mGreenTrainCard.setShadowLayer(50,0,0,Color.WHITE);
         mRedTrainCard = findViewById(R.id.redCard);
+        mRedTrainCard.setShadowLayer(40,0,0,Color.WHITE);
         mPinkTrainCard = findViewById(R.id.pinkCard);
+        mPinkTrainCard.setShadowLayer(30,0,0,Color.WHITE);
         mYellowTrainCard = findViewById(R.id.yellowCard);
+        mYellowTrainCard.setShadowLayer(24,0,0,Color.WHITE);
         mWhiteTrainCard = findViewById(R.id.whiteCard);
+        mWhiteTrainCard.setShadowLayer(20,0,0,Color.WHITE);
         mBlackTrainCard = findViewById(R.id.blackCard);
+        mBlackTrainCard.setShadowLayer(15,0,0,Color.WHITE);
         mWildTrainCard = findViewById(R.id.wildCard);
+        mWildTrainCard.setShadowLayer(10,0,0,Color.WHITE);
         mBlueTrainCard = findViewById(R.id.blueCard);
+        mBlueTrainCard.setShadowLayer(5,0,0,Color.WHITE);
         mOrangeTrainCard = findViewById(R.id.orangeCard);
+        mOrangeTrainCard.setShadowLayer(24,0,0,Color.WHITE);
         one_destinationCards = findViewById(R.id.player1_destination_cards_text_view);
         one_score = findViewById(R.id.player1_score_text_view);
         one_trainCards = findViewById(R.id.player1_train_cards_text_view);
@@ -331,6 +343,7 @@ public class GameBoardActivity extends AppCompatActivity {
 
 
         destinationCardDeck = findViewById(R.id.destination_card_deck);
+        destinationCardDeck.setShadowLayer(24,0,0,Color.WHITE);
         destinationCardDeck.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -344,6 +357,7 @@ public class GameBoardActivity extends AppCompatActivity {
         });
 
         trainCardDeck = findViewById(R.id.train_card_deck);
+        trainCardDeck.setShadowLayer(24,0,0,Color.WHITE);
         trainCardDeck.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -917,8 +931,8 @@ public class GameBoardActivity extends AppCompatActivity {
     }
 
     public void initiateGameOver() {
-        // Intent intent = new Intent(GameBoardActivity.this, GameOverActivity.class);
-        // startActivity(intent);
+        Intent intent = new Intent(GameBoardActivity.this, GameOverActivity.class);
+        startActivity(intent);
     }
 
 
@@ -959,6 +973,18 @@ public class GameBoardActivity extends AppCompatActivity {
             lengthOfNewDestinationCards = newDestinationCardList.size();
             destinationCardsAdapter.setListOfDestinationCards(allCards, discardButtons, lengthOfNewDestinationCards);
             destinationCardsAdapter.notifyDataSetChanged();
+
+            // Re-enable the done button if there are cards to discard
+            if (playerInfoPresenter.getNewDestinationCardStrings().size() > 0) {
+                doneButton.getBackground().setColorFilter(null);
+                doneButton.setAlpha(1);
+                doneButton.setEnabled(true);
+            }
+            else {
+                doneButton.getBackground().setColorFilter(Color.DKGRAY, PorterDuff.Mode.MULTIPLY);
+                doneButton.setAlpha(.5f);
+                doneButton.setEnabled(false);
+            }
 
 
             //TODO: CHECK IF IT IS THE END OF THE GAME.  IF SO, START THE GAMEOVERACTIVITY
