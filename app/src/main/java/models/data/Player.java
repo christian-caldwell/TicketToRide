@@ -7,7 +7,6 @@ import java.util.Map;
 import java.util.Set;
 
 import models.TTR_Constants;
-import server.ServerData;
 
 public class Player {
     private Boolean hasLongestRoute;
@@ -15,13 +14,21 @@ public class Player {
     public Player() {
     }
 
-    private ServerData serverData = ServerData.getInstance();
     private Integer score;
     private Integer trainsRemaining;
     private Integer individualLongestRouteValue;
     private Integer numTickets;
     private String username;
     private Integer playerColor;
+    private Boolean doneWithTurns = false;
+
+    public Boolean getDoneWithTurns() {
+        return doneWithTurns;
+    }
+
+    public void setDoneWithTurns(Boolean doneWithTurns) {
+        this.doneWithTurns = doneWithTurns;
+    }
 
     private Set<Route> routesOwned = new HashSet<>(0);
     private Map<Integer, Integer> tickets = new HashMap<>();
@@ -39,9 +46,10 @@ public class Player {
         this.playerColor = playerColor;
         this.score = 0;
         TTR_Constants constants = TTR_Constants.getInstance();
-        this.trainsRemaining = constants.TRAIN_STARTING_COUNT;
+        this.trainsRemaining = 8;//TODO: constants.TRAIN_STARTING_COUNT;
         this.individualLongestRouteValue = 0;
         this.hasLongestRoute = false;
+        this.doneWithTurns = false;
         initTickets();
     }
 /////////////////////////////////////////////////////////////////////////////////////////////////

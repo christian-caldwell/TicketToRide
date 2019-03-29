@@ -946,6 +946,7 @@ public class GameBoardActivity extends AppCompatActivity {
             adapter.setListOfMessages(chatMessages);
             adapter.notifyDataSetChanged();
             chatMessages = chatPresenter.getMessages();
+            ArrayList<Player> players = playerInfoPresenter.getPlayers();
 
             newDestinationCardList = playerInfoPresenter.getNewDestinationCardStrings();
             currentDestinationCardList = playerInfoPresenter.getDestinationCardStrings();
@@ -972,10 +973,19 @@ public class GameBoardActivity extends AppCompatActivity {
                 doneButton.setEnabled(false);
             }
 
-
-            //TODO: CHECK IF IT IS THE END OF THE GAME.  IF SO, START THE GAMEOVERACTIVITY
-            // if (gameOver)
-                // initiateGameOver();
+            Integer num = 0;
+            for (Player player: players) {
+                if (player.getDoneWithTurns()) {
+                    num++;
+                    continue;
+                }
+                else {
+                    break;
+                }
+            }
+            if (num == players.size()) {
+                initiateGameOver();
+            }
 
 
             mGreenTrainCard.setText("" + playersHandPresenter.getTrainCardAmount(1));
@@ -1032,7 +1042,7 @@ public class GameBoardActivity extends AppCompatActivity {
                 greenTurn.setVisibility(View.INVISIBLE);
             }
 
-            for (Player player : playerInfoPresenter.getPlayers()) {
+            for (Player player : players) {
                 Set<Route> routes = playerInfoPresenter.getPurchasedRoutesFromPlayer(player.getPlayerColor());
                 System.out.println("player: " + player.getUsername() + "\nroutes: " + player.getRoutesOwned());
                 for (Route route: routes) {
@@ -1158,7 +1168,7 @@ public class GameBoardActivity extends AppCompatActivity {
         protected Map<Integer, Set<Integer>> doInBackground(Void... voids) {
             System.out.println("Updating routes");
             ClientModel model = ClientModel.create();
-            List<Player> players = model.getUser().getGame().getPlayers();
+            List<Player> players = model.getUser().getGameJoined().getPlayers();
             Map<Integer, Set<Integer>> colorToIds = new HashMap<>();
             if (players != null) {
                 for (Player p: players) {

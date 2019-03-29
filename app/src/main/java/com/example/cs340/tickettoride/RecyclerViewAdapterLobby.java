@@ -56,7 +56,7 @@ public class RecyclerViewAdapterLobby extends RecyclerView.Adapter<RecyclerViewA
             public void onClick(View v) {
                 // Check if user is already in a game. If not, add them to game
                 // Don't allow more than 5 people join a game
-                if (presenter.getPlayer().getGame() != null)
+                if (presenter.getPlayer().getGameJoined() != null)
                     Toast.makeText(mContext, "Already part of a game", Toast.LENGTH_SHORT).show();
                 else {
                     if (listOfGames.get(position).getPlayerUsernames().size() > 4)

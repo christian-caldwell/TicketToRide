@@ -13,7 +13,6 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 
 import models.data.Result;
-import server.GeneralCommand;
 
 public class ClientCommunicator /*implements IClient */{
     final static String HOST = "10.0.2.2";

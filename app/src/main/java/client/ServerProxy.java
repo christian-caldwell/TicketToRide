@@ -1,20 +1,16 @@
 package client;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import models.data.ChatMessage;
 import models.data.DestinationCard;
 import models.data.Game;
 import models.data.Result;
 import models.data.Route;
 import models.data.User;
-import server.GeneralCommand;
-import server.IServer;
-import server.facade.GameStartFacade;
-import server.facade.LobbyFacade;
-import server.facade.LoginFacade;
-import server.facade.RegisterFacade;
-import server.facade.RunGameFacade;
 
-
+//TODO: Factor out server side facades and remove then from both app and server module.
 public class ServerProxy implements IServer {
 
     ClientCommunicator client = new ClientCommunicator();
@@ -22,7 +18,7 @@ public class ServerProxy implements IServer {
 
     @Override
     public Result joinGame(String username, String gameName, Integer numPlayers) {
-        String className = LobbyFacade.class.getName();
+//        String className = LobbyFacade.class.getName();
         String methodName = "joinGame";
 
         Object[] parameterDataArray = new Object[3];
@@ -35,7 +31,7 @@ public class ServerProxy implements IServer {
         parameterDataArray[1] = gameName;
         parameterDataArray[2] = numPlayers;
 
-        GeneralCommand newCommand = new GeneralCommand(className, methodName, parameterClassArray, parameterDataArray);
+        GeneralCommand newCommand = new GeneralCommand(methodName, parameterClassArray, parameterDataArray);
 
         ClientCommunicator communicator = new ClientCommunicator();
 
@@ -47,7 +43,7 @@ public class ServerProxy implements IServer {
     public Result createGame(String gameName, String username, Integer numPlayers) {
 
 
-        String className = LobbyFacade.class.getName();
+//        String className = LobbyFacade.class.getName();
         String methodName = "createGame";
 
         Object[] parameterDataArray = new Object[3];
@@ -60,7 +56,7 @@ public class ServerProxy implements IServer {
         parameterDataArray[1] = username;
         parameterDataArray[2] = numPlayers;
 
-        GeneralCommand newCommand = new GeneralCommand(className, methodName, parameterClassArray, parameterDataArray);
+        GeneralCommand newCommand = new GeneralCommand(methodName, parameterClassArray, parameterDataArray);
 
         ClientCommunicator communicator = new ClientCommunicator();
 
@@ -74,7 +70,7 @@ public class ServerProxy implements IServer {
     @Override
     public Result startGame(String gameName) {
 
-        String className = GameStartFacade.class.getName();
+//        String className = GameStartFacade.class.getName();
         String methodName = "startGame";
 
         Object[] parameterDataArray = new Object[1];
@@ -83,7 +79,7 @@ public class ServerProxy implements IServer {
         parameterClassArray[0] = String.class;
         parameterDataArray[0] = gameName;
 
-        GeneralCommand newCommand = new GeneralCommand(className, methodName, parameterClassArray, parameterDataArray);
+        GeneralCommand newCommand = new GeneralCommand(methodName, parameterClassArray, parameterDataArray);
 
         ClientCommunicator communicator = new ClientCommunicator();
 
@@ -94,7 +90,7 @@ public class ServerProxy implements IServer {
 
     @Override
     public Result register(User newUser) {
-        String className = RegisterFacade.class.getName();
+//        String className = RegisterFacade.class.getName();
         String methodName = "register";
 
         Object[] params = new Object[1];
@@ -108,7 +104,7 @@ public class ServerProxy implements IServer {
         parameterDataArray[0] = newUser.getUsername();
         parameterDataArray[1] = newUser.getPassword();
 
-        GeneralCommand newCommand = new GeneralCommand(className, methodName, parameterClassArray, parameterDataArray);
+        GeneralCommand newCommand = new GeneralCommand(methodName, parameterClassArray, parameterDataArray);
 
         ClientCommunicator communicator = new ClientCommunicator();
         Result result = communicator.send(newCommand, "10.0.2.2", "8080");
@@ -119,21 +115,19 @@ public class ServerProxy implements IServer {
     }
     @Override
     public Result login(User returnUser) {
-        String className = LoginFacade.class.getName();
+//        String className = LoginFacade.class.getName();
         String methodName = "login";
 
         Object[] params = new Object[1];
         params[0] = returnUser;
 
-        Object[] parameterDataArray = new Object[2];
-        Class<?>[] parameterClassArray = new Class<?>[2];
+        Object[] parameterDataArray = new Object[1];
+        Class<?>[] parameterClassArray = new Class<?>[1];
 
-        parameterClassArray[0] = String.class;
-        parameterClassArray[1] = String.class;
-        parameterDataArray[0] = returnUser.getUsername();
-        parameterDataArray[1] = returnUser.getPassword();
+        parameterClassArray[0] = User.class;
+        parameterDataArray[0] = returnUser;
 
-        GeneralCommand newCommand = new GeneralCommand(className, methodName, parameterClassArray, parameterDataArray);
+        GeneralCommand newCommand = new GeneralCommand(methodName, parameterClassArray, parameterDataArray);
 
         ClientCommunicator communicator = new ClientCommunicator();
         Result result = communicator.send(newCommand, "10.0.2.2", "8080");
@@ -154,41 +148,44 @@ public class ServerProxy implements IServer {
 
     @Override
     public Result returnDestinationCards(String userName, String gameName, DestinationCard[] returnedCards) {
-        String className = RunGameFacade.class.getName();
+//        String className = RunGameFacade.class.getName();
         String methodName = "returnDestinationCards";
 
-        int additionalArraySize = 0;
-        if (returnedCards != null) {
-            additionalArraySize = (returnedCards.length * 3);
-        }
+//        int additionalArraySize = 0;
+//        if (returnedCards != null) {
+//            additionalArraySize = (returnedCards.length * 3);
+//        }
 
-        Object[] parameterDataArray = new Object[2 + additionalArraySize];
-        Class<?>[] parameterClassArray = new Class<?>[2 + additionalArraySize];
+        Object[] parameterDataArray = new Object[3];
+        Class<?>[] parameterClassArray = new Class<?>[3];
 
         parameterClassArray[0] = String.class;
         parameterClassArray[1] = String.class;
+        parameterClassArray[2] = DestinationCard[].class;
+        System.out.println("------------------" + DestinationCard.class + "----------------------");
         parameterDataArray[0] = userName;
         parameterDataArray[1] = gameName;
+        parameterDataArray[2] = returnedCards;
 
-        if (returnedCards != null) {
-            int position = 0;
-            for (DestinationCard currentCard : returnedCards) {
-                String[] location = returnedCards[position].getLocations();
-                String first_location = location[0];
-                String second_location = location[1];
-                Integer points = returnedCards[position].getPoints();
+//        if (returnedCards != null) {
+//            int position = 0;
+//            for (DestinationCard currentCard : returnedCards) {
+//                String[] location = returnedCards[position].getLocations();
+//                String first_location = location[0];
+//                String second_location = location[1];
+//                Integer points = returnedCards[position].getPoints();
+//
+//                parameterClassArray[2 + position * 3] = String.class;
+//                parameterClassArray[3 + position * 3] = String.class;
+//                parameterClassArray[4 + position * 3] = Integer.class;
+//                parameterDataArray[2 + position * 3] = first_location;
+//                parameterDataArray[3 + position * 3] = second_location;
+//                parameterDataArray[4 + position * 3] = points;
+//                position++;
+//            }
+//        }
 
-                parameterClassArray[2 + position * 3] = String.class;
-                parameterClassArray[3 + position * 3] = String.class;
-                parameterClassArray[4 + position * 3] = Integer.class;
-                parameterDataArray[2 + position * 3] = first_location;
-                parameterDataArray[3 + position * 3] = second_location;
-                parameterDataArray[4 + position * 3] = points;
-                position++;
-            }
-        }
-
-        GeneralCommand newCommand = new GeneralCommand(className, methodName, parameterClassArray, parameterDataArray);
+        GeneralCommand newCommand = new GeneralCommand(methodName, parameterClassArray, parameterDataArray);
 
         ClientCommunicator communicator = new ClientCommunicator();
 
@@ -197,32 +194,26 @@ public class ServerProxy implements IServer {
 
     @Override
     public Result purchaseRoute(String userName, String gameName, Route purchasedRoute, Integer numberOfWilds) {
-        String className = RunGameFacade.class.getName();
+//        String className = RunGameFacade.class.getName();
         String methodName = "purchaseRoute";
 
         String[] location = purchasedRoute.getLocation();
         String first_location = location[0];
         String second_location = location[1];
 
-        Object[] parameterDataArray = new Object[7];
-        Class<?>[] parameterClassArray = new Class<?>[7];
+        Object[] parameterDataArray = new Object[4];
+        Class<?>[] parameterClassArray = new Class<?>[4];
 
         parameterClassArray[0] = String.class;
         parameterClassArray[1] = String.class;
-        parameterClassArray[2] = Integer.class;
-        parameterClassArray[3] = String.class;
-        parameterClassArray[4] = String.class;
-        parameterClassArray[5] = Integer.class;
-        parameterClassArray[6] = Integer.class;
+        parameterClassArray[2] = Route.class;
+        parameterClassArray[3] = Integer.class;
         parameterDataArray[0] = userName;
         parameterDataArray[1] = gameName;
-        parameterDataArray[2] = purchasedRoute.findLength();
-        parameterDataArray[3] = first_location;
-        parameterDataArray[4] = second_location;
-        parameterDataArray[5] = purchasedRoute.getCardColor();
-        parameterDataArray[6] = numberOfWilds;
+        parameterDataArray[2] = purchasedRoute;
+        parameterDataArray[3] = numberOfWilds;
 
-        GeneralCommand newCommand = new GeneralCommand(className, methodName, parameterClassArray, parameterDataArray);
+        GeneralCommand newCommand = new GeneralCommand(methodName, parameterClassArray, parameterDataArray);
 
         ClientCommunicator communicator = new ClientCommunicator();
 
@@ -231,7 +222,7 @@ public class ServerProxy implements IServer {
 
     @Override
     public Result requestDestinationCards(String userName, String gameName) {
-        String className = RunGameFacade.class.getName();
+//        String className = RunGameFacade.class.getName();
         String methodName = "requestDestinationCards";
 
         Object[] parameterDataArray = new Object[2];
@@ -242,7 +233,7 @@ public class ServerProxy implements IServer {
         parameterDataArray[0] = userName;
         parameterDataArray[1] = gameName;
 
-        GeneralCommand newCommand = new GeneralCommand(className, methodName, parameterClassArray, parameterDataArray);
+        GeneralCommand newCommand = new GeneralCommand(methodName, parameterClassArray, parameterDataArray);
 
         ClientCommunicator communicator = new ClientCommunicator();
 
@@ -251,7 +242,7 @@ public class ServerProxy implements IServer {
 
     @Override
     public Result requestTicketCard(String userName, String gameName, Integer selectedCard, Boolean secondPick) {
-        String className = RunGameFacade.class.getName();
+//        String className = RunGameFacade.class.getName();
         String methodName = "requestTicketCard";
 
         Object[] parameterDataArray = new Object[4];
@@ -267,7 +258,7 @@ public class ServerProxy implements IServer {
         parameterDataArray[3] = secondPick;
 
 
-        GeneralCommand newCommand = new GeneralCommand(className, methodName, parameterClassArray, parameterDataArray);
+        GeneralCommand newCommand = new GeneralCommand(methodName, parameterClassArray, parameterDataArray);
 
         ClientCommunicator communicator = new ClientCommunicator();
 
@@ -276,22 +267,18 @@ public class ServerProxy implements IServer {
 
     @Override
     public Result postChatMessage(String gameName, ChatMessage chatMessage) {
-        String className = RunGameFacade.class.getName();
+//        String className = RunGameFacade.class.getName();
         String methodName = "postChatMessage";
 
-        Object[] parameterDataArray = new Object[4];
-        Class<?>[] parameterClassArray = new Class<?>[4];
+        Object[] parameterDataArray = new Object[2];
+        Class<?>[] parameterClassArray = new Class<?>[2];
 
         parameterClassArray[0] = String.class;
-        parameterClassArray[1] = String.class;
-        parameterClassArray[2] = String.class;
-        parameterClassArray[3] = String.class;
-        parameterDataArray[0] = chatMessage.getAuthorUserName();
-        parameterDataArray[1] = gameName;
-        parameterDataArray[2] = chatMessage.getMessageContents();
-        parameterDataArray[3] = chatMessage.getTimeStamp();
+        parameterClassArray[1] = ChatMessage.class;
+        parameterDataArray[0] = gameName;
+        parameterDataArray[1] = chatMessage;
 
-        GeneralCommand newCommand = new GeneralCommand(className, methodName, parameterClassArray, parameterDataArray);
+        GeneralCommand newCommand = new GeneralCommand(methodName, parameterClassArray, parameterDataArray);
 
         ClientCommunicator communicator = new ClientCommunicator();
 
@@ -329,7 +316,7 @@ public class ServerProxy implements IServer {
 
     @Override
     public Result requestGame(String gameName) {
-        String className = GameStartFacade.class.getName();
+//        String className = GameStartFacade.class.getName();
         String methodName = "requestGame";
 
         Class<?>[] parameterClassArray = new Class<?>[1];
@@ -337,7 +324,7 @@ public class ServerProxy implements IServer {
         Object[] parameterDataArray = new Object[1];
         parameterDataArray[0] = gameName;
 
-        GeneralCommand newCommand = new GeneralCommand(className, methodName, parameterClassArray, parameterDataArray);
+        GeneralCommand newCommand = new GeneralCommand(methodName, parameterClassArray, parameterDataArray);
 
         ClientCommunicator communicator = new ClientCommunicator();
 

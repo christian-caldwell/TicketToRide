@@ -21,7 +21,7 @@ public class NotInGame extends PlayerState {
         result.setSuccessful(false);
         if(clientModel.getUser().isHost()) {
             GameStartFacadeOut gameStartFacadeOut = new GameStartFacadeOut();
-            result = gameStartFacadeOut.startGame(clientModel.getUser().getGame().getGameName());
+            result = gameStartFacadeOut.startGame(clientModel.getUser().getGameJoined().getGameName());
         }
         clientModel.setState(YourTurnAwaitingDestinations.getInstance());
         return result;
