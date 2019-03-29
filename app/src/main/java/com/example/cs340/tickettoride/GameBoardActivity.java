@@ -921,6 +921,14 @@ public class GameBoardActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
+    public Integer getPurchaseCardColor() {
+        return TTR_Constants.getInstance().RED;
+    }
+
+    public Integer getPurchaseNumberWilds() {
+        return 0;
+    }
+
 
     public class UpdateAsyncTask extends AsyncTask<Void, Void, Void> {
         private GameBoardActivity activity;
