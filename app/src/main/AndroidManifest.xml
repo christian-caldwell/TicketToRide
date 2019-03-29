@@ -15,7 +15,9 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".GameOverActivity"></activity>
+        <activity
+            android:name=".GameOverActivity"
+            android:screenOrientation="landscape"></activity>
         <activity
             android:name=".GameBoardActivity"
             android:screenOrientation="landscape"

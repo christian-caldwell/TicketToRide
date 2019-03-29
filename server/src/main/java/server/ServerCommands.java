@@ -161,7 +161,9 @@ public class ServerCommands implements IServer {
                 chatMessage.setTimeStamp(sdf.format(timestamp));
                 targetGame.addChat(chatMessage);
 
-
+                if (targetGame.isLastRound()) {
+                    targetGame.findPlayer(userName).setDoneWithTurns(true);
+                }
                 result.setSuccessful(true);
             }
         }
@@ -187,7 +189,9 @@ public class ServerCommands implements IServer {
                 Timestamp timestamp = new Timestamp(date.getTime());
                 chatMessage.setTimeStamp(sdf.format(timestamp));
                 targetGame.addChat(chatMessage);
-
+                if (targetGame.isLastRound()) {
+                    targetGame.findPlayer(userName).setDoneWithTurns(true);
+                }
                 targetGame.incrementCurrentTurnPlayer();
                 result.setSuccessful(true);
             }
@@ -248,9 +252,15 @@ public class ServerCommands implements IServer {
                 return result;
             }
             else if (!secondPick && (card.getCardColor().equals(constants.WILD))) {
+                if (targetGame.isLastRound()) {
+                    targetGame.findPlayer(userName).setDoneWithTurns(true);
+                }
                 targetGame.incrementCurrentTurnPlayer();
             }
             else if (secondPick){
+                if (targetGame.isLastRound()) {
+                    targetGame.findPlayer(userName).setDoneWithTurns(true);
+                }
                 targetGame.incrementCurrentTurnPlayer();
             }
             Player targetplayer = targetGame.getPlayer(userName);

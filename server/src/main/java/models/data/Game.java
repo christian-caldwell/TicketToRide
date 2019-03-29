@@ -225,9 +225,9 @@ public class Game {
                     player.incrementScore(purchasedRoute.getPoints());
                     player.addRoute(purchasedRoute);
                     this.availableRoutes.remove(purchasedRoute);
-                    if (player.getTrainsRemaining() > 3) {
+                    if (player.getTrainsRemaining() < 3) {
                         this.lastRound = true;
-                        this.lastPlayerColor = player.getPlayerColor();
+                        player.setDoneWithTurns(true);
                     }
                     //TODO: calculate the longest route here and give player longest route if they have it.
                     return true;

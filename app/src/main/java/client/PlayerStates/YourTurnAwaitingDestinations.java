@@ -30,7 +30,7 @@ public class YourTurnAwaitingDestinations extends PlayerState {
             clientModel.setState(NotYourTurn.getInstance());
         }
         return result;
-    };
+    }
     public Result acceptPlayerAction(ClientModel clientModel){
         Result result = new Result();
         if(clientModel.getUser().getGameJoined().isLastTurn()) {
