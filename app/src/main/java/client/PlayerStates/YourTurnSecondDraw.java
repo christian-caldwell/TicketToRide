@@ -22,6 +22,8 @@ public class YourTurnSecondDraw extends PlayerState {
                 User user = clientModel.getUser();
                 clientModel.setState(NotYourTurn.getInstance());
                 return serverProxy.requestTicketCard(user.getUsername(), user.getGameJoined().getGameName(), cardNum, true);
+            } else {
+                return null;
             }
         } else {
             ServerProxy serverProxy = new ServerProxy();
@@ -29,10 +31,7 @@ public class YourTurnSecondDraw extends PlayerState {
             clientModel.setState(NotYourTurn.getInstance());
             return serverProxy.requestTicketCard(user.getUsername(), user.getGameJoined().getGameName(), cardNum, true);
         }
-        Result result = new Result();
-        result.setErrorMessage("cannot draw a wild card.");
-        result.setSuccessful(false);
-        return result;
+
     }
     public Result acceptPlayerAction(ClientModel clientModel){
         Result result = new Result();
