@@ -852,6 +852,7 @@ public class GameBoardActivity extends AppCompatActivity {
             adapter.setListOfMessages(chatMessages);
             adapter.notifyDataSetChanged();
             chatMessages = chatPresenter.getMessages();
+            ArrayList<Player> players = playerInfoPresenter.getPlayers();
 
             //FIXME: DONT SHOW DISCARD BUTTON ON OLD DESTINATION CARDS
             newDestinationCardList = playerInfoPresenter.getNewDestinationCardStrings();
@@ -877,10 +878,19 @@ public class GameBoardActivity extends AppCompatActivity {
 
 
 
-
-            //TODO: CHECK IF IT IS THE END OF THE GAME.  IF SO, START THE GAMEOVERACTIVITY
-            // if (gameOver)
-                // initiateGameOver();
+            Integer num = 0;
+            for (Player player: players) {
+                if (player.getDoneWithTurns()) {
+                    num++;
+                    continue;
+                }
+                else {
+                    break;
+                }
+            }
+            if (num == players.size()) {
+                initiateGameOver();
+            }
 
 
             mGreenTrainCard.setText("" + playersHandPresenter.getTrainCardAmount(1));
@@ -937,7 +947,7 @@ public class GameBoardActivity extends AppCompatActivity {
                 greenTurn.setVisibility(View.INVISIBLE);
             }
 
-            for (Player player : playerInfoPresenter.getPlayers()) {
+            for (Player player : players) {
                 Set<Route> routes = playerInfoPresenter.getPurchasedRoutesFromPlayer(player.getPlayerColor());
                 System.out.println("player: " + player.getUsername() + "\nroutes: " + player.getRoutesOwned());
                 for (Route route: routes) {

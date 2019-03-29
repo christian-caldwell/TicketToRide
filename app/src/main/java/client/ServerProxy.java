@@ -270,17 +270,13 @@ public class ServerProxy implements IServer {
 //        String className = RunGameFacade.class.getName();
         String methodName = "postChatMessage";
 
-        Object[] parameterDataArray = new Object[4];
-        Class<?>[] parameterClassArray = new Class<?>[4];
+        Object[] parameterDataArray = new Object[2];
+        Class<?>[] parameterClassArray = new Class<?>[2];
 
         parameterClassArray[0] = String.class;
-        parameterClassArray[1] = String.class;
-        parameterClassArray[2] = String.class;
-        parameterClassArray[3] = String.class;
-        parameterDataArray[0] = chatMessage.getAuthorUserName();
-        parameterDataArray[1] = gameName;
-        parameterDataArray[2] = chatMessage.getMessageContents();
-        parameterDataArray[3] = chatMessage.getTimeStamp();
+        parameterClassArray[1] = ChatMessage.class;
+        parameterDataArray[0] = gameName;
+        parameterDataArray[1] = chatMessage;
 
         GeneralCommand newCommand = new GeneralCommand(methodName, parameterClassArray, parameterDataArray);
 
