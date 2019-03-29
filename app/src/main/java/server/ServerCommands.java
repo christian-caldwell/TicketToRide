@@ -1,6 +1,9 @@
 package server;
 
 
+import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.UUID;
 
 import models.TTR_Constants;
@@ -17,6 +20,7 @@ public class ServerCommands implements IServer {
     private final int MAX_PLAYERS = 5;
     private ServerData serverData = ServerData.getInstance();
     private TTR_Constants constants = TTR_Constants.getInstance();
+    private static final SimpleDateFormat sdf = new SimpleDateFormat("HH.mm.ss");
 
     private ClientProxy clientProxy = new ClientProxy();
 
@@ -139,7 +143,19 @@ public class ServerCommands implements IServer {
                     targetPlayer.addToDestinationCardHand(card);
                 }
                 targetPlayer.resetNewDestinationCards();
+
                 targetGame.incrementNumPlayerActions();
+                ChatMessage chatMessage = new ChatMessage();
+                chatMessage.setAuthorUserName(userName);
+                chatMessage.setMessageContents("USER: " + userName + " has chosen which destination cards they will keep");
+                chatMessage.setContainsAnAction();
+
+                Date date = new Date();
+                Timestamp timestamp = new Timestamp(date.getTime());
+                chatMessage.setTimeStamp(sdf.format(timestamp));
+                targetGame.addChat(chatMessage);
+
+
                 result.setSuccessful(true);
             }
         }
@@ -154,6 +170,17 @@ public class ServerCommands implements IServer {
         if (targetGame != null){
             if (targetGame.purchaseRoute(userName, purchasedRoute, numberOfWilds)){
                 targetGame.incrementNumPlayerActions();
+
+                ChatMessage chatMessage = new ChatMessage();
+                chatMessage.setAuthorUserName(userName);
+                chatMessage.setMessageContents("USER: " + userName + " has requested a purchased a route");
+                chatMessage.setContainsAnAction();
+
+                Date date = new Date();
+                Timestamp timestamp = new Timestamp(date.getTime());
+                chatMessage.setTimeStamp(sdf.format(timestamp));
+                targetGame.addChat(chatMessage);
+
                 targetGame.incrementCurrentTurnPlayer();
                 result.setSuccessful(true);
             }
@@ -172,6 +199,18 @@ public class ServerCommands implements IServer {
             targetplayer.addToNewDestinationCardHand(targetGame.dealDestinationCard());
             targetplayer.addToNewDestinationCardHand(targetGame.dealDestinationCard());
             targetGame.incrementNumPlayerActions();
+
+            ChatMessage chatMessage = new ChatMessage();
+            chatMessage.setAuthorUserName(userName);
+            chatMessage.setMessageContents("USER: " + userName + " has requested a destination cards");
+            chatMessage.setContainsAnAction();
+
+            Date date = new Date();
+            Timestamp timestamp = new Timestamp(date.getTime());
+            chatMessage.setTimeStamp(sdf.format(timestamp));
+            targetGame.addChat(chatMessage);
+
+
             targetGame.incrementCurrentTurnPlayer();
             result.setSuccessful(true);
         }
@@ -186,6 +225,17 @@ public class ServerCommands implements IServer {
         if (targetGame != null){
             TrainCard card = targetGame.dealTicketCard(selectedCard);
             targetGame.incrementNumPlayerActions();
+
+            ChatMessage chatMessage = new ChatMessage();
+            chatMessage.setAuthorUserName(userName);
+            chatMessage.setMessageContents("USER: " + userName + " has requested a ticket card");
+            chatMessage.setContainsAnAction();
+            chatMessage.setContainsAnAction();
+
+            Date date = new Date();
+            Timestamp timestamp = new Timestamp(date.getTime());
+            chatMessage.setTimeStamp(sdf.format(timestamp));
+            targetGame.addChat(chatMessage);
 
             if (secondPick && (card.getCardColor().equals(constants.WILD))) {
                 return result;

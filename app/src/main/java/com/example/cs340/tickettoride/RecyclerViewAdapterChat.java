@@ -1,5 +1,6 @@
 package com.example.cs340.tickettoride;
 
+import android.graphics.Color;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -31,9 +32,28 @@ public class RecyclerViewAdapterChat  extends RecyclerView.Adapter<RecyclerViewA
     @Override
     public void onBindViewHolder(@NonNull final ViewHolder holder, final int position) {
 
-        holder.currentMessage.setText(listOfMessages.get(position).getMessageContents());
-        holder.timestamp.setText(listOfMessages.get(position).getTimeStamp());
-        holder.user.setText(listOfMessages.get(position).getAuthorUserName());
+        if (!listOfMessages.get(position).isContainsAnAction()) {
+            holder.currentMessage.setText(listOfMessages.get(position).getMessageContents());
+            holder.timestamp.setText(listOfMessages.get(position).getTimeStamp());
+            holder.user.setText(listOfMessages.get(position).getAuthorUserName());
+        }
+        else {
+            System.out.println("Action printed in chat");
+            holder.currentMessage.setTextColor(Color.RED);
+            holder.currentMessage.setAllCaps(true);
+            holder.currentMessage.setText(listOfMessages.get(position).getMessageContents());
+            holder.timestamp.setTextColor(Color.RED);
+            holder.timestamp.setAllCaps(true);
+            holder.timestamp.setText(listOfMessages.get(position).getTimeStamp());
+            holder.user.setTextColor(Color.RED);
+            holder.user.setAllCaps(true);
+            holder.user.setText(listOfMessages.get(position).getAuthorUserName());
+        }
+
+        //
+//        holder.currentMessage.setText(listOfMessages.get(position).getMessageContents());
+//        holder.timestamp.setText(listOfMessages.get(position).getTimeStamp());
+//        holder.user.setText(listOfMessages.get(position).getAuthorUserName());
     }
 
     public void setListOfMessages(ArrayList<ChatMessage> newArrayList) {
