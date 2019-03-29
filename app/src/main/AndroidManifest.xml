@@ -19,7 +19,8 @@
         <activity
             android:name=".GameBoardActivity"
             android:screenOrientation="landscape"
-            android:windowSoftInputMode="adjustResize|stateAlwaysHidden"></activity>
+
+            ></activity>
         <activity
             android:name=".RegisterViewActivity"
             android:screenOrientation="landscape"></activity>

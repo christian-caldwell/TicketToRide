@@ -1,7 +1,10 @@
 package com.example.cs340.tickettoride;
 
+import android.content.Context;
+import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.PorterDuff;
+import android.graphics.Rect;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
@@ -10,9 +13,12 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.DisplayMetrics;
+import android.util.TypedValue;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewTreeObserver;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -28,6 +34,7 @@ import java.util.Map;
 import java.util.Set;
 
 import client.ClientModel;
+import client.PlayerStates.YourTurnDefault;
 import client.ServerProxy;
 import models.TTR_Constants;
 import models.data.ChatMessage;
@@ -35,6 +42,7 @@ import models.data.Player;
 import models.data.Route;
 import view.presenter.CardDeckPresenter;
 import view.presenter.ChatPresenter;
+import view.presenter.DemoPresenter;
 import view.presenter.PlayerInfoPresenter;
 import view.presenter.PlayersHandPresenter;
 import view.presenter.RoutePresenter;
@@ -57,6 +65,8 @@ public class GameBoardActivity extends AppCompatActivity {
     private RecyclerViewAdapterChat adapter;
     private RecyclerViewAdapterDestinationCards destinationCardsAdapter;
     private EditText inputChatEditText;
+    private Button gameDemoButton;
+    private DemoPresenter mDemoPresenter;
     private Button sendMessageButton, playerInfoButton, doneButton;
     private Button mGreenTrainCard, mRedTrainCard, mPinkTrainCard, mYellowTrainCard,
             mWhiteTrainCard, mBlackTrainCard, mWildTrainCard, mBlueTrainCard, mOrangeTrainCard;
@@ -70,6 +80,8 @@ public class GameBoardActivity extends AppCompatActivity {
     private TextView three_destinationCards, three_trainCards, three_score, three_trainsLeft;
     private TextView four_destinationCards, four_trainCards, four_score, four_trainsLeft;
     private TextView five_destinationCards, five_trainCards, five_score, five_trainsLeft;
+    private String demoToast = "Players initialized at Zero Points, 48 trains, Color Set\n Game Initialized: Starting Player Set, Game Decks Filled\n Initial Actions: Players Handed 3 Dest Cards and 4 Tickets";
+    private int demoInterationNumber = 0;
     private ImageView blueTurn, redTurn, blackTurn, yellowTurn, greenTurn;
     private TextView player1_username, player2_username, player3_username, player4_username, player5_username;
     private DrawerLayout activityLayout;
@@ -83,13 +95,39 @@ public class GameBoardActivity extends AppCompatActivity {
     }
 
     @Override
+    public void onWindowFocusChanged(boolean hasFocus) {
+        super.onWindowFocusChanged(hasFocus);
+        if (hasFocus) {
+            hideSystemUI();
+        }
+    }
+
+    private void hideSystemUI() {
+        // Enables sticky immersive mode.
+        // For "lean back" mode, remove SYSTEM_UI_FLAG_IMMERSIVE.
+        // Or for "sticky immersive," replace it with SYSTEM_UI_FLAG_IMMERSIVE_STICKY
+        View decorView = getWindow().getDecorView();
+        decorView.setSystemUiVisibility(
+                View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY
+                        // Set the content to appear under the system bars so that the
+                        // content doesn't resize when the system bars hide and show.
+                        | View.SYSTEM_UI_FLAG_LAYOUT_STABLE
+                        | View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
+                        | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
+                        // Hide the nav bar and status bar
+                        | View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
+                        | View.SYSTEM_UI_FLAG_FULLSCREEN);
+    }
+
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
+
         clientModel = ClientModel.create();
         super.onCreate(savedInstanceState);
         StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
         StrictMode.setThreadPolicy(policy);
         setContentView(R.layout.activity_game_board);
-        final View decorView = getWindow().getDecorView();
+
         playerColorValues = new HashMap();
         trainCardImages = new HashMap<>();
         playerColorValues.put(TTR_Constants.getInstance().BLACK_PLAYER, R.drawable.black_background);
@@ -108,14 +146,29 @@ public class GameBoardActivity extends AppCompatActivity {
         trainCardImages.put(TTR_Constants.getInstance().WILD, R.drawable.train_card_wild);
         trainCardImages.put(TTR_Constants.getInstance().YELLOW, R.drawable.train_card_yellow);
 
-        // Hide both the navigation bar and the status bar.
-        int uiOptions = View.SYSTEM_UI_FLAG_LAYOUT_STABLE
-                | View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
-                | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
-                | View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
-                | View.SYSTEM_UI_FLAG_FULLSCREEN
-                | View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY;
-        decorView.setSystemUiVisibility(uiOptions);
+        final View decorView = getWindow().getDecorView();
+
+
+        decorView.setOnSystemUiVisibilityChangeListener
+                (new View.OnSystemUiVisibilityChangeListener() {
+                    @Override
+                    public void onSystemUiVisibilityChange(int visibility) {
+                        // Note that system bars will only be "visible" if none of the
+                        // LOW_PROFILE, HIDE_NAVIGATION, or FULLSCREEN flags are set.
+                        if ((visibility & View.SYSTEM_UI_FLAG_FULLSCREEN) == 0) {
+                            // TODO: The system bars are visible. Make any desired
+                            // adjustments to your UI, such as showing the action bar or
+                            // other navigational controls.
+                            System.out.print("faj");
+                        } else {
+                            // TODO: The system bars are NOT visible. Make any desired
+                            // adjustments to your UI, such as hiding the action bar or
+                            // other navigational controls.
+                            System.out.print("faj");
+                        }
+                    }
+                });
+
         chatPresenter = new ChatPresenter(this);
         cardDeckPresenter = new CardDeckPresenter(this);
         playerInfoPresenter = new PlayerInfoPresenter(this);
@@ -139,28 +192,58 @@ public class GameBoardActivity extends AppCompatActivity {
                 inputChatEditText.setText("");
             }
         });
+        gameDemoButton = findViewById(R.id.gameDemoButon);
+        gameDemoButton.setOnClickListener(new View.OnClickListener() {
+            // When the sendMessage button is clicked, send the text to the presenter.addMessage function
+            @Override
+            public void onClick(View v) {
+                /*if (demoToast.equals("")){*/
+                    demoInterationNumber++;
+                    mDemoPresenter = ClientModel.create().getDemoPresenter();
+                    mDemoPresenter.setGameActivity(GameBoardActivity.this);
+                    demoToast = mDemoPresenter.gameDemo();
+                    Toast.makeText(GameBoardActivity.this, demoToast, Toast.LENGTH_LONG).show();
+              /*  }
+                else {
+                    Toast.makeText(GameBoardActivity.this, "Run Demo Iteration " + demoInterationNumber, Toast.LENGTH_SHORT).show();
+                    demoToast = "";
+                }*/
 
-        // Open up a popup window when 'Player info' button is pressed
+                //FIXME: Break up game demo into multiple button presses. Remove waits?
+//                mDemoPresenter.runNextDemo();
+            }
+        });
+        doneButton = mPopupWindow.getContentView().findViewById(R.id.done_button);
+
+        // Open up a popup window when 'Player destination Cards' button is pressed
         playerInfoButton = findViewById(R.id.get_player_info_button);
         playerInfoButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 mPopupWindow.showAtLocation(activityLayout, Gravity.CENTER,0,0);
-                doneButton = mPopupWindow.getContentView().findViewById(R.id.done_button);
+                /*
+                // Re-enable the done button if there are cards to discard
+                if (playerInfoPresenter.getNewDestinationCardStrings().size() > 0) {
+                    doneButton.getBackground().setColorFilter(null);
+                    doneButton.setAlpha(1);
+                    doneButton.setEnabled(true);
+                }
+                else {
+                    doneButton.getBackground().setColorFilter(Color.DKGRAY, PorterDuff.Mode.MULTIPLY);
+                    doneButton.setAlpha(.5f);
+                    doneButton.setEnabled(false);
+                }
+                */
                 doneButton.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        // TODO: WE WILL HAVE TO RE-ENABLE THIS DONE BUTTON AT SOME POINT AFTER THE PLAYER DRAWS
-                        // MORE DESTINATION CARDS AGAIN
                         v.getBackground().setColorFilter(Color.DKGRAY, PorterDuff.Mode.MULTIPLY);
                         v.setAlpha(.5f);
                         v.setEnabled(false);
-                        if (playerInfoPresenter.returnDestinationCards() != null) {
-                            Toast.makeText(GameBoardActivity.this, "successfully returned destination cards.", Toast.LENGTH_SHORT).show();
-                        }
-                        else {
+                        if (playerInfoPresenter.returnDestinationCards() != null)
+                            Toast.makeText(GameBoardActivity.this, "Successfully returned destination cards.", Toast.LENGTH_SHORT).show();
+                        else
                             Toast.makeText(GameBoardActivity.this, "Cannot return destination cards", Toast.LENGTH_SHORT).show();
-                        }
                     }
                 });
             }
@@ -171,14 +254,23 @@ public class GameBoardActivity extends AppCompatActivity {
         player4_username = findViewById(R.id.player4_name_text_view);
         player5_username = findViewById(R.id.player5_name_text_view);
         mGreenTrainCard = findViewById(R.id.greenCard);
+        mGreenTrainCard.setShadowLayer(5,0,0,Color.BLACK);
         mRedTrainCard = findViewById(R.id.redCard);
+        mRedTrainCard.setShadowLayer(5,0,0,Color.BLACK);
         mPinkTrainCard = findViewById(R.id.pinkCard);
+        mPinkTrainCard.setShadowLayer(5,0,0,Color.BLACK);
         mYellowTrainCard = findViewById(R.id.yellowCard);
+        mYellowTrainCard.setShadowLayer(5,0,0,Color.BLACK);
         mWhiteTrainCard = findViewById(R.id.whiteCard);
+        mWhiteTrainCard.setShadowLayer(5,0,0,Color.BLACK);
         mBlackTrainCard = findViewById(R.id.blackCard);
+        mBlackTrainCard.setShadowLayer(5,0,0,Color.BLACK);
         mWildTrainCard = findViewById(R.id.wildCard);
+        mWildTrainCard.setShadowLayer(5,0,0,Color.BLACK);
         mBlueTrainCard = findViewById(R.id.blueCard);
+        mBlueTrainCard.setShadowLayer(5,0,0,Color.BLACK);
         mOrangeTrainCard = findViewById(R.id.orangeCard);
+        mOrangeTrainCard.setShadowLayer(5,0,0,Color.BLACK);
         one_destinationCards = findViewById(R.id.player1_destination_cards_text_view);
         one_score = findViewById(R.id.player1_score_text_view);
         one_trainCards = findViewById(R.id.player1_train_cards_text_view);
@@ -237,6 +329,7 @@ public class GameBoardActivity extends AppCompatActivity {
 
 
         destinationCardDeck = findViewById(R.id.destination_card_deck);
+        destinationCardDeck.setShadowLayer(5,0,0,Color.BLACK);
         destinationCardDeck.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -250,6 +343,7 @@ public class GameBoardActivity extends AppCompatActivity {
         });
 
         trainCardDeck = findViewById(R.id.train_card_deck);
+        trainCardDeck.setShadowLayer(5,0,0,Color.BLACK);
         trainCardDeck.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -823,8 +917,8 @@ public class GameBoardActivity extends AppCompatActivity {
     }
 
     public void initiateGameOver() {
-        // Intent intent = new Intent(GameBoardActivity.this, GameOverActivity.class);
-        // startActivity(intent);
+        Intent intent = new Intent(GameBoardActivity.this, GameOverActivity.class);
+        startActivity(intent);
     }
 
 
@@ -854,15 +948,8 @@ public class GameBoardActivity extends AppCompatActivity {
             chatMessages = chatPresenter.getMessages();
             ArrayList<Player> players = playerInfoPresenter.getPlayers();
 
-            //FIXME: DONT SHOW DISCARD BUTTON ON OLD DESTINATION CARDS
             newDestinationCardList = playerInfoPresenter.getNewDestinationCardStrings();
             currentDestinationCardList = playerInfoPresenter.getDestinationCardStrings();
-            //currentDestinationCardList.addAll(newDestinationCardList);
-
-
-
-
-
             ArrayList<String> allCards = new ArrayList<>();
             allCards.addAll(newDestinationCardList);
             allCards.addAll(currentDestinationCardList);
@@ -874,9 +961,17 @@ public class GameBoardActivity extends AppCompatActivity {
             destinationCardsAdapter.setListOfDestinationCards(allCards, discardButtons, lengthOfNewDestinationCards);
             destinationCardsAdapter.notifyDataSetChanged();
 
-
-
-
+            // Re-enable the done button if there are cards to discard
+            if (playerInfoPresenter.getNewDestinationCardStrings().size() > 0) {
+                doneButton.getBackground().setColorFilter(null);
+                doneButton.setAlpha(1);
+                doneButton.setEnabled(true);
+            }
+            else {
+                doneButton.getBackground().setColorFilter(Color.DKGRAY, PorterDuff.Mode.MULTIPLY);
+                doneButton.setAlpha(.5f);
+                doneButton.setEnabled(false);
+            }
 
             Integer num = 0;
             for (Player player: players) {
