@@ -42,7 +42,7 @@ import models.data.Player;
 import models.data.Route;
 import view.presenter.CardDeckPresenter;
 import view.presenter.ChatPresenter;
-import view.presenter.DemoPresenter;
+//import view.presenter.DemoPresenter;
 import view.presenter.PlayerInfoPresenter;
 import view.presenter.PlayersHandPresenter;
 import view.presenter.RoutePresenter;
@@ -65,8 +65,8 @@ public class GameBoardActivity extends AppCompatActivity {
     private RecyclerViewAdapterChat adapter;
     private RecyclerViewAdapterDestinationCards destinationCardsAdapter;
     private EditText inputChatEditText;
-    private Button gameDemoButton;
-    private DemoPresenter mDemoPresenter;
+//     private Button gameDemoButton;
+//     private DemoPresenter mDemoPresenter;
     private Button sendMessageButton, playerInfoButton, doneButton;
     private Button mGreenTrainCard, mRedTrainCard, mPinkTrainCard, mYellowTrainCard,
             mWhiteTrainCard, mBlackTrainCard, mWildTrainCard, mBlueTrainCard, mOrangeTrainCard;
@@ -192,27 +192,27 @@ public class GameBoardActivity extends AppCompatActivity {
                 inputChatEditText.setText("");
             }
         });
-        gameDemoButton = findViewById(R.id.gameDemoButon);
-        gameDemoButton.setOnClickListener(new View.OnClickListener() {
-            // When the sendMessage button is clicked, send the text to the presenter.addMessage function
-            @Override
-            public void onClick(View v) {
-                /*if (demoToast.equals("")){*/
-                    demoInterationNumber++;
-                    mDemoPresenter = ClientModel.create().getDemoPresenter();
-                    mDemoPresenter.setGameActivity(GameBoardActivity.this);
-                    demoToast = mDemoPresenter.gameDemo();
-                    Toast.makeText(GameBoardActivity.this, demoToast, Toast.LENGTH_LONG).show();
-              /*  }
-                else {
-                    Toast.makeText(GameBoardActivity.this, "Run Demo Iteration " + demoInterationNumber, Toast.LENGTH_SHORT).show();
-                    demoToast = "";
-                }*/
+//         gameDemoButton = findViewById(R.id.gameDemoButon);
+//         gameDemoButton.setOnClickListener(new View.OnClickListener() {
+//             // When the sendMessage button is clicked, send the text to the presenter.addMessage function
+//             @Override
+//             public void onClick(View v) {
+//                 /*if (demoToast.equals("")){*/
+//                     demoInterationNumber++;
+//                     mDemoPresenter = ClientModel.create().getDemoPresenter();
+//                     mDemoPresenter.setGameActivity(GameBoardActivity.this);
+//                     demoToast = mDemoPresenter.gameDemo();
+//                     Toast.makeText(GameBoardActivity.this, demoToast, Toast.LENGTH_LONG).show();
+//               /*  }
+//                 else {
+//                     Toast.makeText(GameBoardActivity.this, "Run Demo Iteration " + demoInterationNumber, Toast.LENGTH_SHORT).show();
+//                     demoToast = "";
+//                 }*/
 
-                //FIXME: Break up game demo into multiple button presses. Remove waits?
-//                mDemoPresenter.runNextDemo();
-            }
-        });
+//                 //FIXME: Break up game demo into multiple button presses. Remove waits?
+// //                mDemoPresenter.runNextDemo();
+//             }
+//         });
         doneButton = mPopupWindow.getContentView().findViewById(R.id.done_button);
 
         // Open up a popup window when 'Player destination Cards' button is pressed
