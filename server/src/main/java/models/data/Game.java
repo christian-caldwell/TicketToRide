@@ -148,7 +148,7 @@ public class Game {
     }
     public void reshuffleTicketDecks() {
         for (TrainCard card:this.faceUpTrainCards) {
-            this.ticketCardDiscard.put(card.getCardColor(), ticketCardDeck.get(card.getCardColor()) + 1);
+            this.ticketCardDiscard.put(card.getCardColor(), ticketCardDiscard.get(card.getCardColor()) + 1);
         }
         for (Integer color: this.ticketCardDiscard.keySet()){
             this.ticketCardDeck.put(color,this.ticketCardDeck.get(color) + this.ticketCardDiscard.get(color));
