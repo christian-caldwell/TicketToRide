@@ -147,14 +147,14 @@ public class Game {
         this.ticketCardDiscard = ticketCardDiscard;
     }
     public void reshuffleTicketDecks() {
-        for (TrainCard card:this.faceUpTrainCards) {
-            this.ticketCardDiscard.put(card.getCardColor(), ticketCardDeck.get(card.getCardColor()) + 1);
-        }
-        for (Integer color: this.ticketCardDiscard.keySet()){
-            this.ticketCardDeck.put(color,this.ticketCardDeck.get(color) + this.ticketCardDiscard.get(color));
-        }
-
-        dealFaceUpTicketCards();
+//        for (TrainCard card:this.faceUpTrainCards) {
+//            this.ticketCardDiscard.put(card.getCardColor(), ticketCardDeck.get(card.getCardColor()) + 1);
+//        }
+//        for (Integer color: this.ticketCardDiscard.keySet()){
+//            this.ticketCardDeck.put(color,this.ticketCardDeck.get(color) + this.ticketCardDiscard.get(color));
+//        }
+//
+//        dealFaceUpTicketCards();
     }
 //////////////////////////////////////////////////////////////////////////////
 
