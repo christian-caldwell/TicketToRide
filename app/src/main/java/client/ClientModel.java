@@ -158,8 +158,6 @@ public class ClientModel extends Observable {
 
     }
 
-
-
     public GameLobbyPresenter getGameLobbyPresenter() {
         return mGameLobbyPresenter;
     }
