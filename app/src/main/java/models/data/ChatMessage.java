@@ -6,6 +6,7 @@ public class ChatMessage {
     private String authorUserName;
     private String messageContents;
     private String timeStamp;
+    private boolean containsAnAction = false;
 
     public ChatMessage() {
     }
@@ -37,5 +38,13 @@ public class ChatMessage {
     //constructor
     public void ChatMessage(String authorUserName, String messageContents, Date timeStamp) {
 
+    }
+
+    public boolean isContainsAnAction() {
+        return containsAnAction;
+    }
+
+    public void setContainsAnAction() {
+        this.containsAnAction = true;
     }
 }
