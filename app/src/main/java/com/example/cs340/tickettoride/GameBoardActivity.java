@@ -1,5 +1,6 @@
 package com.example.cs340.tickettoride;
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.PorterDuff;
 import android.os.AsyncTask;
@@ -823,8 +824,8 @@ public class GameBoardActivity extends AppCompatActivity {
     }
 
     public void initiateGameOver() {
-        // Intent intent = new Intent(GameBoardActivity.this, GameOverActivity.class);
-        // startActivity(intent);
+        Intent intent = new Intent(GameBoardActivity.this, GameOverActivity.class);
+        startActivity(intent);
     }
 
 
@@ -873,9 +874,6 @@ public class GameBoardActivity extends AppCompatActivity {
             lengthOfNewDestinationCards = newDestinationCardList.size();
             destinationCardsAdapter.setListOfDestinationCards(allCards, discardButtons, lengthOfNewDestinationCards);
             destinationCardsAdapter.notifyDataSetChanged();
-
-
-
 
 
             Integer num = 0;

@@ -150,14 +150,6 @@ public class ClientModel extends Observable {
         this.newGameList.clear();
     }
 
-    //not implemented
-    private Player initGame(String userName) {
-        return null;
-    }
-    private void initHands() {
-
-    }
-
     public GameLobbyPresenter getGameLobbyPresenter() {
         return mGameLobbyPresenter;
     }
