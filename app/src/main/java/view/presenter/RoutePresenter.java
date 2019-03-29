@@ -36,12 +36,24 @@ public class RoutePresenter implements IRoutePresenter, Observer {
     public Boolean purchase(Route route) {
         System.out.println("Trying to purchase a route!");
         Boolean routeDrawn = hasBeenDrawn.get(route);
+        Route pair = TTR_Constants.getInstance().getRouteToPair().get(route);
         if (routeDrawn == null) {
             System.out.println("ERROR: routeDrawn in purchase method is null...");
+            return false;
         }
         else if (routeDrawn){
             System.out.println("route has already been drawn");
             return false;
+        }
+        else if (pair != null) {
+            Boolean pairDrawn = hasBeenDrawn.get(pair);
+            ClientModel model = ClientModel.create();
+            if (pairDrawn == null) {
+                System.out.println("ERROR: pair is not null, but pairDrawn is null...");
+            }
+            else if (pairDrawn && (model.getPlayer().getRoutesOwned().contains(pair) || model.getActiveGame().getPlayers().size() < 4)) {
+                return false;
+            }
         }
         System.out.println("routeDrawn is false. Proceeding");
 
