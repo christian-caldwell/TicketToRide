@@ -171,13 +171,13 @@ public class ServerCommands implements IServer {
     }
 
     @Override
-    public Result purchaseRoute(String userName, String gameName, Route purchasedRoute, Integer numberOfWilds) {
+    public Result purchaseRoute(String userName, String gameName, Route purchasedRoute, Integer numberOfWilds, Integer colorUsed) {
         Result result = new Result();
         result.setSuccessful(false);
         Game targetGame = serverData.findGame(gameName);
         if (targetGame != null) {
 //            if ()
-            if (targetGame.purchaseRoute(userName, purchasedRoute, numberOfWilds)){
+            if (targetGame.purchaseRoute(userName, purchasedRoute, numberOfWilds, colorUsed)){
                 targetGame.incrementNumPlayerActions();
 
                 ChatMessage chatMessage = new ChatMessage();

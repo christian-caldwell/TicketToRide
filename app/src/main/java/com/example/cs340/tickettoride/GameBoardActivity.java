@@ -70,6 +70,7 @@ public class GameBoardActivity extends AppCompatActivity {
     private Button mGreenTrainCard, mRedTrainCard, mPinkTrainCard, mYellowTrainCard,
             mWhiteTrainCard, mBlackTrainCard, mWildTrainCard, mBlueTrainCard, mOrangeTrainCard;
     private Button destinationCardDeck, trainCardDeck, cardOne, cardTwo, cardThree, cardFour, cardFive;
+    private Button redDeck, blueDeck, greenDeck, yellowDeck, purpleDeck, orangeDeck, whiteDeck, blackDeck, rainbowDeck;
     private ImageView gameBoard;
     private Map playerColorValues;
     private Map trainCardImages;
@@ -85,6 +86,8 @@ public class GameBoardActivity extends AppCompatActivity {
     private ClientModel clientModel;
     private ArrayList<Button> discardButtons;
     private int lengthOfNewDestinationCards;
+    private Integer selectedTicketColor = TTR_Constants.getInstance().EMPTY;
+
 
     @Override
     public void onBackPressed() {
@@ -407,10 +410,137 @@ public class GameBoardActivity extends AppCompatActivity {
         cardThree.setBackgroundResource((int) trainCardImages.get(cardDeckPresenter.getTrainCardAtPosition(3)));
         cardTwo.setBackgroundResource((int) trainCardImages.get(cardDeckPresenter.getTrainCardAtPosition(2)));
         cardOne.setBackgroundResource((int) trainCardImages.get(cardDeckPresenter.getTrainCardAtPosition(1)));
+
+        mWhiteTrainCard.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (getSelectedTicketColor() == TTR_Constants.getInstance().WHITE) {
+                    Toast.makeText(GameBoardActivity.this, "This color is already selected as your designated purchasing color", Toast.LENGTH_SHORT).show();
+                }
+                else {
+                    setSelectedTicketColor(TTR_Constants.getInstance().WHITE);
+                    Toast.makeText(GameBoardActivity.this, "You have selected WHITE as your designated purchasing color", Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+
+        mBlackTrainCard.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (getSelectedTicketColor() == TTR_Constants.getInstance().BLACK) {
+                    Toast.makeText(GameBoardActivity.this, "This color is already selected as your designated purchasing color", Toast.LENGTH_SHORT).show();
+                }
+                else {
+                    setSelectedTicketColor(TTR_Constants.getInstance().BLACK);
+                    Toast.makeText(GameBoardActivity.this, "You have selected BLACK as your designated purchasing color", Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+
+        mBlueTrainCard.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if ((getSelectedTicketColor()) == TTR_Constants.getInstance().BLUE) {
+                    Toast.makeText(GameBoardActivity.this, "This color is already selected as your designated purchasing color", Toast.LENGTH_SHORT).show();
+                }
+                else {
+                    setSelectedTicketColor(TTR_Constants.getInstance().BLUE);
+                    Toast.makeText(GameBoardActivity.this, "You have selected BLUE as your designated purchasing color", Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+
+        mGreenTrainCard.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (getSelectedTicketColor() == TTR_Constants.getInstance().GREEN) {
+                    Toast.makeText(GameBoardActivity.this, "This color is already selected as your designated purchasing color", Toast.LENGTH_SHORT).show();
+                }
+                else {
+                    setSelectedTicketColor(TTR_Constants.getInstance().GREEN);
+                    Toast.makeText(GameBoardActivity.this, "You have selected GREEN as your designated purchasing color", Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+
+        mRedTrainCard.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (getSelectedTicketColor() ==TTR_Constants.getInstance().RED) {
+                    Toast.makeText(GameBoardActivity.this, "This color is already selected as your designated purchasing color", Toast.LENGTH_SHORT).show();
+                }
+                else {
+                    setSelectedTicketColor(TTR_Constants.getInstance().RED);
+                    Toast.makeText(GameBoardActivity.this, "You have selected RED as your designated purchasing color", Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+
+        mYellowTrainCard.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (getSelectedTicketColor() ==TTR_Constants.getInstance().YELLOW) {
+                    Toast.makeText(GameBoardActivity.this, "This color is already selected as your designated purchasing color", Toast.LENGTH_SHORT).show();
+                }
+                else {
+                    setSelectedTicketColor(TTR_Constants.getInstance().YELLOW);
+                    Toast.makeText(GameBoardActivity.this, "You have selected YELLOW as your designated purchasing color", Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+
+        mPinkTrainCard.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (getSelectedTicketColor() ==TTR_Constants.getInstance().PURPLE) {
+                    Toast.makeText(GameBoardActivity.this, "This color is already selected as your designated purchasing color", Toast.LENGTH_SHORT).show();
+                }
+                else {
+                    setSelectedTicketColor(TTR_Constants.getInstance().PURPLE);
+                    Toast.makeText(GameBoardActivity.this, "You have selected PURPLE as your designated purchasing color", Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+
+        mOrangeTrainCard.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (getSelectedTicketColor() ==TTR_Constants.getInstance().ORANGE) {
+                    Toast.makeText(GameBoardActivity.this, "This color is already selected as your designated purchasing color", Toast.LENGTH_SHORT).show();
+                }
+                else {
+                    setSelectedTicketColor(TTR_Constants.getInstance().ORANGE);
+                    Toast.makeText(GameBoardActivity.this, "You have selected ORANGE as your designated purchasing color", Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+
+        mWildTrainCard.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (getSelectedTicketColor() ==TTR_Constants.getInstance().WILD) {
+                    Toast.makeText(GameBoardActivity.this, "This color is already selected as your designated purchasing color", Toast.LENGTH_SHORT).show();
+                }
+                else {
+                    setSelectedTicketColor(TTR_Constants.getInstance().WILD);
+                    Toast.makeText(GameBoardActivity.this, "You have selected WILD as your designated purchasing color", Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+
         destinationCardDeck.setText("" + cardDeckPresenter.getDestinationCardsLeft());
         trainCardDeck.setText("" + cardDeckPresenter.getTrainCardsLeft());
         gameBoard = findViewById(R.id.game_board_pic);
         new UpdateAsyncTask(this).execute();
+    }
+
+    public void popToast(String output, boolean longMessage){
+        if (longMessage)    {
+            Toast.makeText(GameBoardActivity.this, output, Toast.LENGTH_LONG).show();
+        }
+        else {
+            Toast.makeText(GameBoardActivity.this, output, Toast.LENGTH_SHORT).show();
+        }
     }
 
     private void initDestinationCardsRecyclerView() {
@@ -676,11 +806,11 @@ public class GameBoardActivity extends AppCompatActivity {
     }
 
     public void change_color_boston_newyork_g2(View view) {//2
-        routePresenter.purchase(TTR_Constants.getInstance().R_NYC_TO_BOS_2);
+        routePresenter.purchase(TTR_Constants.getInstance().R_NYC_TO_BOS_1);
     }
 
     public void change_color_boston_newyork_g1(View view) {//2
-        routePresenter.purchase(TTR_Constants.getInstance().R_NYC_TO_BOS_1);
+        routePresenter.purchase(TTR_Constants.getInstance().R_NYC_TO_BOS_2);
     }
 
     public void change_color_montreal_boston_g2(View view) {//2
@@ -902,12 +1032,16 @@ public class GameBoardActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
-    public Integer getPurchaseCardColor() {
-        return TTR_Constants.getInstance().RED;
+    public Integer getSelectedTicketColor() {
+        return selectedTicketColor;
+    }
+
+    public void setSelectedTicketColor(Integer selectedTicketColor) {
+        this.selectedTicketColor = selectedTicketColor;
     }
 
     public Integer getPurchaseNumberWilds() {
-        return 0;
+        return  playersHandPresenter.getTrainCardAmount(9);
     }
 
 

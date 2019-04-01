@@ -198,7 +198,7 @@ public class Game {
     public void setAvailableRoutes(Set<Route> availableRoutes) {
         this.availableRoutes = availableRoutes;
     }
-    public boolean purchaseRoute(String playerName, Route purchasedRoute, Integer numberOfWilds) {
+    public boolean purchaseRoute(String playerName, Route purchasedRoute, Integer numberOfWilds, Integer colorUsed) {
         if (!this.availableRoutes.contains(purchasedRoute)) {
             return false;
         }
@@ -209,6 +209,9 @@ public class Game {
                     //check if the player has the cards and the train markers to make this purchase
                     player.decrementTrainsRemaining(purchasedRoute.findLength());
                     Integer color = purchasedRoute.getCardColor();
+                    if (color == TTR_Constants.getInstance().WILD) {
+                        color = colorUsed;
+                    }
                     Integer numberOfNonWilds = purchasedRoute.findLength() - numberOfWilds;
                     this.ticketCardDiscard.put(color, this.ticketCardDiscard.get(color) + numberOfNonWilds);
                     player.removeTicketsFromHand(color, numberOfNonWilds);
@@ -227,7 +230,7 @@ public class Game {
                     player.incrementScore(purchasedRoute.getPoints());
                     player.addRoute(purchasedRoute);
                     this.availableRoutes.remove(purchasedRoute);
-                    if (player.getTrainsRemaining() > 3) {
+                    if (player.getTrainsRemaining() > 3  && !lastRound) {
                         this.lastRound = true;
                         this.lastPlayerColor = player.getPlayerColor();
                     }

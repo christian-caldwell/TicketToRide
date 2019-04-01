@@ -193,7 +193,7 @@ public class ServerProxy implements IServer {
     }
 
     @Override
-    public Result purchaseRoute(String userName, String gameName, Route purchasedRoute, Integer numberOfWilds) {
+    public Result purchaseRoute(String userName, String gameName, Route purchasedRoute, Integer numberOfWilds, Integer colorUsed) {
 //        String className = RunGameFacade.class.getName();
         String methodName = "purchaseRoute";
 
@@ -201,17 +201,19 @@ public class ServerProxy implements IServer {
         String first_location = location[0];
         String second_location = location[1];
 
-        Object[] parameterDataArray = new Object[4];
-        Class<?>[] parameterClassArray = new Class<?>[4];
+        Object[] parameterDataArray = new Object[5];
+        Class<?>[] parameterClassArray = new Class<?>[5];
 
         parameterClassArray[0] = String.class;
         parameterClassArray[1] = String.class;
         parameterClassArray[2] = Route.class;
         parameterClassArray[3] = Integer.class;
+        parameterClassArray[4] = Integer.class;
         parameterDataArray[0] = userName;
         parameterDataArray[1] = gameName;
         parameterDataArray[2] = purchasedRoute;
         parameterDataArray[3] = numberOfWilds;
+        parameterDataArray[4] = colorUsed;
 
         GeneralCommand newCommand = new GeneralCommand(methodName, parameterClassArray, parameterDataArray);
 

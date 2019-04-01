@@ -39,9 +39,9 @@ public class YourTurnDefault extends PlayerState {
         return result;
     }
 
-    public Result purchaseRoute(ClientModel clientModel, Route route, int numberOfWilds) {
+    public Result purchaseRoute(ClientModel clientModel, Route route, int numberOfWilds, int colorUsed) {
         Result result = new Result();
-        result = serverProxy.purchaseRoute(clientModel.getUser().getUsername(), clientModel.getUser().getGameJoined().getGameName(), route, numberOfWilds);
+        result = serverProxy.purchaseRoute(clientModel.getUser().getUsername(), clientModel.getUser().getGameJoined().getGameName(), route, numberOfWilds, colorUsed);
         if (result.isSuccessful()) {
             clientModel.setState(NotYourTurn.getInstance());
         }
