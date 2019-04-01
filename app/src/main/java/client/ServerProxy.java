@@ -96,13 +96,11 @@ public class ServerProxy implements IServer {
         Object[] params = new Object[1];
         params[0] = newUser;
 
-        Object[] parameterDataArray = new Object[2];
-        Class<?>[] parameterClassArray = new Class<?>[2];
+        Object[] parameterDataArray = new Object[1];
+        Class<?>[] parameterClassArray = new Class<?>[1];
 
-        parameterClassArray[0] = String.class;
-        parameterClassArray[1] = String.class;
-        parameterDataArray[0] = newUser.getUsername();
-        parameterDataArray[1] = newUser.getPassword();
+        parameterClassArray[0] = User.class;
+        parameterDataArray[0] = newUser;
 
         GeneralCommand newCommand = new GeneralCommand(methodName, parameterClassArray, parameterDataArray);
 
