@@ -52,7 +52,7 @@ public class RoutePresenter implements IRoutePresenter, Observer {
             return false;
         }
         else if (routeDrawn){
-            String output = "route has already been drawn";
+            String output = "route has already been bought";
             System.out.println(output);
             activity.popToast(output, false);
             return false;
