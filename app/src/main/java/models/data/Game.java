@@ -104,25 +104,38 @@ public class Game {
     public TrainCard dealTicketCard(int position) {
         TrainCard dealtCard = new TrainCard(0);
         if (position == 0) {
-            Integer dealtCardColor = null;
             int remainingCardCount = 0;
+            Random generator = new Random();
+            Integer dealtCardColor = generator.nextInt(9) + 1;
+            Integer originalDealtCardColor = null;
 
             do {
-                Random generator = new Random();
-                dealtCardColor = generator.nextInt(9) + 1;
+                if (originalDealtCardColor == null) {
+                    originalDealtCardColor = dealtCardColor;
+                }
+                else if (originalDealtCardColor == dealtCardColor) {
+                    dealtCard.setCardColor(0);
+                    TrainCard newCard = new TrainCard();
+                    newCard.setCardColor(0);
+                    return newCard;
+                }
+
+                if (dealtCardColor == 9) {
+                    dealtCardColor = 0;
+                }
+                dealtCardColor++;
+
                 dealtCard.setCardColor(dealtCardColor);
                 remainingCardCount = this.ticketCardDeck.get(dealtCardColor);
-                //FIXME: code altered to always deal a ticket card, even if there should be no cards of that color left
-                if (remainingCardCount == 0) {
-                    remainingCardCount++;
-                }
             } while (remainingCardCount == 0);
 
             this.ticketCardDeck.put(dealtCardColor,remainingCardCount - 1);
         }
         else if (position < 6) {
             dealtCard = this.faceUpTrainCards[position - 1];
-            this.faceUpTrainCards[position - 1] = dealTicketCard(0);
+            TrainCard newCard = dealTicketCard(0);
+
+            this.faceUpTrainCards[position - 1] = newCard;
 
             int wildCardCount = 0;
             for (TrainCard card :this.faceUpTrainCards) {

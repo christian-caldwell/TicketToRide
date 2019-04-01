@@ -119,7 +119,7 @@ public class RoutePresenter implements IRoutePresenter, Observer {
             }
             else {
                 String output = "Purchasing route using " + route.findLength() +
-                        " cards of the selected color and " + numOfWildsNeeded + " WILD cards";
+                        " cards of the selected color and 0 WILD cards";
                 System.out.println(output);
                 activity.popToast(output, true);
                 result = model.purchaseRoute(route, 0,activity.getSelectedTicketColor());

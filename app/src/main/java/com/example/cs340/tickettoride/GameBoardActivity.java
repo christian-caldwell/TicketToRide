@@ -136,6 +136,7 @@ public class GameBoardActivity extends AppCompatActivity {
         playerColorValues.put(TTR_Constants.getInstance().RED_PLAYER, R.drawable.red_background);
         playerColorValues.put(TTR_Constants.getInstance().YELLOW_PLAYER, R.drawable.yellow_background);
 
+        trainCardImages.put(TTR_Constants.getInstance().EMPTY, R.drawable.back_of_train_card);
         trainCardImages.put(TTR_Constants.getInstance().BLACK, R.drawable.train_card_black);
         trainCardImages.put(TTR_Constants.getInstance().BLUE, R.drawable.train_card_blue);
         trainCardImages.put(TTR_Constants.getInstance().GREEN, R.drawable.train_card_green);

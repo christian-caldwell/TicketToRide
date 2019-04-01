@@ -1,7 +1,7 @@
 package models.data;
 
 public class TrainCard {
-    private Integer CardColor;
+    public Integer CardColor;
 
     public TrainCard(Integer cardColor) {
         this.CardColor = cardColor;
