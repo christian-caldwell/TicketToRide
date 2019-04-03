@@ -1,20 +1,15 @@
 package view.presenter;
 
-import android.os.AsyncTask;
-
 import com.example.cs340.tickettoride.GameBoardActivity;
 
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 import java.util.Observable;
 import java.util.Observer;
-import java.util.Set;
 
 import client.ClientModel;
 import client.PlayerStates.YourTurnDefault;
 import models.TTR_Constants;
-import models.data.Player;
 import models.data.Result;
 import models.data.Route;
 import view.presenterInterface.IRoutePresenter;
@@ -62,7 +57,7 @@ public class RoutePresenter implements IRoutePresenter, Observer {
             if (pairDrawn == null) {
                 System.out.println("ERROR: pair is not null, but pairDrawn is null...");
             }
-            else if (pairDrawn && (model.getPlayer().getRoutesOwned().contains(pair) && model.getActiveGame().getPlayers().size() < 5)) {
+            else if (pairDrawn && (model.getPlayer().getRoutesOwned().contains(pair) || model.getActiveGame().getPlayers().size() < 5)) {
                 String output = "You Cannot Purchase Parallel Routes";
                 System.out.println(output);
                 activity.popToast(output, false);

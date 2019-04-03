@@ -1,11 +1,8 @@
 package com.example.cs340.tickettoride;
 
 import android.content.Intent;
-import android.content.Context;
-import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.PorterDuff;
-import android.graphics.Rect;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
@@ -14,12 +11,9 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.DisplayMetrics;
-import android.util.TypedValue;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewTreeObserver;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -35,15 +29,12 @@ import java.util.Map;
 import java.util.Set;
 
 import client.ClientModel;
-import client.PlayerStates.YourTurnDefault;
-import client.ServerProxy;
 import models.TTR_Constants;
 import models.data.ChatMessage;
 import models.data.Player;
 import models.data.Route;
 import view.presenter.CardDeckPresenter;
 import view.presenter.ChatPresenter;
-//import view.presenter.DemoPresenter;
 import view.presenter.PlayerInfoPresenter;
 import view.presenter.PlayersHandPresenter;
 import view.presenter.RoutePresenter;
@@ -52,6 +43,8 @@ import view.presenterInterface.IChatPresenter;
 import view.presenterInterface.IPlayerInfoPresenter;
 import view.presenterInterface.IPlayersHandPresenter;
 import view.presenterInterface.IRoutePresenter;
+
+//import view.presenter.DemoPresenter;
 
 public class GameBoardActivity extends AppCompatActivity {
 
@@ -807,11 +800,11 @@ public class GameBoardActivity extends AppCompatActivity {
     }
 
     public void change_color_boston_newyork_g2(View view) {//2
-        routePresenter.purchase(TTR_Constants.getInstance().R_NYC_TO_BOS_1);
+        routePresenter.purchase(TTR_Constants.getInstance().R_NYC_TO_BOS_2);
     }
 
     public void change_color_boston_newyork_g1(View view) {//2
-        routePresenter.purchase(TTR_Constants.getInstance().R_NYC_TO_BOS_2);
+        routePresenter.purchase(TTR_Constants.getInstance().R_NYC_TO_BOS_1);
     }
 
     public void change_color_montreal_boston_g2(View view) {//2
