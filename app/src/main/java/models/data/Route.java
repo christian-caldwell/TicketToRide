@@ -3,12 +3,12 @@ package models.data;
 public class Route {
     private Integer points;
     private Integer cardColor;
-    private String[] locations;
+    private String[] location;
 
-    public Route(Integer points, Integer cardColor, String[] locations) {
+    public Route(Integer points, Integer cardColor, String[] location) {
         this.points = points;
         this.cardColor = cardColor;
-        this.locations = locations;
+        this.location = location;
     }
 
     public Route() {
@@ -44,11 +44,11 @@ public class Route {
     }
 
     public String[] getLocation() {
-        return locations;
+        return location;
     }
 
     public void setLocation(String[] locations) {
-        this.locations = locations;
+        this.location = locations;
     }
 
     @Override
@@ -63,12 +63,12 @@ public class Route {
 
         Route r = (Route) o;
 
-        return (locations[0].equals(r.locations[0]) && locations[1].equals(r.locations[1]) &&
+        return (location[0].equals(r.location[0]) && location[1].equals(r.location[1]) &&
                 points.equals(r.points) && cardColor.equals(r.cardColor));
     }
 
     @Override
     public int hashCode() {
-        return locations[0].hashCode() + locations[1].hashCode();
+        return location[0].hashCode() + location[1].hashCode();
     }
 }

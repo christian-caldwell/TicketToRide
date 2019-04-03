@@ -6,8 +6,6 @@ import java.util.concurrent.TimeUnit;
 
 import models.data.Game;
 import models.data.Result;
-import server.GeneralCommand;
-import server.PollManager;
 
 public class Poller {
     private Thread pollerThread;
@@ -33,18 +31,18 @@ public class Poller {
         create();
         singleton.shutdown();
         singleton.startPollingLobby();
-        singleton.start(0, 2000, false);
+        singleton.start(0, 500, false);
     }
 
     public static void startGamePoller() {
         create();
         singleton.shutdown();
         singleton.startPollingGame();
-        singleton.start(0, 2000, false);
+        singleton.start(0, 500, false);
     }
 
     public ArrayList<Game> pollServerForGames() {
-        String className = PollManager.class.getName();
+//        String className = PollManager.class.getName();
         String methodName = "getAvailableGames";
 
         Object[] parameterDataArray = new Object[1];
@@ -53,17 +51,17 @@ public class Poller {
         Class<?>[] parameterClassArray = new Class<?>[1];
         parameterClassArray[0] = String.class;
 
-        GeneralCommand newCommand = new GeneralCommand(className, methodName, parameterClassArray, parameterDataArray);
+        GeneralCommand newCommand = new GeneralCommand(methodName, parameterClassArray, parameterDataArray);
 
         ClientCommunicator communicator = new ClientCommunicator();
 
-        Result result = communicator.send(newCommand, "10.0.2.2", "8080");
+        Result result = communicator.send(newCommand);
         return result.getPollResult().getGamesChanged();
     }
 
     public Game pollServerForStartedGame() {
         ClientModel client = ClientModel.create();
-        String className = PollManager.class.getName();
+//        String className = PollManager.class.getName();
         String methodName = "getRunningGame";
 
         Game game = client.getActiveGame();
@@ -80,11 +78,11 @@ public class Poller {
         parameterClassArray[2] = Integer.class;
         parameterClassArray[3] = Integer.class;
 
-        GeneralCommand newCommand = new GeneralCommand(className, methodName, parameterClassArray, parameterDataArray);
+        GeneralCommand newCommand = new GeneralCommand(methodName, parameterClassArray, parameterDataArray);
 
         ClientCommunicator communicator = new ClientCommunicator();
 
-        Result result = communicator.send(newCommand, "10.0.2.2", "8080");
+        Result result = communicator.send(newCommand);
         return result.getRunningGame();
     }
 

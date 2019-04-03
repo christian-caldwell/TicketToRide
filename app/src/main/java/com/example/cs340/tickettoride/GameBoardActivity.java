@@ -1,9 +1,11 @@
 package com.example.cs340.tickettoride;
 
+import android.content.Intent;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.PorterDuff;
+import android.graphics.Rect;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
@@ -41,7 +43,7 @@ import models.data.Player;
 import models.data.Route;
 import view.presenter.CardDeckPresenter;
 import view.presenter.ChatPresenter;
-import view.presenter.DemoPresenter;
+//import view.presenter.DemoPresenter;
 import view.presenter.PlayerInfoPresenter;
 import view.presenter.PlayersHandPresenter;
 import view.presenter.RoutePresenter;
@@ -64,8 +66,6 @@ public class GameBoardActivity extends AppCompatActivity {
     private RecyclerViewAdapterChat adapter;
     private RecyclerViewAdapterDestinationCards destinationCardsAdapter;
     private EditText inputChatEditText;
-    private Button gameDemoButton;
-    private DemoPresenter mDemoPresenter;
     private Button sendMessageButton, playerInfoButton, doneButton;
     private Button mGreenTrainCard, mRedTrainCard, mPinkTrainCard, mYellowTrainCard,
             mWhiteTrainCard, mBlackTrainCard, mWildTrainCard, mBlueTrainCard, mOrangeTrainCard;
@@ -79,8 +79,6 @@ public class GameBoardActivity extends AppCompatActivity {
     private TextView three_destinationCards, three_trainCards, three_score, three_trainsLeft;
     private TextView four_destinationCards, four_trainCards, four_score, four_trainsLeft;
     private TextView five_destinationCards, five_trainCards, five_score, five_trainsLeft;
-    private String demoToast = "Players initialized at Zero Points, 48 trains, Color Set\n Game Initialized: Starting Player Set, Game Decks Filled\n Initial Actions: Players Handed 3 Dest Cards and 4 Tickets";
-    private int demoInterationNumber = 0;
     private ImageView blueTurn, redTurn, blackTurn, yellowTurn, greenTurn;
     private TextView player1_username, player2_username, player3_username, player4_username, player5_username;
     private DrawerLayout activityLayout;
@@ -118,42 +116,15 @@ public class GameBoardActivity extends AppCompatActivity {
                         | View.SYSTEM_UI_FLAG_FULLSCREEN);
     }
 
-    // Shows the system bars by removing all the flags
-    // except for the ones that make the content appear under the system bars.
-    private void showSystemUI() {
-        View decorView = getWindow().getDecorView();
-        decorView.setSystemUiVisibility(
-                View.SYSTEM_UI_FLAG_LAYOUT_STABLE
-                        | View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
-                        | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN);
-    }
-
-    public static float dpToPx(Context context, float valueInDp) {
-        DisplayMetrics metrics = context.getResources().getDisplayMetrics();
-        return TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, valueInDp, metrics);
-    }
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        final View activityRootView = findViewById(R.id.game_board_activity);
-        activityRootView.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
-            @Override
-            public void onGlobalLayout() {
-                int heightDiff = activityRootView.getRootView().getHeight() - activityRootView.getHeight();
-                if (heightDiff > dpToPx(getApplicationContext(), 200)) {
-                    // if more than 200 dp, it's probably a keyboard...
-                    onWindowFocusChanged(true);
-                }
-            }
-        });
-
-
 
         clientModel = ClientModel.create();
         super.onCreate(savedInstanceState);
         StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
         StrictMode.setThreadPolicy(policy);
         setContentView(R.layout.activity_game_board);
+
         playerColorValues = new HashMap();
         trainCardImages = new HashMap<>();
         playerColorValues.put(TTR_Constants.getInstance().BLACK_PLAYER, R.drawable.black_background);
@@ -174,15 +145,27 @@ public class GameBoardActivity extends AppCompatActivity {
 
         final View decorView = getWindow().getDecorView();
 
-        // Hide both the navigation bar and the status bar.
-        int uiOptions = View.SYSTEM_UI_FLAG_LAYOUT_STABLE
 
-                | View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
-                | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
-                | View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
-                | View.SYSTEM_UI_FLAG_FULLSCREEN
-                | View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY;
-        decorView.setSystemUiVisibility(uiOptions);
+        decorView.setOnSystemUiVisibilityChangeListener
+                (new View.OnSystemUiVisibilityChangeListener() {
+                    @Override
+                    public void onSystemUiVisibilityChange(int visibility) {
+                        // Note that system bars will only be "visible" if none of the
+                        // LOW_PROFILE, HIDE_NAVIGATION, or FULLSCREEN flags are set.
+                        if ((visibility & View.SYSTEM_UI_FLAG_FULLSCREEN) == 0) {
+                            // TODO: The system bars are visible. Make any desired
+                            // adjustments to your UI, such as showing the action bar or
+                            // other navigational controls.
+                            System.out.print("faj");
+                        } else {
+                            // TODO: The system bars are NOT visible. Make any desired
+                            // adjustments to your UI, such as hiding the action bar or
+                            // other navigational controls.
+                            System.out.print("faj");
+                        }
+                    }
+                });
+
         chatPresenter = new ChatPresenter(this);
         cardDeckPresenter = new CardDeckPresenter(this);
         playerInfoPresenter = new PlayerInfoPresenter(this);
@@ -206,27 +189,11 @@ public class GameBoardActivity extends AppCompatActivity {
                 inputChatEditText.setText("");
             }
         });
-        gameDemoButton = findViewById(R.id.gameDemoButon);
-        gameDemoButton.setOnClickListener(new View.OnClickListener() {
-            // When the sendMessage button is clicked, send the text to the presenter.addMessage function
-            @Override
-            public void onClick(View v) {
-                /*if (demoToast.equals("")){*/
-                    demoInterationNumber++;
-                    mDemoPresenter = ClientModel.create().getDemoPresenter();
-                    mDemoPresenter.setGameActivity(GameBoardActivity.this);
-                    demoToast = mDemoPresenter.gameDemo();
-                    Toast.makeText(GameBoardActivity.this, demoToast, Toast.LENGTH_LONG).show();
-              /*  }
-                else {
-                    Toast.makeText(GameBoardActivity.this, "Run Demo Iteration " + demoInterationNumber, Toast.LENGTH_SHORT).show();
-                    demoToast = "";
-                }*/
 
-                //FIXME: Break up game demo into multiple button presses. Remove waits?
-//                mDemoPresenter.runNextDemo();
-            }
-        });
+//                 //FIXME: Break up game demo into multiple button presses. Remove waits?
+// //                mDemoPresenter.runNextDemo();
+//             }
+//         });
         doneButton = mPopupWindow.getContentView().findViewById(R.id.done_button);
 
         // Open up a popup window when 'Player destination Cards' button is pressed
@@ -268,23 +235,23 @@ public class GameBoardActivity extends AppCompatActivity {
         player4_username = findViewById(R.id.player4_name_text_view);
         player5_username = findViewById(R.id.player5_name_text_view);
         mGreenTrainCard = findViewById(R.id.greenCard);
-        mGreenTrainCard.setShadowLayer(50,0,0,Color.WHITE);
+        mGreenTrainCard.setShadowLayer(5,0,0,Color.BLACK);
         mRedTrainCard = findViewById(R.id.redCard);
-        mRedTrainCard.setShadowLayer(40,0,0,Color.WHITE);
+        mRedTrainCard.setShadowLayer(5,0,0,Color.BLACK);
         mPinkTrainCard = findViewById(R.id.pinkCard);
-        mPinkTrainCard.setShadowLayer(30,0,0,Color.WHITE);
+        mPinkTrainCard.setShadowLayer(5,0,0,Color.BLACK);
         mYellowTrainCard = findViewById(R.id.yellowCard);
-        mYellowTrainCard.setShadowLayer(24,0,0,Color.WHITE);
+        mYellowTrainCard.setShadowLayer(5,0,0,Color.BLACK);
         mWhiteTrainCard = findViewById(R.id.whiteCard);
-        mWhiteTrainCard.setShadowLayer(20,0,0,Color.WHITE);
+        mWhiteTrainCard.setShadowLayer(5,0,0,Color.BLACK);
         mBlackTrainCard = findViewById(R.id.blackCard);
-        mBlackTrainCard.setShadowLayer(15,0,0,Color.WHITE);
+        mBlackTrainCard.setShadowLayer(5,0,0,Color.BLACK);
         mWildTrainCard = findViewById(R.id.wildCard);
-        mWildTrainCard.setShadowLayer(10,0,0,Color.WHITE);
+        mWildTrainCard.setShadowLayer(5,0,0,Color.BLACK);
         mBlueTrainCard = findViewById(R.id.blueCard);
-        mBlueTrainCard.setShadowLayer(5,0,0,Color.WHITE);
+        mBlueTrainCard.setShadowLayer(5,0,0,Color.BLACK);
         mOrangeTrainCard = findViewById(R.id.orangeCard);
-        mOrangeTrainCard.setShadowLayer(24,0,0,Color.WHITE);
+        mOrangeTrainCard.setShadowLayer(5,0,0,Color.BLACK);
         one_destinationCards = findViewById(R.id.player1_destination_cards_text_view);
         one_score = findViewById(R.id.player1_score_text_view);
         one_trainCards = findViewById(R.id.player1_train_cards_text_view);
@@ -343,7 +310,7 @@ public class GameBoardActivity extends AppCompatActivity {
 
 
         destinationCardDeck = findViewById(R.id.destination_card_deck);
-        destinationCardDeck.setShadowLayer(24,0,0,Color.WHITE);
+        destinationCardDeck.setShadowLayer(5,0,0,Color.BLACK);
         destinationCardDeck.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -357,7 +324,7 @@ public class GameBoardActivity extends AppCompatActivity {
         });
 
         trainCardDeck = findViewById(R.id.train_card_deck);
-        trainCardDeck.setShadowLayer(24,0,0,Color.WHITE);
+        trainCardDeck.setShadowLayer(5,0,0,Color.BLACK);
         trainCardDeck.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -935,6 +902,14 @@ public class GameBoardActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
+    public Integer getPurchaseCardColor() {
+        return TTR_Constants.getInstance().RED;
+    }
+
+    public Integer getPurchaseNumberWilds() {
+        return 0;
+    }
+
 
     public class UpdateAsyncTask extends AsyncTask<Void, Void, Void> {
         private GameBoardActivity activity;
@@ -960,6 +935,7 @@ public class GameBoardActivity extends AppCompatActivity {
             adapter.setListOfMessages(chatMessages);
             adapter.notifyDataSetChanged();
             chatMessages = chatPresenter.getMessages();
+            ArrayList<Player> players = playerInfoPresenter.getPlayers();
 
             newDestinationCardList = playerInfoPresenter.getNewDestinationCardStrings();
             currentDestinationCardList = playerInfoPresenter.getDestinationCardStrings();
@@ -986,10 +962,19 @@ public class GameBoardActivity extends AppCompatActivity {
                 doneButton.setEnabled(false);
             }
 
-
-            //TODO: CHECK IF IT IS THE END OF THE GAME.  IF SO, START THE GAMEOVERACTIVITY
-            // if (gameOver)
-                // initiateGameOver();
+            Integer num = 0;
+            for (Player player: players) {
+                if (player.getDoneWithTurns()) {
+                    num++;
+                    continue;
+                }
+                else {
+                    break;
+                }
+            }
+            if (num == players.size()) {
+                initiateGameOver();
+            }
 
 
             mGreenTrainCard.setText("" + playersHandPresenter.getTrainCardAmount(1));
@@ -1046,7 +1031,7 @@ public class GameBoardActivity extends AppCompatActivity {
                 greenTurn.setVisibility(View.INVISIBLE);
             }
 
-            for (Player player : playerInfoPresenter.getPlayers()) {
+            for (Player player : players) {
                 Set<Route> routes = playerInfoPresenter.getPurchasedRoutesFromPlayer(player.getPlayerColor());
                 System.out.println("player: " + player.getUsername() + "\nroutes: " + player.getRoutesOwned());
                 for (Route route: routes) {
@@ -1172,7 +1157,7 @@ public class GameBoardActivity extends AppCompatActivity {
         protected Map<Integer, Set<Integer>> doInBackground(Void... voids) {
             System.out.println("Updating routes");
             ClientModel model = ClientModel.create();
-            List<Player> players = model.getUser().getGame().getPlayers();
+            List<Player> players = model.getUser().getGameJoined().getPlayers();
             Map<Integer, Set<Integer>> colorToIds = new HashMap<>();
             if (players != null) {
                 for (Player p: players) {

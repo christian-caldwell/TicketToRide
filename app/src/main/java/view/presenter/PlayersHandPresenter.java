@@ -25,12 +25,12 @@ public class PlayersHandPresenter implements IPlayersHandPresenter, Observer {
 
     @Override
     public int getCurrentPlayerColor() {
-        return clientModel.getUser().getGame().getCurrentTurnPlayer();
+        return clientModel.getUser().getGameJoined().getCurrentTurnPlayer();
     }
 
     @Override
     public Integer getTrainCardAmount(Integer color) {
-        return clientModel.getUser().getGame().findPlayer(
+        return clientModel.getUser().getGameJoined().findPlayer(
                 clientModel.getUser().getUsername()).getTickets().get(color);
     }
 

@@ -16,9 +16,7 @@ import models.data.Result;
 import models.data.User;
 import view.presenter.CardDeckPresenter;
 import view.presenter.ChatPresenter;
-import view.presenter.DemoPresenter;
 import view.presenter.GameLobbyPresenter;
-import view.presenter.GamePresenter;
 import view.presenter.PlayerInfoPresenter;
 import view.presenter.PlayersHandPresenter;
 import view.presenter.RoutePresenter;
@@ -29,7 +27,6 @@ public class ClientModel extends Observable {
     private ArrayList<Game> lobbyGameList = new ArrayList<>();
     private ArrayList<Game> newGameList = new ArrayList<>();
     private GameLobbyPresenter mGameLobbyPresenter;
-    private GamePresenter mGamePresenter;
     private ChatPresenter mChatPresenter;
     private CardDeckPresenter mCardDeckPresenter;
     private PlayerInfoPresenter mPlayerInfoPresenter;
@@ -38,14 +35,6 @@ public class ClientModel extends Observable {
     private PlayerState state = NotInGame.getInstance();
 
     //    TEMPORARY DEMO THINGS
-    DemoPresenter demoPresenter;
-    public DemoPresenter getDemoPresenter() {
-        return demoPresenter;
-    }
-
-    public void setDemoPresenter(DemoPresenter demoPresenter) {
-        this.demoPresenter = demoPresenter;
-    }
     //new stuff for phase 2
     private Map<Integer, Integer> ticketCardHand;
     private ArrayList<DestinationCard> destinationCardHand;
@@ -130,6 +119,9 @@ public class ClientModel extends Observable {
             this.player = gamePlaying.getPlayer(userPlayer.getUsername());
             this.ticketCardHand = player.getTickets();
             this.destinationCardHand = player.getDestinationCardHand();
+            if (gamePlaying.isLastTurn()) {
+                this.leaveGame();
+            }
         }
         System.out.println();
     }
@@ -158,28 +150,12 @@ public class ClientModel extends Observable {
         this.newGameList.clear();
     }
 
-    //not implemented
-    private Player initGame(String userName) {
-        return null;
-    }
-    private void initHands() {
-
-    }
-
-
-
     public GameLobbyPresenter getGameLobbyPresenter() {
         return mGameLobbyPresenter;
     }
 
     public void setGameLobbyPresenter(GameLobbyPresenter gameLobbyPresenter) {
         mGameLobbyPresenter = gameLobbyPresenter;
-    }
-
-    public GamePresenter getGamePresenter() { return mGamePresenter; }
-
-    public void setGamePresenter(GamePresenter gamePresenter) {
-        mGamePresenter = gamePresenter;
     }
 
     public void setmCardDeckPresenter(CardDeckPresenter mCardDeckPresenter) {
@@ -215,9 +191,6 @@ public class ClientModel extends Observable {
 
     public void updateGame() {
         this.acceptPlayerAction();
-        if (mGamePresenter != null) {
-            addObserver(this.mGamePresenter);
-        }
         if (mChatPresenter != null) {
             addObserver(this.mChatPresenter);
         }

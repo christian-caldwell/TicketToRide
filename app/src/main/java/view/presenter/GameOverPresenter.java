@@ -20,7 +20,7 @@ public class GameOverPresenter implements IGameOverPresenter {
     ClientModel clientModel = ClientModel.create();
     @Override
     public ArrayList<Player> getPlayersInWinningOrder() {
-        return clientModel.getUser().getGame().getPlayers();
+        return clientModel.getUser().getGameJoined().getPlayers();
     }
 
 

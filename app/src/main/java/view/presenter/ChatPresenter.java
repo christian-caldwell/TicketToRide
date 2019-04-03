@@ -56,7 +56,7 @@ public class ChatPresenter implements IChatPresenter, Observer {
      */
     @Override
     public ArrayList<ChatMessage> getMessages() {
-        return clientModel.getUser().getGame().getChatLog();
+        return clientModel.getUser().getGameJoined().getChatLog();
     }
 
     /**
@@ -82,7 +82,7 @@ public class ChatPresenter implements IChatPresenter, Observer {
         Timestamp timestamp = new Timestamp(date.getTime());
         chatMessage.setTimeStamp(sdf.format(timestamp));
         //clientModel.getUser().getGame().addChat(chatMessage);
-        serverProxy.postChatMessage(clientModel.getUser().getGame().getGameName(), chatMessage);
+        serverProxy.postChatMessage(clientModel.getUser().getGameJoined().getGameName(), chatMessage);
     }
 
     /**

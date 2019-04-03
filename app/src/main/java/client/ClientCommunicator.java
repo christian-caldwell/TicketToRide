@@ -13,7 +13,6 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 
 import models.data.Result;
-import server.GeneralCommand;
 
 public class ClientCommunicator /*implements IClient */{
     final static String HOST = "10.37.109.86";
@@ -28,9 +27,9 @@ public class ClientCommunicator /*implements IClient */{
 
 
 
-    public Result send(GeneralCommand command, String host, String port) {
+    public Result send(GeneralCommand command) {
         try {
-            URL url = new URL("http://" + host + ":" + port + "/");
+            URL url = new URL("http://" + HOST + ":" + PORT + "/");
             HttpURLConnection http = (HttpURLConnection) url.openConnection();
             http.setRequestMethod("POST");
             http.setDoOutput(true);
