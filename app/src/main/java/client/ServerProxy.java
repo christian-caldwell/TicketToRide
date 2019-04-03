@@ -35,7 +35,7 @@ public class ServerProxy implements IServer {
 
         ClientCommunicator communicator = new ClientCommunicator();
 
-        return communicator.send(newCommand, "10.0.2.2", "8080");
+        return communicator.send(newCommand);
     }
 
 
@@ -60,7 +60,7 @@ public class ServerProxy implements IServer {
 
         ClientCommunicator communicator = new ClientCommunicator();
 
-        Result result = communicator.send(newCommand, "10.0.2.2", "8080");
+        Result result = communicator.send(newCommand);
         if (result.isSuccessful()) {
             ClientModel.create().addLobbyGamesList(new Game(result.getGame()));
         }
@@ -83,7 +83,7 @@ public class ServerProxy implements IServer {
 
         ClientCommunicator communicator = new ClientCommunicator();
 
-        Result result = communicator.send(newCommand,"10.0.2.2", "8080");
+        Result result = communicator.send(newCommand);
 
         return result;
     }
@@ -105,7 +105,7 @@ public class ServerProxy implements IServer {
         GeneralCommand newCommand = new GeneralCommand(methodName, parameterClassArray, parameterDataArray);
 
         ClientCommunicator communicator = new ClientCommunicator();
-        Result result = communicator.send(newCommand, "10.0.2.2", "8080");
+        Result result = communicator.send(newCommand);
         if (result.isSuccessful()) {
             ClientModel.create().setUserPlayer(newUser);
         }
@@ -128,7 +128,7 @@ public class ServerProxy implements IServer {
         GeneralCommand newCommand = new GeneralCommand(methodName, parameterClassArray, parameterDataArray);
 
         ClientCommunicator communicator = new ClientCommunicator();
-        Result result = communicator.send(newCommand, "10.0.2.2", "8080");
+        Result result = communicator.send(newCommand);
         if (result.isSuccessful()) {
             returnUser.setHost(result.isHost());
             if (result.getGameJoined() != null) {
@@ -187,7 +187,7 @@ public class ServerProxy implements IServer {
 
         ClientCommunicator communicator = new ClientCommunicator();
 
-        return communicator.send(newCommand, "10.0.2.2", "8080");
+        return communicator.send(newCommand);
     }
 
     @Override
@@ -217,7 +217,7 @@ public class ServerProxy implements IServer {
 
         ClientCommunicator communicator = new ClientCommunicator();
 
-        return communicator.send(newCommand, "10.0.2.2", "8080");
+        return communicator.send(newCommand);
     }
 
     @Override
@@ -237,7 +237,7 @@ public class ServerProxy implements IServer {
 
         ClientCommunicator communicator = new ClientCommunicator();
 
-        return communicator.send(newCommand, "10.0.2.2", "8080");
+        return communicator.send(newCommand);
     }
 
     @Override
@@ -262,7 +262,7 @@ public class ServerProxy implements IServer {
 
         ClientCommunicator communicator = new ClientCommunicator();
 
-        return communicator.send(newCommand, "10.0.2.2", "8080");
+        return communicator.send(newCommand);
     }
 
     @Override
@@ -282,7 +282,7 @@ public class ServerProxy implements IServer {
 
         ClientCommunicator communicator = new ClientCommunicator();
 
-        return communicator.send(newCommand, "10.0.2.2", "8080");
+        return communicator.send(newCommand);
     }
 
 //    public ArrayList<Game> getGames() {
@@ -328,7 +328,7 @@ public class ServerProxy implements IServer {
 
         ClientCommunicator communicator = new ClientCommunicator();
 
-        Result result = communicator.send(newCommand, "10.0.2.2", "8080");
+        Result result = communicator.send(newCommand);
         return result;
     }
 

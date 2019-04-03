@@ -27,9 +27,9 @@ public class ClientCommunicator /*implements IClient */{
 
 
 
-    public Result send(GeneralCommand command, String host, String port) {
+    public Result send(GeneralCommand command) {
         try {
-            URL url = new URL("http://" + host + ":" + port + "/");
+            URL url = new URL("http://" + HOST + ":" + PORT + "/");
             HttpURLConnection http = (HttpURLConnection) url.openConnection();
             http.setRequestMethod("POST");
             http.setDoOutput(true);

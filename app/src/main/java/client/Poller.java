@@ -55,7 +55,7 @@ public class Poller {
 
         ClientCommunicator communicator = new ClientCommunicator();
 
-        Result result = communicator.send(newCommand, "10.0.2.2", "8080");
+        Result result = communicator.send(newCommand);
         return result.getPollResult().getGamesChanged();
     }
 
@@ -82,7 +82,7 @@ public class Poller {
 
         ClientCommunicator communicator = new ClientCommunicator();
 
-        Result result = communicator.send(newCommand, "10.0.2.2", "8080");
+        Result result = communicator.send(newCommand);
         return result.getRunningGame();
     }
 
