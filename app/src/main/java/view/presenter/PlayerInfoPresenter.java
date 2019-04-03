@@ -146,7 +146,7 @@ public class PlayerInfoPresenter implements IPlayerInfoPresenter, Observer {
 
     public boolean addToListOfDestinationCardsToDiscard(String destinationCard) {
         // If this is the first turn,
-        if (clientModel.getUser().getGameJoined().getNumPlayerActions() < clientModel.getUser().getGameJoined().getPlayers().size()) {
+        if (clientModel.getUser().getGameJoined().getNumPlayerActions() <= clientModel.getUser().getGameJoined().getPlayers().size()) {
             //Check that the user hasn't discarded more than 1 cards
             // They should only be able to discard 0 or 1 cards on the first turn
             if (listOfDestinationCardsToDiscard.size() >= 1)
