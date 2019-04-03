@@ -16,7 +16,7 @@ import models.data.Result;
 import server.GeneralCommand;
 
 public class ClientCommunicator /*implements IClient */{
-    final static String HOST = "10.0.2.2";
+    final static String HOST = "10.37.109.86";
     final static String PORT = "8080";
 
 
