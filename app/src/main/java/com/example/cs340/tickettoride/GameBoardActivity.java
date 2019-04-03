@@ -694,19 +694,19 @@ public class GameBoardActivity extends AppCompatActivity {
     }
 
     public void change_color_pittsburgh_chicago_g2(View view) {//3
-        routePresenter.purchase(TTR_Constants.getInstance().R_CHI_TO_PIT_2);
-    }
-
-    public void change_color_pittsburgh_chicago_g1(View view) {//3
         routePresenter.purchase(TTR_Constants.getInstance().R_CHI_TO_PIT_1);
     }
 
+    public void change_color_pittsburgh_chicago_g1(View view) {//3
+        routePresenter.purchase(TTR_Constants.getInstance().R_CHI_TO_PIT_2);
+    }
+
     public void change_color_chicago_saintlouis_g2(View view) {//2
-        routePresenter.purchase(TTR_Constants.getInstance().R_SAI_TO_CHI_2);
+        routePresenter.purchase(TTR_Constants.getInstance().R_SAI_TO_CHI_1);
     }
 
     public void change_color_chicago_saintlouis_g1(View view) {//2
-        routePresenter.purchase(TTR_Constants.getInstance().R_SAI_TO_CHI_1);
+        routePresenter.purchase(TTR_Constants.getInstance().R_SAI_TO_CHI_2);
     }
 
     public void change_color_chicago_omaha_g1(View view) {//4
@@ -800,11 +800,11 @@ public class GameBoardActivity extends AppCompatActivity {
     }
 
     public void change_color_boston_newyork_g2(View view) {//2
-        routePresenter.purchase(TTR_Constants.getInstance().R_NYC_TO_BOS_2);
+        routePresenter.purchase(TTR_Constants.getInstance().R_NYC_TO_BOS_1);
     }
 
     public void change_color_boston_newyork_g1(View view) {//2
-        routePresenter.purchase(TTR_Constants.getInstance().R_NYC_TO_BOS_1);
+        routePresenter.purchase(TTR_Constants.getInstance().R_NYC_TO_BOS_2);
     }
 
     public void change_color_montreal_boston_g2(View view) {//2
