@@ -45,6 +45,7 @@ public class GameOverActivity extends AppCompatActivity {
 
         // presenter.getPlayersInWinningOrder() returns an arrayList with the winner in the 0th element
         ArrayList<Player> playersInWinningOrder = presenter.getPlayersInWinningOrder();
+        presenter.getLongestRoute();
 
         if (playersInWinningOrder.size() > 0) {
             winnerTop = findViewById(R.id.winner_color_top);
@@ -65,6 +66,7 @@ public class GameOverActivity extends AppCompatActivity {
             if (playersInWinningOrder.get(0).getHasLongestRoute()) {
                 winnerLongestRoute = findViewById(R.id.winner_longest_path_text_view);
                 winnerLongestRoute.setAlpha(1);
+                winnerScore.setText("Score: " +(playersInWinningOrder.get(0).getScore() + pair.first - pair.second+10));
             }
         }
 
@@ -87,6 +89,7 @@ public class GameOverActivity extends AppCompatActivity {
             if (playersInWinningOrder.get(1).getHasLongestRoute()) {
                 p2LongestRoute = findViewById(R.id.p2_longest_path_text_view);
                 p2LongestRoute.setAlpha(1);
+                p2Score.setText("Score: " + (playersInWinningOrder.get(1).getScore() + pair.first - pair.second+10));
             }
         }
 
@@ -109,6 +112,7 @@ public class GameOverActivity extends AppCompatActivity {
             if (playersInWinningOrder.get(2).getHasLongestRoute()) {
                 p3LongestRoute = findViewById(R.id.p3_longest_path_text_view);
                 p3LongestRoute.setAlpha(1);
+                p3Score.setText("Score: " + (playersInWinningOrder.get(2).getScore() + pair.first - pair.second+10));
             }
         }
 
@@ -132,6 +136,7 @@ public class GameOverActivity extends AppCompatActivity {
             if (playersInWinningOrder.get(3).getHasLongestRoute()) {
                 p4LongestRoute = findViewById(R.id.p4_longest_path_text_view);
                 p4LongestRoute.setAlpha(1);
+                p4Score.setText("Score: " + (playersInWinningOrder.get(3).getScore() + pair.first - pair.second+10));
             }
         }
 
@@ -154,6 +159,7 @@ public class GameOverActivity extends AppCompatActivity {
             if (playersInWinningOrder.get(4).getHasLongestRoute()) {
                 p5LongestRoute = findViewById(R.id.p5_longest_path_text_view);
                 p5LongestRoute.setAlpha(1);
+                p5Score.setText("Score: " + (playersInWinningOrder.get(4).getScore() + pair.first - pair.second+10));
             }
         }
 

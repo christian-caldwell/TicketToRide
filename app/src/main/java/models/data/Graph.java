@@ -42,6 +42,12 @@ public class Graph {
         return false;
     }
 
+    public Integer longestPath(Player player) {
+
+
+        return 0;
+    }
+
     private Node getNode(String id) {
         if (graph.containsKey(id))
             return graph.get(id);

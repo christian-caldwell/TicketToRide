@@ -3,6 +3,7 @@ package view.presenter;
 
 import android.util.Pair;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
@@ -12,6 +13,7 @@ import client.ClientModel;
 import models.TTR_Constants;
 import models.data.DestinationCard;
 import models.data.Player;
+import models.data.Route;
 import view.presenterInterface.IGameOverPresenter;
 
 public class GameOverPresenter implements IGameOverPresenter {
@@ -20,7 +22,7 @@ public class GameOverPresenter implements IGameOverPresenter {
     @Override
     public ArrayList<Player> getPlayersInWinningOrder() {
         ArrayList<Player> winningOrder = new ArrayList<>();
-        ArrayList<Player> players = clientModel.getUser().getGameJoined().getPlayers();
+        ArrayList<Player> players = new ArrayList<Player>(clientModel.getUser().getGameJoined().getPlayers());
         while (players.size() > 0) {
             Player highestPlayer = players.get(0);
             Pair<Integer, Integer> highestPlayerPair = getDestinationPoints(highestPlayer);
@@ -37,6 +39,17 @@ public class GameOverPresenter implements IGameOverPresenter {
         return winningOrder;
     }
 
+    @Override
+    public void getLongestRoute() {
+        ArrayList<Player> players = clientModel.getUser().getGameJoined().getPlayers();
+        Player mostRoutesPlayer = players.get(0);
+        for (Player player : players) {
+            if (player.getRoutesOwned().size() > mostRoutesPlayer.getRoutesOwned().size()) {
+                mostRoutesPlayer = player;
+            }
+        }
+        mostRoutesPlayer.setHasLongestRoute(true);
+    }
     // first object in pair are the points gained from destination cards second is points lost from destination cards.
     @Override
     public Pair<Integer, Integer> getDestinationPoints(Player player) {
