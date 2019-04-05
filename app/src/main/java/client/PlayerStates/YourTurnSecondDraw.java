@@ -76,7 +76,7 @@ public class YourTurnSecondDraw extends PlayerState {
             result.setSuccessful(true);
 
             for (TrainCard card :clientModel.getUser().getGameJoined().getFaceUpTrainCards()) {
-                if(!card.CardColor.equals(TTR_Constants.getInstance().EMPTY)){
+                if(!card.CardColor.equals(TTR_Constants.getInstance().EMPTY) && !card.CardColor.equals(TTR_Constants.getInstance().WILD )){
                     return result;
                 }
             }
