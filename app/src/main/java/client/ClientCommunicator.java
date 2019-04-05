@@ -15,7 +15,7 @@ import java.net.URL;
 import models.data.Result;
 
 public class ClientCommunicator /*implements IClient */{
-    final static String HOST = "10.0.2.2";
+    final static String HOST = "10.37.109.86";
     final static String PORT = "8080";
 
 
@@ -24,7 +24,6 @@ public class ClientCommunicator /*implements IClient */{
     accepting the results. This class serializes and deserializes the Json,
     handles server exceptions, and general works to contain all internet
     protocal logic for the client side*/
-
 
 
     public Result send(GeneralCommand command) {
