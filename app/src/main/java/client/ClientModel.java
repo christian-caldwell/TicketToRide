@@ -113,7 +113,12 @@ public class ClientModel extends Observable {
 
     public void setActiveGame(Game gamePlaying) {
         System.out.print("Setting active game: ");
-        if (gamePlaying.getPlayerUsernames().contains(userPlayer.getUsername())) { // change this back to checking player?
+        if (gamePlaying == null) {
+            this.gameActive = gamePlaying;
+            this.userPlayer.setGameJoined(gamePlaying);
+            this.player = null;
+        }
+        else if (gamePlaying.getPlayerUsernames().contains(userPlayer.getUsername())) { // change this back to checking player?
             System.out.print("Game is updating");
             this.gameActive = gamePlaying;
             this.userPlayer.setGameJoined(gamePlaying);

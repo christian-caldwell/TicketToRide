@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import models.data.Player;
 
 public interface IGameOverPresenter {
+    public void getLongestRoute();
     public ArrayList<Player> getPlayersInWinningOrder();
     public Pair<Integer, Integer> getDestinationPoints(Player player);
 }

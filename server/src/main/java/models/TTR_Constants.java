@@ -203,6 +203,7 @@ public class TTR_Constants {
     private final int COLORED_TICKET_STARTING_COUNT = 12;
     private final int WILD_TICKET_STARTING_COUNT = 14;
     public final int TRAIN_STARTING_COUNT = 45;
+    public final int TEST_TRAIN_STARTING_COUNT = 15;
 
     public Graph graph = new Graph();
 

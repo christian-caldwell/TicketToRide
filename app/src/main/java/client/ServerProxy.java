@@ -332,4 +332,24 @@ public class ServerProxy implements IServer {
         return result;
     }
 
+    @Override
+    public Result endGame(String gameName) {
+        String methodName = "endGame";
+
+        Object[] parameterDataArray = new Object[1];
+        Class<?>[] parameterClassArray = new Class<?>[1];
+
+        parameterClassArray[0] = String.class;
+        parameterDataArray[0] = gameName;
+
+        GeneralCommand newCommand = new GeneralCommand(methodName, parameterClassArray, parameterDataArray);
+
+        ClientCommunicator communicator = new ClientCommunicator();
+
+        Result result = communicator.send(newCommand);
+
+        return result;
+    }
+
+
 }

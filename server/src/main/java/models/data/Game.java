@@ -113,7 +113,7 @@ public class Game {
                 if (originalDealtCardColor == null) {
                     originalDealtCardColor = dealtCardColor;
                 }
-                else if (originalDealtCardColor == dealtCardColor) {
+                else if (originalDealtCardColor.equals(dealtCardColor)) {
                     dealtCard.setCardColor(0);
                     TrainCard newCard = new TrainCard();
                     newCard.setCardColor(0);
@@ -121,9 +121,10 @@ public class Game {
                 }
 
                 if (dealtCardColor == 9) {
-                    dealtCardColor = 0;
+                    dealtCardColor = 1;
+                } else {
+                    dealtCardColor++;
                 }
-                dealtCardColor++;
 
                 dealtCard.setCardColor(dealtCardColor);
                 remainingCardCount = this.ticketCardDeck.get(dealtCardColor);
@@ -145,6 +146,33 @@ public class Game {
             }
 
             if (wildCardCount >= 3) {
+                reshuffleTicketDecks();
+            }
+
+            for(TrainCard card : faceUpTrainCards){
+                if (card.getCardColor().equals(constants.EMPTY)) {
+                    reshuffleTicketDecks();
+                }
+            }
+        }
+
+        boolean deckEmpty = true;
+        for (Integer cardColor : this.ticketCardDeck.keySet()) {
+            if(ticketCardDeck.get(cardColor) != 0) {
+                deckEmpty = false;
+                break;
+            }
+        }
+        if (deckEmpty) {
+            boolean discardEmpty = true;
+            for (Integer cardColor : this.ticketCardDiscard.keySet()) {
+
+                if(ticketCardDiscard.get(cardColor) != 0) {
+                    discardEmpty = false;
+                    break;
+                }
+            }
+            if (!discardEmpty) {
                 reshuffleTicketDecks();
             }
         }
