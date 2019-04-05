@@ -25,7 +25,6 @@ public class ClientCommunicator /*implements IClient */{
     protocal logic for the client side*/
 
 
-
     public Result send(GeneralCommand command) {
         try {
             URL url = new URL("http://" + HOST + ":" + PORT + "/");
