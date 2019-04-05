@@ -36,7 +36,7 @@
                 android:id="@+id/winner_color_top"
                 android:layout_width="match_parent"
                 android:layout_height="20dp"
-                android:scaleType="fitCenter"
+                android:scaleType="center"
                 android:background="@drawable/white_background" />
 
             <TextView
@@ -79,7 +79,7 @@
                 android:id="@+id/winner_color_bottom"
                 android:layout_width="match_parent"
                 android:layout_height="10dp"
-                android:scaleType="fitCenter"
+                android:scaleType="center"
                 android:background="@drawable/white_background" />
 
         </LinearLayout>
@@ -97,7 +97,7 @@
                 android:id="@+id/p2_color_top"
                 android:layout_width="350dp"
                 android:layout_height="20dp"
-                android:scaleType="fitCenter"
+                android:scaleType="center"
                 android:background="@drawable/white_background" />
 
             <TextView
@@ -140,7 +140,7 @@
                 android:id="@+id/p2_color_bottom"
                 android:layout_width="350dp"
                 android:layout_height="10dp"
-                android:scaleType="fitCenter"
+                android:scaleType="center"
                 android:background="@drawable/white_background" />
 
         </LinearLayout>
@@ -160,7 +160,7 @@
                 android:id="@+id/p3_color_top"
                 android:layout_width="350dp"
                 android:layout_height="20dp"
-                android:scaleType="fitCenter"
+                android:scaleType="center"
                 android:background="@drawable/white_background" />
 
             <TextView
@@ -203,7 +203,7 @@
                 android:id="@+id/p3_color_bottom"
                 android:layout_width="350dp"
                 android:layout_height="10dp"
-                android:scaleType="fitCenter"
+                android:scaleType="center"
                 android:background="@drawable/white_background" />
 
         </LinearLayout>
@@ -221,7 +221,7 @@
                 android:id="@+id/p4_color_top"
                 android:layout_width="350dp"
                 android:layout_height="20dp"
-                android:scaleType="fitCenter"
+                android:scaleType="center"
                 android:background="@drawable/white_background" />
 
             <TextView
@@ -264,7 +264,7 @@
                 android:id="@+id/p4_color_bottom"
                 android:layout_width="350dp"
                 android:layout_height="10dp"
-                android:scaleType="fitCenter"
+                android:scaleType="center"
                 android:background="@drawable/white_background" />
 
         </LinearLayout>
@@ -283,7 +283,7 @@
                 android:id="@+id/p5_color_top"
                 android:layout_width="350dp"
                 android:layout_height="20dp"
-                android:scaleType="fitCenter"
+                android:scaleType="center"
                 android:background="@drawable/white_background" />
 
             <TextView
@@ -326,7 +326,7 @@
                 android:id="@+id/p5_color_bottom"
                 android:layout_width="350dp"
                 android:layout_height="10dp"
-                android:scaleType="fitCenter"
+                android:scaleType="center"
                 android:background="@drawable/white_background" />
 
         </LinearLayout>

@@ -17,6 +17,7 @@
             android:layout_height="wrap_content"
             android:text="Initiate Demo"
             android:id="@+id/startDemo"
+            android:visibility="gone"
             />
 
         <RelativeLayout
