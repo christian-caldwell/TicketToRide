@@ -1000,12 +1000,12 @@ public class TTR_Constants {
         ids.clear();
         ids.add(R.id.chicago_saintlouis_g1b1);
         ids.add(R.id.chicago_saintlouis_g1b2);
-        routeIdMap.put(R_SAI_TO_CHI_1, new HashSet<>(ids));
+        routeIdMap.put(R_SAI_TO_CHI_2, new HashSet<>(ids));
         //R_SAI_TO_CHI_2
         ids.clear();
         ids.add(R.id.chicago_saintlouis_g2b1);
         ids.add(R.id.chicago_saintlouis_g2b2);
-        routeIdMap.put(R_SAI_TO_CHI_2, new HashSet<>(ids));
+        routeIdMap.put(R_SAI_TO_CHI_1, new HashSet<>(ids));
         //R_CHI_TO_TOR
         ids.clear();
         ids.add(R.id.toronto_chicago_g1b1);
@@ -1066,13 +1066,13 @@ public class TTR_Constants {
         ids.add(R.id.pittsburgh_chicago_g1b1);
         ids.add(R.id.pittsburgh_chicago_g1b2);
         ids.add(R.id.pittsburgh_chicago_g1b3);
-        routeIdMap.put(R_CHI_TO_PIT_1, new HashSet<>(ids));
+        routeIdMap.put(R_CHI_TO_PIT_2, new HashSet<>(ids));
         //R_CHI_TO_PIT_2
         ids.clear();
         ids.add(R.id.pittsburgh_chicago_g2b1);
         ids.add(R.id.pittsburgh_chicago_g2b2);
         ids.add(R.id.pittsburgh_chicago_g2b3);
-        routeIdMap.put(R_CHI_TO_PIT_2, new HashSet<>(ids));
+        routeIdMap.put(R_CHI_TO_PIT_1, new HashSet<>(ids));
         //R_MIA_TO_ATL
         ids.clear();
         ids.add(R.id.atlanta_miami_g1b1);
@@ -1180,12 +1180,12 @@ public class TTR_Constants {
         ids.clear();
         ids.add(R.id.boston_newyork_g1b1);
         ids.add(R.id.boston_newyork_g1b2);
-        routeIdMap.put(R_NYC_TO_BOS_1, new HashSet<>(ids));
+        routeIdMap.put(R_NYC_TO_BOS_2, new HashSet<>(ids));
         //R_NYC_TO_BOS_2
         ids.clear();
         ids.add(R.id.boston_newyork_g2b1);
         ids.add(R.id.boston_newyork_g2b2);
-        routeIdMap.put(R_NYC_TO_BOS_2, new HashSet<>(ids));
+        routeIdMap.put(R_NYC_TO_BOS_1, new HashSet<>(ids));
         //R_MON_TO_BOS_1
         ids.clear();
         ids.add(R.id.montreal_boston_g1b1);

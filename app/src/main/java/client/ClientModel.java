@@ -7,6 +7,7 @@ import java.util.Observer;
 
 import client.PlayerStates.NotInGame;
 import client.PlayerStates.PlayerState;
+import models.TTR_Constants;
 import models.data.ChatMessage;
 import models.data.DestinationCard;
 import models.data.Game;
@@ -32,7 +33,7 @@ public class ClientModel extends Observable {
     private PlayerInfoPresenter mPlayerInfoPresenter;
     private PlayersHandPresenter mPlayersHandPresenter;
     private RoutePresenter mRoutePresenter;
-    private PlayerState state = NotInGame.getInstance();
+    public PlayerState state = NotInGame.getInstance();
 
     //    TEMPORARY DEMO THINGS
     //new stuff for phase 2
@@ -117,8 +118,12 @@ public class ClientModel extends Observable {
             this.gameActive = gamePlaying;
             this.userPlayer.setGameJoined(gamePlaying);
             this.player = gamePlaying.getPlayer(userPlayer.getUsername());
-            this.ticketCardHand = player.getTickets();
-            this.destinationCardHand = player.getDestinationCardHand();
+            if (this.player != null) {
+                this.ticketCardHand = player.getTickets();
+                this.destinationCardHand = player.getDestinationCardHand();
+            } else {
+                System.out.println("Active Game Waiting To Start");
+            }
             if (gamePlaying.isLastTurn()) {
                 this.leaveGame();
             }
@@ -227,9 +232,9 @@ public class ClientModel extends Observable {
         System.out.println("Trying to return destination cards in state " + state.getClass().getName());
         return state.returnDestinationCards(this, destinationCards);
     };
-    public Result purchaseRoute(Route route, int numberOfWilds){
+    public Result purchaseRoute(Route route, int numberOfWilds, int colorUsed){
         System.out.println("Trying to purchase a route in state " + state.getClass().getName());
-        return state.purchaseRoute(this, route, numberOfWilds);
+        return state.purchaseRoute(this, route, numberOfWilds, colorUsed);
     };
     public Result leaveGame(){
 

@@ -1,7 +1,6 @@
 package client;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.google.gson.Gson;
 
 import java.io.IOException;
 import java.io.InputStream;

@@ -171,13 +171,12 @@ public class ServerCommands implements IServer {
     }
 
     @Override
-    public Result purchaseRoute(String userName, String gameName, Route purchasedRoute, Integer numberOfWilds) {
+    public Result purchaseRoute(String userName, String gameName, Route purchasedRoute, Integer numberOfWilds, Integer colorUsed) {
         Result result = new Result();
         result.setSuccessful(false);
         Game targetGame = serverData.findGame(gameName);
         if (targetGame != null) {
-//            if ()
-            if (targetGame.purchaseRoute(userName, purchasedRoute, numberOfWilds)){
+            if (targetGame.purchaseRoute(userName, purchasedRoute, numberOfWilds, colorUsed)){
                 targetGame.incrementNumPlayerActions();
 
                 ChatMessage chatMessage = new ChatMessage();
@@ -193,6 +192,25 @@ public class ServerCommands implements IServer {
                     targetGame.findPlayer(userName).setDoneWithTurns(true);
                 }
                 targetGame.incrementCurrentTurnPlayer();
+
+                for (TrainCard iCard :targetGame.getFaceUpTrainCards()) {
+                    if(iCard.CardColor.equals(TTR_Constants.getInstance().EMPTY)){
+                        targetGame.reshuffleTicketDecks();
+                    }
+                }
+
+                Map<Integer,Integer> deck = targetGame.getTicketCardDeck();
+
+                boolean deckEmpty = true;
+                for (Integer cardColor : deck.keySet()) {
+                    if(deck.get(cardColor) != 0) {
+                        deckEmpty = false;
+                    }
+                }
+                if (deckEmpty) {
+                    targetGame.reshuffleTicketDecks();
+                }
+
                 result.setSuccessful(true);
             }
         }
@@ -207,8 +225,13 @@ public class ServerCommands implements IServer {
         if (targetGame != null){
             Player targetplayer = targetGame.getPlayer(userName);
             targetplayer.addToNewDestinationCardHand(targetGame.dealDestinationCard());
-            targetplayer.addToNewDestinationCardHand(targetGame.dealDestinationCard());
-            targetplayer.addToNewDestinationCardHand(targetGame.dealDestinationCard());
+            if (!targetGame.getDestinationDeck().isEmpty()) {
+                targetplayer.addToNewDestinationCardHand(targetGame.dealDestinationCard());
+            }
+
+            if (!targetGame.getDestinationDeck().isEmpty()) {
+                targetplayer.addToNewDestinationCardHand(targetGame.dealDestinationCard());
+            }
             targetGame.incrementNumPlayerActions();
 
             ChatMessage chatMessage = new ChatMessage();
@@ -247,8 +270,10 @@ public class ServerCommands implements IServer {
             Timestamp timestamp = new Timestamp(date.getTime());
             chatMessage.setTimeStamp(sdf.format(timestamp));
             targetGame.addChat(chatMessage);
-
-            if (secondPick && (card.getCardColor().equals(constants.WILD))) {
+            if (card.getCardColor().equals(constants.EMPTY)) {
+                return result;
+            }
+            else if (secondPick && (card.getCardColor().equals(constants.WILD))) {
                 return result;
             }
             else if (!secondPick && (card.getCardColor().equals(constants.WILD))) {
@@ -260,6 +285,34 @@ public class ServerCommands implements IServer {
             else if (secondPick){
                 if (targetGame.isLastRound()) {
                     targetGame.findPlayer(userName).setDoneWithTurns(true);
+                }
+                targetGame.incrementCurrentTurnPlayer();
+            }
+            else {
+                for (TrainCard iCard :targetGame.getFaceUpTrainCards()) {
+                    if(iCard.CardColor.equals(TTR_Constants.getInstance().EMPTY)){
+                        targetGame.reshuffleTicketDecks();
+                    }
+                }
+
+                for (TrainCard iCard :targetGame.getFaceUpTrainCards()) {
+                    if(!iCard.CardColor.equals(TTR_Constants.getInstance().EMPTY) && !iCard.CardColor.equals(TTR_Constants.getInstance().WILD)){
+                        Player targetplayer = targetGame.getPlayer(userName);
+                        targetplayer.addTicketToHand(iCard.getCardColor());
+                        result.setSuccessful(true);
+                        return result;
+                    }
+                }
+
+
+                Map<Integer,Integer> deck = targetGame.getTicketCardDeck();
+                for (Integer cardColor : deck.keySet()) {
+                    if(deck.get(cardColor) != 0) {
+                        Player targetplayer = targetGame.getPlayer(userName);
+                        targetplayer.addTicketToHand(card.getCardColor());
+                        result.setSuccessful(true);
+                        return result;
+                    }
                 }
                 targetGame.incrementCurrentTurnPlayer();
             }

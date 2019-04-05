@@ -18,7 +18,7 @@ public class PlayerState {
     public Result returnDestinationCards(ClientModel clientModel, DestinationCard[] destinationCards){
         return null;
     };
-    public Result purchaseRoute(ClientModel clientModel, Route route, int numberOfWilds){
+    public Result purchaseRoute(ClientModel clientModel, Route route, int numberOfWilds, int colorUsed){
         return null;
     };
     public Result acceptPlayerAction(ClientModel clientModel){
