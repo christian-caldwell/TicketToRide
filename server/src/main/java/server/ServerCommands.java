@@ -395,7 +395,14 @@ public class ServerCommands implements IServer {
         return result;
     }
 
+    @Override
+    public Result endGame(String gameName) {
+        Game closedGame = serverData.findGame(gameName);
+        Result result = serverData.removeGame(closedGame);
 
+        return result;
+
+    }
     //RUN GAME FACADE STUFF
 //        public Result returnDestinationCards(String userName, String gameName){
 //            DestinationCard[] returnedCards = null;

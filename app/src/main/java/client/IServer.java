@@ -17,6 +17,7 @@ public interface IServer {
     public Result startGame(String gameName);
     public Result joinGame(String userName, String gameName, Integer numPlayers);
     public Result createGame(String gameName, String username, Integer numPlayers);
+    public Result endGame(String gameName);
 
     public Result returnDestinationCards(String userName, String gameName, DestinationCard[] returnedCards);
     public Result purchaseRoute(String userName, String gameName, Route purchasedRoute, Integer numberOfWilds, Integer colorUsed);
