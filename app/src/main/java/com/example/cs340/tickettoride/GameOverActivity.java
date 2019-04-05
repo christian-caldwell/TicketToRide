@@ -59,7 +59,7 @@ public class GameOverActivity extends AppCompatActivity {
             winnerLostDestinationCards = findViewById(R.id.winner_lost_destination_cards_text_view);
             winnerLostDestinationCards.append(pair.second.toString());
             winnerScore = findViewById(R.id.winner_score_text_view);
-            winnerScore.append(playersInWinningOrder.get(0).getScore().toString());
+            winnerScore.append((playersInWinningOrder.get(0).getScore() + pair.first - pair.second) + "");
 
             // If winner has longest route, then make the 'Longest Route' text visible
             if (playersInWinningOrder.get(0).getHasLongestRoute()) {
@@ -76,12 +76,12 @@ public class GameOverActivity extends AppCompatActivity {
             p2Name = findViewById(R.id.p2_name_text_view);
             p2Name.setText("2nd place: " + playersInWinningOrder.get(1).getUsername());
             p2Score = findViewById(R.id.p2_score_text_view);
-            p2Score.append(playersInWinningOrder.get(1).getScore().toString());
             p2gainedDestinationCards = findViewById(R.id.p2_gained_destination_cards_text_view);
             Pair<Integer, Integer> pair = presenter.getDestinationPoints(playersInWinningOrder.get(1));
             p2gainedDestinationCards.append(pair.first.toString());
             p2LostDestinationCards = findViewById(R.id.p2_lost_destination_cards_text_view);
             p2LostDestinationCards.append(pair.second.toString());
+            p2Score.append((playersInWinningOrder.get(1).getScore() + pair.first - pair.second) + "");
 
             // If p2 has longest route, then make the 'Longest Route' text visible
             if (playersInWinningOrder.get(1).getHasLongestRoute()) {
@@ -98,12 +98,12 @@ public class GameOverActivity extends AppCompatActivity {
             p3Name = findViewById(R.id.p3_name_text_view);
             p3Name.setText("3rd place: " + playersInWinningOrder.get(2).getUsername());
             p3Score = findViewById(R.id.p3_score_text_view);
-            p3Score.append(playersInWinningOrder.get(2).getScore().toString());
             p3gainedDestinationCards = findViewById(R.id.p3_gained_destination_cards_text_view);
             Pair<Integer, Integer> pair = presenter.getDestinationPoints(playersInWinningOrder.get(2));
             p3gainedDestinationCards.append(pair.first.toString());
             p3LostDestinationCards = findViewById(R.id.p3_lost_destination_cards_text_view);
             p3LostDestinationCards.append(pair.second.toString());
+            p3Score.append((playersInWinningOrder.get(2).getScore() + pair.first - pair.second) + "");
 
             // If p3 has longest route, then make the 'Longest Route' text visible
             if (playersInWinningOrder.get(2).getHasLongestRoute()) {
@@ -126,6 +126,7 @@ public class GameOverActivity extends AppCompatActivity {
             p4gainedDestinationCards.append(pair.first.toString());
             p4LostDestinationCards = findViewById(R.id.p4_lost_destination_cards_text_view);
             p4LostDestinationCards.append(pair.second.toString());
+            p4Score.append((playersInWinningOrder.get(3).getScore() + pair.first - pair.second) + "");
 
             // If p4 has longest route, then make the 'Longest Route' text visible
             if (playersInWinningOrder.get(3).getHasLongestRoute()) {
@@ -142,12 +143,12 @@ public class GameOverActivity extends AppCompatActivity {
             p5Name = findViewById(R.id.p5_name_text_view);
             p5Name.setText("5th place: " + playersInWinningOrder.get(4).getUsername());
             p5Score = findViewById(R.id.p5_score_text_view);
-            p5Score.append(playersInWinningOrder.get(4).getScore().toString());
             p5gainedDestinationCards = findViewById(R.id.p5_gained_destination_cards_text_view);
             Pair<Integer, Integer> pair = presenter.getDestinationPoints(playersInWinningOrder.get(4));
             p5gainedDestinationCards.append(pair.first.toString());
             p5LostDestinationCards = findViewById(R.id.p5_lost_destination_cards_text_view);
             p5LostDestinationCards.append(pair.second.toString());
+            p5Score.append((playersInWinningOrder.get(4).getScore() + pair.first - pair.second) + "");
 
             // If p5 has longest route, then make the 'Longest Route' text visible
             if (playersInWinningOrder.get(4).getHasLongestRoute()) {
