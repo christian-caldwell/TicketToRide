@@ -171,7 +171,7 @@ public class ServerData {
 
     public void dealHands (Game targetGame) {
         for (Player targetPlayer: targetGame.getPlayers()) {
-            for (int i = 0; i < 40; i++) {
+            for (int i = 0; i < 4; i++) {
                 TrainCard card = targetGame.dealTicketCard(0);
                 targetPlayer.addTicketToHand(card.getCardColor());
             }
