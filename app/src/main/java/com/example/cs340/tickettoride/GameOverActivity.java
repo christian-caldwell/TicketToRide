@@ -14,6 +14,9 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
+import client.ClientModel;
+import client.PlayerStates.NotInGame;
+import client.ServerProxy;
 import models.TTR_Constants;
 import models.data.Player;
 import view.presenter.GameOverPresenter;
@@ -167,6 +170,12 @@ public class GameOverActivity extends AppCompatActivity {
         backToGameLobbyButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+//                ClientModel.create().leaveGame();
+                ClientModel clientModel = ClientModel.create();
+                ServerProxy serverProxy = new ServerProxy();
+                serverProxy.endGame(clientModel.getUser().getGameJoined().getGameName());
+                clientModel.setActiveGame(null);
+                clientModel.setState(NotInGame.getInstance());
                 Intent intent = new Intent(GameOverActivity.this, LobbyViewActivity.class);
                 startActivity(intent);
             }

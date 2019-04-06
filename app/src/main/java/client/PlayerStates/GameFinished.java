@@ -16,11 +16,12 @@ public class GameFinished extends PlayerState{
     }
 
     public Result leaveGame(ClientModel clientModel){
-        Result result = null;
-        ServerProxy serverProxy = new ServerProxy();
-        //result = serverproxy.leaveGame(username, gamename);
-        clientModel.getUser().setGameJoined(null);
-        clientModel.setState(NotInGame.getInstance());
-        return result;
+//        Result result = null;
+//        ServerProxy serverProxy = new ServerProxy();
+//        result = serverProxy.endGame(clientModel.getUser().getGameJoined().getGameName());
+//        clientModel.getUser().setGameJoined(null);
+//        clientModel.setState(NotInGame.getInstance());
+//        return result;
+        return null;
     };
 }

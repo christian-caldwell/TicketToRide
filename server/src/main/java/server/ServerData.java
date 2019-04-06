@@ -58,12 +58,32 @@ public class ServerData {
         Result result = new Result();
         result.setGame(newGame.getGameName());
         if (availableGames.containsKey(newGame.getGameName())) {
-            result.setErrorMessage("ERROR: \"" + newGame.getGameName() + "\" is taken, cannot create game.");
+            result.setErrorMessage("ERROR: " + newGame.getGameName() + " is taken, cannot create game.");
             result.setSuccessful(false);
 
         }
         else {
             availableGames.put(newGame.getGameName(), newGame);
+            result.setSuccessful(true);
+        }
+        return result;
+    }
+
+    public Result removeGame(Game closedGame) {
+        Result result = new Result();
+        if (availableGames.containsKey(closedGame.getGameName())) {
+            Game removedGame = availableGames.remove(closedGame.getGameName());
+            if (availableGames.get(removedGame.getGameName()) == null) {
+                result.setSuccessful(true);
+            }
+            else {
+                result.setErrorMessage("ERROR: Game Removal Failed");
+                result.setSuccessful(false);
+            }
+
+        }
+        else {
+            result.setErrorMessage("ERROR: " + closedGame.getGameName() + " Game Does Not Exist.");
             result.setSuccessful(true);
         }
         return result;
@@ -151,7 +171,7 @@ public class ServerData {
 
     public void dealHands (Game targetGame) {
         for (Player targetPlayer: targetGame.getPlayers()) {
-            for (int i = 0; i < 4; i++) {
+            for (int i = 0; i < 40; i++) {
                 TrainCard card = targetGame.dealTicketCard(0);
                 targetPlayer.addTicketToHand(card.getCardColor());
             }
