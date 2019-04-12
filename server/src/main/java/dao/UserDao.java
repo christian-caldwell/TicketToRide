@@ -1,7 +1,9 @@
 package dao;
 
-import model.User;
 import java.sql.*;
+import java.util.ArrayList;
+
+import models.data.User;
 
 public class UserDao {
     Database db = new Database();
@@ -24,14 +26,9 @@ public class UserDao {
         try {
             db.openConnection();
             PreparedStatement ps = null;
-            ps = db.getConn().prepareStatement("INSERT INTO User (Username, Password, Email, FirstName, LastName, Gender, PersonID) VALUES(?, ?, ?, ?, ?, ?, ?);");
-            ps.setString(1,u.userName);
-            ps.setString(2,u.password);
-            ps.setString(3,u.email);
-            ps.setString(4,u.firstName);
-            ps.setString(5,u.lastName);
-            ps.setString(6,u.gender);
-            ps.setString(7,u.personID);
+            ps = db.getConn().prepareStatement("INSERT INTO User (UserName, Password) VALUES(?, ?);");
+            ps.setString(1,u.getUsername());
+            ps.setString(2,u.getPassword());
             ps.executeUpdate();
             added = true;
         }
@@ -59,8 +56,8 @@ public class UserDao {
             PreparedStatement ps = null;
             ps = db.getConn().prepareStatement("DELETE FROM User " +
                     "WHERE" +
-                    " PersonID = ?;");
-            ps.setString(1, u.personID);
+                    " userName = ?;");
+            ps.setString(1, u.getUsername());
             ps.executeUpdate();
         }
         catch (Exception e) {
@@ -98,59 +95,20 @@ public class UserDao {
         }
     }
 
-    public String getPersonID(String username) {
-        String return_string = "";
+    public ArrayList<User> getAll() {
+        ArrayList<User> users = new ArrayList<>();
         try {
             db.openConnection();
-            PreparedStatement ps = null;
-            ps = db.getConn().prepareStatement("SELECT PersonID FROM User " +
-                    "WHERE" +
-                    " Username = ?;");
-            ps.setString(1, username);
-            ResultSet rs = ps.executeQuery();
-            return_string = rs.getString("PersonID");
-        }
-        catch (Exception e) {
-            System.out.println("Could not get personID in User table.");
-        }
-        finally {
-            try {
-                db.closeConnection(true);
+            ResultSet rs = db.getConn().prepareStatement("SELECT * FROM User;").executeQuery();
+            while (rs.next()) {
+                String username = rs.getString("userName");
+                String password = rs.getString("password");
+                users.add(new User(username,password));
             }
-            catch (Exception e ) {
-                e.printStackTrace();
-            }
-        }
-        return return_string;
-    }
-
-
-    /**
-     *
-     * @param personID the user you want to see in the database
-     * @return information about the user specified by parameter
-     */
-    public User get(String personID) {
-        User myUser = new User();
-        try {
-            db.openConnection();
-            PreparedStatement ps = null;
-            ps = db.getConn().prepareStatement("SELECT * FROM User " +
-                    "WHERE" +
-                    " PersonID = ?;");
-            ps.setString(1, personID);
-            ResultSet rs = ps.executeQuery();
-            myUser.email = rs.getString("Email");
-            myUser.userName = rs.getString("Username");
-            myUser.firstName = rs.getString("FirstName");
-            myUser.lastName = rs.getString("LastName");
-            myUser.gender = rs.getString("Gender");
-            myUser.password = rs.getString("Password");
-            myUser.personID = rs.getString("PersonID");
         }
         catch (Exception e) {
             System.out.println("Could not get user from User table.");
-            myUser = null;
+            return null;
         }
         finally {
             try {
@@ -158,10 +116,10 @@ public class UserDao {
             }
             catch (Exception e ) {
                 e.printStackTrace();
-                myUser = null;
+                return null;
             }
         }
-        return myUser;
+        return users;
     }
 
 

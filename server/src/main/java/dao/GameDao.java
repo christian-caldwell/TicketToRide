@@ -1,6 +1,7 @@
 package dao;
 
 import java.sql.*;
+import java.util.ArrayList;
 
 import models.data.Game;
 
@@ -26,19 +27,14 @@ public class GameDao {
         try {
             db.openConnection();
             PreparedStatement ps = null;
-            ps = db.getConn().prepareStatement("INSERT INTO Game (GameId) VALUES(?, ?, ?, ?, ?, ?, ?);");
-            ps.setString(1,u.userName);
-            ps.setString(2,u.password);
-            ps.setString(3,u.email);
-            ps.setString(4,u.firstName);
-            ps.setString(5,u.lastName);
-            ps.setString(6,u.gender);
-            ps.setString(7,u.personID);
+            ps = db.getConn().prepareStatement("INSERT INTO Game (gameId, gameName) VALUES(?, ?);");
+            ps.setString(1, ""); //TODO: add ID
+            ps.setString(2,game.getGameName());
             ps.executeUpdate();
             added = true;
         }
         catch (Exception e) {
-            System.out.println("Failed to add user to User table.");
+            System.out.println("Failed to add game to Game table.");
         }
         finally {
             try {
@@ -59,14 +55,14 @@ public class GameDao {
         try {
             db.openConnection();
             PreparedStatement ps = null;
-            ps = db.getConn().prepareStatement("DELETE FROM User " +
+            ps = db.getConn().prepareStatement("DELETE FROM Game " +
                     "WHERE" +
-                    " PersonID = ?;");
-            ps.setString(1, u.personID);
+                    " gameName = ?;");
+            ps.setString(1, game.getGameName());
             ps.executeUpdate();
         }
         catch (Exception e) {
-            System.out.println("Failed to delete user from User table.");
+            System.out.println("Failed to delete game from Game table.");
         }
         finally {
             try {
@@ -79,16 +75,16 @@ public class GameDao {
     }
 
     /**
-     * deletes all the information in the User table
+     * deletes all the information in the Game table
      */
     public void clear () {
         try {
             db.openConnection();
             Statement stmt = db.getConn().createStatement();
-            stmt.executeUpdate("DELETE FROM User ");
+            stmt.executeUpdate("DELETE FROM Game ");
         }
         catch (Exception e) {
-            System.out.println("Failed to clear User table.");
+            System.out.println("Failed to clear Game table.");
         }
         finally {
             try {
@@ -99,60 +95,25 @@ public class GameDao {
             }
         }
     }
-
-    public String getPersonID(String username) {
-        String return_string = "";
-        try {
-            db.openConnection();
-            PreparedStatement ps = null;
-            ps = db.getConn().prepareStatement("SELECT PersonID FROM User " +
-                    "WHERE" +
-                    " Username = ?;");
-            ps.setString(1, username);
-            ResultSet rs = ps.executeQuery();
-            return_string = rs.getString("PersonID");
-        }
-        catch (Exception e) {
-            System.out.println("Could not get personID in User table.");
-        }
-        finally {
-            try {
-                db.closeConnection(true);
-            }
-            catch (Exception e ) {
-                e.printStackTrace();
-            }
-        }
-        return return_string;
-    }
-
 
     /**
      *
-     * @param gameName the user you want to see in the database
-     * @return information about the user specified by parameter
+     * @param gameName the game you want to see in the database
+     * @return information about the game specified by parameter
      */
-    public Game get(String gameName) {
-        Game myGame = new Game();
+    //TODO: just returns strings as of now...
+    public ArrayList<String> getAllGames(String gameName) {
+        ArrayList<String> games = new ArrayList<>();
         try {
             db.openConnection();
-            PreparedStatement ps = null;
-            ps = db.getConn().prepareStatement("SELECT * FROM Game " +
-                    "WHERE" +
-                    " Game = ?;");
-            ps.setString(1, personID);
-            ResultSet rs = ps.executeQuery();
-            myUser.email = rs.getString("Email");
-            myUser.userName = rs.getString("Username");
-            myUser.firstName = rs.getString("FirstName");
-            myUser.lastName = rs.getString("LastName");
-            myUser.gender = rs.getString("Gender");
-            myUser.password = rs.getString("Password");
-            myUser.personID = rs.getString("PersonID");
+            ResultSet rs = db.getConn().prepareStatement("SELECT * FROM Game;").executeQuery();
+            while (rs.next()) {
+                games.add(rs.getString("gameName"));
+            }
         }
         catch (Exception e) {
-            System.out.println("Could not get user from User table.");
-            myUser = null;
+            System.out.println("Could not get game from Game table.");
+            return null;
         }
         finally {
             try {
@@ -160,10 +121,10 @@ public class GameDao {
             }
             catch (Exception e ) {
                 e.printStackTrace();
-                myUser = null;
+                return null;
             }
         }
-        return myUser;
+        return games;
     }
 
 
