@@ -39,7 +39,7 @@ public class Database {
 
     public void openConnection() throws Exception {
         try {
-            final String CONNECTION_URL = "jdbc:sqlite:Database.sqlite";
+            final String CONNECTION_URL = "jdbc:sqlite:ben_and_seths_awesome_database.db";
 
             // Open a database connection
             conn = DriverManager.getConnection(CONNECTION_URL);
