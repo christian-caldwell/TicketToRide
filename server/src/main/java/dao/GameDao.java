@@ -10,7 +10,7 @@ public class GameDao {
     public GameDao() throws Exception{
         try {
             db.openConnection();
-            db.createUserTable();
+            db.createGameTable();
             db.closeConnection(true);
         } catch (Exception e) {
             throw new Exception("openConnection failed", e);
@@ -26,7 +26,7 @@ public class GameDao {
         try {
             db.openConnection();
             PreparedStatement ps = null;
-            ps = db.getConn().prepareStatement("INSERT INTO User (Username, Password, Email, FirstName, LastName, Gender, PersonID) VALUES(?, ?, ?, ?, ?, ?, ?);");
+            ps = db.getConn().prepareStatement("INSERT INTO Game (GameId) VALUES(?, ?, ?, ?, ?, ?, ?);");
             ps.setString(1,u.userName);
             ps.setString(2,u.password);
             ps.setString(3,u.email);
