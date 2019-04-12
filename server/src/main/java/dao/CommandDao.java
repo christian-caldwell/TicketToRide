@@ -3,7 +3,7 @@ package dao;
 import java.sql.*;
 
 import models.command.Command;
-import models.data.Game;
+
 
 public class CommandDao {
     Database db = new Database();
@@ -18,27 +18,23 @@ public class CommandDao {
         }
     }
     /**
-     * adds one user to database
-     * @param u the user you want to add
+     * adds one command to database
+     * @param commandText the command you want to add
      */
-    public boolean add(Command command) {
+    public boolean add(String commandText) {
         boolean added = false;
         try {
             db.openConnection();
             PreparedStatement ps = null;
-            ps = db.getConn().prepareStatement("INSERT INTO User (Username, Password, Email, FirstName, LastName, Gender, PersonID) VALUES(?, ?, ?, ?, ?, ?, ?);");
+            ps = db.getConn().prepareStatement("INSERT INTO Command (commandID, id, commandText) VALUES(?, ?, ?);");
             ps.setString(1,u.userName);
             ps.setString(2,u.password);
-            ps.setString(3,u.email);
-            ps.setString(4,u.firstName);
-            ps.setString(5,u.lastName);
-            ps.setString(6,u.gender);
-            ps.setString(7,u.personID);
+            ps.setString(3,commandText);
             ps.executeUpdate();
             added = true;
         }
         catch (Exception e) {
-            System.out.println("Failed to add user to User table.");
+            System.out.println("Failed to add command to Command table.");
         }
         finally {
             try {
@@ -53,16 +49,16 @@ public class CommandDao {
 
     /**
      * deletes one user specified by the parameter
-     * @param u the user you want to delete
+     * @param command the user you want to delete
      */
-    public void delete(Command command) {
+    public void delete(String command) {
         try {
             db.openConnection();
             PreparedStatement ps = null;
-            ps = db.getConn().prepareStatement("DELETE FROM User " +
+            ps = db.getConn().prepareStatement("DELETE FROM Command " +
                     "WHERE" +
-                    " PersonID = ?;");
-            ps.setString(1, u.personID);
+                    " commandText = ?;");
+            ps.setString(1, command);
             ps.executeUpdate();
         }
         catch (Exception e) {
