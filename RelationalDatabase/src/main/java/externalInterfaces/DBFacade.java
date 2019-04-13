@@ -1,11 +1,11 @@
-package Database;
+package externalInterfaces;
 
 import java.util.List;
 import java.util.Map;
 
-import models.data.Game;
-import models.data.User;
-import server.GeneralCommand;
+import externalClasses.Game;
+import externalClasses.GeneralCommand;
+import externalClasses.User;
 
 public interface DBFacade {
     public void clearDB();
