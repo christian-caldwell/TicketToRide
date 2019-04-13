@@ -10,7 +10,9 @@ import dao.CommandDao;
 import dao.Database;
 import dao.GameDao;
 import dao.UserDao;
+import models.command.Command;
 import models.data.Game;
+import models.data.User;
 
 public class Server {
 
@@ -49,14 +51,7 @@ public class Server {
         new Server().run(portNumber);
 
         try {
-            //Database db = new Database();
-
             GameDao gamedao = new GameDao();
-            Game game1 = new Game("newGame1");
-            Game game2 = new Game("newGame2");
-            gamedao.add(game1);
-            gamedao.delete(game1);
-
             CommandDao commandDao = new CommandDao();
             UserDao userDao = new UserDao();
         } catch (Exception e) {

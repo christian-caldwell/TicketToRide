@@ -1,10 +1,17 @@
 package dao;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+
 import java.sql.*;
 import java.util.ArrayList;
 
+import models.command.Command;
+import models.data.Game;
+import server.GeneralCommand;
+
 public class CommandDao {
     Database db = new Database();
+    ObjectMapper om = new ObjectMapper();
 
     public CommandDao() throws Exception{
         try {
@@ -18,14 +25,35 @@ public class CommandDao {
 
     /**
      * adds one command to database
-     * @param commandText the command you want to add
+     * @param command the command you want to add
      */
-    public boolean add(String commandText) {
+    public boolean add(GeneralCommand command) {
         boolean added = false;
+        int location;
+        switch (command.get_methodName()) {
+            case "postChatMessage":
+            case "startGame":
+                location = 0;
+                break;
+            case "requestTicketCard":
+            case "requestDestinationCards":
+            case "purchaseRoute":
+            case "returnDestinationCards":
+            case "joinGame":
+                location = 1;
+                break;
+            default:
+                System.out.println("Switch found an impossible method.");
+                return false;
+        }
+        String gameName = (String)command.get_paramValues()[location];
+
         try {
+            String blob = om.writeValueAsString(command);
             db.openConnection();
-            PreparedStatement ps = db.getConn().prepareStatement("INSERT INTO Command (commandText) VALUES(?);");
-            ps.setString(1,commandText);
+            PreparedStatement ps = db.getConn().prepareStatement("INSERT INTO Command (commandText, trackGame) VALUES(?, ?);");
+            ps.setString(1, blob);
+            ps.setString(2, gameName);
             ps.executeUpdate();
             added = true;
         }
@@ -53,7 +81,7 @@ public class CommandDao {
             PreparedStatement ps = null;
             ps = db.getConn().prepareStatement("DELETE FROM Command " +
                     "WHERE" +
-                    " gameName = ?;");
+                    " trackGame = ?;");
             ps.setString(1, gameName);
             ps.executeUpdate();
         }
@@ -92,12 +120,12 @@ public class CommandDao {
         }
     }
 
-    public ArrayList<String> getAll() {
-        ArrayList<String> commands = new ArrayList<>();
+    public ArrayList<GeneralCommand> getAll() {
+        ArrayList<GeneralCommand> commands = new ArrayList<>();
         try {
             db.openConnection();
             ResultSet rs = db.getConn().prepareStatement("SELECT * FROM Command;").executeQuery();
-            commands.add(rs.getString("commandText"));
+            commands.add(om.readValue(rs.getString("commandText"), GeneralCommand.class));
         }
         catch (Exception e) {
             System.out.println("Could not get Commands from Command table.");
