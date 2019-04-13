@@ -72,7 +72,7 @@ public class Database {
             try {
                 stmt = conn.createStatement();
                 stmt.executeUpdate("CREATE TABLE IF NOT EXISTS `Game` (\n" +
-                        "`gameID` INT AUTOINCREMENT\n" +
+                        "`gameName` TEXT NOT NULL\n" +
                         "`game` BLOB NOT NULL,\n" +
                         "PRIMARY KEY (gameID)\n" +
                         ");");
