@@ -17,7 +17,7 @@ public interface DBFacade {
 
     public Map<String, Game> getLobby();
     public List<User> getUsers();
-    public Map<String, GeneralCommand> getCommands();
+    public Map<String, List<GeneralCommand>> getCommands();
     public Map<String, Game> getGames();
 }
 
