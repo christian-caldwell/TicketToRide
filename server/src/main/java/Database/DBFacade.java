@@ -1,5 +1,8 @@
 package Database;
 
+import java.util.List;
+import java.util.Map;
+
 import models.command.Command;
 import models.data.Game;
 import models.data.User;
@@ -12,7 +15,10 @@ public interface DBFacade {
     public void startGame(Game game);
     public void endGame(Game game);
 
-    public 
+    public Map<String, Game> getLobby();
+    public List<User> getUsers();
+    public Map<String, Command> getCommands();
+    public Map<String, Game> getGames();
 }
 
 //This should be pretty simple?
