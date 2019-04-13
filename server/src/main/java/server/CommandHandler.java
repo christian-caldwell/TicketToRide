@@ -13,6 +13,7 @@ import models.command.ICommandExecuter;
 import models.data.Result;
 
 public class CommandHandler implements HttpHandler {
+
     public void handle(HttpExchange exchange) throws IOException {
         /*
         Create commands that call the command class, which will call the serverCommands
@@ -42,6 +43,10 @@ public class CommandHandler implements HttpHandler {
             }
             facadeCommand.set_paramValues(paramValues);
             Result result = facadeCommand.exec();
+
+            if (result.isSuccessful()) {
+                new ServerCommands().registerCommand(facadeCommand);
+            }
 
             //Use ObjectMappper to convert the result to a json object
             String jsonResponse = mapper.writeValueAsString(result);

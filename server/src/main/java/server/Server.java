@@ -39,6 +39,11 @@ public class Server {
     // on which the com.example.testingpurposes.server should accept incoming com.example.testingpurposes.client connections.
     public static void main(String[] args) {
         String portNumber = "8080";
+        int delta = 10;
+        if (args.length > 0) {
+            delta = Integer.parseInt(args[0]);
+        }
+        ServerData.getInstance().setDelta(delta);
         new Server().run(portNumber);
 
         System.out.println("Started on port: " + portNumber);
