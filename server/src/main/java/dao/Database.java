@@ -95,7 +95,7 @@ public class Database {
                 stmt.executeUpdate("CREATE TABLE IF NOT EXIST `User` (\n" +
                         "`userName` TEXT NOT NULL,\n" +
                         "`password` TEXT NOT NULL,\n" +
-                        "FOREIGN KEY (gameID),\n" +
+                        "FOREIGN KEY (gameName),\n" +
                         "PRIMARY KEY (userName)");
                 conn.commit();
             } catch (SQLException e) {
