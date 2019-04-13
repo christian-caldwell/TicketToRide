@@ -22,10 +22,10 @@ public class Database {
     public void removeTables(Statement stmt) {
         try {
             try {
-
                 stmt.executeUpdate("drop table Game;\n" +
                         "drop table User;\n" +
-                        "drop table Command;");
+                        "drop table Command;" +
+                        "drop table LobbyGame");
             } finally {
                 if (stmt != null) {
                     stmt.close();
@@ -39,7 +39,7 @@ public class Database {
 
     public void openConnection() throws Exception {
         try {
-            final String CONNECTION_URL = "jdbc:sqlite:Database.sqlite";
+            final String CONNECTION_URL = "jdbc:sqlite:ben_and_seths_awesome_database.sqlite";
 
             // Open a database connection
             conn = DriverManager.getConnection(CONNECTION_URL);
@@ -67,15 +67,13 @@ public class Database {
     }
 
     public void createGameTable() {
-
         try {
             Statement stmt = null;
             try {
                 stmt = conn.createStatement();
-
                 stmt.executeUpdate("CREATE TABLE IF NOT EXISTS `Game` (\n" +
-                        "`gameID` INT\n" +
-                        "`gameName` TEXT NOT NULL,\n" +
+                        "`gameID` INT AUTOINCREMENT\n" +
+                        "`game` BLOB NOT NULL,\n" +
                         "PRIMARY KEY (gameID)\n" +
                         ");");
             } finally {
@@ -87,7 +85,6 @@ public class Database {
         } catch (SQLException e) {
             e.printStackTrace();
         }
-
     }
 
     public void createUserTable() {
@@ -122,8 +119,7 @@ public class Database {
                 stmt = conn.createStatement();
 
                 stmt.executeUpdate("CREATE TABLE IF NOT EXISTS `Command` (\n" +
-                        "`commandID` INT,\n" +
-                        "`id` INT NOT NULL,\n" +
+                        "`commandID` INT AUTOINCREMENT,\n" +
                         "`commandText` TEXT,\n" +
                         "FOREIGN KEY(gameID),\n" +
                         "PRIMARY KEY (commandID)\n" +

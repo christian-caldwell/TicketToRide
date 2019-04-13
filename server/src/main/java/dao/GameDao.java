@@ -1,5 +1,9 @@
 package dao;
 
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.io.ObjectOutput;
+import java.io.ObjectOutputStream;
 import java.sql.*;
 import java.util.ArrayList;
 
@@ -28,7 +32,24 @@ public class GameDao {
             db.openConnection();
             PreparedStatement ps = null;
             ps = db.getConn().prepareStatement("INSERT INTO Game (gameId, gameName) VALUES(?, ?);");
-            ps.setString(1, ""); //TODO: add ID
+            Blob blob = ps.getConnection().createBlob();
+            ByteArrayOutputStream bos = new ByteArrayOutputStream();
+            ObjectOutput out = null;
+            byte[] bytes = null;
+            try {
+                out = new ObjectOutputStream(bos);
+                out.writeObject(game);
+                out.flush();
+                bytes = bos.toByteArray();
+            } finally {
+                try {
+                    bos.close();
+                } catch (IOException ex) {
+                    System.out.print(ex);
+                }
+            }
+            blob.setBytes(1, bytes);
+            ps.setBlob(1, blob);
             ps.setString(2,game.getGameName());
             ps.executeUpdate();
             added = true;
