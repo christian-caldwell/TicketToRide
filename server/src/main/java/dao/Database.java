@@ -99,7 +99,7 @@ public class Database {
                 stmt.executeUpdate("CREATE TABLE IF NOT EXISTS User (\n" +
                         "userName   TEXT NOT NULL PRIMARY KEY,\n" +
                         "password   TEXT NOT NULL,\n" +
-                        "trackGame  TEXT NOT NULL,\n" +
+                        "trackGame  TEXT,\n" +
                         "FOREIGN KEY(trackGame) REFERENCES Game(gameName)\n" +
                         ");");
             } finally {
