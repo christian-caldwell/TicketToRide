@@ -8,17 +8,17 @@ import externalClasses.GeneralCommand;
 import externalClasses.User;
 
 public interface DBFacade {
-    public void clearDB();
-    public void backupGame(Game game);
-    public void addCommand(Game game, GeneralCommand command);
-    public void addUser(User user);
-    public void startGame(Game game);
-    public void endGame(Game game);
+    public void clearDB() throws Exception;
+    public void backupGame(Game game) throws Exception;
+    public void addCommand(Game game, GeneralCommand command) throws Exception;
+    public void addUser(User user) throws Exception;
+    public void createGame(Game game) throws Exception;
+    public void endGame(Game game) throws Exception;
 
-    public Map<String, Game> getLobby();
-    public List<User> getUsers();
-    public Map<String, GeneralCommand> getCommands();
-    public Map<String, Game> getGames();
+    //    public Map<String, Game> getLobby();
+    public List<User> getUsers() throws Exception;
+    public Map<String, GeneralCommand> getCommands() throws Exception;
+    public Map<String, Game> getGames() throws Exception;
 }
 
 //This should be pretty simple?
