@@ -1,12 +1,7 @@
 package database;
 
-import java.io.ByteArrayInputStream;
-import java.io.ByteArrayOutputStream;
-import java.io.IOException;
-import java.io.ObjectInput;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutput;
-import java.io.ObjectOutputStream;
+import com.fasterxml.jackson.databind.ObjectMapper;
+
 import java.sql.*;
 import java.util.ArrayList;
 
@@ -14,6 +9,7 @@ import externalClasses.Game;
 
 public class GameDao {
     Database db = new Database();
+    ObjectMapper om = new ObjectMapper();
 
     public GameDao() throws Exception {
         try {
@@ -35,9 +31,10 @@ public class GameDao {
         try {
             db.openConnection();
             PreparedStatement ps = null;
-            ps = db.getConn().prepareStatement("INSERT INTO Game (game) VALUES(?);");
-            Blob blob = toBlob(game, ps);
-            ps.setBlob(1, blob);
+            ps = db.getConn().prepareStatement("INSERT INTO Game (gameName, game) VALUES(?, ?);");
+            String blob = om.writeValueAsString(game);
+            ps.setString(1, game.getGameName());
+            ps.setString(2, blob);
             ps.executeUpdate();
             added = true;
         } catch (Exception e) {
@@ -95,17 +92,13 @@ public class GameDao {
         }
     }
 
-    /**
-     * @param gameName the game you want to see in the database
-     * @return information about the game specified by parameter
-     */
-    public ArrayList<Game> getAllGames(String gameName) {
+    public ArrayList<Game> getAllGames() {
         ArrayList<Game> games = new ArrayList<>();
         try {
             db.openConnection();
             ResultSet rs = db.getConn().prepareStatement("SELECT * FROM Game;").executeQuery();
             while (rs.next()) {
-                games.add(fromBlob(rs.getBlob("game")));
+                games.add(om.readValue(rs.getString("game"), Game.class));
             }
         } catch (Exception e) {
             System.out.println("Could not get game from Game table.");
@@ -119,52 +112,5 @@ public class GameDao {
             }
         }
         return games;
-    }
-
-    private Blob toBlob(Game game, PreparedStatement ps) {
-        try {
-            Blob blob = ps.getConnection().createBlob();
-            ByteArrayOutputStream bos = new ByteArrayOutputStream();
-            ObjectOutput out = null;
-            byte[] bytes = null;
-            try {
-                out = new ObjectOutputStream(bos);
-                out.writeObject(game);
-                out.flush();
-                bytes = bos.toByteArray();
-            } finally {
-                try {
-                    bos.close();
-                } catch (IOException ex) {
-                    System.out.print(ex);
-                }
-            }
-            blob.setBytes(1, bytes);
-            return blob;
-        } catch (Exception e) {
-            System.out.print("Failed to create blob: " + e);
-            return null;
-        }
-    }
-
-    private Game fromBlob(Blob blob) {
-        ObjectInput in = null;
-        try {
-            ByteArrayInputStream bis = new ByteArrayInputStream(blob.getBytes(1,1));
-            in = new ObjectInputStream(bis);
-            Object o = in.readObject();
-
-        } catch (Exception e) {
-            System.out.print("Failed to convert to game from blob: " + e);
-        } finally {
-            try {
-                if (in != null) {
-                    in.close();
-                }
-            } catch (Exception e) {
-                System.out.print("Failed to convert to game from blob: " + e);
-            }
-        }
-        return null;
     }
 }

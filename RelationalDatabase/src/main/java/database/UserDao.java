@@ -73,6 +73,30 @@ public class UserDao {
         }
     }
 
+    public boolean joinGame(User u, String gameName) {
+        boolean added = false;
+        try {
+            db.openConnection();
+            PreparedStatement ps = null;
+            ps = db.getConn().prepareStatement("UPDATE User where username = ? SET trackGame = ?;");
+            ps.setString(1, u.getUsername());
+            ps.setString(2, gameName);
+            ps.executeUpdate();
+            added = true;
+        }
+        catch (Exception e) {
+            System.out.println("Failed to update user from User table.");
+        }
+        finally {
+            try {
+                db.closeConnection(true);
+            }
+            catch (Exception e ) {
+                e.printStackTrace();
+            }
+        }
+        return added;
+    }
     /**
      * deletes all the information in the User table
      */

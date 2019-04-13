@@ -6,6 +6,7 @@ public class Database {
 
     private Connection conn;
 
+
     static {
         try {
             final String driver = "org.sqlite.JDBC";
@@ -22,10 +23,10 @@ public class Database {
     public void removeTables(Statement stmt) {
         try {
             try {
+
                 stmt.executeUpdate("drop table Game;\n" +
                         "drop table User;\n" +
-                        "drop table Command;" +
-                        "drop table LobbyGame");
+                        "drop table Command;");
             } finally {
                 if (stmt != null) {
                     stmt.close();
@@ -39,7 +40,7 @@ public class Database {
 
     public void openConnection() throws Exception {
         try {
-            final String CONNECTION_URL = "jdbc:sqlite:ben_and_seths_awesome_database.sqlite";
+            final String CONNECTION_URL = "jdbc:sqlite:database.sqlite";
 
             // Open a database connection
             conn = DriverManager.getConnection(CONNECTION_URL);
@@ -67,14 +68,15 @@ public class Database {
     }
 
     public void createGameTable() {
+
         try {
             Statement stmt = null;
             try {
                 stmt = conn.createStatement();
-                stmt.executeUpdate("CREATE TABLE IF NOT EXISTS `Game` (\n" +
-                        "`gameName` TEXT NOT NULL\n" +
-                        "`game` BLOB NOT NULL,\n" +
-                        "PRIMARY KEY (gameID)\n" +
+
+                stmt.executeUpdate("CREATE TABLE IF NOT EXISTS Game (\n" +
+                        "gameName     TEXT NOT NULL PRIMARY KEY,\n" +
+                        "game         TEXT NOT NULL\n" +
                         ");");
             } finally {
                 if (stmt != null) {
@@ -85,6 +87,7 @@ public class Database {
         } catch (SQLException e) {
             e.printStackTrace();
         }
+
     }
 
     public void createUserTable() {
@@ -93,14 +96,12 @@ public class Database {
             try {
                 stmt = conn.createStatement();
 
-                stmt.executeUpdate("CREATE TABLE IF NOT EXIST `User` (\n" +
-                        "`userName` TEXT NOT NULL,\n" +
-                        "`password` TEXT NOT NULL,\n" +
-                        "FOREIGN KEY (gameID),\n" +
-                        "PRIMARY KEY (userName)");
-                conn.commit();
-            } catch (SQLException e) {
-                e.printStackTrace();
+                stmt.executeUpdate("CREATE TABLE IF NOT EXISTS User (\n" +
+                        "userName   TEXT NOT NULL PRIMARY KEY,\n" +
+                        "password   TEXT NOT NULL,\n" +
+                        "trackGame  TEXT,\n" +
+                        "FOREIGN KEY(trackGame) REFERENCES Game(gameName)\n" +
+                        ");");
             } finally {
                 if (stmt != null) {
                     stmt.close();
@@ -118,11 +119,11 @@ public class Database {
             try {
                 stmt = conn.createStatement();
 
-                stmt.executeUpdate("CREATE TABLE IF NOT EXISTS `Command` (\n" +
-                        "`commandID` INT AUTOINCREMENT,\n" +
-                        "`commandText` TEXT,\n" +
-                        "FOREIGN KEY(gameID),\n" +
-                        "PRIMARY KEY (commandID)\n" +
+                stmt.executeUpdate("CREATE TABLE IF NOT EXISTS Command (\n" +
+                        "commandID      INTEGER PRIMARY KEY AUTOINCREMENT,\n" +
+                        "commandText    TEXT,\n" +
+                        "trackGame      TEXT NOT NULL,\n" +
+                        "FOREIGN KEY(trackGame) REFERENCES Game(gameName)\n" +
                         ");");
             } finally {
                 if (stmt != null) {

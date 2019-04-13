@@ -5,11 +5,6 @@ import com.sun.net.httpserver.HttpServer;
 import java.io.IOException;
 import java.net.InetSocketAddress;
 
-import externalClasses.dao.CommandDao;
-import externalClasses.dao.Database;
-import externalClasses.dao.GameDao;
-import externalClasses.dao.UserDao;
-
 public class Server {
 
 
