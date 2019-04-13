@@ -21,54 +21,49 @@ class RDBFacade implements DBFacade {
     }
 
     @Override
-    public void clearDB() {
+    public void clearDB() throws Exception{
         this.commandDao.clear();
         this.userDao.clear();
         this.gameDao.clear();
     }
 
     @Override
-    public void backupGame(Game game) {
+    public void backupGame(Game game) throws Exception{
 
     }
 
     @Override
-    public void addCommand(Game game, GeneralCommand command) {
+    public void addCommand(Game game, GeneralCommand command) throws Exception{
 
     }
 
     @Override
-    public void addUser(User user) {
+    public void addUser(User user) throws Exception{
 
     }
 
     @Override
-    public void startGame(Game game) {
+    public void createGame(Game game) throws Exception{
 
     }
 
     @Override
-    public void endGame(Game game) {
+    public void endGame(Game game) throws Exception{
 
     }
 
     @Override
-    public Map<String, Game> getLobby() {
+    public List<User> getUsers()throws Exception {
         return null;
     }
 
     @Override
-    public List<User> getUsers() {
+    public Map<String, GeneralCommand> getCommands()throws Exception {
         return null;
     }
 
     @Override
-    public Map<String, GeneralCommand> getCommands() {
-        return null;
-    }
-
-    @Override
-    public Map<String, Game> getGames() {
+    public Map<String, Game> getGames()throws Exception {
         return null;
     }
 }
