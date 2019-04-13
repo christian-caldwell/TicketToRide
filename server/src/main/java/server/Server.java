@@ -4,8 +4,10 @@ import com.sun.net.httpserver.HttpServer;
 
 import java.io.IOException;
 import java.net.InetSocketAddress;
+import java.util.concurrent.TimeUnit;
 
 import dao.CommandDao;
+import dao.Database;
 import dao.GameDao;
 import dao.UserDao;
 import models.data.Game;
@@ -47,6 +49,8 @@ public class Server {
         new Server().run(portNumber);
 
         try {
+            //Database db = new Database();
+
             GameDao gamedao = new GameDao();
             Game game1 = new Game("newGame1");
             Game game2 = new Game("newGame2");
@@ -58,6 +62,9 @@ public class Server {
         } catch (Exception e) {
             e.printStackTrace();
         }
+
+        long millis = System.currentTimeMillis();
+        long seconds = TimeUnit.MILLISECONDS.toSeconds(millis);
         System.out.println("Started on port: " + portNumber);
     }
 }
