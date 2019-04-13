@@ -1,11 +1,11 @@
-package externalClasses.dao;
+package database;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import java.sql.*;
 import java.util.ArrayList;
 
-import models.data.Game;
+import externalClasses.Game;
 
 public class GameDao {
     Database db = new Database();

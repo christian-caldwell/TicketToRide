@@ -1,9 +1,9 @@
-package externalClasses.dao;
+package database;
 
 import java.sql.*;
 import java.util.ArrayList;
 
-import models.data.User;
+import externalClasses.User;
 
 public class UserDao {
     Database db = new Database();

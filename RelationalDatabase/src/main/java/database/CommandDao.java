@@ -1,13 +1,13 @@
-package externalClasses.dao;
+package database;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import java.sql.*;
 import java.util.ArrayList;
 
-import models.command.Command;
-import models.data.Game;
-import server.GeneralCommand;
+import externalClasses.Game;
+import externalClasses.GeneralCommand;
+
 
 public class CommandDao {
     Database db = new Database();
@@ -120,12 +120,16 @@ public class CommandDao {
         }
     }
 
-    public ArrayList<GeneralCommand> getAll() {
+    public ArrayList<GeneralCommand> getAll(Game game) {
         ArrayList<GeneralCommand> commands = new ArrayList<>();
         try {
             db.openConnection();
-            ResultSet rs = db.getConn().prepareStatement("SELECT * FROM Command;").executeQuery();
-            commands.add(om.readValue(rs.getString("commandText"), GeneralCommand.class));
+            PreparedStatement ps = db.getConn().prepareStatement("SELECT * FROM Command WHERE trackGame = ?;");
+            ps.setString(1, game.getGameName());
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                commands.add(om.readValue(rs.getString("commandText"), GeneralCommand.class));
+            }
         }
         catch (Exception e) {
             System.out.println("Could not get Commands from Command table.");
