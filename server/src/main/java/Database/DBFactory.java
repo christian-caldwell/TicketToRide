@@ -1,5 +1,5 @@
 package Database;
 
 public interface DBFactory {
-    public DBFacade getFacade();
+    public DBFacade getFacade() throws Exception;
 }

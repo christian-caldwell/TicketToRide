@@ -7,10 +7,11 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import externalClasses.Game;
-import externalClasses.GeneralCommand;
-import externalClasses.User;
-import externalInterfaces.DBFacade;
+import Database.DBFacade;
+import Database.DBFactory;
+import models.data.Game;
+import models.data.User;
+import server.GeneralCommand;
 
 class NRDBFacade implements DBFacade {
 

@@ -5,9 +5,8 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import java.sql.*;
 import java.util.ArrayList;
 
-import externalClasses.Game;
-import externalClasses.GeneralCommand;
-
+import models.data.Game;
+import server.GeneralCommand;
 
 public class CommandDao {
     Database db = new Database();
