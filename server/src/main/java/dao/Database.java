@@ -120,7 +120,7 @@ public class Database {
                 stmt = conn.createStatement();
 
                 stmt.executeUpdate("CREATE TABLE IF NOT EXISTS Command (\n" +
-                        "commandID      INTEGER AUTOINCREMENT PRIMARY KEY,\n" +
+                        "commandID      INTEGER PRIMARY KEY AUTOINCREMENT,\n" +
                         "commandText    TEXT,\n" +
                         "trackGame      TEXT NOT NULL,\n" +
                         "FOREIGN KEY(trackGame) REFERENCES Game(gameName)\n" +

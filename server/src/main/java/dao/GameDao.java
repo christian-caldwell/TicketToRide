@@ -39,9 +39,10 @@ public class GameDao {
         try {
             db.openConnection();
             PreparedStatement ps = null;
-            ps = db.getConn().prepareStatement("INSERT INTO Game (game) VALUES(?);");
+            ps = db.getConn().prepareStatement("INSERT INTO Game (gameName, game) VALUES(?, ?);");
             String blob = om.writeValueAsString(game);
-            ps.setString(1, blob);
+            ps.setString(1, game.getGameName());
+            ps.setString(2, blob);
             ps.executeUpdate();
             added = true;
         } catch (Exception e) {
@@ -99,11 +100,7 @@ public class GameDao {
         }
     }
 
-    /**
-     * @param gameName the game you want to see in the database
-     * @return information about the game specified by parameter
-     */
-    public ArrayList<Game> getAllGames(String gameName) {
+    public ArrayList<Game> getAllGames() {
         ArrayList<Game> games = new ArrayList<>();
         try {
             db.openConnection();
