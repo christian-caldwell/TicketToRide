@@ -6,7 +6,8 @@ public class Database {
 
     private Connection conn;
 
-    static {
+
+        static {
         try {
             final String driver = "org.sqlite.JDBC";
             Class.forName(driver);
@@ -39,7 +40,7 @@ public class Database {
 
     public void openConnection() throws Exception {
         try {
-            final String CONNECTION_URL = "jdbc:sqlite:ben_and_seths_awesome_database.db";
+            final String CONNECTION_URL = "jdbc:sqlite:database.sqlite";
 
             // Open a database connection
             conn = DriverManager.getConnection(CONNECTION_URL);
@@ -73,10 +74,9 @@ public class Database {
             try {
                 stmt = conn.createStatement();
 
-                stmt.executeUpdate("CREATE TABLE IF NOT EXISTS `Game` (\n" +
-                        "`gameID` INT\n" +
-                        "`gameName` TEXT NOT NULL,\n" +
-                        "PRIMARY KEY (gameID)\n" +
+                stmt.executeUpdate("CREATE TABLE IF NOT EXISTS Game (\n" +
+                        "gameID INT PRIMARY KEY,\n" +
+                        "gameName TEXT NOT NULL\n" +
                         ");");
             } finally {
                 if (stmt != null) {

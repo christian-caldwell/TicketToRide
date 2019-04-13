@@ -5,6 +5,8 @@ import com.sun.net.httpserver.HttpServer;
 import java.io.IOException;
 import java.net.InetSocketAddress;
 
+import dao.GameDao;
+
 public class Server {
 
 
@@ -41,6 +43,11 @@ public class Server {
         String portNumber = "8080";
         new Server().run(portNumber);
 
+        try {
+            GameDao gamedao = new GameDao();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         System.out.println("Started on port: " + portNumber);
     }
 }
