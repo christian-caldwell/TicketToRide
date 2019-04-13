@@ -75,8 +75,8 @@ public class Database {
                 stmt = conn.createStatement();
 
                 stmt.executeUpdate("CREATE TABLE IF NOT EXISTS Game (\n" +
-                        "gameID INT PRIMARY KEY,\n" +
-                        "gameName TEXT NOT NULL\n" +
+                        "gameID     INTEGER PRIMARY KEY,\n" +
+                        "gameName   TEXT NOT NULL\n" +
                         ");");
             } finally {
                 if (stmt != null) {
@@ -96,14 +96,12 @@ public class Database {
             try {
                 stmt = conn.createStatement();
 
-                stmt.executeUpdate("CREATE TABLE IF NOT EXIST `User` (\n" +
-                        "`userName` TEXT NOT NULL,\n" +
-                        "`password` TEXT NOT NULL,\n" +
-                        "FOREIGN KEY (gameID),\n" +
-                        "PRIMARY KEY (userName)");
-                conn.commit();
-            } catch (SQLException e) {
-                e.printStackTrace();
+                stmt.executeUpdate("CREATE TABLE IF NOT EXISTS User (\n" +
+                        "userName   TEXT NOT NULL PRIMARY KEY,\n" +
+                        "password   TEXT NOT NULL,\n" +
+                        "trackGame  INTEGER,\n" +
+                        "FOREIGN KEY(trackGame) REFERENCES Game(gameID)\n" +
+                        ");");
             } finally {
                 if (stmt != null) {
                     stmt.close();
@@ -121,12 +119,12 @@ public class Database {
             try {
                 stmt = conn.createStatement();
 
-                stmt.executeUpdate("CREATE TABLE IF NOT EXISTS `Command` (\n" +
-                        "`commandID` INT,\n" +
-                        "`id` INT NOT NULL,\n" +
-                        "`commandText` TEXT,\n" +
-                        "FOREIGN KEY(gameID),\n" +
-                        "PRIMARY KEY (commandID)\n" +
+                stmt.executeUpdate("CREATE TABLE IF NOT EXISTS Command (\n" +
+                        "commandID      INTEGER PRIMARY KEY,\n" +
+                        "id             INTEGER NOT NULL,\n" +
+                        "commandText    TEXT,\n" +
+                        "trackGame      INTEGER,\n" +
+                        "FOREIGN KEY(trackGame) REFERENCES Game(gameID)\n" +
                         ");");
             } finally {
                 if (stmt != null) {
