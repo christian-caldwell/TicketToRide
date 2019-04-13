@@ -49,24 +49,6 @@ public class Server {
     public static void main(String[] args) {
         String portNumber = "8080";
         new Server().run(portNumber);
-
-        try {
-            //Database db = new Database();
-
-            GameDao gamedao = new GameDao();
-            Game game1 = new Game("newGame1");
-            Game game2 = new Game("newGame2");
-            gamedao.add(game1);
-            gamedao.delete(game1);
-
-            CommandDao commandDao = new CommandDao();
-            UserDao userDao = new UserDao();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
-        long millis = System.currentTimeMillis();
-        long seconds = TimeUnit.MILLISECONDS.toSeconds(millis);
         System.out.println("Started on port: " + portNumber);
     }
 }
