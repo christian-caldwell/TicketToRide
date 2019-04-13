@@ -1,14 +1,24 @@
 package server;
 
+import java.io.File;
+import java.io.FileWriter;
+import java.io.PrintWriter;
+import java.net.URL;
+import java.net.URLClassLoader;
 import java.util.ArrayDeque;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Map;
 import java.util.Queue;
+import java.util.Scanner;
 import java.util.Set;
 
+import Database.DBFacade;
+import Database.DBFactory;
 import models.TTR_Constants;
 import models.data.DestinationCard;
 import models.data.Game;
@@ -21,12 +31,13 @@ import models.data.User;
 public class ServerData {
     private static ServerData sServerData;
     private Map<String, Game> availableGames;
-    private ArrayList<User> users;
+    private Map<String, Integer> commandCounts = new HashMap<>();
+    private List<User> users;
 
-    private Map<Integer, Integer> initialTicketDeck = new HashMap<>();
-    public Queue<DestinationCard> initialDestinationDeck = new ArrayDeque<>();
-    private Set<Route> initialRouteSet = new HashSet<>();
     private TTR_Constants constants = TTR_Constants.getInstance();
+    private DBFacade dbFacade;
+
+    private int delta;
 
     public ServerData() {
         this.availableGames = new HashMap<>();
@@ -43,6 +54,29 @@ public class ServerData {
             this.users.add(new User("o","o"));
 
         }
+
+        try {
+            dbFacade = getDBFacadeInstance();
+        } catch (Exception e) {
+            dbFacade = null;
+            e.printStackTrace();
+        }
+
+        if (dbFacade != null) {
+            users = dbFacade.getUsers();
+            availableGames = dbFacade.getGames();
+            for (String gameName: availableGames.keySet()) {
+                commandCounts.put(gameName, 0);
+            }
+            Map<String, List<GeneralCommand>> commands = dbFacade.getCommands();
+            for (Map.Entry<String, List<GeneralCommand>> entry: commands.entrySet()) {
+                commandCounts.put(entry.getKey(), entry.getValue().size());
+                for (GeneralCommand command: entry.getValue()) {
+                    command.exec();
+                }
+            }
+        }
+
     }
 
     public Map<String, Game> getAvailableGames() {
@@ -53,6 +87,7 @@ public class ServerData {
         return availableGames.get(gameId);
     }
 
+    public void setDelta(int d) { this.delta = d; }
  
     public Result setGame(Game newGame) {
         Result result = new Result();
@@ -64,6 +99,10 @@ public class ServerData {
         }
         else {
             availableGames.put(newGame.getGameName(), newGame);
+            commandCounts.put(newGame.getGameName(), 0);
+            if (dbFacade != null) {
+                dbFacade.startGame(newGame);
+            }
             result.setSuccessful(true);
         }
         return result;
@@ -74,6 +113,10 @@ public class ServerData {
         if (availableGames.containsKey(closedGame.getGameName())) {
             Game removedGame = availableGames.remove(closedGame.getGameName());
             if (availableGames.get(removedGame.getGameName()) == null) {
+                commandCounts.remove(closedGame.getGameName());
+                if (dbFacade != null) {
+                    dbFacade.endGame(removedGame);
+                }
                 result.setSuccessful(true);
             }
             else {
@@ -90,11 +133,14 @@ public class ServerData {
     }
 
     public ArrayList<User> getUsers() {
-        return users;
+        return new ArrayList<>(users);
     }
 
     public void addUsers(User user) {
         this.users.add(user);
+        if (dbFacade != null) {
+            dbFacade.addUser(user);
+        }
     }
 
     public boolean isHost(User user) {
@@ -179,5 +225,53 @@ public class ServerData {
             targetPlayer.addToNewDestinationCardHand(targetGame.dealDestinationCard());
             targetPlayer.addToNewDestinationCardHand(targetGame.dealDestinationCard());
         }
+    }
+
+    public void registerCommand(String gameName, GeneralCommand command) {
+        if (dbFacade != null && availableGames.keySet().contains(gameName)) {
+            Game game = availableGames.get(gameName);
+            Integer count = commandCounts.get(gameName);
+            if (count != null && count + 1 >= delta) {
+                dbFacade.backupGame(game);
+                commandCounts.put(gameName, 0);
+            }
+            else {
+                dbFacade.addCommand(game, command);
+                commandCounts.put(gameName, count + 1);
+            }
+        }
+    }
+
+    private DBFacade getDBFacadeInstance() throws Exception {
+        // Get the plugin information from the plugin information file
+        File pluginInformationFile = new File("resources", "pluginInformation");
+        if (!pluginInformationFile.canRead()) {
+            throw new Exception("pluginInformation unavailable");
+        }
+
+        Scanner scanner = new Scanner(pluginInformationFile);
+        String pluginDirectory = scanner.nextLine();
+        String pluginJarName = scanner.nextLine();
+        String pluginClassName = scanner.nextLine();
+
+        // Get a class loader and set it up to load the jar file
+        File pluginJarFile = new File(pluginDirectory, pluginJarName);
+        URL pluginURL = pluginJarFile.toURI().toURL();
+        URLClassLoader loader = new URLClassLoader(new URL[]{pluginURL});
+
+        // Load the jar file's plugin class, create and return an instance
+        Class<? extends DBFactory> FactoryClass = (Class<DBFactory>) loader.loadClass(pluginClassName);
+        return FactoryClass.getDeclaredConstructor(null).newInstance().getFacade();
+    }
+
+    private void clear() {
+        if (dbFacade != null) {
+            dbFacade.clearDB();
+        }
+    }
+
+    public static void main(String[] args) {
+        ServerData data = new ServerData();
+        data.clear();
     }
 }

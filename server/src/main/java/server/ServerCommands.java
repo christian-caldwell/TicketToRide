@@ -2,10 +2,13 @@ package server;
 
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashSet;
 import java.util.Map;
 import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Set;
 import java.util.UUID;
 
 import models.TTR_Constants;
@@ -24,6 +27,8 @@ public class ServerCommands implements IServer {
     private ServerData serverData = ServerData.getInstance();
     private TTR_Constants constants = TTR_Constants.getInstance();
     private static final SimpleDateFormat sdf = new SimpleDateFormat("HH.mm.ss");
+    private static final String[] SET_VALUES = { "postChatMessage", "requestTicketCard", "requestDestinationCards", "purchaseRoute", "returnDestinationCards", "startGame", "joinGame" };
+    private static final Set<String> registerableCommands = new HashSet<>(Arrays.asList(SET_VALUES));
 
    // private ClientProxy clientProxy = new ClientProxy();
 
@@ -402,6 +407,29 @@ public class ServerCommands implements IServer {
 
         return result;
 
+    }
+
+    public void registerCommand(GeneralCommand command) {
+        if (registerableCommands.contains(command.get_methodName())) {
+            int location = -1;
+            switch (command.get_methodName()) {
+                case "postChatMessage":
+                case "startGame":
+                    location = 0;
+                    break;
+                case "requestTicketCard":
+                case "requestDestinationCards":
+                case "purchaseRoute":
+                case "returnDestinationCards":
+                case "joinGame":
+                    location = 1;
+                    break;
+                default:
+                    System.out.println("Switch found an impossible method.");
+            }
+            String gameName = (String)command.get_paramValues()[location];
+            ServerData.getInstance().registerCommand(gameName, command);
+        }
     }
     //RUN GAME FACADE STUFF
 //        public Result returnDestinationCards(String userName, String gameName){
