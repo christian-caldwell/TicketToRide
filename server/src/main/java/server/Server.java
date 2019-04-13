@@ -5,7 +5,9 @@ import com.sun.net.httpserver.HttpServer;
 import java.io.IOException;
 import java.net.InetSocketAddress;
 
+import dao.CommandDao;
 import dao.GameDao;
+import dao.UserDao;
 
 public class Server {
 
@@ -44,11 +46,12 @@ public class Server {
         new Server().run(portNumber);
 
         try {
-            GameDao gameDao = new GameDao();
+            GameDao gamedao = new GameDao();
+            CommandDao commandDao = new CommandDao();
+            UserDao userDao = new UserDao();
         } catch (Exception e) {
-
+            e.printStackTrace();
         }
-
         System.out.println("Started on port: " + portNumber);
     }
 }
