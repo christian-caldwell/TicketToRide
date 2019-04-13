@@ -43,7 +43,13 @@ public class Server {
         if (args.length > 0) {
             delta = Integer.parseInt(args[0]);
         }
-        ServerData.getInstance().setDelta(delta);
+        try {
+            ServerData data = ServerData.getInstance();
+            data.loadDB();
+            data.setDelta(delta);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         new Server().run(portNumber);
         System.out.println("Started on port: " + portNumber);
     }

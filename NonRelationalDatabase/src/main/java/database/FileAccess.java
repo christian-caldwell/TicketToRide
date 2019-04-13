@@ -114,15 +114,19 @@ public class FileAccess {
         File folder = new File(OUTFOLDER);
         File[] files = folder.listFiles();
         try{
+
             for (File file : files) {
                 BufferedReader br = new BufferedReader(new FileReader(file));
                 lines.put(file.getName(),new ArrayList<String>());
+                br.readLine();
                 String line = br.readLine();
                 while (line != null) {
-                    ArrayList<String> fileArrayList = lines.get(file.getName());
-                    lines.put(file.getName(),fileArrayList);
-                    fileArrayList.add(line);
-                    line = br.readLine();
+                    if(!line.equals("")){
+                        ArrayList<String> fileArrayList = lines.get(file.getName());
+                        lines.put(file.getName(),fileArrayList);
+                        fileArrayList.add(line);
+                        line = br.readLine();
+                    }
                 }
                 br.close();
             }
@@ -130,7 +134,6 @@ public class FileAccess {
             e.printStackTrace();
         }
         // Start at one to skip object json
-//        lines.remove(0);
         return lines;
     }
 

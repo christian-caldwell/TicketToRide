@@ -39,7 +39,7 @@ public class ServerData {
 
     private int delta;
 
-    public ServerData() {
+    public ServerData() throws Exception {
         this.availableGames = new HashMap<>();
         this.users = new ArrayList<User>();
 
@@ -62,21 +62,23 @@ public class ServerData {
             e.printStackTrace();
         }
 
+    }
+
+    public void loadDB() throws Exception {
         if (dbFacade != null) {
             users = dbFacade.getUsers();
             availableGames = dbFacade.getGames();
             for (String gameName: availableGames.keySet()) {
                 commandCounts.put(gameName, 0);
             }
-            Map<String, List<GeneralCommand>> commands = dbFacade.getCommands();
-            for (Map.Entry<String, List<GeneralCommand>> entry: commands.entrySet()) {
+            Map<String, ArrayList<GeneralCommand>> commands = dbFacade.getCommands();
+            for (Map.Entry<String, ArrayList<GeneralCommand>> entry: commands.entrySet()) {
                 commandCounts.put(entry.getKey(), entry.getValue().size());
                 for (GeneralCommand command: entry.getValue()) {
                     command.exec();
                 }
             }
         }
-
     }
 
     public Map<String, Game> getAvailableGames() {
@@ -89,7 +91,7 @@ public class ServerData {
 
     public void setDelta(int d) { this.delta = d; }
  
-    public Result setGame(Game newGame) {
+    public Result setGame(Game newGame) throws Exception {
         Result result = new Result();
         result.setGame(newGame.getGameName());
         if (availableGames.containsKey(newGame.getGameName())) {
@@ -101,14 +103,14 @@ public class ServerData {
             availableGames.put(newGame.getGameName(), newGame);
             commandCounts.put(newGame.getGameName(), 0);
             if (dbFacade != null) {
-                dbFacade.startGame(newGame);
+                dbFacade.createGame(newGame);
             }
             result.setSuccessful(true);
         }
         return result;
     }
 
-    public Result removeGame(Game closedGame) {
+    public Result removeGame(Game closedGame) throws Exception {
         Result result = new Result();
         if (availableGames.containsKey(closedGame.getGameName())) {
             Game removedGame = availableGames.remove(closedGame.getGameName());
@@ -136,7 +138,7 @@ public class ServerData {
         return new ArrayList<>(users);
     }
 
-    public void addUsers(User user) {
+    public void addUsers(User user) throws Exception {
         this.users.add(user);
         if (dbFacade != null) {
             dbFacade.addUser(user);
@@ -158,7 +160,7 @@ public class ServerData {
         }
     }
 
-    public static ServerData getInstance() {
+    public static ServerData getInstance() throws Exception {
         if (sServerData == null) {
             sServerData = new ServerData();
         }
@@ -227,7 +229,7 @@ public class ServerData {
         }
     }
 
-    public void registerCommand(String gameName, GeneralCommand command) {
+    public void registerCommand(String gameName, GeneralCommand command) throws Exception {
         if (dbFacade != null && availableGames.keySet().contains(gameName)) {
             Game game = availableGames.get(gameName);
             Integer count = commandCounts.get(gameName);
@@ -264,14 +266,14 @@ public class ServerData {
         return FactoryClass.getDeclaredConstructor(null).newInstance().getFacade();
     }
 
-    private void clear() {
+    private void clear() throws Exception {
         if (dbFacade != null) {
             dbFacade.clearDB();
         }
     }
 
-    public static void main(String[] args) {
-        ServerData data = new ServerData();
+    public static void main(String[] args) throws Exception {
+        ServerData data = ServerData.getInstance();
         data.clear();
     }
 }

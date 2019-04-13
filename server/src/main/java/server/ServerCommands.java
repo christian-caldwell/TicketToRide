@@ -24,13 +24,21 @@ import models.data.User;
 
 public class ServerCommands implements IServer {
     private final int MAX_PLAYERS = 5;
-    private ServerData serverData = ServerData.getInstance();
+    private ServerData serverData;
     private TTR_Constants constants = TTR_Constants.getInstance();
     private static final SimpleDateFormat sdf = new SimpleDateFormat("HH.mm.ss");
-    private static final String[] SET_VALUES = { "postChatMessage", "requestTicketCard", "requestDestinationCards", "purchaseRoute", "returnDestinationCards", "startGame", "joinGame" };
+    private static final String[] SET_VALUES = { "postChatMessage", "requestTicketCard", "requestDestinationCards", "purchaseRoute", "returnDestinationCards", "startGame", "createGame", "joinGame" };
     private static final Set<String> registerableCommands = new HashSet<>(Arrays.asList(SET_VALUES));
 
    // private ClientProxy clientProxy = new ClientProxy();
+    public ServerCommands() {
+        try {
+            serverData = ServerData.getInstance();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
 
     public ServerData getServerData() {
         return serverData;
@@ -70,7 +78,12 @@ public class ServerCommands implements IServer {
                 user.setHost(true);
             }
         }
-        Result result = serverData.setGame(game);
+        Result result = null;
+        try {
+            result = serverData.setGame(game);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         if (result.isSuccessful()) {
             joinGame(username, gameName, numPlayers);
         }
@@ -106,7 +119,11 @@ public class ServerCommands implements IServer {
         }
         result.setAuthenticationToken(UUID.randomUUID().toString().toUpperCase());
         result.setSuccessful(true);
-        serverData.addUsers(new User(newUser.getUsername(),newUser.getPassword()));
+        try {
+            serverData.addUsers(new User(newUser.getUsername(),newUser.getPassword()));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         return result;
     }
 
@@ -359,7 +376,12 @@ public class ServerCommands implements IServer {
     }
 
     public Result getAvailableGames(String username) {
-        ServerData dataContainer = ServerData.getInstance();
+        ServerData dataContainer = null;
+        try {
+            dataContainer = ServerData.getInstance();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         Map<String, Game> availableGames =  dataContainer.getAvailableGames();
 
         ArrayList<Game> games = new ArrayList<>();
@@ -380,13 +402,18 @@ public class ServerCommands implements IServer {
     }
 
     public Result getRunningGame(String gameName, String userName, Integer playerActions, Integer chatSize) {
-        ServerData dataContainer = ServerData.getInstance();
+        ServerData dataContainer = null;
+        try {
+            dataContainer = ServerData.getInstance();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         Game game = dataContainer.getGame(gameName);
 
         if (game.getNumPlayerActions().equals(playerActions) && chatSize.equals(game.getChatLog().size())) {
             game = null;
         }
-        else if (!game.getPlayerUsernames().contains(userName)) {
+        else if (game.findPlayer(userName) == null) {
             System.out.println("This user doesn't belong here!!!!");
             game = null;
         }
@@ -403,7 +430,12 @@ public class ServerCommands implements IServer {
     @Override
     public Result endGame(String gameName) {
         Game closedGame = serverData.findGame(gameName);
-        Result result = serverData.removeGame(closedGame);
+        Result result = null;
+        try {
+            result = serverData.removeGame(closedGame);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 
         return result;
 
@@ -417,6 +449,23 @@ public class ServerCommands implements IServer {
                 case "startGame":
                     location = 0;
                     break;
+                case "createGame":
+                    String methodName = "joinGame";
+
+                    Object[] parameterDataArray = new Object[3];
+                    Class<?>[] parameterClassArray = new Class<?>[3];
+
+                    parameterClassArray[0] = String.class;
+                    parameterClassArray[1] = String.class;
+                    parameterClassArray[2] = Integer.class;
+                    parameterDataArray[0] = command.get_paramValues()[0];
+                    parameterDataArray[1] = command.get_paramValues()[1];
+                    parameterDataArray[2] = command.get_paramValues()[2];
+                    command.set_methodName(methodName);
+                    command.set_paramTypes(parameterClassArray);
+                    command.set_paramValues(parameterDataArray);
+                    location = 0;
+                    break;
                 case "requestTicketCard":
                 case "requestDestinationCards":
                 case "purchaseRoute":
@@ -428,7 +477,11 @@ public class ServerCommands implements IServer {
                     System.out.println("Switch found an impossible method.");
             }
             String gameName = (String)command.get_paramValues()[location];
-            ServerData.getInstance().registerCommand(gameName, command);
+            try {
+                ServerData.getInstance().registerCommand(gameName, command);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         }
     }
     //RUN GAME FACADE STUFF
