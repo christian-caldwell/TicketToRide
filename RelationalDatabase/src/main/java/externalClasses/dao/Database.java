@@ -1,4 +1,4 @@
-package dao;
+package externalClasses.dao;
 
 import java.sql.*;
 

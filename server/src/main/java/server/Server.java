@@ -4,15 +4,11 @@ import com.sun.net.httpserver.HttpServer;
 
 import java.io.IOException;
 import java.net.InetSocketAddress;
-import java.util.concurrent.TimeUnit;
 
-import dao.CommandDao;
-import dao.Database;
-import dao.GameDao;
-import dao.UserDao;
-import models.command.Command;
-import models.data.Game;
-import models.data.User;
+import externalClasses.dao.CommandDao;
+import externalClasses.dao.Database;
+import externalClasses.dao.GameDao;
+import externalClasses.dao.UserDao;
 
 public class Server {
 
