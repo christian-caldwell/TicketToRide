@@ -79,13 +79,17 @@ class NRDBFacade implements DBFacade {
     }
 
     @Override
-    public Map<String, GeneralCommand> getCommands() throws Exception {
-        Map<String, String> output = this.dao.getAllCommands();
-        Map<String, GeneralCommand> outputMap = new HashMap<>();
+    public Map<String, ArrayList<GeneralCommand>> getCommands() throws Exception {
+        Map<String, ArrayList<String>> output = this.dao.getAllCommands();
+        Map<String, ArrayList<GeneralCommand>> outputMap = new HashMap<>();
         ObjectMapper mapper = new ObjectMapper();
         for (String currKey: output.keySet()) {
-            GeneralCommand currentCommand = mapper.readValue(output.get(currKey), GeneralCommand.class);
-            outputMap.put(currKey,currentCommand);
+            ArrayList<GeneralCommand> commands = new ArrayList<>();
+            for (String currLine: output.get(currKey)) {
+                GeneralCommand currentCommand = mapper.readValue(currLine, GeneralCommand.class);
+                commands.add(currentCommand);
+            }
+            outputMap.put(currKey,commands);
         }
         return outputMap;
     }

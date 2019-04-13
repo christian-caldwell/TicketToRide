@@ -107,17 +107,23 @@ public class FileAccess {
         return lines;
     }
 
-    public Map<String, String> getAllCommands() throws IOException {
+    public Map<String, ArrayList<String>> getAllCommands() throws IOException {
         String OUTFOLDER = System.getProperty("user.dir") + "/files/commands/";
 
-        Map<String, String> lines = new HashMap<>();
+        Map<String, ArrayList<String>> lines = new HashMap<>();
         File folder = new File(OUTFOLDER);
         File[] files = folder.listFiles();
         try{
             for (File file : files) {
                 BufferedReader br = new BufferedReader(new FileReader(file));
+                lines.put(file.getName(),new ArrayList<String>());
                 String line = br.readLine();
-                lines.put(file.getName(),line);
+                while (line != null) {
+                    ArrayList<String> fileArrayList = lines.get(file.getName());
+                    lines.put(file.getName(),fileArrayList);
+                    fileArrayList.add(line);
+                    line = br.readLine();
+                }
                 br.close();
             }
         } catch(Exception e) {

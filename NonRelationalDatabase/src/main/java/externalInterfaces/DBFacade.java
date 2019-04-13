@@ -1,5 +1,6 @@
 package externalInterfaces;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -17,7 +18,7 @@ public interface DBFacade {
 
 //    public Map<String, Game> getLobby();
     public List<User> getUsers() throws Exception;
-    public Map<String, GeneralCommand> getCommands() throws Exception;
+    public Map<String, ArrayList<GeneralCommand>> getCommands() throws Exception;
     public Map<String, Game> getGames() throws Exception;
 }
 

@@ -1,5 +1,7 @@
 package database;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -29,41 +31,52 @@ class RDBFacade implements DBFacade {
 
     @Override
     public void backupGame(Game game) throws Exception{
-
+        this.gameDao.delete(game);
+        this.gameDao.add(game);
+        this.commandDao.deleteAllFromGame(game.getGameName());
     }
 
     @Override
     public void addCommand(Game game, GeneralCommand command) throws Exception{
-
+        this.commandDao.add(command);
     }
 
     @Override
     public void addUser(User user) throws Exception{
-
+        this.userDao.add(user);
     }
 
     @Override
     public void createGame(Game game) throws Exception{
-
+        this.gameDao.add(game);
     }
 
     @Override
     public void endGame(Game game) throws Exception{
-
+        this.gameDao.delete(game);
     }
 
     @Override
     public List<User> getUsers()throws Exception {
-        return null;
+        return this.userDao.getAll();
     }
 
     @Override
-    public Map<String, GeneralCommand> getCommands()throws Exception {
-        return null;
+    public Map<String, ArrayList<GeneralCommand>> getCommands()throws Exception {
+        ArrayList<Game> games = this.gameDao.getAllGames();
+        Map<String, ArrayList<GeneralCommand>> outputMap = new HashMap<>();
+        for (Game currGame: games) {
+            outputMap.put(currGame.getGameName(),this.commandDao.getAll(currGame));
+        }
+        return outputMap;
     }
 
     @Override
     public Map<String, Game> getGames()throws Exception {
-        return null;
+        Map<String, Game> allGames = new HashMap<>();
+        for(Game game:this.gameDao.getAllGames()) {
+            allGames.put(game.getGameName(),game);
+        }
+        return allGames;
     }
 }
