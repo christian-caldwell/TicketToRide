@@ -8,6 +8,7 @@ import java.net.InetSocketAddress;
 import dao.CommandDao;
 import dao.GameDao;
 import dao.UserDao;
+import models.data.Game;
 
 public class Server {
 
@@ -47,6 +48,11 @@ public class Server {
 
         try {
             GameDao gamedao = new GameDao();
+            Game game1 = new Game("newGame1");
+            Game game2 = new Game("newGame2");
+            gamedao.add(game1);
+            gamedao.delete(game1);
+
             CommandDao commandDao = new CommandDao();
             UserDao userDao = new UserDao();
         } catch (Exception e) {

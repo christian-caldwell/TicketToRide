@@ -24,11 +24,8 @@ public class CommandDao {
         boolean added = false;
         try {
             db.openConnection();
-            PreparedStatement ps = null;
-            ps = db.getConn().prepareStatement("INSERT INTO Command (commandID, id, commandText) VALUES(?, ?, ?);");
-            ps.setString(1,"");
-            ps.setString(2,"");
-            ps.setString(3,commandText);
+            PreparedStatement ps = db.getConn().prepareStatement("INSERT INTO Command (commandText) VALUES(?);");
+            ps.setString(1,commandText);
             ps.executeUpdate();
             added = true;
         }
@@ -48,16 +45,16 @@ public class CommandDao {
 
     /**
      * deletes one user specified by the parameter
-     * @param command the user you want to delete
+     * @param gameName the game you want to delete commands from.
      */
-    public void delete(String command) { //TODO: i think this needs to change to be deleted by game instead of commandText...
+    public void deleteAllFromGame(String gameName) {
         try {
             db.openConnection();
             PreparedStatement ps = null;
             ps = db.getConn().prepareStatement("DELETE FROM Command " +
                     "WHERE" +
-                    " commandText = ?;");
-            ps.setString(1, command);
+                    " gameName = ?;");
+            ps.setString(1, gameName);
             ps.executeUpdate();
         }
         catch (Exception e) {

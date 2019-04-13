@@ -24,8 +24,7 @@ public class Database {
             try {
                 stmt.executeUpdate("drop table Game;\n" +
                         "drop table User;\n" +
-                        "drop table Command;" +
-                        "drop table LobbyGame");
+                        "drop table Command;");
             } finally {
                 if (stmt != null) {
                     stmt.close();
@@ -39,7 +38,7 @@ public class Database {
 
     public void openConnection() throws Exception {
         try {
-            final String CONNECTION_URL = "jdbc:sqlite:ben_and_seths_awesome_database.sqlite";
+            final String CONNECTION_URL = "jdbc:sqlite:database.sqlite";
 
             // Open a database connection
             conn = DriverManager.getConnection(CONNECTION_URL);
@@ -74,7 +73,7 @@ public class Database {
                 stmt.executeUpdate("CREATE TABLE IF NOT EXISTS `Game` (\n" +
                         "`gameName` TEXT NOT NULL\n" +
                         "`game` BLOB NOT NULL,\n" +
-                        "PRIMARY KEY (gameID)\n" +
+                        "PRIMARY KEY (gameName)\n" +
                         ");");
             } finally {
                 if (stmt != null) {
@@ -121,7 +120,7 @@ public class Database {
                 stmt.executeUpdate("CREATE TABLE IF NOT EXISTS `Command` (\n" +
                         "`commandID` INT AUTOINCREMENT,\n" +
                         "`commandText` TEXT,\n" +
-                        "FOREIGN KEY(gameID),\n" +
+                        "FOREIGN KEY(gameName),\n" +
                         "PRIMARY KEY (commandID)\n" +
                         ");");
             } finally {
