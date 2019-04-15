@@ -1,6 +1,5 @@
 package database;
 
-
 import Database.DBFacade;
 import Database.DBFactory;
 

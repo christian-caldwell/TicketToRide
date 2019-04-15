@@ -1,2 +1,3 @@
 {"username":"aaaaa","password":"aaaaa","host":false,"gameJoined":null}
 {"username":"ooooo","password":"ooooo","host":false,"gameJoined":null}
+{"username":"zshorts","password":"password","host":false,"gameJoined":null}
