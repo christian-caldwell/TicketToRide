@@ -3,7 +3,7 @@ package database;
 import java.sql.*;
 import java.util.ArrayList;
 
-import externalClasses.User;
+import models.data.User;
 
 public class UserDao {
     Database db = new Database();

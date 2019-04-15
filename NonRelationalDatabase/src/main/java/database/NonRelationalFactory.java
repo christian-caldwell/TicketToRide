@@ -1,7 +1,8 @@
 package database;
 
-import externalInterfaces.DBFacade;
-import externalInterfaces.DBFactory;
+
+import Database.DBFacade;
+import Database.DBFactory;
 
 public class NonRelationalFactory implements DBFactory {
     @Override

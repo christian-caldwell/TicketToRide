@@ -5,7 +5,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import java.sql.*;
 import java.util.ArrayList;
 
-import externalClasses.Game;
+import models.data.Game;
 
 public class GameDao {
     Database db = new Database();
