@@ -87,6 +87,36 @@ public class FileAccess {
         return lines;
     }
 
+    public void joinGame(String userName, String gameName) throws IOException {
+        String OUTFOLDER = System.getProperty("user.dir") + "/files/users/";
+        String tempFilename = OUTFOLDER + "temp_users.txt";
+        String filename = OUTFOLDER + "current_users.txt";
+        BufferedReader br = new BufferedReader(new FileReader(filename));
+        String line = br.readLine();
+        List<String> lines = new ArrayList<>();
+        BufferedWriter writer = new BufferedWriter(new FileWriter(tempFilename, true));
+        File file = new File(filename);
+        File tempFile = new File(tempFilename);
+        while (line != null) {
+
+            if (line.contains("\"username\":\"" + userName)) {
+                line = line.substring(0, line.length() - 5) + "\"" + gameName + "\"}";
+                writer.append(line);
+                writer.append("\n");
+            } else {
+                writer.append(line);
+                writer.append("\n");
+            }
+            line = br.readLine();
+        }
+        writer.close();
+        if(tempFile.renameTo(file)) {
+            System.out.println("rename successful");
+        }
+//        file.delete();
+        br.close();
+    }
+
     public List<String> getGames() throws IOException {
         String OUTFOLDER = System.getProperty("user.dir") + "/files/games/";
         List<String> lines = new ArrayList<>();
@@ -172,69 +202,73 @@ public class FileAccess {
 
     }
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
         FileAccess access = new FileAccess();
 
-        String object = "Example Game Data 1";
-        String gameName = "game1";
-        String gameName2 = "game2";
-        try {
-            access.checkpointUpdate(object, gameName);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        System.out.println(access.getUsers());
+        access.joinGame("aaaaa", "JOINEDGAME");
+        access.joinGame("ooooo", "JOINEDGAME");
 
-        String delta = "Game 1 Delta 1";
-        try {
-            access.addUpdate(delta, gameName);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        String user = "user1";
-        String user2 = "user2";
-
-        try {
-            access.addUser(user);
-            access.addUser(user2);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-        try {
-            List<String> deltas = access.getDeltasForObject(gameName);
-            System.out.print("\n" + gameName + " Deltas\n");
-
-            for (String del : deltas) {
-                System.out.println("  " + del);
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-
-        try {
-            object = "Party time is over";
-            access.checkpointUpdate(object, gameName2);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-        String delta2 = "Game 2 Delta 2";
-        try {
-            access.addUpdate(delta2, gameName2);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-        try {
-            List<String> deltas = access.getDeltasForObject(gameName2);
-            System.out.print("\n" + gameName2 + " Deltas\n");
-            for (String del : deltas) {
-                System.out.println("  " + del);
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+//        String object = "Example Game Data 1";
+//        String gameName = "game1";
+//        String gameName2 = "game2";
+//        try {
+//            access.checkpointUpdate(object, gameName);
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
+//
+//        String delta = "Game 1 Delta 1";
+//        try {
+//            access.addUpdate(delta, gameName);
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
+//        String user = "user1";
+//        String user2 = "user2";
+//
+//        try {
+//            access.addUser(user);
+//            access.addUser(user2);
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
+//
+//        try {
+//            List<String> deltas = access.getDeltasForObject(gameName);
+//            System.out.print("\n" + gameName + " Deltas\n");
+//
+//            for (String del : deltas) {
+//                System.out.println("  " + del);
+//            }
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
+//
+//
+//        try {
+//            object = "Party time is over";
+//            access.checkpointUpdate(object, gameName2);
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
+//
+//        String delta2 = "Game 2 Delta 2";
+//        try {
+//            access.addUpdate(delta2, gameName2);
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
+//
+//        try {
+//            List<String> deltas = access.getDeltasForObject(gameName2);
+//            System.out.print("\n" + gameName2 + " Deltas\n");
+//            for (String del : deltas) {
+//                System.out.println("  " + del);
+//            }
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
 //
 //        try {
 //            access.deleteFilesInDirectory("games");
