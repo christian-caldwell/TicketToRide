@@ -39,6 +39,9 @@ class NRDBFacade implements DBFacade {
         ObjectMapper mapper = new ObjectMapper();
         String serializedCommand = mapper.writeValueAsString(command);
         this.dao.addUpdate(serializedCommand, game.getGameName());
+        if(command.get_methodName().equals("joinGame")) {
+            dao.joinGame(command._paramValues[0].toString(), command._paramValues[1].toString());
+        }
     }
 
     @Override

@@ -1,5 +1,4 @@
 {"username":"ooooo","password":"ooooo","host":false,"gameJoined":"JOINEDGAME"}
-{"username":"zshorts","password":"password","host":false,"gameJoined":null}
 {"username":"asdfg","password":"asdfg","host":false,"gameJoined":null}
 {"username":"qwert","password":"qwert","host":false,"gameJoined":null}
 {"username":"zxcvb","password":"zxcvb","host":false,"gameJoined":null}
@@ -7,3 +6,8 @@
 {"username":"username","password":"password","host":false,"gameJoined":null}
 {"username":"username2","password":"password2","host":false,"gameJoined":null}
 {"username":"aaaaa","password":"aaaaa","host":false,"gameJoined":"JOINEDGAME"}
+{"username":"zshorts","password":"password","host":false,"gameJoined":null}
+{"username":"crc4444","password":"crc4444","host":false,"gameJoined":null}
+{"username":"ben1996","password":"ben1996","host":false,"gameJoined":null}
+{"username":"sethy","password":"sethy","host":false,"gameJoined":null}
+{"username":"qqqqq","password":"qqqqq","host":false,"gameJoined":"sethy game"}
