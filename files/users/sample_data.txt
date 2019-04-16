@@ -1,0 +1,9 @@
+{"username":"ooooo","password":"ooooo","host":false,"gameJoined":null}
+{"username":"zshorts","password":"password","host":false,"gameJoined":null}
+{"username":"asdfg","password":"asdfg","host":false,"gameJoined":null}
+{"username":"qwert","password":"qwert","host":false,"gameJoined":null}
+{"username":"zxcvb","password":"zxcvb","host":false,"gameJoined":null}
+{"username":"poiuy","password":"poiuy","host":false,"gameJoined":null}
+{"username":"username","password":"password","host":false,"gameJoined":null}
+{"username":"username2","password":"password2","host":false,"gameJoined":null}
+{"username":"aaaaa","password":"aaaaa","host":false,"gameJoined":null}
