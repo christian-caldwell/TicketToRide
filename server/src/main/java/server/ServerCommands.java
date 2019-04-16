@@ -59,6 +59,7 @@ public class ServerCommands implements IServer {
             for (User user: serverData.getUsers()){
                 if (user.getUsername().equals(username)) {
                     user.setGameJoined(serverData.getGame(gameName));
+                    serverData.joinGame(user, serverData.getGame(gameName));
                     break;
                 }
             }

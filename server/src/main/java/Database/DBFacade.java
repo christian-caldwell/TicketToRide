@@ -15,6 +15,7 @@ public interface DBFacade {
     public void addUser(User user) throws Exception;
     public void createGame(Game game) throws Exception;
     public void endGame(Game game) throws Exception;
+    public void joinGame(User user, Game game);
 
     //    public Map<String, Game> getLobby();
     public List<User> getUsers() throws Exception;

@@ -45,13 +45,13 @@ public class ServerData {
 
         boolean test = true;
         if (test) {
-            this.users.add(new User("t","t"));
+            this.users.add(new User("t", "t"));
             this.users.add(new User("a", "a"));
             this.users.add(new User("s", "s"));
             this.users.add(new User("d", "d"));
             this.users.add(new User("f", "f"));
             this.users.add(new User("g", "g"));
-            this.users.add(new User("o","o"));
+            this.users.add(new User("o", "o"));
 
         }
 
@@ -68,13 +68,13 @@ public class ServerData {
         if (dbFacade != null) {
             users = dbFacade.getUsers();
             availableGames = dbFacade.getGames();
-            for (String gameName: availableGames.keySet()) {
+            for (String gameName : availableGames.keySet()) {
                 commandCounts.put(gameName, 0);
             }
             Map<String, ArrayList<GeneralCommand>> commands = dbFacade.getCommands();
-            for (Map.Entry<String, ArrayList<GeneralCommand>> entry: commands.entrySet()) {
+            for (Map.Entry<String, ArrayList<GeneralCommand>> entry : commands.entrySet()) {
                 commandCounts.put(entry.getKey(), entry.getValue().size());
-                for (GeneralCommand command: entry.getValue()) {
+                for (GeneralCommand command : entry.getValue()) {
                     command.exec();
                 }
             }
@@ -89,8 +89,10 @@ public class ServerData {
         return availableGames.get(gameId);
     }
 
-    public void setDelta(int d) { this.delta = d; }
- 
+    public void setDelta(int d) {
+        this.delta = d;
+    }
+
     public Result setGame(Game newGame) throws Exception {
         Result result = new Result();
         result.setGame(newGame.getGameName());
@@ -98,8 +100,7 @@ public class ServerData {
             result.setErrorMessage("ERROR: " + newGame.getGameName() + " is taken, cannot create game.");
             result.setSuccessful(false);
 
-        }
-        else {
+        } else {
             availableGames.put(newGame.getGameName(), newGame);
             commandCounts.put(newGame.getGameName(), 0);
             if (dbFacade != null) {
@@ -107,6 +108,19 @@ public class ServerData {
             }
             result.setSuccessful(true);
         }
+        return result;
+    }
+
+    public Result joinGame(User u, Game newGame) {
+        Result result = new Result();
+        if (dbFacade != null) {
+            try {
+                dbFacade.joinGame(u, newGame);
+            } catch (Exception e){
+
+            }
+        }
+        result.setSuccessful(true);
         return result;
     }
 
@@ -120,14 +134,12 @@ public class ServerData {
                     dbFacade.endGame(removedGame);
                 }
                 result.setSuccessful(true);
-            }
-            else {
+            } else {
                 result.setErrorMessage("ERROR: Game Removal Failed");
                 result.setSuccessful(false);
             }
 
-        }
-        else {
+        } else {
             result.setErrorMessage("ERROR: " + closedGame.getGameName() + " Game Does Not Exist.");
             result.setSuccessful(true);
         }
@@ -146,7 +158,7 @@ public class ServerData {
     }
 
     public boolean isHost(User user) {
-        for (String s: availableGames.keySet()) {
+        for (String s : availableGames.keySet()) {
             if (availableGames.get(s).getPlayers().get(0).equals(user.getUsername())) {
                 return true;
             }
@@ -155,7 +167,7 @@ public class ServerData {
     }
 
     public void removeFromGames(User user) {
-        for (String s: availableGames.keySet()) {
+        for (String s : availableGames.keySet()) {
             availableGames.get(s).getPlayers().remove(user.getUsername());
         }
     }
@@ -175,7 +187,7 @@ public class ServerData {
         ArrayList<String> usernameList = targetGame.getPlayerUsernames();
         Collections.shuffle(usernameList);
         int playerCount = 0;
-        for(String username: usernameList) {
+        for (String username : usernameList) {
             playerCount++;
             Player userPlayer = null;
             switch (playerCount) {
@@ -217,8 +229,8 @@ public class ServerData {
         targetGame.dealFaceUpTicketCards();
     }
 
-    public void dealHands (Game targetGame) {
-        for (Player targetPlayer: targetGame.getPlayers()) {
+    public void dealHands(Game targetGame) {
+        for (Player targetPlayer : targetGame.getPlayers()) {
             for (int i = 0; i < 4; i++) {
                 TrainCard card = targetGame.dealTicketCard(0);
                 targetPlayer.addTicketToHand(card.getCardColor());
@@ -236,8 +248,7 @@ public class ServerData {
             if (count != null && count + 1 >= delta) {
                 dbFacade.backupGame(game);
                 commandCounts.put(gameName, 0);
-            }
-            else {
+            } else {
                 dbFacade.addCommand(game, command);
                 commandCounts.put(gameName, count + 1);
             }

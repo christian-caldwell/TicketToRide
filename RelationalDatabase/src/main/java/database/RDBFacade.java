@@ -57,6 +57,11 @@ class RDBFacade implements DBFacade {
     }
 
     @Override
+    public void joinGame(User user, Game game) {
+        userDao.joinGame(user, game.getGameName());
+    }
+
+    @Override
     public List<User> getUsers()throws Exception {
         return this.userDao.getAll();
     }

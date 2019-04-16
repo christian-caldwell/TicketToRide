@@ -64,6 +64,11 @@ class NRDBFacade implements DBFacade {
         this.dao.removeFile("games",game.getGameName());
     }
 
+    @Override
+    public void joinGame(User user, Game game) {
+
+    }
+
 //    @Override
 //    public Map<String, Game> getLobby() {
 //        return null;
