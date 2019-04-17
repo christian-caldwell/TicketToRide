@@ -1,30 +1,20 @@
 package server;
 
 import java.io.File;
-import java.io.FileWriter;
-import java.io.PrintWriter;
 import java.net.URL;
 import java.net.URLClassLoader;
-import java.util.ArrayDeque;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
-import java.util.Queue;
-import java.util.Scanner;
-import java.util.Set;
 
 import Database.DBFacade;
 import Database.DBFactory;
 import models.TTR_Constants;
-import models.data.DestinationCard;
 import models.data.Game;
 import models.data.Player;
 import models.data.Result;
-import models.data.Route;
 import models.data.TrainCard;
 import models.data.User;
 
@@ -38,6 +28,10 @@ public class ServerData {
     private DBFacade dbFacade;
 
     private int delta;
+
+    public static String string1;
+    public static String string2;
+    public static String string3;
 
     public ServerData() throws Exception {
         this.availableGames = new HashMap<>();
@@ -257,15 +251,10 @@ public class ServerData {
 
     private DBFacade getDBFacadeInstance() throws Exception {
         // Get the plugin information from the plugin information file
-        File pluginInformationFile = new File("resources", "pluginInformation");
-        if (!pluginInformationFile.canRead()) {
-            throw new Exception("pluginInformation unavailable");
-        }
 
-        Scanner scanner = new Scanner(pluginInformationFile);
-        String pluginDirectory = scanner.nextLine();
-        String pluginJarName = scanner.nextLine();
-        String pluginClassName = scanner.nextLine();
+        String pluginDirectory = string1;
+        String pluginJarName = string2;
+        String pluginClassName = string3;
 
         // Get a class loader and set it up to load the jar file
         File pluginJarFile = new File(pluginDirectory, pluginJarName);

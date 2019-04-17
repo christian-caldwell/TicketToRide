@@ -40,9 +40,18 @@ public class Server {
     public static void main(String[] args) {
         String portNumber = "8080";
         int delta = 10;
-        if (args.length > 0) {
+        try {
+            ServerData.string1 = args[1];
+            ServerData.string2 = args[2];
+            ServerData.string3 = args[3];
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        if (Integer.parseInt(args[0]) > 0) {
             delta = Integer.parseInt(args[0]);
         }
+
         try {
             ServerData data = ServerData.getInstance();
             data.loadDB();
@@ -50,6 +59,9 @@ public class Server {
         } catch (Exception e) {
             e.printStackTrace();
         }
+
+
+
         new Server().run(portNumber);
         System.out.println("Started on port: " + portNumber);
     }

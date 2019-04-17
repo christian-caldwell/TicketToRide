@@ -459,13 +459,13 @@ public class ServerCommands implements IServer {
                     parameterClassArray[0] = String.class;
                     parameterClassArray[1] = String.class;
                     parameterClassArray[2] = Integer.class;
-                    parameterDataArray[0] = command.get_paramValues()[0];
-                    parameterDataArray[1] = command.get_paramValues()[1];
+                    parameterDataArray[0] = command.get_paramValues()[1];
+                    parameterDataArray[1] = command.get_paramValues()[0];
                     parameterDataArray[2] = command.get_paramValues()[2];
                     command.set_methodName(methodName);
                     command.set_paramTypes(parameterClassArray);
                     command.set_paramValues(parameterDataArray);
-                    location = 0;
+                    location = 1;
                     break;
                 case "requestTicketCard":
                 case "requestDestinationCards":
