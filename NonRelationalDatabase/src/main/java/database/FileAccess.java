@@ -99,7 +99,7 @@ public class FileAccess {
         File tempFile = new File(tempFilename);
         while (line != null) {
 
-            if (line.contains("\"username\":\"" + userName)) {
+            if (line.contains("\"username\":\"" + userName + "\"")) {
                 line = line.substring(0, line.length() - 5) + "\"" + gameName + "\"}";
                 writer.append(line);
                 writer.append("\n");

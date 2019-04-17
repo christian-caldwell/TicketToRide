@@ -1,2 +1,2 @@
-{"username":"aaaaa","password":"aaaaa","host":false,"gameJoined":"asdf"}
-{"username":"sssss","password":"sssss","host":false,"gameJoined":"asdf"}
+{"username":"qwert","password":"qwert","host":false,"gameJoined":"qwert's game"}
+{"username":"qwerty","password":"qwerty","host":false,"gameJoined":"qwert's game"}
