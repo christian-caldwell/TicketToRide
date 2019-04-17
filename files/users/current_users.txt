@@ -1,8 +1,2 @@
-{"username":"aaaaa","password":"aaaaa","host":false,"gameJoined":null}
-{"username":"ooooo","password":"ooooo","host":false,"gameJoined":"aoeu"}
-{"username":"zzzzz","password":"zzzzz","host":false,"gameJoined":null}
-{"username":"yyyyy","password":"yyyyy","host":false,"gameJoined":null}
-{"username":"xxxxx","password":"xxxxx","host":false,"gameJoined":null}
-{"username":"wwwww","password":"wwwww","host":false,"gameJoined":null}
-{"username":"xxxxxm","password":"xxxxx","host":false,"gameJoined":null}
-{"username":"xxxxxme","password":"xxxxx","host":false,"gameJoined":"zxcv"}
+{"username":"aaaaa","password":"aaaaa","host":false,"gameJoined":"asdf"}
+{"username":"sssss","password":"sssss","host":false,"gameJoined":"asdf"}
