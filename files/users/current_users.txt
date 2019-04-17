@@ -1,2 +1,0 @@
-{"username":"qwert","password":"qwert","host":false,"gameJoined":"qwert's game"}
-{"username":"qwerty","password":"qwerty","host":false,"gameJoined":"qwert's game"}
