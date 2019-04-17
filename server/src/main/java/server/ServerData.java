@@ -116,8 +116,8 @@ public class ServerData {
         if (dbFacade != null) {
             try {
                 dbFacade.joinGame(u, newGame);
-            } catch (Exception e){
-
+            } catch (Exception e) {
+                System.out.print("exception: " + e);
             }
         }
         result.setSuccessful(true);
